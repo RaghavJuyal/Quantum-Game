@@ -64,15 +64,6 @@ theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
-[node name="layerlabel" type="Label" parent="."]
-offset_left = 313.0
-offset_top = 34.0
-offset_right = 441.0
-offset_bottom = 98.0
-theme_override_fonts/font = ExtResource("3_6fi6k")
-theme_override_font_sizes/font_size = 64
-text = "Layer##"
-
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_left = 245.0
 offset_top = -212.0
