@@ -1,0 +1,6 @@
+res://scenes/player.tscn
+res://scripts/game_manager.gd
+res://scenes/game.tscn
+res://scripts/player.gd
+res://scenes/hud.tscn
+res://scripts/arrow.gd

@@ -5,6 +5,8 @@ const SPEED = 100.0
 const JUMP_VELOCITY = -250.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
+func _ready() -> void:
+	animated_sprite_2d.self_modulate.a = 1
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
