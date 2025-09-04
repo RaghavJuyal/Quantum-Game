@@ -5,6 +5,8 @@ extends MeshInstance3D
 
 
 func _process(delta):
+	if game_manager.measured:
+		arrow.rotation = Vector3(game_manager.theta,-PI/2,-PI/2)
 	# X Rotation 
 	if Input.is_action_pressed("x_rotation"):
 		arrow.rotate_x(game_manager.delta_theta)

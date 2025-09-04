@@ -7,6 +7,7 @@ const JUMP_VELOCITY = -250.0
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 @export var is_state_zero: bool = true
 #@export var leader: CharacterBody2D
+@export var spawn_layer_y : float
 
 func _ready() -> void:
 	if is_state_zero:
