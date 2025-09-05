@@ -42,7 +42,7 @@ texture = SubResource("AtlasTexture_oo0fn")
 [node name="Panel" type="Panel" parent="."]
 offset_left = 20.0
 offset_top = 13.0
-offset_right = 987.0
+offset_right = 1296.0
 offset_bottom = 125.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ysmq")
 
@@ -64,11 +64,47 @@ theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
+[node name="0" type="Label" parent="."]
+offset_left = 297.0
+offset_top = 53.0
+offset_right = 407.0
+offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 40
+text = "|0>:"
+
+[node name="Percent0" type="Label" parent="."]
+offset_left = 424.0
+offset_top = 36.0
+offset_right = 552.0
+offset_bottom = 100.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 64
+text = "##"
+
+[node name="Percent1" type="Label" parent="."]
+offset_left = 766.0
+offset_top = 39.0
+offset_right = 894.0
+offset_bottom = 103.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 64
+text = "##"
+
+[node name="1" type="Label" parent="."]
+offset_left = 637.0
+offset_top = 53.0
+offset_right = 747.0
+offset_bottom = 93.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 40
+text = "|1>:"
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_left = 245.0
-offset_top = -212.0
-offset_right = 1351.0
-offset_bottom = 352.0
+offset_left = 582.0
+offset_top = -214.0
+offset_right = 1688.0
+offset_bottom = 350.0
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
