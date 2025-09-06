@@ -25,9 +25,13 @@ func measure():
 	var r = randf()
 	if r < prob0:
 		state = 0
+		hud.get_node("Percent0").text = str(100)
+		hud.get_node("Percent1").text = str(0)
 		
 	else:
 		state = 1
+		hud.get_node("Percent0").text = str(0)
+		hud.get_node("Percent1").text = str(100)
 	measured = true
 	if state==0:
 		theta = 0
@@ -47,5 +51,8 @@ func _process(delta: float) -> void:
 		theta += delta_theta
 		if theta > 2 * PI:
 			theta -= 2 * PI
+		var prob0 = round((cos(theta/2.0)**2)*100)
+		hud.get_node("Percent0").text = str(int(prob0))
+		hud.get_node("Percent1").text = str(int(100-prob0))
 	 # Sync movement
-	
+		

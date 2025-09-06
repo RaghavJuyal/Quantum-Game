@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=20 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -9,7 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://dh0vwgsh1ssjg" path="res://scenes/slime_purple.tscn" id="6_u5sy4"]
 [ext_resource type="PackedScene" uid="uid://dgc64bvmpknn1" path="res://scenes/slime_green.tscn" id="7_gee14"]
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="8_gee14"]
+[ext_resource type="PackedScene" uid="uid://bvvkldwon0s8c" path="res://scenes/shooter.tscn" id="9_kvpfn"]
+[ext_resource type="PackedScene" uid="uid://0wk5g3emsxch" path="res://scenes/firing.tscn" id="10_dinhu"]
 [ext_resource type="PackedScene" uid="uid://cavk2o4ctghvk" path="res://scenes/hud.tscn" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://c5c7hgcgjovrv" path="res://scenes/bullet.tscn" id="11_kvuet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -295,6 +298,17 @@ position = Vector2(313, -32)
 
 [node name="Slime_green" parent="GameManager/Slimes" instance=ExtResource("7_gee14")]
 position = Vector2(486, 16)
+
+[node name="Shooters" type="Node" parent="GameManager"]
+
+[node name="Shooter" parent="GameManager/Shooters" instance=ExtResource("9_kvpfn")]
+position = Vector2(56, -72)
+
+[node name="Firing" parent="GameManager/Shooters" instance=ExtResource("10_dinhu")]
+position = Vector2(42, -69)
+
+[node name="Bullet" parent="GameManager/Shooters" instance=ExtResource("11_kvuet")]
+position = Vector2(36, -69)
 
 [node name="Labels" type="Node" parent="GameManager"]
 
