@@ -1,5 +1,5 @@
 res://scenes/game.tscn
-res://scripts/player.gd
+res://scripts/arrow.gd
 res://scenes/player.tscn
 res://scenes/hud.tscn
 res://scenes/shooter.tscn

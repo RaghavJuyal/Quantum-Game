@@ -5,6 +5,7 @@ var theta = 0
 var delta_theta = 0
 var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
+var allowed = true
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
 @onready var player_2: CharacterBody2D = $Player2
@@ -28,6 +29,7 @@ func add_point():
 func measure():
 	if measured:
 		return state
+	allowed = false
 	var prob0 = cos(theta/2.0)**2
 	var r = randf()
 	if r < prob0:
@@ -154,6 +156,7 @@ func _process(delta: float) -> void:
 				theta += delta_theta
 				if theta > 2 * PI:
 					theta -= 2 * PI
+				allowed = true
 		else:
 			theta += delta_theta
 			if theta > 2 * PI:
@@ -163,9 +166,11 @@ func _process(delta: float) -> void:
 		if prob0==100:
 			measured = true
 			state = 0
+			allowed = false
 		elif prob0 == 0:
 			measured = true
 			state = 1
+			allowed = false
 		hud.get_node("Percent0").text = str(int(prob0))
 		hud.get_node("Percent1").text = str(int(100-prob0))
 		
