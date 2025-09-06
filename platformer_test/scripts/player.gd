@@ -8,12 +8,15 @@ const JUMP_VELOCITY = -250.0
 @export var is_state_zero: bool = true
 #@export var leader: CharacterBody2D
 @export var spawn_layer_y : float
-
+var collision = null
 func _ready() -> void:
 	if is_state_zero:
 		animated_sprite_2d.self_modulate.a = 1
 	else:
 		animated_sprite_2d.self_modulate.a = 0
+
+
+
 
 func _physics_process(delta: float) -> void:
 	
@@ -47,7 +50,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	move_and_slide()
-
+	#collision = get_last_slide_collision()
+	#if animated_sprite_2d.self_modulate.a <=1e-6:
+	game_manager.sync_players()
+	collision = null
 	var theta = game_manager.theta
 	if is_state_zero:
 		animated_sprite_2d.self_modulate.a = cos(theta/2.0)**2

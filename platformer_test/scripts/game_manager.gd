@@ -95,7 +95,47 @@ func try_superposition(requester:CharacterBody2D)->bool:
 	measured = false
 	state = -1
 	return true
-		
+
+func get_horizontal_blocked_distance(player):
+	var total_blocked = 0.0
+	for i in range(player.get_slide_collision_count()):
+		var collision = player.get_slide_collision(i)
+		var normal = collision.get_normal()
+		# only consider horizontal collisions
+		if abs(normal.x) > 0.7:
+			# horizontal blocked, accumulate distance
+			total_blocked += abs(collision.get_remainder().x)
+	return total_blocked
+	
+func sync_players():
+	# Skip collapsed players
+	var active_players = []
+	if player.animated_sprite_2d.self_modulate.a > 0.01:
+		active_players.append(player)
+	if player_2.animated_sprite_2d.self_modulate.a > 0.01:
+		active_players.append(player_2)
+
+	if active_players.size() < 2:
+		return  # nothing to sync
+	
+	# Determine blocked distances using collisions
+	var dist_list = []
+	for p in active_players:
+		dist_list.append(get_horizontal_blocked_distance(p))
+
+	# Leader = blocked player (larger distance)
+	var leader
+	var follower
+	if dist_list[0] >= dist_list[1]:
+		leader = active_players[0]
+		follower = active_players[1]
+	else:
+		leader = active_players[1]
+		follower = active_players[0]
+
+# Snap follower X to leader
+	follower.global_position.x = leader.global_position.x
+	
 	
 func _process(delta: float) -> void:
 	
@@ -120,6 +160,12 @@ func _process(delta: float) -> void:
 				theta -= 2 * PI
 		
 		var prob0 = round((cos(theta/2.0)**2)*100)
+		if prob0==100:
+			measured = true
+			state = 0
+		elif prob0 == 0:
+			measured = true
+			state = 1
 		hud.get_node("Percent0").text = str(int(prob0))
 		hud.get_node("Percent1").text = str(int(100-prob0))
 		
