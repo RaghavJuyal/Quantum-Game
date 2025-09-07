@@ -1,8 +1,18 @@
-extends Node2D
+extends Node2D   
 
-const SPEED = 40
+const SPEED = 100
 var direction = -1
+@onready var ray_cast_right: RayCast2D = $RayCastRight
+@onready var ray_cast_left: RayCast2D = $RayCastLeft
 
 func _process(delta: float) -> void:
 	position.x += direction * SPEED * delta
-	pass
+
+	if position.x < -2000 or position.x > 2000:
+		queue_free()
+		
+	if ray_cast_right.is_colliding() or ray_cast_left.is_colliding():
+		queue_free()
+
+func _on_Killzone_body_entered(body):
+	queue_free()

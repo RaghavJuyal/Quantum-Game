@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvvkldwon0s8c"]
+[gd_scene load_steps=8 format=3 uid="uid://bvvkldwon0s8c"]
 
 [ext_resource type="Texture2D" uid="uid://xmukgqlmc6ku" path="res://assets/sprites/shooter_tilemap.png" id="1_gt117"]
+[ext_resource type="Script" uid="uid://dxws82sxddec8" path="res://scenes/shooter.gd" id="1_lynhg"]
 [ext_resource type="PackedScene" uid="uid://b0exx33d87cji" path="res://scenes/killzone.tscn" id="2_1e8ai"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1e8ai"]
@@ -29,6 +30,7 @@ animations = [{
 size = Vector2(7, 13)
 
 [node name="Shooter" type="Node2D"]
+script = ExtResource("1_lynhg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_mger4")
