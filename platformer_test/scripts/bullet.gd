@@ -11,7 +11,10 @@ func _process(delta: float) -> void:
 	if position.x < -2000 or position.x > 2000:
 		queue_free()
 		
-	if ray_cast_right.is_colliding() or ray_cast_left.is_colliding():
+	if ray_cast_right.is_colliding():
+		queue_free()
+		
+	if ray_cast_left.is_colliding():
 		queue_free()
 
 func _on_Killzone_body_entered(body):

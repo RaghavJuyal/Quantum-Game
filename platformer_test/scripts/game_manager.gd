@@ -34,13 +34,13 @@ func measure():
 	var r = randf()
 	if r < prob0:
 		state = 0
-		hud.get_node("Percent0").text = str(100)
-		hud.get_node("Percent1").text = str(0)
+		hud.get_node("Percent0").text = str(100.0)
+		hud.get_node("Percent1").text = str(0.0)
 		
 	else:
 		state = 1
-		hud.get_node("Percent0").text = str(0)
-		hud.get_node("Percent1").text = str(100)
+		hud.get_node("Percent0").text = str(0.0)
+		hud.get_node("Percent1").text = str(100.0)
 	measured = true
 	if state==0:
 		theta = 0
@@ -162,17 +162,21 @@ func _process(delta: float) -> void:
 			if theta > 2 * PI:
 				theta -= 2 * PI
 		
-		var prob0 = round((cos(theta/2.0)**2)*100)
-		if prob0==100:
+		var prob0_raw = (cos(theta/2.0)**2)*100
+		var prob0 = round(prob0_raw * 10.0) / 10.0
+		var prob1 = round((100 - prob0) * 10.0) / 10.0
+
+		if prob0 == 100.0:
 			measured = true
 			state = 0
 			allowed = false
-		elif prob0 == 0:
+		elif prob0 == 0.0:
 			measured = true
 			state = 1
 			allowed = false
-		hud.get_node("Percent0").text = str(int(prob0))
-		hud.get_node("Percent1").text = str(int(100-prob0))
+
+		hud.get_node("Percent0").text = str(prob0)
+		hud.get_node("Percent1").text = str(prob1)
 		
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
 	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a
