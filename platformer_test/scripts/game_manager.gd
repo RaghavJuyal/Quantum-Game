@@ -121,9 +121,9 @@ func get_horizontal_blocked_distance(player):
 func sync_players():
 	# Skip collapsed players
 	var active_players = []
-	if player.animated_sprite_2d.self_modulate.a > 0.01:
+	if player.animated_sprite_2d.self_modulate.a > 1e-5:
 		active_players.append(player)
-	if player_2.animated_sprite_2d.self_modulate.a > 0.01:
+	if player_2.animated_sprite_2d.self_modulate.a > 1e-5:
 		active_players.append(player_2)
 
 	if active_players.size() < 2:
@@ -174,15 +174,16 @@ func _process(delta: float) -> void:
 		var prob0_raw = (cos(theta/2.0)**2)*100
 		var prob0 = round(prob0_raw * 10.0) / 10.0
 		var prob1 = round((100 - prob0) * 10.0) / 10.0
-
-		if prob0 == 100.0:
+		if prob0_raw >= 100.0-0.01:
 			measured = true
 			state = 0
 			allowed = false
-		elif prob0 == 0.0:
+			theta = 0
+		elif prob0_raw <= 0.01:
 			measured = true
 			state = 1
 			allowed = false
+			theta = PI
 
 		hud.get_node("Percent0").text = str(prob0)
 		hud.get_node("Percent1").text = str(prob1)
