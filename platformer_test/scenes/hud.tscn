@@ -83,27 +83,27 @@ theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="Percent1" type="Label" parent="."]
-offset_left = 766.0
+offset_left = 830.0
 offset_top = 39.0
-offset_right = 894.0
+offset_right = 958.0
 offset_bottom = 103.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="1" type="Label" parent="."]
-offset_left = 637.0
+offset_left = 699.0
 offset_top = 53.0
-offset_right = 747.0
+offset_right = 809.0
 offset_bottom = 93.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "|1>:"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_left = 582.0
+offset_left = 661.0
 offset_top = -214.0
-offset_right = 1688.0
+offset_right = 1767.0
 offset_bottom = 350.0
 stretch = true
 

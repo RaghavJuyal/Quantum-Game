@@ -14,6 +14,9 @@ var allowed = true
 @onready var camera_2d: Camera2D = $Camera2D
 @onready var camera0: Camera2D = $Player/Camera2D
 @onready var camera1: Camera2D = $Player2/Camera2D
+@onready var timer: Timer = $Timer
+
+
 
 func _ready() -> void:
 	score = 0
@@ -25,6 +28,12 @@ func add_point():
 	# Update coins collected
 	score += 1
 	hud.get_node("CoinsLabel").text = str(score)
+func schedule_respawn():
+	timer.start()
+
+func _on_timer_timeout():
+	Engine.time_scale = 1
+	get_tree().reload_current_scene()
 	
 func measure():
 	if measured:

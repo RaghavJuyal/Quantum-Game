@@ -4,6 +4,13 @@ const SPEED = 100
 var direction = -1
 @onready var ray_cast_right: RayCast2D = $RayCastRight
 @onready var ray_cast_left: RayCast2D = $RayCastLeft
+@onready var killzone: Area2D = $Killzone
+
+
+func _ready() -> void:
+	ray_cast_left.add_exception(killzone)
+	ray_cast_right.add_exception(killzone)
+	
 
 func _process(delta: float) -> void:
 	position.x += direction * SPEED * delta
@@ -16,6 +23,3 @@ func _process(delta: float) -> void:
 		
 	if ray_cast_left.is_colliding():
 		queue_free()
-
-func _on_Killzone_body_entered(body):
-	queue_free()
