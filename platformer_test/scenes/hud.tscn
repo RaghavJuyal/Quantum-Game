@@ -34,32 +34,32 @@ script = ExtResource("1_5ysmq")
 
 [node name="coin" type="TextureRect" parent="."]
 offset_left = 24.0
-offset_top = 31.0
+offset_top = 56.0
 offset_right = 93.0
-offset_bottom = 97.0
+offset_bottom = 122.0
 texture = SubResource("AtlasTexture_oo0fn")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 20.0
 offset_top = 13.0
-offset_right = 1296.0
+offset_right = 960.0
 offset_bottom = 173.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ysmq")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 103.0
-offset_top = 42.0
+offset_top = 67.0
 offset_right = 143.0
-offset_bottom = 82.0
+offset_bottom = 107.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "x"
 
 [node name="CoinsLabel" type="Label" parent="."]
 offset_left = 146.0
-offset_top = 32.0
+offset_top = 57.0
 offset_right = 274.0
-offset_bottom = 96.0
+offset_bottom = 121.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
@@ -74,9 +74,9 @@ theme_override_font_sizes/font_size = 40
 text = "|0>:"
 
 [node name="0_Bloch" type="Label" parent="."]
-offset_left = 1200.0
+offset_left = 816.0
 offset_top = 16.0
-offset_right = 1310.0
+offset_right = 926.0
 offset_bottom = 56.0
 scale = Vector2(0.4, 0.442)
 theme_override_fonts/font = ExtResource("3_6fi6k")
@@ -111,9 +111,9 @@ theme_override_font_sizes/font_size = 40
 text = "|1>:"
 
 [node name="1_Bloch" type="Label" parent="."]
-offset_left = 1200.0
+offset_left = 816.0
 offset_top = 150.0
-offset_right = 1310.0
+offset_right = 926.0
 offset_bottom = 190.0
 scale = Vector2(0.4, 0.478)
 theme_override_fonts/font = ExtResource("3_6fi6k")
@@ -121,9 +121,9 @@ theme_override_font_sizes/font_size = 40
 text = "|1>"
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_left = 664.0
+offset_left = 280.0
 offset_top = -192.0
-offset_right = 1770.0
+offset_right = 1386.0
 offset_bottom = 372.0
 stretch = true
 
