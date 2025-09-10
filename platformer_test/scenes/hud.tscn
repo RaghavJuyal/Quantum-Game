@@ -43,7 +43,7 @@ texture = SubResource("AtlasTexture_oo0fn")
 offset_left = 20.0
 offset_top = 13.0
 offset_right = 1296.0
-offset_bottom = 125.0
+offset_bottom = 173.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ysmq")
 
 [node name="Label" type="Label" parent="."]
@@ -65,46 +65,66 @@ theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="0" type="Label" parent="."]
-offset_left = 297.0
-offset_top = 53.0
-offset_right = 407.0
-offset_bottom = 93.0
+offset_left = 296.0
+offset_top = 120.0
+offset_right = 406.0
+offset_bottom = 160.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "|0>:"
 
+[node name="0_Bloch" type="Label" parent="."]
+offset_left = 1200.0
+offset_top = 16.0
+offset_right = 1310.0
+offset_bottom = 56.0
+scale = Vector2(0.4, 0.442)
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 40
+text = "|0>"
+
 [node name="Percent0" type="Label" parent="."]
-offset_left = 424.0
-offset_top = 36.0
-offset_right = 552.0
-offset_bottom = 100.0
+offset_left = 416.0
+offset_top = 104.0
+offset_right = 544.0
+offset_bottom = 168.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="Percent1" type="Label" parent="."]
-offset_left = 830.0
-offset_top = 39.0
-offset_right = 958.0
-offset_bottom = 103.0
+offset_left = 416.0
+offset_top = 24.0
+offset_right = 544.0
+offset_bottom = 88.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="1" type="Label" parent="."]
-offset_left = 699.0
-offset_top = 53.0
-offset_right = 809.0
-offset_bottom = 93.0
+offset_left = 296.0
+offset_top = 40.0
+offset_right = 406.0
+offset_bottom = 80.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "|1>:"
 
+[node name="1_Bloch" type="Label" parent="."]
+offset_left = 1200.0
+offset_top = 150.0
+offset_right = 1310.0
+offset_bottom = 190.0
+scale = Vector2(0.4, 0.478)
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 40
+text = "|1>"
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_left = 661.0
-offset_top = -214.0
-offset_right = 1767.0
-offset_bottom = 350.0
+offset_left = 664.0
+offset_top = -192.0
+offset_right = 1770.0
+offset_bottom = 372.0
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]

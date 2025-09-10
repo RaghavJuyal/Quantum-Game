@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+var coyote_time = 0
+var coyote_time_max = 0.1
+var can_jump = false
 
 const SPEED = 100.0
 const JUMP_VELOCITY = -250.0
@@ -22,10 +25,14 @@ func _physics_process(delta: float) -> void:
 	
 	# Add the gravity.
 	if not is_on_floor():
+		if can_jump and coyote_time <= coyote_time_max:
+			coyote_time += delta
+		#else:
 		velocity += get_gravity() * delta
-	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("jump") and (is_on_floor() or coyote_time < coyote_time_max) and can_jump:
+		can_jump = false
+		coyote_time = 0
 		velocity.y = JUMP_VELOCITY
 	
 	# Get the input direction and handle the movement/deceleration.
@@ -37,7 +44,8 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.flip_h = true
 		
 	if is_on_floor():
-			
+		can_jump = true
+		coyote_time = 0
 		if direction == 0:
 			animated_sprite_2d.play("idle")
 		else:

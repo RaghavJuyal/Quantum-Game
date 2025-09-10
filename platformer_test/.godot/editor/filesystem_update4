@@ -5,5 +5,4 @@ res://scenes/shooter.tscn
 res://scenes/bullet.tscn
 res://scenes/firing.tscn
 res://scenes/killzone.tscn
-res://scripts/game_manager.gd
 res://scripts/player.gd
