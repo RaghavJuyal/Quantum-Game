@@ -5,6 +5,6 @@ extends CanvasLayer
 @onready var one_label: Label = $Percent1
 
 func _ready() -> void:
-	coins_label.text = str(0) # Intial number of coins
+	coins_label.text = str(0)
 	zero_label.text = str(100.0)
 	one_label.text = str(0.0)

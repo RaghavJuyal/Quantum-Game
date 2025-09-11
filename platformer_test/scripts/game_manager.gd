@@ -9,6 +9,7 @@ var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var allowed = true
 var spawn_pos = Vector2.ZERO
+
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
 @onready var player_2: CharacterBody2D = $Player2
@@ -19,25 +20,23 @@ var spawn_pos = Vector2.ZERO
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var timer: Timer = $Timer
 
-
-
 func _ready() -> void:
 	score = 0
 	camera_2d.make_current()
 	camera_2d.global_position = camera0.global_position
 
-
 func add_point():
 	# Update coins collected
 	score += 1
 	hud.get_node("CoinsLabel").text = str(score)
+
 func schedule_respawn():
 	timer.start()
 
 func _on_timer_timeout():
 	Engine.time_scale = 1
 	get_tree().reload_current_scene()
-	
+
 func measure():
 	if measured:
 		return state
@@ -67,7 +66,7 @@ func measure():
 		theta = PI
 		camera_2d.global_position = camera_2d.global_position.lerp(camera1.global_position,0.005)
 	return state
-	
+
 func find_safe_spawn(x_global: float, current_is_layer1: bool):
 	var current_layer: TileMapLayer
 	var target_layer: TileMapLayer
@@ -250,4 +249,3 @@ func _process(delta: float) -> void:
 	
 	
 	 # Sync movement
-		
