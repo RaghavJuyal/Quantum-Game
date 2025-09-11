@@ -232,8 +232,8 @@ func _process(delta: float) -> void:
 
 	hud.get_node("Percent0").text = str(prob0)
 	hud.get_node("Percent1").text = str(prob1)
-	hud.get_node("phi_value").text = str(round(phi*1000)/1000)
-	hud.get_node("theta_value").text = str(round(theta*1000)/1000)
+	hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
+	hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
 		
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
 	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a

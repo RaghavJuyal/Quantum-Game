@@ -6,4 +6,5 @@ res://scenes/bullet.tscn
 res://scenes/firing.tscn
 res://scenes/killzone.tscn
 res://scenes/measurement_pad.tscn
+res://scenes/game2.tscn
 res://scripts/game_manager.gd
