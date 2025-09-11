@@ -4,7 +4,7 @@ const SPEED = 100.0
 const JUMP_VELOCITY = -250.0
 
 var coyote_time = 0
-var coyote_time_max = 0.01
+var coyote_time_max = 0.1
 var can_jump = false
 var collision = null
 
@@ -55,8 +55,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 	
 	move_and_slide()
-	#collision = get_last_slide_collision()
-	#if animated_sprite_2d.self_modulate.a <=1e-6:
 	game_manager.sync_players()
 	collision = null
 	var theta = game_manager.theta
