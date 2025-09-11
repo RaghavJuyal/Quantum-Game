@@ -2,7 +2,9 @@ extends Node
 
 var score = 0
 var theta = 0
+var phi = 0
 var delta_theta = 0
+var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var allowed = true
@@ -45,11 +47,17 @@ func measure():
 		state = 0
 		hud.get_node("Percent0").text = str(100.0)
 		hud.get_node("Percent1").text = str(0.0)
+		theta = 0
+		phi = 1
+		bloch_vec = Vector3(0, 0, 1)
 		
 	else:
 		state = 1
 		hud.get_node("Percent0").text = str(0.0)
 		hud.get_node("Percent1").text = str(100.0)
+		theta = PI
+		phi = 0
+		bloch_vec = Vector3(0, 0, -1)
 	measured = true
 	if state==0:
 		theta = 0
@@ -146,47 +154,85 @@ func sync_players():
 
 # Snap follower X to leader
 	follower.global_position.x = leader.global_position.x
-	
-	
+
+# Rotate Bloch vector about X axis by angle
+func rotate_x(angle: float) -> void:
+	var rot = Basis(Vector3(1, 0, 0), angle)
+	bloch_vec = (rot * bloch_vec).normalized()
+	_update_theta_phi()
+
+
+# Rotate Bloch vector about Y axis by angle
+func rotate_y(angle: float) -> void:
+	var rot = Basis(Vector3(0, 1, 0), angle)
+	bloch_vec = (rot * bloch_vec).normalized()
+	_update_theta_phi()
+
+
+# Rotate Bloch vector about Z axis by angle
+func rotate_z(angle: float) -> void:
+	var rot = Basis(Vector3(0, 0, 1), angle)
+	bloch_vec = (rot * bloch_vec).normalized()
+	_update_theta_phi()
+
+# Convert cartesian bloch_vec → spherical angles
+func _update_theta_phi() -> void:
+	bloch_vec = bloch_vec.normalized()
+	theta = acos(clamp(bloch_vec.z, -1.0, 1.0))  # 0 ≤ θ ≤ π
+	phi = atan2(bloch_vec.y, bloch_vec.x)        # -π ≤ φ ≤ π
+	if phi < 0.0:
+		phi += TAU                              # 0 ≤ φ < 2π
+
 func _process(delta: float) -> void:
 	
 	# Update Theta
 	delta_theta = delta*PI/2.0
-	if Input.is_action_pressed("x_rotation"):
-		if measured:
-			#measured = false
-			var requester
-			if state ==0:
-				requester = player
-			else:
-				requester = player_2
-			var ok = try_superposition(requester)
-			if ok:
-				theta += delta_theta
-				if theta > 2 * PI:
-					theta -= 2 * PI
-				allowed = true
-		else:
-			theta += delta_theta
-			if theta > 2 * PI:
-				theta -= 2 * PI
+	if !allowed:
+		var requester
+		if state == 0:
+			requester = player
+		elif state == 1:
+			requester = player_2
+		var ok = try_superposition(requester)
+		if ok:
+			allowed = true
+	if allowed:
+		if Input.is_action_pressed("x_rotation"):
+			if measured:
+				state = -1
+			rotate_x(delta_theta)
+		if Input.is_action_pressed("y_rotation"):
+			if measured:
+				state = -1
+			rotate_y(delta_theta)
+		if Input.is_action_pressed("z_rotation"):
+			if measured:
+				state = -1
+			rotate_z(delta_theta)
+	if Input.is_action_pressed("Measure"):
+		if !measured:
+			measure()
 		
-		var prob0_raw = (cos(theta/2.0)**2)*100
-		var prob0 = round(prob0_raw * 10.0) / 10.0
-		var prob1 = round((100 - prob0) * 10.0) / 10.0
-		if prob0_raw >= 100.0-0.01:
-			measured = true
-			state = 0
-			allowed = false
-			theta = 0
-		elif prob0_raw <= 0.01:
-			measured = true
-			state = 1
-			allowed = false
-			theta = PI
+	var prob0_raw = (cos(theta/2.0)**2)*100
+	var prob0 = round(prob0_raw * 10.0) / 10.0
+	var prob1 = round((100 - prob0) * 10.0) / 10.0
+	if prob0_raw >= 100.0-0.02:
+		measured = true
+		state = 0
+		allowed = false
+		theta = 0
+		phi = 0
+	elif prob0_raw <= 0.02:
+		measured = true
+		state = 1
+		allowed = false
+		theta = PI
+		phi = 0
 
-		hud.get_node("Percent0").text = str(prob0)
-		hud.get_node("Percent1").text = str(prob1)
+	hud.get_node("Percent0").text = str(prob0)
+	hud.get_node("Percent1").text = str(prob1)
+	hud.get_node("phi_value").text = str(round(phi*1000)/1000)
+	hud.get_node("theta_value").text = str(round(theta*1000)/1000)
 		
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
 	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a

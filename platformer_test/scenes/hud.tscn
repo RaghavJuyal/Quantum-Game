@@ -42,7 +42,7 @@ texture = SubResource("AtlasTexture_oo0fn")
 [node name="Panel" type="Panel" parent="."]
 offset_left = 20.0
 offset_top = 13.0
-offset_right = 960.0
+offset_right = 1488.0
 offset_bottom = 173.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ysmq")
 
@@ -73,6 +73,15 @@ theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "|0>:"
 
+[node name="phi" type="Label" parent="."]
+offset_left = 1048.0
+offset_top = 120.0
+offset_right = 1168.0
+offset_bottom = 160.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 40
+text = "phi:"
+
 [node name="0_Bloch" type="Label" parent="."]
 offset_left = 816.0
 offset_top = 16.0
@@ -92,10 +101,28 @@ theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
+[node name="phi_value" type="Label" parent="."]
+offset_left = 1184.0
+offset_top = 104.0
+offset_right = 1312.0
+offset_bottom = 168.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 64
+text = "##"
+
 [node name="Percent1" type="Label" parent="."]
 offset_left = 416.0
 offset_top = 24.0
 offset_right = 544.0
+offset_bottom = 88.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 64
+text = "##"
+
+[node name="theta_value" type="Label" parent="."]
+offset_left = 1184.0
+offset_top = 24.0
+offset_right = 1312.0
 offset_bottom = 88.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
@@ -109,6 +136,15 @@ offset_bottom = 80.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "|1>:"
+
+[node name="theta" type="Label" parent="."]
+offset_left = 976.0
+offset_top = 40.0
+offset_right = 1086.0
+offset_bottom = 80.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 40
+text = "theta:"
 
 [node name="1_Bloch" type="Label" parent="."]
 offset_left = 816.0

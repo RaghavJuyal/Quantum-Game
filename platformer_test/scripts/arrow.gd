@@ -15,9 +15,9 @@ func _process(delta):
 			arrow.rotate_x(game_manager.delta_theta)
 		
 		# Y Rotation
-		if Input.is_action_just_pressed("y_rotation"):
-			arrow.rotate_z(deg_to_rad(-15)) # rotate 15° about Y
+		if Input.is_action_pressed("y_rotation"):
+			arrow.rotate_z(-game_manager.delta_theta)
 		
 		# Z Rotation
-		if Input.is_action_just_pressed("z_rotation"):
-			arrow.rotate_y(deg_to_rad(15)) # rotate 15° about Z
+		if Input.is_action_pressed("z_rotation"):
+			arrow.rotate_y(game_manager.delta_theta) 
