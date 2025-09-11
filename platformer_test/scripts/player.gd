@@ -1,25 +1,22 @@
 extends CharacterBody2D
 
-var coyote_time = 0
-var coyote_time_max = 0.1
-var can_jump = false
-
 const SPEED = 100.0
 const JUMP_VELOCITY = -250.0
+
+var coyote_time = 0
+var coyote_time_max = 0.01
+var can_jump = false
+var collision = null
+
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 @export var is_state_zero: bool = true
-#@export var leader: CharacterBody2D
-@export var spawn_layer_y : float
-var collision = null
+
 func _ready() -> void:
 	if is_state_zero:
 		animated_sprite_2d.self_modulate.a = 1
 	else:
 		animated_sprite_2d.self_modulate.a = 0
-
-
-
 
 func _physics_process(delta: float) -> void:
 	
@@ -67,8 +64,3 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.self_modulate.a = cos(theta/2.0)**2
 	else:
 		animated_sprite_2d.self_modulate.a = sin(theta/2.0)**2
-		
-
-
-
-	

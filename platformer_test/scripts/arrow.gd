@@ -1,7 +1,7 @@
 extends MeshInstance3D
 
 @onready var arrow: MeshInstance3D = $"."
-@onready var game_manager: Node = %GameManager
+@onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 
 func _process(delta):
 	if game_manager.state==0:
