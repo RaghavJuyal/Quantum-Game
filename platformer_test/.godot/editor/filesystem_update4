@@ -1,8 +1,14 @@
-res://scenes/hud.tscn
-res://scripts/game_manager.gd
 res://scenes/game.tscn
 res://scenes/player.tscn
+res://scenes/hud.tscn
 res://scenes/shooter.tscn
 res://scenes/bullet.tscn
 res://scenes/firing.tscn
 res://scenes/killzone.tscn
+res://scenes/coin.tscn
+res://scenes/measurement_pad.tscn
+res://scenes/measurement_pad.gd
+res://scripts/game_manager.gd
+res://scripts/player.gd
+res://scripts/arrow.gd
+res://scripts/coin.gd
