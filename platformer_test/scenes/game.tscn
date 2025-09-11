@@ -353,9 +353,7 @@ one_shot = true
 
 [node name="Measurement_pads" type="Node" parent="."]
 
-[node name="measurement_pad" type="Area2D" parent="Measurement_pads"]
-
-[node name="measurement_pad" parent="Measurement_pads/measurement_pad" instance=ExtResource("12_dinhu")]
-position = Vector2(68, -80)
+[node name="measurement_pad" parent="Measurement_pads" instance=ExtResource("12_dinhu")]
+position = Vector2(18, -79)
 
 [connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]

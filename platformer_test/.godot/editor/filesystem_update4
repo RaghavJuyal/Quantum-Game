@@ -1,1 +1,9 @@
 res://scenes/game.tscn
+res://scenes/player.tscn
+res://scenes/hud.tscn
+res://scenes/shooter.tscn
+res://scenes/bullet.tscn
+res://scenes/firing.tscn
+res://scenes/killzone.tscn
+res://scenes/measurement_pad.tscn
+res://scripts/game_manager.gd

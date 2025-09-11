@@ -8,6 +8,7 @@ var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var allowed = true
+var spawn_pos = Vector2.ZERO
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
 @onready var player_2: CharacterBody2D = $Player2
