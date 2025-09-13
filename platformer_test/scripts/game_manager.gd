@@ -44,13 +44,7 @@ func measure():
 	var prob0 = cos(theta/2.0)**2
 	var r = randf()
 	if r < prob0:
-		state = 0
-		hud.get_node("Percent0").text = str(100.0)
-		hud.get_node("Percent1").text = str(0.0)
-		theta = 0
-		phi = 1
-		bloch_vec = Vector3(0, 0, 1)
-		
+		set_state_zero()
 	else:
 		state = 1
 		hud.get_node("Percent0").text = str(0.0)
@@ -161,13 +155,11 @@ func rotate_x(angle: float) -> void:
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
 
-
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
@@ -184,7 +176,6 @@ func _update_theta_phi() -> void:
 		phi += TAU                              # 0 ≤ φ < 2π
 
 func _process(delta: float) -> void:
-	
 	# Update Theta
 	delta_theta = delta*PI/2.0
 	if !allowed:
@@ -249,3 +240,24 @@ func _process(delta: float) -> void:
 	
 	
 	 # Sync movement
+
+func get_bloch_vector(theta_val: float, phi_val: float) -> Vector3:
+	return Vector3(
+		sin(theta_val) * cos(phi_val),
+		sin(theta_val) * sin(phi_val),
+		cos(theta_val)
+	)
+
+func compute_fidelity(target_theta: float, target_phi: float) -> float:
+	var r = get_bloch_vector(theta, phi)
+	var rt = get_bloch_vector(target_theta, target_phi)
+	var dot = r.dot(rt)
+	return 0.5 * (1.0 + dot)
+
+func set_state_zero():
+	state = 0
+	hud.get_node("Percent0").text = str(100.0)
+	hud.get_node("Percent1").text = str(0.0)
+	theta = 0
+	phi = 1
+	bloch_vec = Vector3(0, 0, 1)

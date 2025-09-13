@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://clveei1rqh67u"]
+
+[ext_resource type="Script" uid="uid://fi4l4xwglmcv" path="res://scripts/suppos_pad.gd" id="1_lt4km"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtwe7"]
+size = Vector2(32, 363)
+
+[sub_resource type="Gradient" id="Gradient_wtwe7"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lt4km"]
+gradient = SubResource("Gradient_wtwe7")
+
+[sub_resource type="GDScript" id="GDScript_0vbge"]
+script/source = "extends Sprite2D
+"
+
+[node name="suppos_pad" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_lt4km")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -166.5)
+shape = SubResource("RectangleShape2D_wtwe7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.76837e-07, -166.5)
+scale = Vector2(0.5, 5.70312)
+texture = SubResource("GradientTexture2D_lt4km")
+script = SubResource("GDScript_0vbge")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
