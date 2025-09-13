@@ -44,12 +44,7 @@ func measure():
 	var prob0 = cos(theta/2.0)**2
 	var r = randf()
 	if r < prob0:
-		state = 0
-		hud.get_node("Percent0").text = str(100.0)
-		hud.get_node("Percent1").text = str(0.0)
-		theta = 0
-		phi = 1
-		bloch_vec = Vector3(0, 0, 1)
+		set_state_zero()
 	else:
 		state = 1
 		hud.get_node("Percent0").text = str(0.0)
@@ -258,3 +253,11 @@ func compute_fidelity(target_theta: float, target_phi: float) -> float:
 	var rt = get_bloch_vector(target_theta, target_phi)
 	var dot = r.dot(rt)
 	return 0.5 * (1.0 + dot)
+
+func set_state_zero():
+	state = 0
+	hud.get_node("Percent0").text = str(100.0)
+	hud.get_node("Percent1").text = str(0.0)
+	theta = 0
+	phi = 1
+	bloch_vec = Vector3(0, 0, 1)

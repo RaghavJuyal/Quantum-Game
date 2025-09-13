@@ -3,7 +3,7 @@ extends Area2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var game_manager: Node = %GameManager
 
-@export var target_theta: float = PI / 2   # example target = |+>
+@export var target_theta: float = PI / 2
 @export var target_phi: float = 0.0
 @export var fidelity_threshold: float = 0.9
 @onready var fidelity_label: Label = $Target
@@ -23,7 +23,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if fidelity >= fidelity_threshold:
 		game_manager.add_point()
 	else:
-		game_manager.measure()
+		game_manager.set_state_zero()
 		Engine.time_scale = 0.5
 		body.get_node("CollisionShape2D").queue_free()
 		game_manager.schedule_respawn()
