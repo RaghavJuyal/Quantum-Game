@@ -19,7 +19,7 @@ func _ready() -> void:
 		animated_sprite_2d.self_modulate.a = 0
 
 func _physics_process(delta: float) -> void:
-	
+
 	# Add the gravity.
 	if not is_on_floor():
 		if can_jump and coyote_time <= coyote_time_max:

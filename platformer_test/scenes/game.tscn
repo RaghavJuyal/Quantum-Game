@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=20 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -11,6 +11,7 @@
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="8_gee14"]
 [ext_resource type="PackedScene" uid="uid://bvvkldwon0s8c" path="res://scenes/shooter.tscn" id="9_kvpfn"]
 [ext_resource type="PackedScene" uid="uid://cavk2o4ctghvk" path="res://scenes/hud.tscn" id="10_vtaks"]
+[ext_resource type="PackedScene" uid="uid://clveei1rqh67u" path="res://scenes/suppos_pad.tscn" id="11_kvuet"]
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/measurement_pad.tscn" id="12_dinhu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
@@ -282,7 +283,7 @@ shape = SubResource("WorldBoundaryShape2D_p57ef")
 [node name="Coins" type="Node" parent="GameManager"]
 
 [node name="Coin" parent="GameManager/Coins" instance=ExtResource("4_lbhrr")]
-position = Vector2(63, 9)
+position = Vector2(120, -72)
 
 [node name="Coin2" parent="GameManager/Coins" instance=ExtResource("4_lbhrr")]
 position = Vector2(119, -23)
@@ -341,6 +342,9 @@ offset_bottom = -50.0
 theme_override_fonts/font = ExtResource("8_gee14")
 theme_override_font_sizes/font_size = 32
 text = "THE END"
+
+[node name="suppos_pad" parent="GameManager" instance=ExtResource("11_kvuet")]
+position = Vector2(80, 3)
 
 [node name="Measurement Pads" type="Node" parent="GameManager"]
 

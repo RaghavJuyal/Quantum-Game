@@ -30,6 +30,11 @@ func add_point():
 	score += 1
 	hud.get_node("CoinsLabel").text = str(score)
 
+func remove_point():
+	# Update coins collected
+	score -= 1
+	hud.get_node("CoinsLabel").text = str(score)
+
 func schedule_respawn():
 	timer.start()
 
@@ -161,13 +166,11 @@ func rotate_x(angle: float) -> void:
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
 
-
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
@@ -184,7 +187,6 @@ func _update_theta_phi() -> void:
 		phi += TAU                              # 0 ≤ φ < 2π
 
 func _process(delta: float) -> void:
-	
 	# Update Theta
 	delta_theta = delta*PI/2.0
 	if !allowed:
@@ -249,3 +251,16 @@ func _process(delta: float) -> void:
 	
 	
 	 # Sync movement
+
+func get_bloch_vector(theta_val: float, phi_val: float) -> Vector3:
+	return Vector3(
+		sin(theta_val) * cos(phi_val),
+		sin(theta_val) * sin(phi_val),
+		cos(theta_val)
+	)
+
+func compute_fidelity(target_theta: float, target_phi: float) -> float:
+	var r = get_bloch_vector(theta, phi)
+	var rt = get_bloch_vector(target_theta, target_phi)
+	var dot = r.dot(rt)
+	return 0.5 * (1.0 + dot)
