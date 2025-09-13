@@ -30,11 +30,6 @@ func add_point():
 	score += 1
 	hud.get_node("CoinsLabel").text = str(score)
 
-func remove_point():
-	# Update coins collected
-	score -= 1
-	hud.get_node("CoinsLabel").text = str(score)
-
 func schedule_respawn():
 	timer.start()
 
@@ -55,7 +50,6 @@ func measure():
 		theta = 0
 		phi = 1
 		bloch_vec = Vector3(0, 0, 1)
-		
 	else:
 		state = 1
 		hud.get_node("Percent0").text = str(0.0)

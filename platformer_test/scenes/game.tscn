@@ -346,6 +346,15 @@ text = "THE END"
 [node name="suppos_pad" parent="GameManager" instance=ExtResource("11_kvuet")]
 position = Vector2(80, 3)
 
+[node name="Target" type="Label" parent="GameManager/suppos_pad"]
+offset_left = -87.0
+offset_top = -39.0
+offset_right = -66.0
+offset_bottom = -16.0
+theme_override_fonts/font = ExtResource("8_gee14")
+theme_override_font_sizes/font_size = 8
+text = "##"
+
 [node name="Measurement Pads" type="Node" parent="GameManager"]
 
 [node name="measurement_pad" parent="GameManager/Measurement Pads" instance=ExtResource("12_dinhu")]

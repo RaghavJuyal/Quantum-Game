@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c6ltd4nc2ke37" path="res://assets/sprites/measurement_pad.png" id="1_wtwe7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wtwe7"]
-size = Vector2(31, 32)
+size = Vector2(32, 364)
 
 [sub_resource type="GDScript" id="GDScript_0vbge"]
 script/source = "extends Sprite2D
@@ -15,10 +15,12 @@ collision_mask = 2
 script = ExtResource("1_lt4km")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, 0)
+position = Vector2(0, -166)
 shape = SubResource("RectangleShape2D_wtwe7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -164)
+scale = Vector2(1, 11.25)
 texture = ExtResource("1_wtwe7")
 script = SubResource("GDScript_0vbge")
 
