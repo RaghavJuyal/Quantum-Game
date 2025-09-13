@@ -6,7 +6,7 @@ extends Area2D
 
 @export var target_theta: float = PI / 2
 @export var target_phi: float = 0.0
-@export var fidelity_threshold: float = 0.9
+@export var fidelity_threshold: float = 0.95
 @onready var fidelity_label: Label = $Target
 
 var triggered := false
@@ -28,4 +28,5 @@ func _on_body_entered(body: Node2D) -> void:
 		Engine.time_scale = 0.5
 		body.get_node("CollisionShape2D").queue_free()
 		game_manager.schedule_respawn()
-	self_node.queue_free()
+	self_node.get_node("CollisionShape2D").queue_free()
+	self_node.get_node("Sprite2D").queue_free()
