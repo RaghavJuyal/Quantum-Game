@@ -1,6 +1,7 @@
 extends Area2D
 
 @onready var sprite: Sprite2D = $Sprite2D
+@onready var self_node: Node = $"."
 @onready var game_manager: Node = %GameManager
 
 @export var target_theta: float = PI / 2
@@ -27,3 +28,4 @@ func _on_body_entered(body: Node2D) -> void:
 		Engine.time_scale = 0.5
 		body.get_node("CollisionShape2D").queue_free()
 		game_manager.schedule_respawn()
+	self_node.queue_free()
