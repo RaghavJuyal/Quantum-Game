@@ -17,10 +17,12 @@ func _ready() -> void:
 	fidelity_label.text = "Target state:\nθ = %.2f, φ = %.2f" % [round(rad_to_deg(target_theta)*10)/10, round(rad_to_deg(target_phi)*10)/10]
 
 func _on_body_entered(body: Node2D) -> void:
+	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
 	if triggered:
+		if fidelity < fidelity_threshold:
+			body.get_node("CollisionShape2D").queue_free()
 		return
 	triggered = true
-	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
 	fidelity_label.text += "\nFidelity: %.2f" % (round(fidelity*1000)/1000)
 	if fidelity >= fidelity_threshold:
 		game_manager.add_point()
