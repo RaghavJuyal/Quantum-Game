@@ -8,6 +8,7 @@ extends Area2D
 @export var target_theta: float = PI / 2
 @export var target_phi: float = 0.0
 @export var fidelity_threshold: float = 0.95
+@export var double_fidelity_threshold: float = 0.99
 @onready var fidelity_label: Label = $Target
 
 var triggered := false
@@ -26,6 +27,8 @@ func _on_body_entered(body: Node2D) -> void:
 	fidelity_label.text += "\nFidelity: %.2f" % (round(fidelity*1000)/1000)
 	if fidelity >= fidelity_threshold:
 		game_manager.add_point()
+		if fidelity >= double_fidelity_threshold:
+			game_manager.add_point()
 		coin_pick_sound.play()
 		await coin_pick_sound.finished
 	else:
