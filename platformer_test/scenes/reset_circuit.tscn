@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://m13gbjrmk6ot"]
+
+[ext_resource type="Texture2D" uid="uid://dfylk1t3er3tv" path="res://assets/puzzle_game_gfx/Blocks/block_1_orange_outline.png" id="1_12xv0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cj8x"]
+size = Vector2(14, 14)
+
+[node name="reset_circuit" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("1_12xv0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3cj8x")

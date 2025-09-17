@@ -9,6 +9,7 @@ var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var allowed = true
 var spawn_pos = Vector2.ZERO
+var carried_gate
 
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
@@ -19,11 +20,13 @@ var spawn_pos = Vector2.ZERO
 @onready var camera0: Camera2D = $Player/Camera2D
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var timer: Timer = $Timer
+@onready var puzzle_1: Node = $Puzzle_1
 
 func _ready() -> void:
 	score = 0
 	camera_2d.make_current()
 	camera_2d.global_position = camera0.global_position
+	carried_gate = ""
 
 func add_point():
 	# Update coins collected
@@ -174,7 +177,14 @@ func _update_theta_phi() -> void:
 	phi = atan2(bloch_vec.y, bloch_vec.x)        # -π ≤ φ ≤ π
 	if phi < 0.0:
 		phi += TAU                              # 0 ≤ φ < 2π
-
+func _is_on_interactable(p: Node):
+	if not p.has_node("interact_area"):
+		print("hold up")
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("interactables"):
+			return true
+	return false
 func _process(delta: float) -> void:
 	# Update Theta
 	delta_theta = delta*PI/2.0
@@ -185,6 +195,8 @@ func _process(delta: float) -> void:
 		elif state == 1:
 			requester = player_2
 		var ok = try_superposition(requester)
+		if _is_on_interactable(player) or _is_on_interactable(player_2):
+			ok = false
 		if ok:
 			allowed = true
 	if allowed:
@@ -235,6 +247,21 @@ func _process(delta: float) -> void:
 		target = camera1
 
 	camera_2d.global_position = camera_2d.global_position.lerp(target.global_position,0.005)
+	
+	if Input.is_action_just_pressed("Interact"):
+		if _is_on_interactable(player) or _is_on_interactable(player_2):
+			if !measured:
+				measure()
+		var p
+		if state == 0:
+			p = player
+		else:
+			p = player_2
+		var interact_area = p.get_node("interact_area")
+		var bodies = interact_area.get_overlapping_bodies()
+		for body in bodies:
+			if body.is_in_group("interactables"):
+				puzzle_1.handle_interaction(body)
 	# problem with this is if one person dies they go down and so does the camera
 	#camera_2d.global_position = camera_2d.global_position.lerp((camera0.global_position+camera1.global_position)/2.0,0.005)
 	

@@ -11,13 +11,21 @@ var collision = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 @export var is_state_zero: bool = true
+@onready var puzzle_1: Node = get_tree().root.get_node("Game/GameManager/Puzzle_1")
+@onready var interact_area: Area2D = $interact_area
+
 
 func _ready() -> void:
 	if is_state_zero:
 		animated_sprite_2d.self_modulate.a = 1
 	else:
 		animated_sprite_2d.self_modulate.a = 0
-
+		
+func _is_on_interactable():
+	for body in interact_area.get_overlapping_bodies():
+		if body.is_in_group("interactables"):
+			return true
+	return false
 func _physics_process(delta: float) -> void:
 
 	# Add the gravity.
@@ -62,3 +70,5 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.self_modulate.a = cos(theta/2.0)**2
 	else:
 		animated_sprite_2d.self_modulate.a = sin(theta/2.0)**2
+	
+	

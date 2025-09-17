@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcgby18clyino"]
+
+[ext_resource type="Texture2D" uid="uid://c0aencrgbn272" path="res://assets/puzzle_game_gfx/Blocks/block_1_red_outline.png" id="1_je8x7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cj8x"]
+size = Vector2(14, 14)
+
+[node name="remove_gate" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("1_je8x7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3cj8x")

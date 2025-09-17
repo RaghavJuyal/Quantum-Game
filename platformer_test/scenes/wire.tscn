@@ -1,0 +1,50 @@
+[gd_scene load_steps=10 format=3 uid="uid://bukjm6u0mt0tw"]
+
+[ext_resource type="Script" uid="uid://djjljgfyf4aay" path="res://scripts/wire.gd" id="1_oh5q0"]
+[ext_resource type="Texture2D" uid="uid://du2t2ho1bib87" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-!blank.png" id="2_a3040"]
+[ext_resource type="Texture2D" uid="uid://bw3il2ahqpaom" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-0.png" id="2_m01gi"]
+[ext_resource type="Texture2D" uid="uid://2vf6vbosgnaa" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/red-!blank.png" id="3_0ph68"]
+[ext_resource type="Texture2D" uid="uid://xxomsi3mwors" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-1.png" id="3_81c8f"]
+[ext_resource type="Texture2D" uid="uid://dj0ijnf50f27t" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-H.png" id="6_paiqh"]
+[ext_resource type="Texture2D" uid="uid://dmncl4rlgy50j" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-X.png" id="7_6673d"]
+[ext_resource type="Texture2D" uid="uid://dbqmxocpey1uo" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-Y.png" id="8_vt3gl"]
+[ext_resource type="Texture2D" uid="uid://bomdk4hg5cp72" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-Z.png" id="9_0t1u6"]
+
+[node name="wire" type="Node2D"]
+script = ExtResource("1_oh5q0")
+
+[node name="wire_begin_0" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_m01gi")
+
+[node name="wire_begin_1" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_81c8f")
+
+[node name="wire_end" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_a3040")
+
+[node name="wire_middle" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_0ph68")
+
+[node name="gate_H" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_paiqh")
+
+[node name="gate_X" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("7_6673d")
+
+[node name="gate_Y" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_vt3gl")
+
+[node name="gate_Z" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_0t1u6")
+
+[node name="gate_control" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_a3040")
