@@ -1,11 +1,9 @@
 res://scenes/game.tscn
-res://scripts/game_manager.gd
-res://scripts/player.gd
-res://scripts/puzzle_1.gd
 res://scenes/player.tscn
 res://scenes/hud.tscn
 res://scenes/coin.tscn
 res://scenes/wire.tscn
 res://scenes/remove_gate.tscn
 res://scenes/run_circuit.tscn
-res://scripts/wire.gd
+res://scenes/mank_playground_game.tscn
+res://scripts/test.gd
