@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=34 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -20,6 +20,11 @@
 [ext_resource type="PackedScene" uid="uid://dcgby18clyino" path="res://scenes/remove_gate.tscn" id="17_rysoc"]
 [ext_resource type="PackedScene" uid="uid://m13gbjrmk6ot" path="res://scenes/reset_circuit.tscn" id="19_5newe"]
 [ext_resource type="PackedScene" uid="uid://dyht31nx3qd4n" path="res://scenes/run_circuit.tscn" id="20_37s47"]
+[ext_resource type="PackedScene" uid="uid://dog4dsj2egfvx" path="res://scenes/z_gate.tscn" id="21_pl11u"]
+[ext_resource type="PackedScene" uid="uid://bujxh17jiq3c2" path="res://scenes/y_gate.tscn" id="22_bhx41"]
+[ext_resource type="PackedScene" uid="uid://bt0vqdy3bjk4l" path="res://scenes/x_gate.tscn" id="23_qnb83"]
+[ext_resource type="PackedScene" uid="uid://b16j76sxip8n4" path="res://scenes/cnot_gate.tscn" id="24_sww3w"]
+[ext_resource type="PackedScene" uid="uid://bv41imahweahl" path="res://scenes/hadamard_gate.tscn" id="25_suyxu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -456,7 +461,7 @@ position = Vector2(663, 8)
 [node name="Slimes" type="Node" parent="GameManager"]
 
 [node name="Slime_purple" parent="GameManager/Slimes" instance=ExtResource("6_u5sy4")]
-position = Vector2(313, -32)
+position = Vector2(313, -30)
 
 [node name="Slime_green" parent="GameManager/Slimes" instance=ExtResource("7_gee14")]
 position = Vector2(485, 18)
@@ -533,7 +538,6 @@ script = ExtResource("15_1kice")
 
 [node name="wire_up" parent="GameManager/Puzzle_1" instance=ExtResource("14_trtic")]
 position = Vector2(920, -90)
-begin_variant = 1
 
 [node name="wire_down" parent="GameManager/Puzzle_1" instance=ExtResource("14_trtic")]
 position = Vector2(920, -10)
@@ -576,5 +580,22 @@ position = Vector2(793, -69)
 
 [node name="reset_circuit" parent="GameManager/Puzzle_1" instance=ExtResource("19_5newe")]
 position = Vector2(793, 9)
+
+[node name="gates" type="Node" parent="GameManager/Puzzle_1"]
+
+[node name="z_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("21_pl11u")]
+position = Vector2(1131, 11)
+
+[node name="y_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("22_bhx41")]
+position = Vector2(1182, 11)
+
+[node name="x_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("23_qnb83")]
+position = Vector2(1198, -69)
+
+[node name="cnot_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("24_sww3w")]
+position = Vector2(1158, -70)
+
+[node name="hadamard_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("25_suyxu")]
+position = Vector2(767, 12)
 
 [connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]

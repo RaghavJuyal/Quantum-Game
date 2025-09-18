@@ -1,6 +1,6 @@
 extends Node
-@onready var test: Node = $"."
-@onready var tile_map_layer: TileMapLayer = $TileMapLayer
+#@onready var test: Node = $"."
+#@onready var tile_map_layer: TileMapLayer = $TileMapLayer
 
 
 # Called when the node enters the scene tree for the first time.

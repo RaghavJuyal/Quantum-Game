@@ -123,13 +123,64 @@ func reset_gates() -> void:
 func _is_full() -> bool:
 	return slots.all(func(s): return s != "middle")
 
+# returns index of first non-middle (leftmost), or -1 if none
+func first_gate_index() -> int:
+	for i in range(slots.size()):
+		if slots[i] != "middle":
+			return i
+	return -1
+
+# returns index of last non-middle (rightmost), or -1 if none
+func last_gate_index() -> int:
+	for i in range(slots.size() - 1, -1, -1):
+		if slots[i] != "middle":
+			return i
+	return -1
+
+# remove gate at a specific index; if shift_left==true, remove and push a "middle" at end;
+# if shift_left==false, remove and insert "middle" at index 0 (keeps packing consistent).
+# returns the removed gate type or "" if nothing removed.
+func remove_gate_at_index(index:int, shift_left:bool=true) -> String:
+	if index < 0 or index >= slots.size():
+		return ""
+	var g = slots[index]
+	if g == "middle":
+		return ""
+	if shift_left:
+		slots.remove_at(index)
+		slots.append("middle")
+	else:
+		# remove and insert a middle at front so things remain packed to the right
+		slots.remove_at(index)
+		slots.insert(0, "middle")
+	_update_wire_visuals()
+	return g
+
+# set a gate at a specific index (used for adding a CNOT to both wires)
+# returns true on success, false if index invalid or occupied
+func set_gate_at_index(index:int, gate_type:String) -> bool:
+	if index < 0 or index >= slots.size():
+		return false
+	if slots[index] != "middle":
+		return false
+	slots[index] = gate_type
+	_update_wire_visuals()
+	return true
+
+# (Optional) helper: check if slot index is free
+func is_slot_empty(index:int) -> bool:
+	if index < 0 or index >= slots.size():
+		return false
+	return slots[index] == "middle"
+
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("x_rotation"):
-		wire.add_gate_end("X")
-	if Input.is_action_just_pressed("y_rotation"):
-		wire.add_gate_end("Y")
-	if Input.is_action_just_pressed("z_rotation"):
-		wire.remove_gate_end()
+	#if Input.is_action_just_pressed("x_rotation"):
+		#wire.add_gate_end("X")
+	#if Input.is_action_just_pressed("y_rotation"):
+		#wire.add_gate_end("Y")
+	#if Input.is_action_just_pressed("z_rotation"):
+		#wire.remove_gate_end()
 	#if Input.is_action_just_pressed("Measure"):
 		#wire.reset_gates()
+	pass

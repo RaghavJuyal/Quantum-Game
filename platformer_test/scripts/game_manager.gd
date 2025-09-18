@@ -184,6 +184,9 @@ func _is_on_interactable(p: Node):
 	for body in area.get_overlapping_bodies():
 		if body.is_in_group("interactables"):
 			return true
+	for intarea in area.get_overlapping_areas():
+		if area.is_in_group("interactables"):
+			return true
 	return false
 func _process(delta: float) -> void:
 	# Update Theta
@@ -236,7 +239,7 @@ func _process(delta: float) -> void:
 	hud.get_node("Percent1").text = str(prob1)
 	hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
 	hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
-		
+	hud.get_node("carried_gate").text = str(carried_gate)
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
 	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a
 
@@ -262,6 +265,10 @@ func _process(delta: float) -> void:
 		for body in bodies:
 			if body.is_in_group("interactables"):
 				puzzle_1.handle_interaction(body)
+		var areas = interact_area.get_overlapping_areas()
+		for area in areas:
+			if area.is_in_group("interactables"):
+				puzzle_1.handle_interaction(area)
 	# problem with this is if one person dies they go down and so does the camera
 	#camera_2d.global_position = camera_2d.global_position.lerp((camera0.global_position+camera1.global_position)/2.0,0.005)
 	
