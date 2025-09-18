@@ -4,8 +4,8 @@ extends Node
 @onready var key: Node = $"."
 
 func _on_body_entered(body: Node2D) -> void:
-	print("Reached Key")
-	var state = game_manager.measure()
-	if (body.is_state_zero and state==0) or (not body.is_state_zero and state == 1):
-		game_manager.add_point()
+	if Input.is_action_pressed("c_not"):
+		body.entangled_colour()
 		key.queue_free()
+	else:
+		print("can't cnot")
