@@ -75,12 +75,12 @@ text = "|0>:"
 
 [node name="phi" type="Label" parent="."]
 offset_left = 1048.0
-offset_top = 120.0
+offset_top = 96.0
 offset_right = 1168.0
-offset_bottom = 160.0
+offset_bottom = 151.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
-text = "phi:"
+text = "φ:"
 
 [node name="0_Bloch" type="Label" parent="."]
 offset_left = 816.0
@@ -102,10 +102,10 @@ theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="phi_value" type="Label" parent="."]
-offset_left = 1184.0
-offset_top = 104.0
-offset_right = 1312.0
-offset_bottom = 168.0
+offset_left = 1144.0
+offset_top = 96.0
+offset_right = 1272.0
+offset_bottom = 160.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
@@ -120,9 +120,9 @@ theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="theta_value" type="Label" parent="."]
-offset_left = 1184.0
+offset_left = 1144.0
 offset_top = 24.0
-offset_right = 1312.0
+offset_right = 1272.0
 offset_bottom = 88.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
@@ -138,13 +138,13 @@ theme_override_font_sizes/font_size = 40
 text = "|1>:"
 
 [node name="theta" type="Label" parent="."]
-offset_left = 976.0
-offset_top = 40.0
-offset_right = 1086.0
-offset_bottom = 80.0
+offset_left = 1048.0
+offset_top = 32.0
+offset_right = 1120.0
+offset_bottom = 87.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
-text = "theta:"
+text = "θ:"
 
 [node name="1_Bloch" type="Label" parent="."]
 offset_left = 816.0
