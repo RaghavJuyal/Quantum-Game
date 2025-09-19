@@ -11,7 +11,6 @@ var collision = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 @export var is_state_zero: bool = true
-@onready var puzzle_1: Node = get_tree().root.get_node("Game/GameManager/Puzzle_1")
 @onready var interact_area: Area2D = $interact_area
 
 
