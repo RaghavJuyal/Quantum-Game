@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cp8dy6toq360c"]
+
+[ext_resource type="Script" uid="uid://cruyx0rg5a0iq" path="res://scripts/key.gd" id="1_fttkb"]
+[ext_resource type="Texture2D" uid="uid://6i5bo2qycwcy" path="res://assets/puzzle_game_gfx/Gems/gem_square_purple.png" id="1_yk2u2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fttkb"]
+radius = 7.0
+
+[node name="key" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_fttkb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.76837e-07, -4.76837e-07)
+scale = Vector2(0.0268555, 0.0290527)
+texture = ExtResource("1_yk2u2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_fttkb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
