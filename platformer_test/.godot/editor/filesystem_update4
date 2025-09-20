@@ -1,8 +1,0 @@
-res://scenes/finish.tscn
-res://scenes/level0.tscn
-res://scenes/player.tscn
-res://scenes/hud.tscn
-res://scenes/wire.tscn
-res://scenes/hadamard_gate.tscn
-res://scenes/coin.tscn
-res://scripts/finish.gd
