@@ -13,6 +13,7 @@ var suppos_allowed = true
 var carried_gate
 var entangled_mode = false
 var entangled_state = null
+var entangled_probs = null
 
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
@@ -235,6 +236,84 @@ func _is_on_entanglable(p: Node):
 			return intarea
 	return null
 
+## ENTANGLEMENT HANDLING ##
+
+func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool) -> Array:
+	var cos_val = Complex.new(cos(theta / 2.0), 0)
+	var sin_val = Complex.new(sin(theta / 2.0), 0)
+	var zero = Complex.new(0, 0)
+	var state: Array
+	var phase = Complex.new(cos(phi), sin(phi))  # e^{i phi}
+	
+	if target_current_state_zero:
+		# [cos, 0, 0, e^{i phi} * sin]
+		state = [
+			cos_val,
+			zero,
+			zero,
+			phase.mul(sin_val)
+		]
+	else:
+		# [0, cos, e^{i phi} * sin, 0]
+		state = [
+			zero,
+			cos_val,
+			phase.mul(sin_val),
+			zero
+		]
+	return state
+
+func calculate_entangled_probs():
+	var probs = []
+	for amp in entangled_state:
+		probs.append(amp.abs()**2)
+	
+	# normalize (safety)
+	#var total = 0.0
+	#for p in probs:
+		#total += p
+	#if total > 0:
+		#for i in range(probs.size()):
+			#probs[i] /= total
+	
+	return probs
+
+func measure_entangled() -> String:
+	# Compute marginal probs for measuring player qubit in Z
+	var prob_zero = entangled_probs[0] + entangled_probs[1]
+	var prob_one  = entangled_probs[2] + entangled_probs[3]
+
+	# Sample outcome
+	var r = randf()
+	var outcome_player: int
+	if r < prob_zero:
+		outcome_player = 0
+	else:
+		outcome_player = 1
+
+	# Collapse state
+	var collapsed: Array = []
+	if outcome_player == 0:
+		collapsed = [entangled_state[0], entangled_state[1], Complex.new(0,0), Complex.new(0,0)]
+	else:
+		collapsed = [Complex.new(0,0), Complex.new(0,0), entangled_state[2], entangled_state[3]]
+
+	# Renormalize
+	var norm = 0.0
+	for amp in collapsed:
+		norm += amp.abs()**2
+	if norm > 0:
+		for i in range(collapsed.size()):
+			collapsed[i] = collapsed[i] / sqrt(norm)
+
+	# Replace global state
+	entangled_state = collapsed
+	calculate_entangled_probs()
+
+	# Outcome string
+	var outcome_label = str(outcome_player)
+	return outcome_label
+
 ## PROCESS ##
 
 func _process(delta: float) -> void:
@@ -264,8 +343,10 @@ func _process(delta: float) -> void:
 				state = -1
 			rotate_z(delta_theta)
 	if Input.is_action_pressed("Measure"):
-		if !measured:
+		if !measured and !entangled_mode:
 			measure()
+		elif !measured and entangled_mode:
+			measure_entangled()
 		
 	var prob0_raw = (cos(theta/2.0)**2)*100
 	var prob0 = round(prob0_raw * 10.0) / 10.0
@@ -301,6 +382,8 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("Interact"):
 		if _is_on_interactable(player) or _is_on_interactable(player_2):
+			if entangled_mode: ## TODO: Improve handling for this case
+				set_state_zero()
 			if !measured:
 				measure()
 		var p
@@ -317,40 +400,18 @@ func _process(delta: float) -> void:
 		for area in areas:
 			if area.is_in_group("interactables"):
 				puzzle_1.handle_interaction(area)
-				
+	
 	if Input.is_action_just_pressed("c_not"):
-		entangled_mode = true
 		var target = _is_on_entanglable(player)
 		if target == null:
 			target = _is_on_entanglable(player_2)
 		
 		if target != null:
+			entangled_mode = true
 			# player is always the control, object is always the target
 			entangled_state = calculate_entangled_state(phi, theta, target.is_state_zero)
-			target.queue_free()
+			entangled_probs = calculate_entangled_probs()
+			
 			player.color_sprite()
 			player_2.color_sprite()
-
-func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool) -> Array:
-	var cos_val = cos(theta / 2.0)
-	var sin_val = sin(theta / 2.0)
-	var state: Array
-	var phase = Complex.new(cos(phi), sin(phi))  # e^{i phi}
-	
-	if target_current_state_zero:
-		# [cos, 0, 0, e^{i phi} * sin]
-		state = [
-			cos_val,
-			0,
-			0,
-			phase.mul(Complex.new(sin_val, 0))
-		]
-	else:
-		# [0, cos, e^{i phi} * sin, 0]
-		state = [
-			0,
-			cos_val,
-			phase.mul(Complex.new(sin_val, 0)),
-			0
-		]
-	return state
+			target.queue_free()
