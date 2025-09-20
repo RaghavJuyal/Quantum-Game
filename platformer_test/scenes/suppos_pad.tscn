@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://clveei1rqh67u"]
+[gd_scene load_steps=6 format=3 uid="uid://clveei1rqh67u"]
 
 [ext_resource type="Script" uid="uid://fi4l4xwglmcv" path="res://scripts/suppos_pad.gd" id="1_lt4km"]
 [ext_resource type="AudioStream" uid="uid://8pqlteyob1ow" path="res://assets/sounds/coin.wav" id="2_lt4km"]
@@ -10,10 +10,6 @@ size = Vector2(32, 363)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_lt4km"]
 gradient = SubResource("Gradient_wtwe7")
-
-[sub_resource type="GDScript" id="GDScript_0vbge"]
-script/source = "extends Sprite2D
-"
 
 [node name="suppos_pad" type="Area2D"]
 collision_mask = 2
@@ -27,7 +23,6 @@ shape = SubResource("RectangleShape2D_wtwe7")
 position = Vector2(4.76837e-07, -166.5)
 scale = Vector2(0.5, 5.70312)
 texture = SubResource("GradientTexture2D_lt4km")
-script = SubResource("GDScript_0vbge")
 
 [node name="pickupsound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_lt4km")

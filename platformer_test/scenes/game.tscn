@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=22 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cavk2o4ctghvk" path="res://scenes/hud.tscn" id="10_vtaks"]
 [ext_resource type="PackedScene" uid="uid://clveei1rqh67u" path="res://scenes/suppos_pad.tscn" id="11_kvuet"]
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/measurement_pad.tscn" id="12_dinhu"]
+[ext_resource type="PackedScene" uid="uid://kjwmsthli58l" path="res://scenes/gem.tscn" id="14_ir15t"]
 [ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/test.gd" id="15_ir15t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
@@ -285,7 +286,7 @@ shape = SubResource("WorldBoundaryShape2D_p57ef")
 [node name="Coins" type="Node" parent="GameManager"]
 
 [node name="Coin" parent="GameManager/Coins" instance=ExtResource("4_lbhrr")]
-position = Vector2(120, -72)
+position = Vector2(166, -69)
 
 [node name="Coin2" parent="GameManager/Coins" instance=ExtResource("4_lbhrr")]
 position = Vector2(119, -23)
@@ -366,6 +367,9 @@ position = Vector2(-16, -77)
 
 [node name="Camera2D" type="Camera2D" parent="GameManager"]
 zoom = Vector2(3, 3)
+
+[node name="Gem" parent="GameManager" instance=ExtResource("14_ir15t")]
+position = Vector2(40, -68)
 
 [node name="Timer" type="Timer" parent="GameManager"]
 wait_time = 0.6

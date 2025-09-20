@@ -1,5 +1,7 @@
 extends Node
 
+const Complex = preload("res://complex.gd")
+
 var score = 0
 var theta = 0
 var phi = 0
@@ -9,8 +11,11 @@ var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
+var entangled_state = null
 
+@export var entangled_mode = false
 @export var hud: CanvasLayer
+@export var entangled_probs = null
 @onready var player: CharacterBody2D = $Player
 @onready var player_2: CharacterBody2D = $Player2
 @onready var midground: TileMapLayer = $Tilemap/Midground
@@ -20,12 +25,19 @@ var carried_gate
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var timer: Timer = $Timer
 @onready var puzzle_1: Node = $Puzzle_1
+@onready var gem: Node = $Gem
 
 func _ready() -> void:
 	score = 0
 	camera_2d.make_current()
 	camera_2d.global_position = camera0.global_position
 	carried_gate = ""
+	var entanglables = [
+		gem
+	]
+	for block in entanglables:
+		if block != null:
+			block.add_to_group("entanglables")
 
 func add_point():
 	# Update coins collected
@@ -198,7 +210,7 @@ func compute_fidelity(target_theta: float, target_phi: float) -> float:
 	var dot = r.dot(rt)
 	return 0.5 * (1.0 + dot)
 
-## INTERACTABLE ##
+## INTERACTABLE / ENTANGLABLE ##
 
 func _is_on_interactable(p: Node):
 	if not p.has_node("interact_area"):
@@ -208,9 +220,151 @@ func _is_on_interactable(p: Node):
 		if body.is_in_group("interactables"):
 			return true
 	for intarea in area.get_overlapping_areas():
-		if area.is_in_group("interactables"):
+		if intarea.is_in_group("interactables"):
 			return true
 	return false
+
+func _is_on_entanglable(p: Node):
+	if not p.has_node("interact_area"):
+		print("hold up") # shouldn't happen
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("entanglables"):
+			return body
+	for intarea in area.get_overlapping_areas():
+		if intarea.is_in_group("entanglables"):
+			return intarea
+	return null
+
+## ENTANGLEMENT HANDLING ##
+
+func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool) -> Array:
+	var cos_val = Complex.new(cos(theta / 2.0), 0)
+	var sin_val = Complex.new(sin(theta / 2.0), 0)
+	var zero = Complex.new(0, 0)
+	var state: Array
+	var phase = Complex.new(cos(phi), sin(phi))  # e^{i phi}
+	
+	if target_current_state_zero:
+		# [cos, 0, 0, e^{i phi} * sin]
+		state = [
+			cos_val,
+			zero,
+			zero,
+			phase.mul(sin_val)
+		]
+	else:
+		# [0, cos, e^{i phi} * sin, 0]
+		state = [
+			zero,
+			cos_val,
+			phase.mul(sin_val),
+			zero
+		]
+	return state
+
+func calculate_entangled_probs():
+	var probs = []
+	for amp in entangled_state:
+		probs.append(amp.abs()**2)
+	return probs
+
+func measure_entangled() -> int:
+	measured = true
+	
+	# Compute marginal probs for measuring player qubit in Z
+	var prob_zero = entangled_probs[0] + entangled_probs[1]
+	var prob_one  = entangled_probs[2] + entangled_probs[3]
+
+	# Sample outcome
+	var r = randf()
+	var outcome_player: int
+	if r < prob_zero:
+		outcome_player = 0
+	else:
+		outcome_player = 1
+
+	# Collapse state
+	var collapsed: Array = []
+	if outcome_player == 0:
+		collapsed = [entangled_state[0], entangled_state[1], Complex.new(0,0), Complex.new(0,0)]
+	else:
+		collapsed = [Complex.new(0,0), Complex.new(0,0), entangled_state[2], entangled_state[3]]
+
+	# Renormalize
+	var norm = 0.0
+	for amp in collapsed:
+		norm += amp.abs()**2
+	if norm > 0:
+		for i in range(collapsed.size()):
+			collapsed[i] = collapsed[i].div(Complex.new(sqrt(norm), 0))
+
+	# Replace global state
+	entangled_state = collapsed
+	entangled_probs = calculate_entangled_probs()
+	
+	return outcome_player
+
+func rotate_x_entangled(angle: float) -> void:
+	var c = cos(angle/2.0)
+	var s = -sin(angle/2.0) # minus for exp(-i θ σ/2)
+	var x_gate = [
+		[Complex.new(c, 0), Complex.new(0, s)],
+		[Complex.new(0, s), Complex.new(c, 0)]
+	]
+	apply_gate_entangled(x_gate)
+
+func rotate_y_entangled(angle: float) -> void:
+	var c = cos(angle/2.0)
+	var s = sin(angle/2.0)
+	var y_gate = [
+		[Complex.new(c, 0), Complex.new(-s, 0)],
+		[Complex.new(s, 0), Complex.new(c, 0)]
+	]
+	apply_gate_entangled(y_gate)
+
+func rotate_z_entangled(angle: float) -> void:
+	var e_minus = Complex.new(cos(-angle/2.0), sin(-angle/2.0))
+	var e_plus  = Complex.new(cos(angle/2.0),  sin(angle/2.0))
+	var z_gate = [
+		[ e_minus, Complex.new(0,0)],
+		[ Complex.new(0,0), e_plus ]
+	]
+	apply_gate_entangled(z_gate)
+
+func apply_gate_entangled(U: Array) -> void:
+	var gate = [
+		[U[0][0], U[0][1], Complex.new(0,0), Complex.new(0,0)],
+		[U[1][0], U[1][1], Complex.new(0,0), Complex.new(0,0)],
+		[Complex.new(0,0), Complex.new(0,0), U[0][0], U[0][1]],
+		[Complex.new(0,0), Complex.new(0,0), U[1][0], U[1][1]]
+	]
+	var new_state = []
+	for i in range(4):
+		var acc = Complex.new(0,0)  # fresh accumulator
+		for j in range(4):
+			acc = acc.add(gate[i][j].mul(entangled_state[j])) 
+		new_state.append(acc)
+	entangled_state = new_state
+	entangled_probs = calculate_entangled_probs()
+
+func edit_hud_items() -> void:
+	hud.get_node("BlochSphere").visible = false
+	hud.get_node("0_Bloch").visible = false
+	hud.get_node("1_Bloch").visible = false
+	
+	hud.get_node("0").text = "|01>: "
+	hud.get_node("1").text = "|00>: "
+	hud.get_node("phi").text = "|11>: "
+	hud.get_node("theta").text = "|10>: "
+	
+	update_hud_probabilities()
+
+func update_hud_probabilities() -> void:
+	hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
+	hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
+	hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
+	hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
 
 ## PROCESS ##
 
@@ -231,45 +385,59 @@ func _process(delta: float) -> void:
 		if Input.is_action_pressed("x_rotation"):
 			if measured:
 				state = -1
-			rotate_x(delta_theta)
+			if !entangled_mode:
+				rotate_x(delta_theta)
+			else:
+				rotate_x_entangled(delta_theta)
 		if Input.is_action_pressed("y_rotation"):
 			if measured:
 				state = -1
-			rotate_y(delta_theta)
+			if !entangled_mode:
+				rotate_y(delta_theta)
+			else:
+				rotate_y_entangled(delta_theta)
 		if Input.is_action_pressed("z_rotation"):
 			if measured:
 				state = -1
-			rotate_z(delta_theta)
+			if !entangled_mode:
+				rotate_z(delta_theta)
+			else:
+				rotate_z_entangled(delta_theta)
 	if Input.is_action_pressed("Measure"):
-		if !measured:
+		if !measured and !entangled_mode:
 			measure()
-		
-	var prob0_raw = (cos(theta/2.0)**2)*100
-	var prob0 = round(prob0_raw * 10.0) / 10.0
-	var prob1 = round((100 - prob0) * 10.0) / 10.0
-	if prob0_raw >= 100.0-0.02:
-		measured = true
-		state = 0
-		suppos_allowed = false
-		theta = 0
-		phi = 0
-	elif prob0_raw <= 0.02:
-		measured = true
-		state = 1
-		suppos_allowed = false
-		theta = PI
-		phi = 0
+		elif !measured and entangled_mode:
+			measure_entangled()
 
-	hud.get_node("Percent0").text = str(prob0)
-	hud.get_node("Percent1").text = str(prob1)
-	hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
-	hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+	if !entangled_mode:
+		var prob0_raw = (cos(theta/2.0)**2)*100
+		var prob0 = round(prob0_raw * 10.0) / 10.0
+		var prob1 = round((100 - prob0) * 10.0) / 10.0
+		if prob0_raw >= 100.0-0.02:
+			measured = true
+			state = 0
+			suppos_allowed = false
+			theta = 0
+			phi = 0
+		elif prob0_raw <= 0.02:
+			measured = true
+			state = 1
+			suppos_allowed = false
+			theta = PI
+			phi = 0
+		hud.get_node("Percent0").text = str(prob0)
+		hud.get_node("Percent1").text = str(prob1)
+		hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
+		hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+	else:
+		update_hud_probabilities()
+		
 	hud.get_node("carried_gate").text = str(carried_gate)
 	
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
 	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a
 	var camera_target
-	if alpha0>= alpha1:
+	if alpha0 >= alpha1:
 		camera_target = camera0
 	else:
 		camera_target = camera1
@@ -278,6 +446,8 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("Interact"):
 		if _is_on_interactable(player) or _is_on_interactable(player_2):
+			if entangled_mode: ## TODO: Improve handling for this case
+				set_state_zero()
 			if !measured:
 				measure()
 		var p
@@ -293,4 +463,20 @@ func _process(delta: float) -> void:
 		var areas = interact_area.get_overlapping_areas()
 		for area in areas:
 			if area.is_in_group("interactables"):
-				puzzle_1.handle_interaction(area)	
+				puzzle_1.handle_interaction(area)
+	
+	if Input.is_action_just_pressed("c_not"):
+		var target = _is_on_entanglable(player)
+		if target == null:
+			target = _is_on_entanglable(player_2)
+		
+		if target != null:
+			entangled_mode = true
+			# player is always the control, object is always the target
+			entangled_state = calculate_entangled_state(phi, theta, target.is_state_zero)
+			entangled_probs = calculate_entangled_probs()
+			edit_hud_items()
+			
+			player.color_sprite()
+			player_2.color_sprite()
+			target.queue_free()
