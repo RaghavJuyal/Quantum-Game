@@ -9,7 +9,7 @@ var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
-var entangled = false
+var entangled_mode = false
 
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
@@ -226,11 +226,11 @@ func _is_on_entanglable(p: Node):
 	var area = p.get_node("interact_area")
 	for body in area.get_overlapping_bodies():
 		if body.is_in_group("entanglables"):
-			return true
+			return body
 	for intarea in area.get_overlapping_areas():
 		if intarea.is_in_group("entanglables"):
-			return true
-	return false
+			return intarea
+	return null
 
 ## PROCESS ##
 
@@ -316,6 +316,35 @@ func _process(delta: float) -> void:
 				puzzle_1.handle_interaction(area)
 				
 	if Input.is_action_just_pressed("c_not"):
-		if _is_on_entanglable(player) or _is_on_entanglable(player_2):
-			entangled = true
-			print("I'm entangled!!")
+		entangled_mode = true
+		var target = _is_on_entanglable(player)
+		if target == null:
+			target = _is_on_entanglable(player_2)
+		
+		if target != null:
+			# player is always the control, object is always the target
+			calculate_entangled_state(phi, theta, target.is_state_zero)
+			target.queue_free()
+
+func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool):
+	var cos = cos(theta / 2.0)
+	var sin = sin(theta / 2.0)
+
+	if target_current_state_zero:
+		# state = cos|00> + e^{i phi} sin|11>
+		var probs = {
+			"|00>": cos * cos,
+			"|01>": 0.0,
+			"|10>": 0.0,
+			"|11>": sin * sin
+		}
+		print("Probabilities: ", probs)
+	else:
+		# state = cos|01> + e^{i phi} sin|10>
+		var probs = {
+			"|00>": 0.0,
+			"|01>": cos * cos,
+			"|10>": sin * sin,
+			"|11>": 0.0
+		}
+		print("Probabilities: ", probs)
