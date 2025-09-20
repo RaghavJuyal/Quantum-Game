@@ -11,10 +11,10 @@ var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
-var entangled_mode = false
 var entangled_state = null
 var entangled_probs = null
 
+@export var entangled_mode = false
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
 @onready var player_2: CharacterBody2D = $Player2
@@ -304,7 +304,7 @@ func measure_entangled() -> String:
 		norm += amp.abs()**2
 	if norm > 0:
 		for i in range(collapsed.size()):
-			collapsed[i] = collapsed[i] / sqrt(norm)
+			collapsed[i] = collapsed[i].div(Complex.new(sqrt(norm), 0))
 
 	# Replace global state
 	entangled_state = collapsed
