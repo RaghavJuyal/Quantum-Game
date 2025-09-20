@@ -24,11 +24,8 @@ func _is_on_interactable():
 			return true
 	return false
 
-func _is_on_entanglable():
-	for body in interact_area.get_overlapping_bodies():
-		if body.is_in_group("entanglables"):
-			return true
-	return false
+func color_sprite():
+	animated_sprite_2d.modulate = Color(0.7, 0.3, 0.9, 0.8)
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.

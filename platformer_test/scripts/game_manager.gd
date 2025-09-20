@@ -1,5 +1,7 @@
 extends Node
 
+const Complex = preload("res://complex.gd")
+
 var score = 0
 var theta = 0
 var phi = 0
@@ -10,6 +12,7 @@ var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
 var entangled_mode = false
+var entangled_state = null
 
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
@@ -323,28 +326,31 @@ func _process(delta: float) -> void:
 		
 		if target != null:
 			# player is always the control, object is always the target
-			calculate_entangled_state(phi, theta, target.is_state_zero)
+			entangled_state = calculate_entangled_state(phi, theta, target.is_state_zero)
 			target.queue_free()
+			player.color_sprite()
+			player_2.color_sprite()
 
-func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool):
-	var cos = cos(theta / 2.0)
-	var sin = sin(theta / 2.0)
-
+func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool) -> Array:
+	var cos_val = cos(theta / 2.0)
+	var sin_val = sin(theta / 2.0)
+	var state: Array
+	var phase = Complex.new(cos(phi), sin(phi))  # e^{i phi}
+	
 	if target_current_state_zero:
-		# state = cos|00> + e^{i phi} sin|11>
-		var probs = {
-			"|00>": cos * cos,
-			"|01>": 0.0,
-			"|10>": 0.0,
-			"|11>": sin * sin
-		}
-		print("Probabilities: ", probs)
+		# [cos, 0, 0, e^{i phi} * sin]
+		state = [
+			cos_val,
+			0,
+			0,
+			phase.mul(Complex.new(sin_val, 0))
+		]
 	else:
-		# state = cos|01> + e^{i phi} sin|10>
-		var probs = {
-			"|00>": 0.0,
-			"|01>": cos * cos,
-			"|10>": sin * sin,
-			"|11>": 0.0
-		}
-		print("Probabilities: ", probs)
+		# [0, cos, e^{i phi} * sin, 0]
+		state = [
+			0,
+			cos_val,
+			phase.mul(Complex.new(sin_val, 0)),
+			0
+		]
+	return state
