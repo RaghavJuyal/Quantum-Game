@@ -135,9 +135,6 @@ func _init_gate_matrices():
 		]
 	}
 
-
-
-
 # --- Helper: get correct matrix name for wire ---
 func _gate_name_for_wire(target:String, gate_type:String) -> String:
 	if gate_type=="CNOT":
@@ -220,7 +217,6 @@ func remove_gate_begin(target:String) -> String:
 	_update_both_visuals()
 	return _picked_gate(up_removed, down_removed, target)
 
-
 func remove_gate_end(target:String) -> String:
 	# Find the rightmost non-middle/middle pair
 	var idx_last := -1
@@ -252,8 +248,6 @@ func remove_gate_end(target:String) -> String:
 	_update_both_visuals()
 	return _picked_gate(up_removed, down_removed, target)
 
-
-
 func _picked_gate(up, down, target) -> String:
 	# CNOT special case
 	if (up == "control" and down == "X") or (up == "X" and down == "control"):
@@ -264,9 +258,6 @@ func _picked_gate(up, down, target) -> String:
 		return up if up != "middle" else ""
 	else:
 		return down if down != "middle" else ""
-
-
-
 
 func _find_leftmost_common_empty_index() -> int:
 	for i in range(wire_up.slots.size()):
@@ -310,7 +301,6 @@ func _run_circuit():
 		print("Target state:")
 		print(_state_to_string(target_state))
 
-
 func _apply_gate(state:Array, gate:Array) -> Array:
 	var result = []
 	for i in range(4):
@@ -324,6 +314,7 @@ func _apply_gate(state:Array, gate:Array) -> Array:
 	#for i in range(4):
 		#if not s1[i].equals(s2[i], tol): return false
 	#return true
+
 func _compare_states(s1:Array, s2:Array, tol:float=1e-4) -> bool:
 	# Compute inner product <s2|s1>
 	var inner = Complex.new(0,0)
@@ -344,6 +335,7 @@ func _compare_states(s1:Array, s2:Array, tol:float=1e-4) -> bool:
 			return false
 
 	return true
+
 # --- Reset ---
 func _reset_both():
 	for i in range(wire_up.slots.size()): wire_up.slots[i]="middle"

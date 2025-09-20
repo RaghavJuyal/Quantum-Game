@@ -7,7 +7,7 @@ var delta_theta = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
-var allowed = true
+var suppos_allowed = true
 var spawn_pos = Vector2.ZERO
 var carried_gate
 
@@ -43,7 +43,7 @@ func _on_timer_timeout():
 func measure():
 	if measured:
 		return state
-	allowed = false
+	suppos_allowed = false
 	var prob0 = cos(theta/2.0)**2
 	var r = randf()
 	if r < prob0:
@@ -191,7 +191,7 @@ func _is_on_interactable(p: Node):
 func _process(delta: float) -> void:
 	# Update Theta
 	delta_theta = delta*PI/2.0
-	if !allowed:
+	if !suppos_allowed:
 		var requester
 		if state == 0:
 			requester = player
@@ -201,8 +201,8 @@ func _process(delta: float) -> void:
 		if _is_on_interactable(player) or _is_on_interactable(player_2):
 			ok = false
 		if ok:
-			allowed = true
-	if allowed:
+			suppos_allowed = true
+	if suppos_allowed:
 		if Input.is_action_pressed("x_rotation"):
 			if measured:
 				state = -1
@@ -225,13 +225,13 @@ func _process(delta: float) -> void:
 	if prob0_raw >= 100.0-0.02:
 		measured = true
 		state = 0
-		allowed = false
+		suppos_allowed = false
 		theta = 0
 		phi = 0
 	elif prob0_raw <= 0.02:
 		measured = true
 		state = 1
-		allowed = false
+		suppos_allowed = false
 		theta = PI
 		phi = 0
 
