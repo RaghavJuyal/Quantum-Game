@@ -12,10 +12,10 @@ var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
 var entangled_state = null
-var entangled_probs = null
 
 @export var entangled_mode = false
 @export var hud: CanvasLayer
+@export var entangled_probs = null
 @onready var player: CharacterBody2D = $Player
 @onready var player_2: CharacterBody2D = $Player2
 @onready var midground: TileMapLayer = $Tilemap/Midground
@@ -301,7 +301,7 @@ func measure_entangled() -> int:
 
 	# Replace global state
 	entangled_state = collapsed
-	calculate_entangled_probs()
+	entangled_probs = calculate_entangled_probs()
 	
 	return outcome_player
 
@@ -344,6 +344,25 @@ func apply_gate_entangled(U: Array) -> void:
 		for j in range(4):
 			new_state[i].add(gate[i][j].mul(entangled_state[j]))
 	entangled_state = new_state
+	entangled_probs = calculate_entangled_probs()
+
+func edit_hud_items() -> void:
+	hud.get_node("BlochSphere").visible = false
+	hud.get_node("0_Bloch").visible = false
+	hud.get_node("1_Bloch").visible = false
+	
+	hud.get_node("0").text = "|01>: "
+	hud.get_node("1").text = "|00>: "
+	hud.get_node("phi").text = "|11>: "
+	hud.get_node("theta").text = "|10>: "
+	
+	update_hud_probabilities()
+
+func update_hud_probabilities() -> void:
+	hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
+	hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
+	hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
+	hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
 
 ## PROCESS ##
 
@@ -408,13 +427,15 @@ func _process(delta: float) -> void:
 		hud.get_node("Percent1").text = str(prob1)
 		hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
 		hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
-	
+	else:
+		update_hud_probabilities()
+		
 	hud.get_node("carried_gate").text = str(carried_gate)
 	
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
 	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a
 	var camera_target
-	if alpha0>= alpha1:
+	if alpha0 >= alpha1:
 		camera_target = camera0
 	else:
 		camera_target = camera1
@@ -452,6 +473,7 @@ func _process(delta: float) -> void:
 			# player is always the control, object is always the target
 			entangled_state = calculate_entangled_state(phi, theta, target.is_state_zero)
 			entangled_probs = calculate_entangled_probs()
+			edit_hud_items()
 			
 			player.color_sprite()
 			player_2.color_sprite()

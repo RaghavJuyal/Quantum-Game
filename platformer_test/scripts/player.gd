@@ -64,8 +64,14 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	game_manager.sync_players()
-	var theta = game_manager.theta
-	if is_state_zero:
-		animated_sprite_2d.self_modulate.a = cos(theta/2.0)**2
-	else:
-		animated_sprite_2d.self_modulate.a = sin(theta/2.0)**2
+	if !game_manager.entangled_mode:
+		var theta = game_manager.theta
+		if is_state_zero:
+			animated_sprite_2d.self_modulate.a = cos(theta/2.0)**2
+		else:
+			animated_sprite_2d.self_modulate.a = sin(theta/2.0)**2
+	else: 
+		if is_state_zero:
+			animated_sprite_2d.self_modulate.a = game_manager.entangled_probs[0]+game_manager.entangled_probs[1]
+		else:
+			animated_sprite_2d.self_modulate.a = game_manager.entangled_probs[2]+game_manager.entangled_probs[3]
