@@ -19,6 +19,8 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
+	# since both players enter, we trigger only once
+	# we remove the player that didn't trigger if fidelity condition fails
 	if triggered:
 		if fidelity < fidelity_threshold:
 			body.get_node("CollisionShape2D").queue_free()
@@ -36,5 +38,6 @@ func _on_body_entered(body: Node2D) -> void:
 		Engine.time_scale = 0.5
 		body.get_node("CollisionShape2D").queue_free()
 		game_manager.schedule_respawn()
+	# removes check zone if passed, but not the label
 	self_node.get_node("CollisionShape2D").queue_free()
 	self_node.get_node("Sprite2D").queue_free()

@@ -7,8 +7,7 @@ var delta_theta = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
-var allowed = true
-var spawn_pos = Vector2.ZERO
+var suppos_allowed = true
 var carried_gate
 
 @export var hud: CanvasLayer
@@ -40,10 +39,13 @@ func _on_timer_timeout():
 	Engine.time_scale = 1
 	get_tree().reload_current_scene()
 
+## SUPERPOSITION HANDLING ##
+
 func measure():
 	if measured:
 		return state
-	allowed = false
+	measured = true
+	suppos_allowed = false
 	var prob0 = cos(theta/2.0)**2
 	var r = randf()
 	if r < prob0:
@@ -55,14 +57,17 @@ func measure():
 		theta = PI
 		phi = 0
 		bloch_vec = Vector3(0, 0, -1)
-	measured = true
-	if state==0:
-		theta = 0
-		camera_2d.global_position = camera_2d.global_position.lerp(camera0.global_position,0.005)
-	else:
-		theta = PI
 		camera_2d.global_position = camera_2d.global_position.lerp(camera1.global_position,0.005)
 	return state
+
+func set_state_zero():
+	state = 0
+	hud.get_node("Percent0").text = str(100.0)
+	hud.get_node("Percent1").text = str(0.0)
+	theta = 0
+	phi = 1
+	bloch_vec = Vector3(0, 0, 1)
+	camera_2d.global_position = camera_2d.global_position.lerp(camera0.global_position,0.005)
 
 func find_safe_spawn(x_global: float, current_is_layer1: bool):
 	var current_layer: TileMapLayer
@@ -74,16 +79,16 @@ func find_safe_spawn(x_global: float, current_is_layer1: bool):
 		current_layer = midground_2
 		target_layer = midground
 	
-	var local = target_layer.to_local(Vector2(x_global,0.0))
-	var cell = target_layer.local_to_map(local)
+	var local_coord = target_layer.to_local(Vector2(x_global,0.0))
+	var cell = target_layer.local_to_map(local_coord)
 	var cell_x = cell.x
-	var used = target_layer.get_used_rect()
+	var target_location = target_layer.get_used_rect()
 	
-	if cell_x < used.position.x or cell_x >= used.position.x + used.size.x:
+	if cell_x < target_location.position.x or cell_x >= target_location.position.x + target_location.size.x:
 		return Vector2.INF
 	
-	var y_from = used.position.y - 2
-	var y_to = used.position.y + used.size.y + 2
+	var y_from = target_location.position.y - 2
+	var y_to = target_location.position.y + target_location.size.y + 2
 	for y in range(y_from, y_to):
 		var ground = Vector2i(cell_x,y)
 		var above = Vector2i(cell_x,y-1)
@@ -97,7 +102,7 @@ func find_safe_spawn(x_global: float, current_is_layer1: bool):
 func try_superposition(requester:CharacterBody2D)->bool:
 	if not measured:
 		return false
-	var requester_is_layer_1 = requester==player
+	var requester_is_layer_1 = (requester == player)
 	var partner 
 	if requester_is_layer_1:
 		partner = player_2
@@ -122,7 +127,7 @@ func get_horizontal_blocked_distance(player):
 			# horizontal blocked, accumulate distance
 			total_blocked += abs(collision.get_remainder().x)
 	return total_blocked
-	
+
 func sync_players():
 	# Skip collapsed players
 	var active_players = []
@@ -149,8 +154,10 @@ func sync_players():
 		leader = active_players[1]
 		follower = active_players[0]
 
-# Snap follower X to leader
+	# Snap follower X to leader
 	follower.global_position.x = leader.global_position.x
+
+## BLOCH SPHERE ##
 
 # Rotate Bloch vector about X axis by angle
 func rotate_x(angle: float) -> void:
@@ -177,6 +184,22 @@ func _update_theta_phi() -> void:
 	phi = atan2(bloch_vec.y, bloch_vec.x)        # -π ≤ φ ≤ π
 	if phi < 0.0:
 		phi += TAU                              # 0 ≤ φ < 2π
+
+func get_bloch_vector(theta_val: float, phi_val: float) -> Vector3:
+	return Vector3(
+		sin(theta_val) * cos(phi_val),
+		sin(theta_val) * sin(phi_val),
+		cos(theta_val)
+	)
+
+func compute_fidelity(target_theta: float, target_phi: float) -> float:
+	var r = get_bloch_vector(theta, phi)
+	var rt = get_bloch_vector(target_theta, target_phi)
+	var dot = r.dot(rt)
+	return 0.5 * (1.0 + dot)
+
+## INTERACTABLE ##
+
 func _is_on_interactable(p: Node):
 	if not p.has_node("interact_area"):
 		print("hold up")
@@ -188,10 +211,12 @@ func _is_on_interactable(p: Node):
 		if area.is_in_group("interactables"):
 			return true
 	return false
+
+## PROCESS ##
+
 func _process(delta: float) -> void:
-	# Update Theta
 	delta_theta = delta*PI/2.0
-	if !allowed:
+	if !suppos_allowed:
 		var requester
 		if state == 0:
 			requester = player
@@ -201,8 +226,8 @@ func _process(delta: float) -> void:
 		if _is_on_interactable(player) or _is_on_interactable(player_2):
 			ok = false
 		if ok:
-			allowed = true
-	if allowed:
+			suppos_allowed = true
+	if suppos_allowed:
 		if Input.is_action_pressed("x_rotation"):
 			if measured:
 				state = -1
@@ -225,13 +250,13 @@ func _process(delta: float) -> void:
 	if prob0_raw >= 100.0-0.02:
 		measured = true
 		state = 0
-		allowed = false
+		suppos_allowed = false
 		theta = 0
 		phi = 0
 	elif prob0_raw <= 0.02:
 		measured = true
 		state = 1
-		allowed = false
+		suppos_allowed = false
 		theta = PI
 		phi = 0
 
@@ -240,16 +265,16 @@ func _process(delta: float) -> void:
 	hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
 	hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
 	hud.get_node("carried_gate").text = str(carried_gate)
+	
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
 	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a
-
-	var target
+	var camera_target
 	if alpha0>= alpha1:
-		target = camera0
+		camera_target = camera0
 	else:
-		target = camera1
+		camera_target = camera1
 
-	camera_2d.global_position = camera_2d.global_position.lerp(target.global_position,0.005)
+	camera_2d.global_position = camera_2d.global_position.lerp(camera_target.global_position,0.005)
 	
 	if Input.is_action_just_pressed("Interact"):
 		if _is_on_interactable(player) or _is_on_interactable(player_2):
@@ -268,30 +293,4 @@ func _process(delta: float) -> void:
 		var areas = interact_area.get_overlapping_areas()
 		for area in areas:
 			if area.is_in_group("interactables"):
-				puzzle_1.handle_interaction(area)
-	# problem with this is if one person dies they go down and so does the camera
-	#camera_2d.global_position = camera_2d.global_position.lerp((camera0.global_position+camera1.global_position)/2.0,0.005)
-	
-	
-	 # Sync movement
-
-func get_bloch_vector(theta_val: float, phi_val: float) -> Vector3:
-	return Vector3(
-		sin(theta_val) * cos(phi_val),
-		sin(theta_val) * sin(phi_val),
-		cos(theta_val)
-	)
-
-func compute_fidelity(target_theta: float, target_phi: float) -> float:
-	var r = get_bloch_vector(theta, phi)
-	var rt = get_bloch_vector(target_theta, target_phi)
-	var dot = r.dot(rt)
-	return 0.5 * (1.0 + dot)
-
-func set_state_zero():
-	state = 0
-	hud.get_node("Percent0").text = str(100.0)
-	hud.get_node("Percent1").text = str(0.0)
-	theta = 0
-	phi = 1
-	bloch_vec = Vector3(0, 0, 1)
+				puzzle_1.handle_interaction(area)	

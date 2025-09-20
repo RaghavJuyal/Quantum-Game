@@ -4,7 +4,5 @@ extends Area2D
 @onready var finish_sound: AudioStreamPlayer2D = $Finish_sound
 
 func _on_body_entered(body: Node2D) -> void:
-	# Detects if player touches coin
 	var state = game_manager.measure()
 	finish_sound.play()
-	

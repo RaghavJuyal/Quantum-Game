@@ -1,4 +1,3 @@
-# complex.gd
 extends Resource
 class_name Complex
 
@@ -46,4 +45,3 @@ static func _create(r: float, i: float) -> Complex:
 	c.re = r
 	c.im = i
 	return c
-	
