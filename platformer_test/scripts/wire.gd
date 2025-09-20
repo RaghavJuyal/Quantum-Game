@@ -26,11 +26,9 @@ func _ready() -> void:
 	_init_slots()
 	_update_wire_visuals()
 
-
 func _hide_gate_templates() -> void:
 	for gate in gate_templates.values():
 		gate.hide()
-
 
 func _init_slots() -> void:
 	slots.clear()
@@ -41,7 +39,6 @@ func _init_slots() -> void:
 		middle_copy.show()
 		add_child(middle_copy)
 		slot_nodes.append(middle_copy)
-
 
 func _update_wire_visuals() -> void:
 	begin0.visible = (begin_variant == 0)
@@ -70,7 +67,6 @@ func _update_wire_visuals() -> void:
 	middle_template.hide() 
 	end_sprite.position = base + Vector2((middle_count + 1) * mid_w, 0)
 
-
 # --- Gate management ---
 func add_gate_begin(gate_type: String) -> void:
 	if _is_full():
@@ -81,7 +77,6 @@ func add_gate_begin(gate_type: String) -> void:
 		slots.pop_back()
 
 	_update_wire_visuals()
-
 
 func add_gate_end(gate_type: String) -> void:
 	if _is_full():
@@ -95,7 +90,6 @@ func add_gate_end(gate_type: String) -> void:
 
 	_update_wire_visuals()
 
-
 func remove_gate_begin() -> void:
 	# Only remove if the first slot is a gate
 	if slots[0] != "middle":
@@ -104,7 +98,6 @@ func remove_gate_begin() -> void:
 		slots.append("middle")
 		_update_wire_visuals()
 
-
 func remove_gate_end() -> void:
 	for i in range(slots.size() - 1, -1, -1):
 		if slots[i] != "middle":
@@ -112,12 +105,10 @@ func remove_gate_end() -> void:
 			break
 	_update_wire_visuals()
 
-
 func reset_gates() -> void:
 	for i in range(slots.size()):
 		slots[i] = "middle"
 	_update_wire_visuals()
-
 
 # --- Helpers ---
 func _is_full() -> bool:
@@ -172,7 +163,6 @@ func is_slot_empty(index:int) -> bool:
 	if index < 0 or index >= slots.size():
 		return false
 	return slots[index] == "middle"
-
 
 func _process(delta: float) -> void:
 	#if Input.is_action_just_pressed("x_rotation"):
