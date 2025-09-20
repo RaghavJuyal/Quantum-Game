@@ -69,5 +69,6 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.self_modulate.a = cos(theta/2.0)**2
 	else:
 		animated_sprite_2d.self_modulate.a = sin(theta/2.0)**2
-	
-	
+
+func entangled_colour():
+	animated_sprite_2d.modulate = Color(0.7, 0.3, 0.9, 0.5)
