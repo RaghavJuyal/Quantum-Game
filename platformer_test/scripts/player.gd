@@ -24,6 +24,12 @@ func _is_on_interactable():
 			return true
 	return false
 
+func _is_on_entanglable():
+	for body in interact_area.get_overlapping_bodies():
+		if body.is_in_group("entanglables"):
+			return true
+	return false
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():

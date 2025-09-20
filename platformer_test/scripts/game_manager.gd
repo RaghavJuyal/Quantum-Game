@@ -9,6 +9,7 @@ var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
+var entangled = false
 
 @export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
@@ -20,12 +21,19 @@ var carried_gate
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var timer: Timer = $Timer
 @onready var puzzle_1: Node = $Puzzle_1
+@onready var gem: Node = $Gem
 
 func _ready() -> void:
 	score = 0
 	camera_2d.make_current()
 	camera_2d.global_position = camera0.global_position
 	carried_gate = ""
+	var entanglables = [
+		gem
+	]
+	for block in entanglables:
+		if block != null:
+			block.add_to_group("entanglables")
 
 func add_point():
 	# Update coins collected
@@ -198,7 +206,7 @@ func compute_fidelity(target_theta: float, target_phi: float) -> float:
 	var dot = r.dot(rt)
 	return 0.5 * (1.0 + dot)
 
-## INTERACTABLE ##
+## INTERACTABLE / ENTANGLABLE ##
 
 func _is_on_interactable(p: Node):
 	if not p.has_node("interact_area"):
@@ -208,7 +216,19 @@ func _is_on_interactable(p: Node):
 		if body.is_in_group("interactables"):
 			return true
 	for intarea in area.get_overlapping_areas():
-		if area.is_in_group("interactables"):
+		if intarea.is_in_group("interactables"):
+			return true
+	return false
+
+func _is_on_entanglable(p: Node):
+	if not p.has_node("interact_area"):
+		print("hold up") # shouldn't happen
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("entanglables"):
+			return true
+	for intarea in area.get_overlapping_areas():
+		if intarea.is_in_group("entanglables"):
 			return true
 	return false
 
@@ -293,4 +313,9 @@ func _process(delta: float) -> void:
 		var areas = interact_area.get_overlapping_areas()
 		for area in areas:
 			if area.is_in_group("interactables"):
-				puzzle_1.handle_interaction(area)	
+				puzzle_1.handle_interaction(area)
+				
+	if Input.is_action_just_pressed("c_not"):
+		if _is_on_entanglable(player) or _is_on_entanglable(player_2):
+			entangled = true
+			print("I'm entangled!!")
