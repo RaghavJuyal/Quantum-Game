@@ -286,7 +286,7 @@ shape = SubResource("WorldBoundaryShape2D_p57ef")
 [node name="Coins" type="Node" parent="GameManager"]
 
 [node name="Coin" parent="GameManager/Coins" instance=ExtResource("4_lbhrr")]
-position = Vector2(120, -72)
+position = Vector2(166, -69)
 
 [node name="Coin2" parent="GameManager/Coins" instance=ExtResource("4_lbhrr")]
 position = Vector2(119, -23)

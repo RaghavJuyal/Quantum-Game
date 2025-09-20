@@ -339,10 +339,12 @@ func apply_gate_entangled(U: Array) -> void:
 		[Complex.new(0,0), Complex.new(0,0), U[0][0], U[0][1]],
 		[Complex.new(0,0), Complex.new(0,0), U[1][0], U[1][1]]
 	]
-	var new_state = [Complex.new(0,0), Complex.new(0,0), Complex.new(0,0), Complex.new(0,0)]
+	var new_state = []
 	for i in range(4):
+		var acc = Complex.new(0,0)  # fresh accumulator
 		for j in range(4):
-			new_state[i].add(gate[i][j].mul(entangled_state[j]))
+			acc = acc.add(gate[i][j].mul(entangled_state[j])) 
+		new_state.append(acc)
 	entangled_state = new_state
 	entangled_probs = calculate_entangled_probs()
 
