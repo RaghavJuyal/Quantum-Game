@@ -267,18 +267,11 @@ func calculate_entangled_probs():
 	var probs = []
 	for amp in entangled_state:
 		probs.append(amp.abs()**2)
-	
-	# normalize (safety)
-	#var total = 0.0
-	#for p in probs:
-		#total += p
-	#if total > 0:
-		#for i in range(probs.size()):
-			#probs[i] /= total
-	
 	return probs
 
-func measure_entangled() -> String:
+func measure_entangled() -> int:
+	measured = true
+	
 	# Compute marginal probs for measuring player qubit in Z
 	var prob_zero = entangled_probs[0] + entangled_probs[1]
 	var prob_one  = entangled_probs[2] + entangled_probs[3]
@@ -309,10 +302,48 @@ func measure_entangled() -> String:
 	# Replace global state
 	entangled_state = collapsed
 	calculate_entangled_probs()
+	
+	return outcome_player
 
-	# Outcome string
-	var outcome_label = str(outcome_player)
-	return outcome_label
+func rotate_x_entangled(angle: float) -> void:
+	var c = cos(angle/2.0)
+	var s = -sin(angle/2.0) # minus for exp(-i θ σ/2)
+	var x_gate = [
+		[Complex.new(c, 0), Complex.new(0, s)],
+		[Complex.new(0, s), Complex.new(c, 0)]
+	]
+	apply_gate_entangled(x_gate)
+
+func rotate_y_entangled(angle: float) -> void:
+	var c = cos(angle/2.0)
+	var s = sin(angle/2.0)
+	var y_gate = [
+		[Complex.new(c, 0), Complex.new(-s, 0)],
+		[Complex.new(s, 0), Complex.new(c, 0)]
+	]
+	apply_gate_entangled(y_gate)
+
+func rotate_z_entangled(angle: float) -> void:
+	var e_minus = Complex.new(cos(-angle/2.0), sin(-angle/2.0))
+	var e_plus  = Complex.new(cos(angle/2.0),  sin(angle/2.0))
+	var z_gate = [
+		[ e_minus, Complex.new(0,0)],
+		[ Complex.new(0,0), e_plus ]
+	]
+	apply_gate_entangled(z_gate)
+
+func apply_gate_entangled(U: Array) -> void:
+	var gate = [
+		[U[0][0], U[0][1], Complex.new(0,0), Complex.new(0,0)],
+		[U[1][0], U[1][1], Complex.new(0,0), Complex.new(0,0)],
+		[Complex.new(0,0), Complex.new(0,0), U[0][0], U[0][1]],
+		[Complex.new(0,0), Complex.new(0,0), U[1][0], U[1][1]]
+	]
+	var new_state = [Complex.new(0,0), Complex.new(0,0), Complex.new(0,0), Complex.new(0,0)]
+	for i in range(4):
+		for j in range(4):
+			new_state[i].add(gate[i][j].mul(entangled_state[j]))
+	entangled_state = new_state
 
 ## PROCESS ##
 
@@ -333,41 +364,51 @@ func _process(delta: float) -> void:
 		if Input.is_action_pressed("x_rotation"):
 			if measured:
 				state = -1
-			rotate_x(delta_theta)
+			if !entangled_mode:
+				rotate_x(delta_theta)
+			else:
+				rotate_x_entangled(delta_theta)
 		if Input.is_action_pressed("y_rotation"):
 			if measured:
 				state = -1
-			rotate_y(delta_theta)
+			if !entangled_mode:
+				rotate_y(delta_theta)
+			else:
+				rotate_y_entangled(delta_theta)
 		if Input.is_action_pressed("z_rotation"):
 			if measured:
 				state = -1
-			rotate_z(delta_theta)
+			if !entangled_mode:
+				rotate_z(delta_theta)
+			else:
+				rotate_z_entangled(delta_theta)
 	if Input.is_action_pressed("Measure"):
 		if !measured and !entangled_mode:
 			measure()
 		elif !measured and entangled_mode:
 			measure_entangled()
-		
-	var prob0_raw = (cos(theta/2.0)**2)*100
-	var prob0 = round(prob0_raw * 10.0) / 10.0
-	var prob1 = round((100 - prob0) * 10.0) / 10.0
-	if prob0_raw >= 100.0-0.02:
-		measured = true
-		state = 0
-		suppos_allowed = false
-		theta = 0
-		phi = 0
-	elif prob0_raw <= 0.02:
-		measured = true
-		state = 1
-		suppos_allowed = false
-		theta = PI
-		phi = 0
 
-	hud.get_node("Percent0").text = str(prob0)
-	hud.get_node("Percent1").text = str(prob1)
-	hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
-	hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+	if !entangled_mode:
+		var prob0_raw = (cos(theta/2.0)**2)*100
+		var prob0 = round(prob0_raw * 10.0) / 10.0
+		var prob1 = round((100 - prob0) * 10.0) / 10.0
+		if prob0_raw >= 100.0-0.02:
+			measured = true
+			state = 0
+			suppos_allowed = false
+			theta = 0
+			phi = 0
+		elif prob0_raw <= 0.02:
+			measured = true
+			state = 1
+			suppos_allowed = false
+			theta = PI
+			phi = 0
+		hud.get_node("Percent0").text = str(prob0)
+		hud.get_node("Percent1").text = str(prob1)
+		hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
+		hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+	
 	hud.get_node("carried_gate").text = str(carried_gate)
 	
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
