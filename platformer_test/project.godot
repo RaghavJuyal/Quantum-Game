@@ -23,6 +23,10 @@ Music="*res://scenes/music.tscn"
 
 project/assembly_name="Platformer_Test"
 
+[global_group]
+
+entanglable="Things the player can entangle with."
+
 [input]
 
 jump={

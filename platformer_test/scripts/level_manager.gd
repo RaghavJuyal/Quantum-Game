@@ -176,6 +176,7 @@ func _update_theta_phi() -> void:
 	phi = atan2(bloch_vec.y, bloch_vec.x)        # -π ≤ φ ≤ π
 	if phi < 0.0:
 		phi += TAU                              # 0 ≤ φ < 2π
+
 func _is_on_interactable(p: Node):
 	if not p.has_node("interact_area"):
 		print("hold up")
@@ -187,6 +188,7 @@ func _is_on_interactable(p: Node):
 		if area.is_in_group("interactables"):
 			return true
 	return false
+
 func _process(delta: float) -> void:
 	# Update Theta
 	delta_theta = delta*PI/2.0
@@ -262,10 +264,9 @@ func _process(delta: float) -> void:
 		var interact_area = p.get_node("interact_area")
 		var bodies = interact_area.get_overlapping_bodies()
 		var areas = interact_area.get_overlapping_areas()
+
 	# problem with this is if one person dies they go down and so does the camera
 	#camera_2d.global_position = camera_2d.global_position.lerp((camera0.global_position+camera1.global_position)/2.0,0.005)
-	
-	
 	 # Sync movement
 
 func get_bloch_vector(theta_val: float, phi_val: float) -> Vector3:

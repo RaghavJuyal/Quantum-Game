@@ -365,7 +365,7 @@ position = Vector2(-16, -77)
 
 [node name="HUD" parent="GameManager" instance=ExtResource("10_vtaks")]
 
-[node name="key" parent="GameManager" instance=ExtResource("14_ir15t")]
+[node name="key" parent="GameManager" groups=["entanglable"] instance=ExtResource("14_ir15t")]
 position = Vector2(280, -70)
 
 [node name="Camera2D" type="Camera2D" parent="GameManager"]
