@@ -241,7 +241,6 @@ func _is_on_entanglable(p: Node):
 func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool) -> Array:
 	var cos_val = Complex.new(cos(theta / 2.0), 0)
 	var sin_val = Complex.new(sin(theta / 2.0), 0)
-	var zero = Complex.new(0, 0)
 	var state: Array
 	var phase = Complex.new(cos(phi), sin(phi))  # e^{i phi}
 	
@@ -249,17 +248,17 @@ func calculate_entangled_state(phi: float, theta: float, target_current_state_ze
 		# [cos, 0, 0, e^{i phi} * sin]
 		state = [
 			cos_val,
-			zero,
-			zero,
+			Complex.new(0, 0),
+			Complex.new(0, 0),
 			phase.mul(sin_val)
 		]
 	else:
 		# [0, cos, e^{i phi} * sin, 0]
 		state = [
-			zero,
+			Complex.new(0, 0),
 			cos_val,
 			phase.mul(sin_val),
-			zero
+			Complex.new(0, 0)
 		]
 	return state
 
@@ -270,7 +269,10 @@ func calculate_entangled_probs():
 	return probs
 
 func measure_entangled() -> int:
+	if measured:
+		return state
 	measured = true
+	suppos_allowed = false
 	
 	# Compute marginal probs for measuring player qubit in Z
 	var prob_zero = entangled_probs[0] + entangled_probs[1]
@@ -302,7 +304,7 @@ func measure_entangled() -> int:
 	# Replace global state
 	entangled_state = collapsed
 	entangled_probs = calculate_entangled_probs()
-	
+	state = outcome_player
 	return outcome_player
 
 func rotate_x_entangled(angle: float) -> void:
