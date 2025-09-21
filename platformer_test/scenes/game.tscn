@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=23 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/measurement_pad.tscn" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://kjwmsthli58l" path="res://scenes/gem.tscn" id="14_ir15t"]
 [ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/test.gd" id="15_ir15t"]
+[ext_resource type="PackedScene" path="res://scenes/puzzle_1.tscn" id="16_ca42v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -347,7 +348,7 @@ theme_override_font_sizes/font_size = 32
 text = "THE END"
 
 [node name="suppos_pad" parent="GameManager" instance=ExtResource("11_kvuet")]
-position = Vector2(1102, 2)
+position = Vector2(80, 2)
 
 [node name="Target" type="Label" parent="GameManager/suppos_pad"]
 offset_left = -87.0
@@ -366,7 +367,7 @@ text = "##"
 zoom = Vector2(3, 3)
 
 [node name="Gem" parent="GameManager" instance=ExtResource("14_ir15t")]
-position = Vector2(56, -69)
+position = Vector2(1329, -69)
 
 [node name="Timer" type="Timer" parent="GameManager"]
 wait_time = 0.6
@@ -376,6 +377,10 @@ one_shot = true
 script = ExtResource("15_ir15t")
 
 [node name="measurement_pad" parent="." instance=ExtResource("12_dinhu")]
-position = Vector2(1228, -78)
+position = Vector2(679, -78)
+
+[node name="Puzzle_1" parent="." instance=ExtResource("16_ca42v")]
 
 [connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]
+
+[editable path="Puzzle_1"]

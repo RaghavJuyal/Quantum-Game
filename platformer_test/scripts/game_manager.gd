@@ -25,7 +25,7 @@ var entangled_state = null
 @onready var camera0: Camera2D = $Player/Camera2D
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var timer: Timer = $Timer
-@onready var puzzle_1: Node = $Puzzle_1
+@onready var puzzle_1: Node = $"../Puzzle_1"
 @onready var gem: Node = $Gem
 
 func _ready() -> void:

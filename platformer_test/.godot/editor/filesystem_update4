@@ -1,6 +1,2 @@
 res://scenes/game.tscn
-res://scenes/gem.tscn
-res://scenes/hud.tscn
-res://scenes/player.tscn
 res://scripts/game_manager.gd
-res://scripts/suppos_pad.gd
