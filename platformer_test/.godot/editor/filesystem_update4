@@ -1,2 +1,3 @@
 res://scenes/game.tscn
+res://scenes/puzzle_1.tscn
 res://scripts/game_manager.gd
