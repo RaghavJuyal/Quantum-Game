@@ -8,6 +8,7 @@ var phi = 0
 var delta_theta = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var measured: bool = false
+var measured_only_player: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
@@ -126,6 +127,7 @@ func try_superposition(requester:CharacterBody2D)->bool:
 	
 	partner.global_position = spawn_at
 	measured = false
+	measured_only_player = false
 	state = -1
 	return true
 
@@ -271,7 +273,45 @@ func calculate_entangled_probs():
 func measure_entangled() -> int:
 	if measured:
 		return state
+	
 	measured = true
+	suppos_allowed = false
+
+	# Sample outcome from full joint distribution
+	var r = randf()
+	var cumulative = 0.0
+	var outcome_idx = 0
+	for i in range(entangled_probs.size()):
+		cumulative += entangled_probs[i]
+		if r < cumulative:
+			outcome_idx = i
+			break
+
+	# Collapse: keep only chosen basis state
+	var collapsed: Array = []
+	for i in range(4):
+		if i == outcome_idx:
+			collapsed.append(Complex.new(1, 0))  # pure basis state
+		else:
+			collapsed.append(Complex.new(0, 0))
+
+	# Replace global state
+	entangled_state = collapsed
+	entangled_probs = calculate_entangled_probs()
+
+	if outcome_idx == 0 or outcome_idx == 1:
+		state = 0
+	else:
+		state = 1
+
+	return state
+
+func measure_entangled_only_player() -> int:
+	if measured:
+		return state
+	if measured_only_player:
+		return state
+	measured_only_player = true
 	suppos_allowed = false
 	
 	# Compute marginal probs for measuring player qubit in Z
@@ -412,6 +452,9 @@ func _process(delta: float) -> void:
 			measure()
 		elif !measured and entangled_mode:
 			measure_entangled()
+	if Input.is_action_just_pressed("EntMeasureOnlyPlayer"):
+		if entangled_mode and !measured and !measured_only_player:
+			measure_entangled_only_player()
 
 	if !entangled_mode:
 		var prob0_raw = (cos(theta/2.0)**2)*100
