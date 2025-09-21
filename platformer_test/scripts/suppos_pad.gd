@@ -18,6 +18,8 @@ func _ready() -> void:
 	fidelity_label.text = "Target state:\nθ = %.2f, φ = %.2f" % [round(rad_to_deg(target_theta)*10)/10, round(rad_to_deg(target_phi)*10)/10]
 
 func _on_body_entered(body: Node2D) -> void:
+	if game_manager.entangled_mode:
+		return # TODO: Figure out better handling
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
 	# since both players enter, we trigger only once
 	# we remove the player that didn't trigger if fidelity condition fails
