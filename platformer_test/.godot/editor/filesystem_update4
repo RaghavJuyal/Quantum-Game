@@ -1,3 +1,5 @@
 res://scenes/game.tscn
+res://scripts/level_manager.gd
+res://scripts/finish.gd
 res://scenes/puzzle_1.tscn
-res://scripts/game_manager.gd
+res://scenes/level0.tscn
