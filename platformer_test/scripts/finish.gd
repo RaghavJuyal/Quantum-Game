@@ -9,3 +9,4 @@ func _on_body_entered(body: Node2D) -> void:
 		measured_state = game_manager.measure()
 	else:
 		measured_state = game_manager.measure_entangled()
+	finish_sound.play()

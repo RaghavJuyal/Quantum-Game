@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=4 uid="uid://b3167q6xah8d"]
+[gd_scene load_steps=19 format=4 uid="uid://b3167q6xah8d"]
 
 [ext_resource type="Script" uid="uid://b6eeiu8etolwq" path="res://scripts/level_manager.gd" id="1_ooohs"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="2_rb68y"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://clveei1rqh67u" path="res://scenes/suppos_pad.tscn" id="11_tmlue"]
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/measurement_pad.tscn" id="12_uw5x2"]
 [ext_resource type="PackedScene" uid="uid://cavk2o4ctghvk" path="res://scenes/hud.tscn" id="13_7mtyo"]
+[ext_resource type="PackedScene" uid="uid://d3h8bqmmiqq2n" path="res://scenes/texts.tscn" id="13_pnrra"]
 [ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/test.gd" id="14_jahao"]
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/finish.tscn" id="14_ooohs"]
 
@@ -335,6 +336,10 @@ zoom = Vector2(3, 3)
 [node name="Timer" type="Timer" parent="GameManager"]
 wait_time = 0.6
 one_shot = true
+
+[node name="texts" type="Node" parent="GameManager"]
+
+[node name="TextEdit" parent="GameManager/texts" instance=ExtResource("13_pnrra")]
 
 [node name="test" type="Node" parent="GameManager"]
 script = ExtResource("14_jahao")

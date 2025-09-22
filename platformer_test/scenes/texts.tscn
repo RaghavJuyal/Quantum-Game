@@ -1,0 +1,33 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3h8bqmmiqq2n"]
+
+[ext_resource type="Texture2D" uid="uid://w24q7dfxp46c" path="res://assets/sprites/dialog_box.png" id="1_j44tr"]
+
+[node name="TextEdit" type="TextEdit"]
+clip_contents = false
+custom_minimum_size = Vector2(1, 1)
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_direction = 2
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("1_j44tr")
+region_rect = Rect2(0, 0, 48, 48)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 23.0
+scale = Vector2(0.4, 0.25)
+
+[node name="Label" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+vertical_alignment = 1
+autowrap_mode = 2
