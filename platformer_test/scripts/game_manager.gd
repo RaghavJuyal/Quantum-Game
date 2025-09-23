@@ -14,6 +14,7 @@ var suppos_allowed = true
 var carried_gate
 var entangled_state = null
 var hold_gem = false
+var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 
 @export var entangled_mode = false
 @export var hud: CanvasLayer
@@ -65,13 +66,7 @@ func measure():
 	if r < prob0:
 		set_state_zero()
 	else:
-		state = 1
-		hud.get_node("Percent0").text = str(0.0)
-		hud.get_node("Percent1").text = str(100.0)
-		theta = PI
-		phi = 0
-		bloch_vec = Vector3(0, 0, -1)
-		camera_2d.global_position = camera_2d.global_position.lerp(camera1.global_position,0.005)
+		set_state_one()
 	return state
 
 func set_state_zero():
@@ -82,6 +77,15 @@ func set_state_zero():
 	phi = 1
 	bloch_vec = Vector3(0, 0, 1)
 	camera_2d.global_position = camera_2d.global_position.lerp(camera0.global_position,0.005)
+
+func set_state_one():
+	state = 1
+	hud.get_node("Percent0").text = str(0.0)
+	hud.get_node("Percent1").text = str(100.0)
+	theta = PI
+	phi = 0
+	bloch_vec = Vector3(0, 0, -1)
+	camera_2d.global_position = camera_2d.global_position.lerp(camera1.global_position,0.005)
 
 func find_safe_spawn(x_global: float, current_is_layer1: bool):
 	var current_layer: TileMapLayer
@@ -305,8 +309,10 @@ func measure_entangled() -> int:
 
 	if outcome_idx == 0 or outcome_idx == 1:
 		state = 0
+		set_state_zero()
 	else:
 		state = 1
+		set_state_one()
 
 	return state
 
@@ -420,6 +426,14 @@ func de_entangle(outcome_idx: int) -> void:
 	entangled_mode = false
 	if (outcome_idx == 1 or outcome_idx == 2) and hold_gem:
 		hold_gem = false
+		var gem = gem_scene.instantiate()
+		if outcome_idx == 1:
+			gem.is_state_zero = false
+			gem.global_position = player_2.global_position + Vector2(0, -10)
+		else:
+			gem.is_state_zero = true
+			gem.global_position = player.global_position + Vector2(0, -10)
+		get_tree().current_scene.add_child(gem)
 	
 	edit_hud_deentangle()
 	
