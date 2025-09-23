@@ -525,7 +525,7 @@ text = "##"
 zoom = Vector2(3, 3)
 
 [node name="Gem" parent="GameManager" instance=ExtResource("14_ir15t")]
-position = Vector2(1329, -69)
+position = Vector2(120, -70)
 
 [node name="Timer" type="Timer" parent="GameManager"]
 wait_time = 0.6
