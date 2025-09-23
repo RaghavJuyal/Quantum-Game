@@ -393,6 +393,7 @@ func apply_gate_entangled(U: Array) -> void:
 	entangled_probs = calculate_entangled_probs()
 
 func edit_hud_items() -> void:
+	hud.get_node("gem_carried").visible = true
 	hud.get_node("BlochSphere").visible = false
 	hud.get_node("0_Bloch").visible = false
 	hud.get_node("1_Bloch").visible = false
