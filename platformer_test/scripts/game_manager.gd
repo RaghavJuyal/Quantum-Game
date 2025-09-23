@@ -434,6 +434,7 @@ func de_entangle(outcome_idx: int) -> void:
 			gem.is_state_zero = true
 			gem.global_position = player.global_position + Vector2(0, -10)
 		get_tree().current_scene.add_child(gem)
+		gem.add_to_group("entanglables")
 	
 	edit_hud_deentangle()
 	
