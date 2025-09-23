@@ -474,3 +474,11 @@ func _process(delta: float) -> void:
 			player.color_sprite()
 			player_2.color_sprite()
 			target.queue_free()
+
+func Stopper() -> void:
+	player.stop = true
+	player_2.stop = true
+	
+func Starter() -> void:
+	player.stop = false
+	player_2.stop = false

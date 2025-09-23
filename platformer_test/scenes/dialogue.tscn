@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://jfixbjr8sth4"]
+
+[ext_resource type="Script" uid="uid://dukfi2rdrlnxs" path="res://scenes/dialogue_area.gd" id="1_jwyou"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vidaj"]
+size = Vector2(74, 74)
+
+[node name="dialogue" type="Area2D"]
+script = ExtResource("1_jwyou")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_vidaj")
