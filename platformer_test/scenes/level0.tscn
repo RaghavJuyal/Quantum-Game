@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://b3167q6xah8d"]
+[gd_scene load_steps=20 format=4 uid="uid://b3167q6xah8d"]
 
 [ext_resource type="Script" uid="uid://b6eeiu8etolwq" path="res://scripts/level_manager.gd" id="1_ooohs"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="2_rb68y"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://d3h8bqmmiqq2n" path="res://scenes/texts.tscn" id="13_pnrra"]
 [ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/test.gd" id="14_jahao"]
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/finish.tscn" id="14_ooohs"]
+[ext_resource type="PackedScene" uid="uid://jfixbjr8sth4" path="res://scenes/dialogue.tscn" id="15_yoi1k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("3_jmh5o")
@@ -337,12 +338,25 @@ zoom = Vector2(3, 3)
 wait_time = 0.6
 one_shot = true
 
-[node name="texts" type="Node" parent="GameManager"]
-
-[node name="TextEdit" parent="GameManager/texts" instance=ExtResource("13_pnrra")]
-
 [node name="test" type="Node" parent="GameManager"]
 script = ExtResource("14_jahao")
+
+[node name="Textcontainer" type="CanvasLayer" parent="GameManager"]
+offset = Vector2(95, 300)
+transform = Transform2D(1, 0, 0, 1, 95, 300)
+
+[node name="texts" type="Node" parent="GameManager/Textcontainer"]
+
+[node name="TextEdit" parent="GameManager/Textcontainer/texts" instance=ExtResource("13_pnrra")]
+offset_left = -96.0
+offset_top = -32.0
+offset_right = -88.0
+offset_bottom = -24.0
+
+[node name="text_areas" type="Node2D" parent="GameManager"]
+
+[node name="dialogue0" parent="GameManager/text_areas" instance=ExtResource("15_yoi1k")]
+position = Vector2(184, -96)
 
 [node name="Finish" parent="." instance=ExtResource("14_ooohs")]
 position = Vector2(1456, -80)
