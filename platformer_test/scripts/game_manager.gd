@@ -467,10 +467,10 @@ func instantiate_gem(level_zero: bool) -> void:
 func instantiate_gem_process():
 	# Drop gem if holding
 	if hold_gem:
-		if state == 0:
-			instantiate_gem(false)
-		else:
+		if cos(theta/2.0)**2 > 0.5:
 			instantiate_gem(true)
+		else:
+			instantiate_gem(false)
 
 ## PROCESS ##
 
