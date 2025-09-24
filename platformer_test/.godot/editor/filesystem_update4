@@ -1,5 +1,8 @@
+res://scenes/text_box.tscn
+res://scenes/level0.tscn
 res://scenes/game.tscn
-res://scripts/game_manager.gd
 res://scenes/gem.tscn
-res://scripts/player.gd
-res://scenes/hud.tscn
+res://scenes/finish.tscn
+res://scripts/level_manager.gd
+res://scenes/texts.tscn
+

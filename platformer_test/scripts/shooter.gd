@@ -4,6 +4,7 @@ extends Node2D
 @export var fire_rate: float = 0.5   # seconds between shots
 @export var bullet_offset: Vector2 = Vector2(10, 0)
 @export var direction := 1  # 1 = right, -1 = left
+var stop = false
 
 var timer := 0.0
 
@@ -11,10 +12,11 @@ func _ready():
 	$AnimatedSprite2D.flip_h = (direction == -1)
 
 func _process(delta: float) -> void:
-	timer += delta
-	if timer >= fire_rate:
-		fire_bullet()
-		timer = 0.0
+	if !stop:
+		timer += delta
+		if timer >= fire_rate:
+			fire_bullet()
+			timer = 0.0
 
 func fire_bullet():
 	if bullet_scene:
