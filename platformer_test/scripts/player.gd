@@ -27,6 +27,9 @@ func _is_on_interactable():
 func color_sprite():
 	animated_sprite_2d.modulate = Color(0.7, 0.3, 0.9, 0.8)
 
+func uncolor_sprite():
+	animated_sprite_2d.modulate = Color(1, 1, 1, 1)
+
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():

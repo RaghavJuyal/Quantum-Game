@@ -13,6 +13,8 @@ var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
 var entangled_state = null
+var hold_gem = false
+var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 
 @export var entangled_mode = false
 @export var hud: CanvasLayer
@@ -64,13 +66,7 @@ func measure():
 	if r < prob0:
 		set_state_zero()
 	else:
-		state = 1
-		hud.get_node("Percent0").text = str(0.0)
-		hud.get_node("Percent1").text = str(100.0)
-		theta = PI
-		phi = 0
-		bloch_vec = Vector3(0, 0, -1)
-		camera_2d.global_position = camera_2d.global_position.lerp(camera1.global_position,0.005)
+		set_state_one()
 	return state
 
 func set_state_zero():
@@ -81,6 +77,15 @@ func set_state_zero():
 	phi = 1
 	bloch_vec = Vector3(0, 0, 1)
 	camera_2d.global_position = camera_2d.global_position.lerp(camera0.global_position,0.005)
+
+func set_state_one():
+	state = 1
+	hud.get_node("Percent0").text = str(0.0)
+	hud.get_node("Percent1").text = str(100.0)
+	theta = PI
+	phi = 0
+	bloch_vec = Vector3(0, 0, -1)
+	camera_2d.global_position = camera_2d.global_position.lerp(camera1.global_position,0.005)
 
 func find_safe_spawn(x_global: float, current_is_layer1: bool):
 	var current_layer: TileMapLayer
@@ -178,18 +183,21 @@ func rotate_x(angle: float) -> void:
 	var rot = Basis(Vector3(1, 0, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
+	instantiate_gem_process()
 
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
+	instantiate_gem_process()
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
 	var rot = Basis(Vector3(0, 0, 1), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
+	instantiate_gem_process()
 
 # Convert cartesian bloch_vec → spherical angles
 func _update_theta_phi() -> void:
@@ -286,23 +294,28 @@ func measure_entangled() -> int:
 		if r < cumulative:
 			outcome_idx = i
 			break
+	
+	# ========================= #
+	# no need to update anymore because we collapse 2 qubit state
+	# but this exists in case we want to add it back
+	# var collapsed: Array = []
+	# for i in range(4):
+		# if i == outcome_idx:
+			# collapsed.append(Complex.new(1, 0))  # pure basis state
+		# else:
+			# collapsed.append(Complex.new(0, 0))
+	# entangled_state = collapsed
+	# entangled_probs = calculate_entangled_probs()
+	# ========================= #
 
-	# Collapse: keep only chosen basis state
-	var collapsed: Array = []
-	for i in range(4):
-		if i == outcome_idx:
-			collapsed.append(Complex.new(1, 0))  # pure basis state
-		else:
-			collapsed.append(Complex.new(0, 0))
-
-	# Replace global state
-	entangled_state = collapsed
-	entangled_probs = calculate_entangled_probs()
+	de_entangle(outcome_idx)
 
 	if outcome_idx == 0 or outcome_idx == 1:
 		state = 0
+		set_state_zero()
 	else:
 		state = 1
+		set_state_one()
 
 	return state
 
@@ -392,7 +405,9 @@ func apply_gate_entangled(U: Array) -> void:
 	entangled_state = new_state
 	entangled_probs = calculate_entangled_probs()
 
-func edit_hud_items() -> void:
+func edit_hud_entangle() -> void:
+	if hold_gem:
+		hud.get_node("gem_carried").visible = true
 	hud.get_node("BlochSphere").visible = false
 	hud.get_node("0_Bloch").visible = false
 	hud.get_node("1_Bloch").visible = false
@@ -402,13 +417,60 @@ func edit_hud_items() -> void:
 	hud.get_node("phi").text = "|11>: "
 	hud.get_node("theta").text = "|10>: "
 	
-	update_hud_probabilities()
+	update_hud_entangle()
 
-func update_hud_probabilities() -> void:
+func update_hud_entangle() -> void:
 	hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
 	hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
 	hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
 	hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
+
+func de_entangle(outcome_idx: int) -> void:
+	entangled_mode = false
+	if hold_gem:
+		if outcome_idx == 1:
+			instantiate_gem(false)
+		elif outcome_idx == 2:
+			instantiate_gem(true)
+	
+	edit_hud_deentangle()
+	
+	player.uncolor_sprite()
+	player_2.uncolor_sprite()
+
+func edit_hud_deentangle() -> void:
+	if !hold_gem:
+		hud.get_node("gem_carried").visible = false
+	hud.get_node("BlochSphere").visible = true
+	hud.get_node("0_Bloch").visible = true
+	hud.get_node("1_Bloch").visible = true
+	
+	hud.get_node("0").text = "|0>: "
+	hud.get_node("1").text = "|1>: "
+	hud.get_node("phi").text = "phi: "
+	hud.get_node("theta").text = "theta: "
+
+func instantiate_gem(level_zero: bool) -> void:
+	hold_gem = false
+	var gem = gem_scene.instantiate()
+	if level_zero:
+		gem.is_state_zero = true
+		gem.global_position = player.global_position + Vector2(0, -10)
+	else:
+		gem.is_state_zero = false
+		gem.global_position = player_2.global_position + Vector2(0, -10)
+	get_tree().current_scene.add_child(gem)
+	gem.add_to_group("entanglables")
+	
+	hud.get_node("gem_carried").visible = false
+
+func instantiate_gem_process():
+	# Drop gem if holding
+	if hold_gem:
+		if cos(theta/2.0)**2 > 0.5:
+			instantiate_gem(true)
+		else:
+			instantiate_gem(false)
 
 ## PROCESS ##
 
@@ -477,8 +539,8 @@ func _process(delta: float) -> void:
 		hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
 		hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
 	else:
-		update_hud_probabilities()
-		
+		update_hud_entangle()
+	
 	hud.get_node("carried_gate").text = str(carried_gate)
 	
 	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
@@ -518,11 +580,14 @@ func _process(delta: float) -> void:
 			target = _is_on_entanglable(player_2)
 		
 		if target != null:
+			if target.name == "Gem":
+				hold_gem = true
+
 			entangled_mode = true
-			# player is always the control, object is always the target
+			# player is the control, object is the target
 			entangled_state = calculate_entangled_state(phi, theta, target.is_state_zero)
 			entangled_probs = calculate_entangled_probs()
-			edit_hud_items()
+			edit_hud_entangle()
 			
 			player.color_sprite()
 			player_2.color_sprite()
