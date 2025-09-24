@@ -183,18 +183,21 @@ func rotate_x(angle: float) -> void:
 	var rot = Basis(Vector3(1, 0, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
+	instantiate_gem_process()
 
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
+	instantiate_gem_process()
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
 	var rot = Basis(Vector3(0, 0, 1), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
+	instantiate_gem_process()
 
 # Convert cartesian bloch_vec → spherical angles
 func _update_theta_phi() -> void:
@@ -424,17 +427,11 @@ func update_hud_entangle() -> void:
 
 func de_entangle(outcome_idx: int) -> void:
 	entangled_mode = false
-	if (outcome_idx == 1 or outcome_idx == 2) and hold_gem:
-		hold_gem = false
-		var gem = gem_scene.instantiate()
+	if hold_gem:
 		if outcome_idx == 1:
-			gem.is_state_zero = false
-			gem.global_position = player_2.global_position + Vector2(0, -10)
-		else:
-			gem.is_state_zero = true
-			gem.global_position = player.global_position + Vector2(0, -10)
-		get_tree().current_scene.add_child(gem)
-		gem.add_to_group("entanglables")
+			instantiate_gem(false)
+		elif outcome_idx == 2:
+			instantiate_gem(true)
 	
 	edit_hud_deentangle()
 	
@@ -452,6 +449,26 @@ func edit_hud_deentangle() -> void:
 	hud.get_node("1").text = "|1>: "
 	hud.get_node("phi").text = "phi: "
 	hud.get_node("theta").text = "theta: "
+
+func instantiate_gem(level_zero: bool) -> void:
+	hold_gem = false
+	var gem = gem_scene.instantiate()
+	if level_zero:
+		gem.is_state_zero = true
+		gem.global_position = player.global_position + Vector2(0, -10)
+	else:
+		gem.is_state_zero = false
+		gem.global_position = player_2.global_position + Vector2(0, -10)
+	get_tree().current_scene.add_child(gem)
+	gem.add_to_group("entanglables")
+
+func instantiate_gem_process():
+	# Drop gem if holding
+	if hold_gem:
+		if state == 0:
+			instantiate_gem(true)
+		else:
+			instantiate_gem(false)
 
 ## PROCESS ##
 
