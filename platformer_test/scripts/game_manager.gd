@@ -461,14 +461,16 @@ func instantiate_gem(level_zero: bool) -> void:
 		gem.global_position = player_2.global_position + Vector2(0, -10)
 	get_tree().current_scene.add_child(gem)
 	gem.add_to_group("entanglables")
+	
+	hud.get_node("gem_carried").visible = false
 
 func instantiate_gem_process():
 	# Drop gem if holding
 	if hold_gem:
 		if state == 0:
-			instantiate_gem(true)
-		else:
 			instantiate_gem(false)
+		else:
+			instantiate_gem(true)
 
 ## PROCESS ##
 
