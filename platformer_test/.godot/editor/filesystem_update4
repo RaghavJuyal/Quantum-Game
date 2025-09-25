@@ -1,11 +1,10 @@
+res://scenes/level0.tscn
+res://scripts/game_manager.gd
 res://scenes/game.tscn
 res://scenes/gem.tscn
-res://scenes/level0.tscn
 res://scenes/finish.tscn
 res://scenes/texts.tscn
-res://scenes/dialogue_area.gd
 res://scenes/dialogue.tscn
 res://scenes/coin.tscn
-res://scripts/game_manager.gd
+res://scenes/dialogue_area.gd
 res://scenes/texts.gd
-res://scripts/level_manager.gd

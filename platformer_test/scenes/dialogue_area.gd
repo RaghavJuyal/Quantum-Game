@@ -9,7 +9,6 @@ func _ready() -> void:
 	pass
 	
 func _on_body_entered(body: Node2D) -> void:
-	print(self.name)
 	index = 0
 	interacting = true
 	text_edit.visible = true

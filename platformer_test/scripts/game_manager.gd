@@ -594,4 +594,9 @@ func _process(delta: float) -> void:
 			target.queue_free()
 
 func Stopper() -> void:
-	pass
+	player.stop = true
+	player_2.stop = true
+	
+func Starter() -> void:
+	player.stop = false
+	player_2.stop = false
