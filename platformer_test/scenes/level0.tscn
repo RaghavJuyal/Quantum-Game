@@ -357,12 +357,22 @@ offset_bottom = -24.0
 [node name="text_areas" type="Node2D" parent="GameManager"]
 
 [node name="dialogue0" parent="GameManager/text_areas" instance=ExtResource("15_yoi1k")]
-position = Vector2(184, -104)
+position = Vector2(200, -104)
 collision_layer = 2
 collision_mask = 2
 
 [node name="dialogue1" parent="GameManager/text_areas" instance=ExtResource("15_yoi1k")]
-position = Vector2(360, 16)
+position = Vector2(312, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="dialogue2" parent="GameManager/text_areas" instance=ExtResource("15_yoi1k")]
+position = Vector2(664, 8)
+collision_layer = 2
+collision_mask = 2
+
+[node name="dialogue3" parent="GameManager/text_areas" instance=ExtResource("15_yoi1k")]
+position = Vector2(800, 8)
 collision_layer = 2
 collision_mask = 2
 

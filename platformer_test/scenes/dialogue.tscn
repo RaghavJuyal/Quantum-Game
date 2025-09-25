@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://jfixbjr8sth4"]
+[gd_scene load_steps=4 format=3 uid="uid://jfixbjr8sth4"]
 
-[ext_resource type="Script" uid="uid://dukfi2rdrlnxs" path="res://scenes/dialogue_area.gd" id="1_jwyou"]
+[ext_resource type="Script" uid="uid://dukfi2rdrlnxs" path="res://scripts/dialogue_area.gd" id="1_jwyou"]
+[ext_resource type="Texture2D" uid="uid://d0a7miy5k47wo" path="res://assets/sprites/info.png" id="2_3n4vj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vidaj"]
-size = Vector2(74, 74)
+size = Vector2(24, 24)
 
 [node name="dialogue" type="Area2D"]
 collision_layer = 3
@@ -13,5 +14,8 @@ script = ExtResource("1_jwyou")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 3
 shape = SubResource("RectangleShape2D_vidaj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_3n4vj")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

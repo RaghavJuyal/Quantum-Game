@@ -9,12 +9,17 @@ func _ready() -> void:
 	pass
 	
 func _on_body_entered(body: Node2D) -> void:
-	print(self.name)
-	index = 0
-	interacting = true
-	text_edit.visible = true
-	game_manager.Stopper()
-	text_edit.dialogreader(self.name, index)
+	var measured_state = null
+	if !game_manager.entangled_mode:
+		measured_state = game_manager.measure()
+	else:
+		measured_state = game_manager.measure_entangled()
+	if (body.is_state_zero and measured_state == 0) or (not body.is_state_zero and measured_state == 1):
+		index = 0
+		interacting = true
+		text_edit.visible = true
+		game_manager.Stopper()
+		text_edit.dialogreader(self.name, index)
 	
 func _on_body_exit(body: Node2D) -> void:
 	index = 0
