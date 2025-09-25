@@ -3,5 +3,10 @@
         {"0":"According to all known laws of aviation, there is no way a bee should be able to fly."},
         {"1":"Its wings are too small to get its fat little body off the ground."},
         {"2":"The bee, of course, flies anyway because bees don't care what humans think is impossible."}
-    ]
+    ],
+"dialogue1":[
+        {"0":"Some...body once told me the world is gonna roll me"},
+        {"1":"I ain't the sharpest tool in the shed"},
+        {"2":"She was looking kinda dumb with her finger and her thumb in the shape of an 'L' on her forehead"}
+]
 }

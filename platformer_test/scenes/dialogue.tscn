@@ -6,7 +6,12 @@
 size = Vector2(74, 74)
 
 [node name="dialogue" type="Area2D"]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_jwyou")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+light_mask = 3
 shape = SubResource("RectangleShape2D_vidaj")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

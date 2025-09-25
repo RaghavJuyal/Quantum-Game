@@ -342,12 +342,13 @@ one_shot = true
 script = ExtResource("14_jahao")
 
 [node name="Textcontainer" type="CanvasLayer" parent="GameManager"]
-offset = Vector2(95, 300)
-transform = Transform2D(1, 0, 0, 1, 95, 300)
+offset = Vector2(95, 730)
+transform = Transform2D(1, 0, 0, 1, 95, 730)
 
 [node name="texts" type="Node" parent="GameManager/Textcontainer"]
 
 [node name="TextEdit" parent="GameManager/Textcontainer/texts" instance=ExtResource("13_pnrra")]
+visible = false
 offset_left = -96.0
 offset_top = -32.0
 offset_right = -88.0
@@ -356,7 +357,14 @@ offset_bottom = -24.0
 [node name="text_areas" type="Node2D" parent="GameManager"]
 
 [node name="dialogue0" parent="GameManager/text_areas" instance=ExtResource("15_yoi1k")]
-position = Vector2(184, -96)
+position = Vector2(184, -104)
+collision_layer = 2
+collision_mask = 2
+
+[node name="dialogue1" parent="GameManager/text_areas" instance=ExtResource("15_yoi1k")]
+position = Vector2(360, 16)
+collision_layer = 2
+collision_mask = 2
 
 [node name="Finish" parent="." instance=ExtResource("14_ooohs")]
 position = Vector2(1456, -80)

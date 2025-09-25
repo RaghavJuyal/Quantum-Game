@@ -7,8 +7,10 @@
 [node name="TextEdit" type="TextEdit"]
 clip_contents = false
 custom_minimum_size = Vector2(1, 1)
-offset_right = 8.0
+offset_left = 5.0
+offset_right = 13.0
 offset_bottom = 8.0
+pivot_offset = Vector2(0, 300)
 size_flags_horizontal = 3
 script = ExtResource("1_yc4h5")
 
@@ -16,16 +18,16 @@ script = ExtResource("1_yc4h5")
 custom_minimum_size = Vector2(1, 1)
 layout_direction = 2
 layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 192.0
+offset_right = 1920.0
+offset_bottom = 256.0
 texture = ExtResource("1_j44tr")
 region_rect = Rect2(0, 0, 48, 48)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 0
-offset_right = 2880.0
-offset_bottom = 768.0
+offset_right = 4800.0
+offset_bottom = 896.0
 scale = Vector2(0.4, 0.25)
 
 [node name="Label" type="Label" parent="MarginContainer"]
