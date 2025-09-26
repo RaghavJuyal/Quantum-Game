@@ -325,26 +325,7 @@ func _state_to_string(state: Array) -> String:
 
 # --- Run the circuit ---
 func _run_circuit():
-	var state = initial_state.duplicate()
-	for g in circuit_sequence:
-		state = _apply_gate(state, g)
-	_update_state_labels(state)
-	if _compare_states(state, target_state):
-		puzzle_obstacle.hide()
-		puzzle_obstacle.queue_free()
-		gates.queue_free()
-		add_gates.queue_free()
-		remove_gates.queue_free()
-		run_circuit.queue_free()
-		reset_circuit.queue_free()
-		print("Puzzle solved!")
-		$correct.play()
-	else:
-		print("Failed. Final state:")
-		print(_state_to_string(state))
-		print("Target state:")
-		print(_state_to_string(target_state))
-		$incorrect.play()
+	await _run_circuit_with_animation()
 
 func _apply_gate(state:Array, gate:Array) -> Array:
 	var result = []
@@ -420,3 +401,40 @@ func _update_state_labels(current: Array) -> void:
 	# If no current state passed, use the initial one
 	current_state_label.text = "Current State:" + _state_to_string(current)
 	target_state_label.text = "Target State:" + _state_to_string(target_state)
+# async helper to run circuit with wire animation
+func _run_circuit_with_animation() -> void:
+	# Step 1: Animate wires column by column
+	var total_columns = wire_up.slots.size()
+	for i in range(total_columns):
+		# tell each wire to push the i-th slot
+		wire_up.push_slot(i)
+		wire_down.push_slot(i)
+		await get_tree().create_timer(0.15).timeout  # brief pause between columns
+
+	# Step 2: Apply gates and compute final state
+	var state = initial_state.duplicate()
+	for g in circuit_sequence:
+		state = _apply_gate(state, g)
+	_update_state_labels(state)
+
+	# Step 3: Unpush all slots at once
+	wire_up.unpush_all()
+	wire_down.unpush_all()
+
+	# Step 4: Check solution
+	if _compare_states(state, target_state):
+		puzzle_obstacle.hide()
+		puzzle_obstacle.queue_free()
+		gates.queue_free()
+		add_gates.queue_free()
+		remove_gates.queue_free()
+		run_circuit.queue_free()
+		reset_circuit.queue_free()
+		print("Puzzle solved!")
+		$correct.play()
+	else:
+		print("Failed. Final state:")
+		print(_state_to_string(state))
+		print("Target state:")
+		print(_state_to_string(target_state))
+		$incorrect.play()

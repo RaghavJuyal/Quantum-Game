@@ -7,3 +7,5 @@ res://scenes/texts.tscn
 res://scenes/dialogue.tscn
 res://scenes/coin.tscn
 res://scenes/puzzle.tscn
+res://scenes/wire.tscn
+res://scripts/wire.gd
