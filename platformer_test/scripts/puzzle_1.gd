@@ -316,7 +316,7 @@ func _state_to_string(state: Array) -> String:
 		# Get binary basis label with 2 digits
 		var b0 = i / 2         # first qubit (MSB)
 		var b1 = i % 2         # second qubit (LSB)
-		var label = "[color=red]%d[/color][color=blue]%d[/color]" % [b0, b1]
+		var label = "[color=red]%d[/color][color=green]%d[/color]" % [b0, b1]
 		
 		parts.append("|%s>: %s" % [label, amp_str])
 	return "  ".join(parts)  # single line
