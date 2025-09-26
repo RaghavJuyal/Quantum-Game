@@ -27,6 +27,9 @@ const Complex = preload("res://complex.gd")
 @onready var x_gate: Node = $gates/x_gate
 @onready var cnot_gate: Node = $gates/cnot_gate
 @onready var hadamard_gate: Node = $gates/hadamard_gate
+@onready var gates: Node2D = $gates
+@onready var add_gates: Node2D = $Add_gates
+@onready var remove_gates: Node2D = $Remove_gates
 
 # --- Puzzle data ---
 var circuit_sequence: Array = []         # Stores gate matrices in order
@@ -294,6 +297,11 @@ func _run_circuit():
 	if _compare_states(state, target_state):
 		puzzle_obstacle.hide()
 		puzzle_obstacle.queue_free()
+		gates.queue_free()
+		add_gates.queue_free()
+		remove_gates.queue_free()
+		run_circuit.queue_free()
+		reset_circuit.queue_free()
 		print("Puzzle solved!")
 		$correct.play()
 	else:
