@@ -608,6 +608,26 @@ volume_db = 15.0
 [node name="incorrect" type="AudioStreamPlayer2D" parent="GameManager/Puzzle_1"]
 stream = ExtResource("27_suyxu")
 
+[node name="current_state_label" type="RichTextLabel" parent="GameManager/Puzzle_1"]
+offset_left = 726.0
+offset_top = 92.0
+offset_right = 1151.0
+offset_bottom = 127.0
+theme_override_fonts/normal_font = ExtResource("8_gee14")
+text = "current state"
+fit_content = true
+scroll_active = false
+
+[node name="target_state_label" type="RichTextLabel" parent="GameManager/Puzzle_1"]
+offset_left = 731.0
+offset_top = 143.0
+offset_right = 1151.0
+offset_bottom = 185.0
+theme_override_fonts/normal_font = ExtResource("8_gee14")
+text = "target state"
+fit_content = true
+scroll_active = false
+
 [node name="measurement_pad" parent="GameManager" instance=ExtResource("12_dinhu")]
 position = Vector2(679, -78)
 
