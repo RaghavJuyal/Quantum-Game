@@ -295,11 +295,13 @@ func _run_circuit():
 		puzzle_obstacle.hide()
 		puzzle_obstacle.queue_free()
 		print("Puzzle solved!")
+		$correct.play()
 	else:
 		print("Failed. Final state:")
 		print(_state_to_string(state))
 		print("Target state:")
 		print(_state_to_string(target_state))
+		$incorrect.play()
 
 func _apply_gate(state:Array, gate:Array) -> Array:
 	var result = []

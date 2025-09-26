@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://cb5u4d8i5lwf2"]
+[gd_scene load_steps=17 format=4 uid="uid://cb5u4d8i5lwf2"]
 
 [ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/puzzle_1.gd" id="1_sjxo2"]
 [ext_resource type="PackedScene" uid="uid://bukjm6u0mt0tw" path="res://scenes/wire.tscn" id="2_f0mvw"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://bt0vqdy3bjk4l" path="res://scenes/x_gate.tscn" id="10_d0wmm"]
 [ext_resource type="PackedScene" uid="uid://b16j76sxip8n4" path="res://scenes/cnot_gate.tscn" id="11_jwowe"]
 [ext_resource type="PackedScene" uid="uid://bv41imahweahl" path="res://scenes/hadamard_gate.tscn" id="12_gvcvi"]
+[ext_resource type="AudioStream" uid="uid://drmxcfug72t6i" path="res://assets/sounds/Fruit collect 1.wav" id="13_iq1vr"]
+[ext_resource type="AudioStream" uid="uid://bg113uwbm48lp" path="res://assets/sounds/JDSherbert - Pixel UI SFX Pack - Cancel 2 (Square).wav" id="14_vbmd7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]
 texture = ExtResource("5_x4stx")
@@ -225,3 +227,11 @@ position = Vector2(1158, -70)
 
 [node name="hadamard_gate" parent="gates" instance=ExtResource("12_gvcvi")]
 position = Vector2(767, 12)
+
+[node name="correct" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_iq1vr")
+volume_db = 15.0
+
+[node name="incorrect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_vbmd7")
+volume_db = 5.0
