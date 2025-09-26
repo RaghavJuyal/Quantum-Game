@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=37 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -26,6 +26,8 @@
 [ext_resource type="PackedScene" uid="uid://bt0vqdy3bjk4l" path="res://scenes/x_gate.tscn" id="23_js0lu"]
 [ext_resource type="PackedScene" uid="uid://b16j76sxip8n4" path="res://scenes/cnot_gate.tscn" id="24_gxtfn"]
 [ext_resource type="PackedScene" uid="uid://bv41imahweahl" path="res://scenes/hadamard_gate.tscn" id="25_twgab"]
+[ext_resource type="AudioStream" uid="uid://drmxcfug72t6i" path="res://assets/sounds/Fruit collect 1.wav" id="26_sww3w"]
+[ext_resource type="AudioStream" uid="uid://bg113uwbm48lp" path="res://assets/sounds/JDSherbert - Pixel UI SFX Pack - Cancel 2 (Square).wav" id="27_suyxu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -534,7 +536,7 @@ one_shot = true
 [node name="test" type="Node" parent="GameManager"]
 script = ExtResource("15_ir15t")
 
-[node name="Puzzle_1" type="Node" parent="GameManager"]
+[node name="Puzzle_1" type="Node2D" parent="GameManager"]
 script = ExtResource("15_bhx41")
 
 [node name="wire_up" parent="GameManager/Puzzle_1" instance=ExtResource("16_qnb83")]
@@ -543,7 +545,7 @@ position = Vector2(920, -90)
 [node name="wire_down" parent="GameManager/Puzzle_1" instance=ExtResource("16_qnb83")]
 position = Vector2(920, -10)
 
-[node name="Remove_gates" type="Node" parent="GameManager/Puzzle_1"]
+[node name="Remove_gates" type="Node2D" parent="GameManager/Puzzle_1"]
 
 [node name="remove_gate_left_up" parent="GameManager/Puzzle_1/Remove_gates" instance=ExtResource("17_sww3w")]
 position = Vector2(842, -69)
@@ -557,7 +559,7 @@ position = Vector2(1095, 9)
 [node name="remove_gate_right_up" parent="GameManager/Puzzle_1/Remove_gates" instance=ExtResource("17_sww3w")]
 position = Vector2(1095, -69)
 
-[node name="Add_gates" type="Node" parent="GameManager/Puzzle_1"]
+[node name="Add_gates" type="Node2D" parent="GameManager/Puzzle_1"]
 
 [node name="add_gate_left_up" parent="GameManager/Puzzle_1/Add_gates" instance=ExtResource("18_suyxu")]
 position = Vector2(888, -69)
@@ -582,7 +584,7 @@ position = Vector2(793, -69)
 [node name="reset_circuit" parent="GameManager/Puzzle_1" instance=ExtResource("20_qouja")]
 position = Vector2(793, 9)
 
-[node name="gates" type="Node" parent="GameManager/Puzzle_1"]
+[node name="gates" type="Node2D" parent="GameManager/Puzzle_1"]
 
 [node name="z_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("21_wljb1")]
 position = Vector2(1131, 11)
@@ -598,6 +600,33 @@ position = Vector2(1158, -70)
 
 [node name="hadamard_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("25_twgab")]
 position = Vector2(767, 12)
+
+[node name="correct" type="AudioStreamPlayer2D" parent="GameManager/Puzzle_1"]
+stream = ExtResource("26_sww3w")
+volume_db = 15.0
+
+[node name="incorrect" type="AudioStreamPlayer2D" parent="GameManager/Puzzle_1"]
+stream = ExtResource("27_suyxu")
+
+[node name="current_state_label" type="RichTextLabel" parent="GameManager/Puzzle_1"]
+offset_left = 726.0
+offset_top = 92.0
+offset_right = 1151.0
+offset_bottom = 127.0
+theme_override_fonts/normal_font = ExtResource("8_gee14")
+text = "current state"
+fit_content = true
+scroll_active = false
+
+[node name="target_state_label" type="RichTextLabel" parent="GameManager/Puzzle_1"]
+offset_left = 731.0
+offset_top = 143.0
+offset_right = 1151.0
+offset_bottom = 185.0
+theme_override_fonts/normal_font = ExtResource("8_gee14")
+text = "target state"
+fit_content = true
+scroll_active = false
 
 [node name="measurement_pad" parent="GameManager" instance=ExtResource("12_dinhu")]
 position = Vector2(679, -78)

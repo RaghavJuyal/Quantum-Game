@@ -7,14 +7,25 @@ extends Node2D
 @onready var begin1 = $wire_begin_1
 @onready var middle_template = $wire_middle
 @onready var end_sprite = $wire_end
+@onready var wire_begin_1_pushed: Sprite2D = $wire_begin_1_pushed
+@onready var wire_end_pushed: Sprite2D = $wire_end_pushed
+@onready var wire_middle_pushed: Sprite2D = $wire_middle_pushed
+@onready var wire_begin_0_pushed: Sprite2D = $wire_begin_0_pushed
+
 
 # Gate templates
 @onready var gate_templates := {
 	"X": $gate_X,
+	"X_pushed": $gate_X_pushed,
 	"Y": $gate_Y,
+	"Y_pushed": $gate_Y_pushed,
 	"Z": $gate_Z,
+	"Z_pushed": $gate_Z_pushed,
 	"H": $gate_H,
-	"control": $gate_control
+	"H_pushed": $gate_H_pushed,
+	"control": $gate_control,
+	"control_pushed": $gate_control_pushed
+	
 }
 
 var slots: Array[String] = []   # Each slot stores "middle" or gate type
@@ -25,6 +36,10 @@ func _ready() -> void:
 	_hide_gate_templates()
 	_init_slots()
 	_update_wire_visuals()
+	wire_begin_0_pushed.hide()
+	wire_begin_1_pushed.hide()
+	wire_end_pushed.hide()
+	wire_middle_pushed.hide()
 
 func _hide_gate_templates() -> void:
 	for gate in gate_templates.values():
@@ -164,13 +179,77 @@ func is_slot_empty(index:int) -> bool:
 		return false
 	return slots[index] == "middle"
 
-func _process(delta: float) -> void:
-	#if Input.is_action_just_pressed("x_rotation"):
-		#wire.add_gate_end("X")
-	#if Input.is_action_just_pressed("y_rotation"):
-		#wire.add_gate_end("Y")
-	#if Input.is_action_just_pressed("z_rotation"):
-		#wire.remove_gate_end()
-	#if Input.is_action_just_pressed("Measure"):
-		#wire.reset_gates()
-	pass
+# --- New functions for animations ---
+
+# Run the animation: push each column one by one
+func run_circuit_animation(pause_time: float = 0.3) -> void:
+	await _push_slots_step_by_step(pause_time)
+	# after everything pushed, you can wait for simulation result
+	# then unpush all
+	await get_tree().create_timer(0.5).timeout
+	_unpush_all_slots()
+
+# Push slots one at a time
+func _push_slots_step_by_step(pause_time: float) -> void:
+	for i in range(slots.size()):
+		_push_slot(i)
+		await get_tree().create_timer(pause_time).timeout
+
+# Switch a slot to pushed version if it has one
+func _push_slot(index: int) -> void:
+	var g = slots[index]
+	if g == "middle":
+		# push the wire segment
+		_replace_slot_sprite(index, "middle_pushed")
+	elif gate_templates.has(g + "_pushed"):
+		_replace_slot_sprite(index, g + "_pushed")
+
+# Reset all slots back to normal
+func _unpush_all_slots() -> void:
+	for i in range(slots.size()):
+		var g = slots[i]
+		if g == "middle" or g.ends_with("_pushed"):
+			_replace_slot_sprite(i, "middle")
+		else:
+			_replace_slot_sprite(i, g)
+
+# Replace a slot's sprite with another variant
+func _replace_slot_sprite(index: int, new_type: String) -> void:
+	var node = slot_nodes[index]
+	if node:
+		node.queue_free()
+	var base = middle_template.position
+	var mid_w = middle_template.texture.get_width()/2
+	var node_new: Node2D
+	if new_type == "middle" or new_type == "middle_pushed":
+		node_new = middle_template.duplicate() if new_type == "middle"  else wire_middle_pushed.duplicate()
+	else:
+		node_new = gate_templates[new_type].duplicate()
+	node_new.show()
+	node_new.position = base + Vector2((index + 1) * mid_w, 0)
+	add_child(node_new)
+	slot_nodes[index] = node_new
+	
+func push_slot(index:int) -> void:
+	if index < 0 or index >= slot_nodes.size():
+		return
+	var node = slot_nodes[index]
+	match slots[index]:
+		"middle":
+			node.texture = wire_middle_pushed.texture
+		"control":
+			node.texture = gate_templates["control_pushed"].texture
+		# for normal gates
+		_:
+			if gate_templates.has(slots[index] + "_pushed"):
+				node.texture = gate_templates[slots[index] + "_pushed"].texture
+
+func unpush_all() -> void:
+	for i in range(slot_nodes.size()):
+		var node = slot_nodes[i]
+		match slots[i]:
+			"middle": node.texture = middle_template.texture
+			"control": node.texture = gate_templates["control"].texture
+			_:
+				if gate_templates.has(slots[i]):
+					node.texture = gate_templates[slots[i]].texture

@@ -1,7 +1,10 @@
-res://scenes/texts.tscn
-res://scenes/dialogue.tscn
 res://scenes/game.tscn
+res://scripts/puzzle_1.gd
 res://scenes/gem.tscn
 res://scenes/level0.tscn
 res://scenes/finish.tscn
+res://scenes/texts.tscn
+res://scenes/dialogue.tscn
 res://scenes/coin.tscn
+res://scenes/puzzle.tscn
+res://scenes/wire.tscn

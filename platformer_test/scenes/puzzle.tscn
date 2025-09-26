@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://cb5u4d8i5lwf2"]
+[gd_scene load_steps=18 format=4 uid="uid://cb5u4d8i5lwf2"]
 
 [ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/puzzle_1.gd" id="1_sjxo2"]
 [ext_resource type="PackedScene" uid="uid://bukjm6u0mt0tw" path="res://scenes/wire.tscn" id="2_f0mvw"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://bt0vqdy3bjk4l" path="res://scenes/x_gate.tscn" id="10_d0wmm"]
 [ext_resource type="PackedScene" uid="uid://b16j76sxip8n4" path="res://scenes/cnot_gate.tscn" id="11_jwowe"]
 [ext_resource type="PackedScene" uid="uid://bv41imahweahl" path="res://scenes/hadamard_gate.tscn" id="12_gvcvi"]
+[ext_resource type="AudioStream" uid="uid://drmxcfug72t6i" path="res://assets/sounds/Fruit collect 1.wav" id="13_iq1vr"]
+[ext_resource type="AudioStream" uid="uid://bg113uwbm48lp" path="res://assets/sounds/JDSherbert - Pixel UI SFX Pack - Cancel 2 (Square).wav" id="14_vbmd7"]
+[ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="15_vbmd7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]
 texture = ExtResource("5_x4stx")
@@ -161,7 +164,7 @@ texture = ExtResource("5_x4stx")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_trtic")
 
-[node name="Puzzle_1" type="Node"]
+[node name="Puzzle" type="Node2D"]
 script = ExtResource("1_sjxo2")
 
 [node name="wire_up" parent="." instance=ExtResource("2_f0mvw")]
@@ -170,7 +173,7 @@ position = Vector2(920, -90)
 [node name="wire_down" parent="." instance=ExtResource("2_f0mvw")]
 position = Vector2(920, -10)
 
-[node name="Remove_gates" type="Node" parent="."]
+[node name="Remove_gates" type="Node2D" parent="."]
 
 [node name="remove_gate_left_up" parent="Remove_gates" instance=ExtResource("3_i3ry5")]
 position = Vector2(842, -69)
@@ -184,7 +187,7 @@ position = Vector2(1095, 9)
 [node name="remove_gate_right_up" parent="Remove_gates" instance=ExtResource("3_i3ry5")]
 position = Vector2(1095, -69)
 
-[node name="Add_gates" type="Node" parent="."]
+[node name="Add_gates" type="Node2D" parent="."]
 
 [node name="add_gate_left_up" parent="Add_gates" instance=ExtResource("4_d07y3")]
 position = Vector2(888, -69)
@@ -209,7 +212,7 @@ position = Vector2(793, -69)
 [node name="reset_circuit" parent="." instance=ExtResource("7_udsb1")]
 position = Vector2(793, 9)
 
-[node name="gates" type="Node" parent="."]
+[node name="gates" type="Node2D" parent="."]
 
 [node name="z_gate" parent="gates" instance=ExtResource("8_81nv0")]
 position = Vector2(1131, 11)
@@ -225,3 +228,31 @@ position = Vector2(1158, -70)
 
 [node name="hadamard_gate" parent="gates" instance=ExtResource("12_gvcvi")]
 position = Vector2(767, 12)
+
+[node name="correct" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("13_iq1vr")
+volume_db = 15.0
+
+[node name="incorrect" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("14_vbmd7")
+volume_db = 5.0
+
+[node name="current_state_label" type="RichTextLabel" parent="."]
+offset_left = 726.0
+offset_top = 92.0
+offset_right = 1151.0
+offset_bottom = 127.0
+theme_override_fonts/normal_font = ExtResource("15_vbmd7")
+text = "current state"
+fit_content = true
+scroll_active = false
+
+[node name="target_state_label" type="RichTextLabel" parent="."]
+offset_left = 731.0
+offset_top = 143.0
+offset_right = 1151.0
+offset_bottom = 185.0
+theme_override_fonts/normal_font = ExtResource("15_vbmd7")
+text = "target state"
+fit_content = true
+scroll_active = false

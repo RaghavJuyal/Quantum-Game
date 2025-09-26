@@ -27,6 +27,13 @@ const Complex = preload("res://complex.gd")
 @onready var x_gate: Node = $gates/x_gate
 @onready var cnot_gate: Node = $gates/cnot_gate
 @onready var hadamard_gate: Node = $gates/hadamard_gate
+@onready var gates: Node2D = $gates
+@onready var add_gates: Node2D = $Add_gates
+@onready var remove_gates: Node2D = $Remove_gates
+@onready var current_state_label: RichTextLabel = $current_state_label
+@onready var target_state_label: RichTextLabel = $target_state_label
+
+
 
 # --- Puzzle data ---
 var circuit_sequence: Array = []         # Stores gate matrices in order
@@ -59,6 +66,12 @@ func _ready() -> void:
 		Complex.new(0,0), Complex.new(0,0),
 		Complex.new(-1,0), Complex.new(0,0)
 	]
+	current_state_label.bbcode_enabled = true
+	target_state_label.bbcode_enabled = true
+	var state = initial_state.duplicate()
+	for g in circuit_sequence:
+		state = _apply_gate(state, g)
+	_update_state_labels(state)
 
 func _init_gate_matrices():
 	var s := 1.0 / sqrt(2.0)
@@ -165,6 +178,11 @@ func _add_gate(target:String, gate_type:String, at_begin:bool):
 		circuit_sequence.append(gate_matrices[gate_name].duplicate())
 	_trim_wire_capacity()
 	_update_both_visuals()
+	var state = initial_state.duplicate()
+	for g in circuit_sequence:
+		state = _apply_gate(state, g)
+	_update_state_labels(state)
+	
 
 func _insert_cnot(control_slots:Array, target_slots:Array, at_begin:bool):
 	if at_begin:
@@ -215,6 +233,10 @@ func remove_gate_begin(target:String) -> String:
 	if circuit_sequence.size() > 0:
 		circuit_sequence.pop_front()
 	_update_both_visuals()
+	var state = initial_state.duplicate()
+	for g in circuit_sequence:
+		state = _apply_gate(state, g)
+	_update_state_labels(state)
 	return _picked_gate(up_removed, down_removed, target)
 
 func remove_gate_end(target:String) -> String:
@@ -246,6 +268,10 @@ func remove_gate_end(target:String) -> String:
 		circuit_sequence.pop_back()
 
 	_update_both_visuals()
+	var state = initial_state.duplicate()
+	for g in circuit_sequence:
+		state = _apply_gate(state, g)
+	_update_state_labels(state)
 	return _picked_gate(up_removed, down_removed, target)
 
 func _picked_gate(up, down, target) -> String:
@@ -274,32 +300,32 @@ func _update_both_visuals():
 	if wire_down.has_method("_update_wire_visuals"): wire_down._update_wire_visuals()
 	
 # Pretty-print a state vector (array of Complex)
+# Pretty-print a state vector (array of Complex) in one line
+# Pretty-print a state vector (array of Complex) in one line
 func _state_to_string(state: Array) -> String:
 	var parts: Array[String] = []
 	for i in range(state.size()):
 		var c: Complex = state[i]
-		var amp_str := "%.3f" % c.re
+		
+		# Format amplitude
+		var amp_str := "%.2f" % c.re
 		if abs(c.im) > 1e-6:  # show imaginary part only if nonzero
 			var sign = "+" if c.im >= 0 else "-"
-			amp_str += " %s %.3fi" % [sign, abs(c.im)]
-		parts.append("|%d>: %s" % [i, amp_str])
-	return "\n".join(parts)
+			amp_str += " %s %.2fi" % [sign, abs(c.im)]
+		
+		# Get binary basis label with 2 digits
+		var b0 = i / 2         # first qubit (MSB)
+		var b1 = i % 2         # second qubit (LSB)
+		var label = "[color=red]%d[/color][color=green]%d[/color]" % [b0, b1]
+		
+		parts.append("|%s>: %s" % [label, amp_str])
+	return "  ".join(parts)  # single line
+
+
 
 # --- Run the circuit ---
 func _run_circuit():
-	var state = initial_state.duplicate()
-	for g in circuit_sequence:
-		state = _apply_gate(state, g)
-
-	if _compare_states(state, target_state):
-		puzzle_obstacle.hide()
-		puzzle_obstacle.queue_free()
-		print("Puzzle solved!")
-	else:
-		print("Failed. Final state:")
-		print(_state_to_string(state))
-		print("Target state:")
-		print(_state_to_string(target_state))
+	await _run_circuit_with_animation()
 
 func _apply_gate(state:Array, gate:Array) -> Array:
 	var result = []
@@ -342,6 +368,10 @@ func _reset_both():
 	for i in range(wire_down.slots.size()): wire_down.slots[i]="middle"
 	circuit_sequence.clear()
 	_update_both_visuals()
+	var state = initial_state.duplicate()
+	for g in circuit_sequence:
+		state = _apply_gate(state, g)
+	_update_state_labels(state)
 
 # --- Interaction handler ---
 func handle_interaction(block:Node):
@@ -366,3 +396,45 @@ func handle_interaction(block:Node):
 		"x_gate": game_manager.carried_gate="X"
 		"cnot_gate": game_manager.carried_gate="CNOT"
 		"hadamard_gate": game_manager.carried_gate="H"
+
+func _update_state_labels(current: Array) -> void:
+	# If no current state passed, use the initial one
+	current_state_label.text = "Current State:" + _state_to_string(current)
+	target_state_label.text = "Target State:" + _state_to_string(target_state)
+# async helper to run circuit with wire animation
+func _run_circuit_with_animation() -> void:
+	# Step 1: Animate wires column by column
+	var total_columns = wire_up.slots.size()
+	for i in range(total_columns):
+		# tell each wire to push the i-th slot
+		wire_up.push_slot(i)
+		wire_down.push_slot(i)
+		await get_tree().create_timer(0.15).timeout  # brief pause between columns
+
+	# Step 2: Apply gates and compute final state
+	var state = initial_state.duplicate()
+	for g in circuit_sequence:
+		state = _apply_gate(state, g)
+	_update_state_labels(state)
+
+	# Step 3: Unpush all slots at once
+	wire_up.unpush_all()
+	wire_down.unpush_all()
+
+	# Step 4: Check solution
+	if _compare_states(state, target_state):
+		puzzle_obstacle.hide()
+		puzzle_obstacle.queue_free()
+		gates.queue_free()
+		add_gates.queue_free()
+		remove_gates.queue_free()
+		run_circuit.queue_free()
+		reset_circuit.queue_free()
+		print("Puzzle solved!")
+		$correct.play()
+	else:
+		print("Failed. Final state:")
+		print(_state_to_string(state))
+		print("Target state:")
+		print(_state_to_string(target_state))
+		$incorrect.play()
