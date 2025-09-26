@@ -308,10 +308,10 @@ func _state_to_string(state: Array) -> String:
 		var c: Complex = state[i]
 		
 		# Format amplitude
-		var amp_str := "%.3f" % c.re
+		var amp_str := "%.2f" % c.re
 		if abs(c.im) > 1e-6:  # show imaginary part only if nonzero
 			var sign = "+" if c.im >= 0 else "-"
-			amp_str += " %s %.3fi" % [sign, abs(c.im)]
+			amp_str += " %s %.2fi" % [sign, abs(c.im)]
 		
 		# Get binary basis label with 2 digits
 		var b0 = i / 2         # first qubit (MSB)

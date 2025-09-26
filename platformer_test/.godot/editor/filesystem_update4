@@ -1,4 +1,5 @@
 res://scenes/game.tscn
+res://scripts/puzzle_1.gd
 res://scenes/gem.tscn
 res://scenes/level0.tscn
 res://scenes/finish.tscn
