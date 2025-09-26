@@ -161,7 +161,7 @@ texture = ExtResource("5_x4stx")
 physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_trtic")
 
-[node name="Puzzle_1" type="Node"]
+[node name="Puzzle" type="Node2D"]
 script = ExtResource("1_sjxo2")
 
 [node name="wire_up" parent="." instance=ExtResource("2_f0mvw")]
@@ -170,7 +170,7 @@ position = Vector2(920, -90)
 [node name="wire_down" parent="." instance=ExtResource("2_f0mvw")]
 position = Vector2(920, -10)
 
-[node name="Remove_gates" type="Node" parent="."]
+[node name="Remove_gates" type="Node2D" parent="."]
 
 [node name="remove_gate_left_up" parent="Remove_gates" instance=ExtResource("3_i3ry5")]
 position = Vector2(842, -69)
@@ -184,7 +184,7 @@ position = Vector2(1095, 9)
 [node name="remove_gate_right_up" parent="Remove_gates" instance=ExtResource("3_i3ry5")]
 position = Vector2(1095, -69)
 
-[node name="Add_gates" type="Node" parent="."]
+[node name="Add_gates" type="Node2D" parent="."]
 
 [node name="add_gate_left_up" parent="Add_gates" instance=ExtResource("4_d07y3")]
 position = Vector2(888, -69)
@@ -209,7 +209,7 @@ position = Vector2(793, -69)
 [node name="reset_circuit" parent="." instance=ExtResource("7_udsb1")]
 position = Vector2(793, 9)
 
-[node name="gates" type="Node" parent="."]
+[node name="gates" type="Node2D" parent="."]
 
 [node name="z_gate" parent="gates" instance=ExtResource("8_81nv0")]
 position = Vector2(1131, 11)

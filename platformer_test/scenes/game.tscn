@@ -534,7 +534,7 @@ one_shot = true
 [node name="test" type="Node" parent="GameManager"]
 script = ExtResource("15_ir15t")
 
-[node name="Puzzle_1" type="Node" parent="GameManager"]
+[node name="Puzzle_1" type="Node2D" parent="GameManager"]
 script = ExtResource("15_bhx41")
 
 [node name="wire_up" parent="GameManager/Puzzle_1" instance=ExtResource("16_qnb83")]
@@ -543,7 +543,7 @@ position = Vector2(920, -90)
 [node name="wire_down" parent="GameManager/Puzzle_1" instance=ExtResource("16_qnb83")]
 position = Vector2(920, -10)
 
-[node name="Remove_gates" type="Node" parent="GameManager/Puzzle_1"]
+[node name="Remove_gates" type="Node2D" parent="GameManager/Puzzle_1"]
 
 [node name="remove_gate_left_up" parent="GameManager/Puzzle_1/Remove_gates" instance=ExtResource("17_sww3w")]
 position = Vector2(842, -69)
@@ -557,7 +557,7 @@ position = Vector2(1095, 9)
 [node name="remove_gate_right_up" parent="GameManager/Puzzle_1/Remove_gates" instance=ExtResource("17_sww3w")]
 position = Vector2(1095, -69)
 
-[node name="Add_gates" type="Node" parent="GameManager/Puzzle_1"]
+[node name="Add_gates" type="Node2D" parent="GameManager/Puzzle_1"]
 
 [node name="add_gate_left_up" parent="GameManager/Puzzle_1/Add_gates" instance=ExtResource("18_suyxu")]
 position = Vector2(888, -69)
@@ -582,7 +582,7 @@ position = Vector2(793, -69)
 [node name="reset_circuit" parent="GameManager/Puzzle_1" instance=ExtResource("20_qouja")]
 position = Vector2(793, 9)
 
-[node name="gates" type="Node" parent="GameManager/Puzzle_1"]
+[node name="gates" type="Node2D" parent="GameManager/Puzzle_1"]
 
 [node name="z_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("21_wljb1")]
 position = Vector2(1131, 11)
