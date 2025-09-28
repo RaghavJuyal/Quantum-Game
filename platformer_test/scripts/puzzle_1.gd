@@ -37,8 +37,6 @@ const Complex = preload("res://complex.gd")
 @onready var current_state_label: RichTextLabel = $current_state_label
 @onready var target_state_label: RichTextLabel = $target_state_label
 
-
-
 # --- Puzzle data ---
 var circuit_sequence: Array = []         # Stores gate matrices in order
 var initial_state: Array = []            # 4x1 vector of Complex numbers
@@ -447,7 +445,8 @@ func _run_circuit_with_animation() -> void:
 
 ## NON-PUZZLE LOGIC ##
 func _gem_block() -> void:
-	print("at gem block")
 	if (!game_manager.entangled_mode and game_manager.hold_gem):
 		gem_obstacle.hide()
 		gem_obstacle.queue_free()
+		game_manager.hold_gem = false
+		game_manager.hud.get_node("gem_carried").visible = false
