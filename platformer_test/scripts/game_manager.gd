@@ -13,10 +13,10 @@ var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
 var entangled_state = null
-var hold_gem = false
 var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 
 @export var entangled_mode = false
+@export var hold_gem = false
 @export var hud: CanvasLayer
 @export var entangled_probs = null
 @onready var player: CharacterBody2D = $Player
@@ -28,8 +28,8 @@ var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var timer: Timer = $Timer
 @onready var puzzle_1: Node = $Puzzle_1
-@onready var gem: Node = $Gem
 @onready var teleportation: Node2D = $Teleportation
+@onready var gem: Node = $EntangledGem/Gem
 
 func _ready() -> void:
 	score = 0
@@ -567,8 +567,6 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("Interact"):
 		if _is_on_interactable(player) or _is_on_interactable(player_2):
-			if entangled_mode: ## TODO: Improve handling for this case
-				set_state_zero()
 			if !measured:
 				measure()
 		elif _is_on_teleport(player) or _is_on_teleport(player_2):
