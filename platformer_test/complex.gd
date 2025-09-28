@@ -39,6 +39,10 @@ func conjugate() -> Complex:
 func abs() -> float:
 	return sqrt(re * re + im * im)
 
+static func from_polar(r: float, phi: float) -> Complex:
+	return Complex.new(r * cos(phi), r * sin(phi))
+
+
 # --- Static helper for internal instance creation ---
 static func _create(r: float, i: float) -> Complex:
 	var c = Complex.new()

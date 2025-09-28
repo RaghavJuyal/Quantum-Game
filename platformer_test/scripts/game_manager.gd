@@ -32,6 +32,11 @@ var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 
 func _ready() -> void:
 	score = 0
+	#var screen_size = get_viewport().get_visible_rect().size
+	#var design_size = Vector2(2548,1447)
+	#var scale = screen_size/design_size
+	#var zoom_in_factor = 1.25
+	#camera_2d.zoom =  Vector2(1.0/scale.x,1.0/scale.y) * zoom_in_factor
 	camera_2d.make_current()
 	camera_2d.global_position = camera0.global_position
 	carried_gate = ""
