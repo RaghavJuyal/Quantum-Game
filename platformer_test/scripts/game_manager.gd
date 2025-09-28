@@ -30,6 +30,7 @@ var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 @onready var puzzle_1: Node = $Puzzle_1
 @onready var teleportation: Node2D = $Teleportation
 @onready var gem: Node = $EntangledGem/Gem
+@onready var ent_enemy: Node = $EntangleEnemy
 
 func _ready() -> void:
 	score = 0
@@ -37,7 +38,8 @@ func _ready() -> void:
 	camera_2d.global_position = camera0.global_position
 	carried_gate = ""
 	var entanglables = [
-		gem
+		gem,
+		ent_enemy
 	]
 	for block in entanglables:
 		if block != null:
