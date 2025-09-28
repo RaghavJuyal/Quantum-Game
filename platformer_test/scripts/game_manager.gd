@@ -14,9 +14,11 @@ var suppos_allowed = true
 var carried_gate
 var entangled_state = null
 var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
+var enemy_scene: PackedScene = preload("res://scenes/entangle_enemy.tscn")
 
 @export var entangled_mode = false
 @export var hold_gem = false
+@export var hold_enemy = false
 @export var hud: CanvasLayer
 @export var entangled_probs = null
 @onready var player: CharacterBody2D = $Player
@@ -422,6 +424,8 @@ func apply_gate_entangled(U: Array) -> void:
 func edit_hud_entangle() -> void:
 	if hold_gem:
 		hud.get_node("gem_carried").visible = true
+	if hold_enemy:
+		hud.get_node("enemy").visible = true
 	hud.get_node("BlochSphere").visible = false
 	hud.get_node("0_Bloch").visible = false
 	hud.get_node("1_Bloch").visible = false
@@ -446,6 +450,11 @@ func de_entangle(outcome_idx: int) -> void:
 			instantiate_gem(false)
 		elif outcome_idx == 2:
 			instantiate_gem(true)
+	elif hold_enemy:
+		if outcome_idx == 1:
+			instantiate_enemy(false)
+		elif outcome_idx == 2:
+			instantiate_enemy(true)
 	
 	edit_hud_deentangle()
 	
@@ -485,6 +494,20 @@ func instantiate_gem_process():
 			instantiate_gem(true)
 		else:
 			instantiate_gem(false)
+
+func instantiate_enemy(level_zero: bool) -> void:
+	hold_enemy = false
+	var enemy = enemy_scene.instantiate()
+	if level_zero:
+		enemy.is_state_zero = true
+		enemy.global_position = player.global_position + Vector2(0, -10)
+	else:
+		enemy.is_state_zero = false
+		enemy.global_position = player_2.global_position + Vector2(0, -10)
+	get_tree().current_scene.add_child(enemy)
+	enemy.add_to_group("entanglables")
+	
+	hud.get_node("enemy").visible = false
 
 ## PROCESS ##
 

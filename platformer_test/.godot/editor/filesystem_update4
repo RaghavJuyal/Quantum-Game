@@ -1,14 +1,3 @@
 res://scenes/game.tscn
-res://scenes/gem.tscn
-res://scenes/level0.tscn
-res://scenes/finish.tscn
-res://scenes/texts.tscn
-res://scenes/dialogue.tscn
-res://scenes/coin.tscn
-res://scenes/puzzle.tscn
-res://scenes/wire.tscn
-res://scenes/wire_teleport.tscn
-res://scripts/teleportation.gd
+res://scenes/entangle_enemy.tscn
 res://scripts/game_manager.gd
-res://scenes/hud.tscn
-res://scripts/arrow.gd
