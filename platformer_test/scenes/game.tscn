@@ -663,16 +663,19 @@ texture = ExtResource("30_sgl2t")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameManager/Teleportation/teleport_end"]
 shape = SubResource("RectangleShape2D_suyxu")
 
-[node name="wire_teleport_up" parent="GameManager/Teleportation" instance=ExtResource("31_qouja")]
+[node name="teleport_wires" type="Node2D" parent="GameManager/Teleportation"]
+position = Vector2(80, 0)
+
+[node name="wire_teleport_up" parent="GameManager/Teleportation/teleport_wires" instance=ExtResource("31_qouja")]
 position = Vector2(1616, -83)
 middle_count = 4
 begin_variant = 2
 
-[node name="wire_teleport_mid" parent="GameManager/Teleportation" instance=ExtResource("31_qouja")]
+[node name="wire_teleport_mid" parent="GameManager/Teleportation/teleport_wires" instance=ExtResource("31_qouja")]
 position = Vector2(1616, -49)
 middle_count = 4
 
-[node name="wire_teleport_down" parent="GameManager/Teleportation" instance=ExtResource("31_qouja")]
+[node name="wire_teleport_down" parent="GameManager/Teleportation/teleport_wires" instance=ExtResource("31_qouja")]
 position = Vector2(1616, -13)
 middle_count = 4
 

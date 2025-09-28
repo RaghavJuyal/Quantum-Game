@@ -29,14 +29,10 @@ var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 @onready var timer: Timer = $Timer
 @onready var puzzle_1: Node = $Puzzle_1
 @onready var gem: Node = $Gem
+@onready var teleportation: Node2D = $Teleportation
 
 func _ready() -> void:
 	score = 0
-	#var screen_size = get_viewport().get_visible_rect().size
-	#var design_size = Vector2(2548,1447)
-	#var scale = screen_size/design_size
-	#var zoom_in_factor = 1.25
-	#camera_2d.zoom =  Vector2(1.0/scale.x,1.0/scale.y) * zoom_in_factor
 	camera_2d.make_current()
 	camera_2d.global_position = camera0.global_position
 	carried_gate = ""
@@ -238,6 +234,17 @@ func _is_on_interactable(p: Node):
 		if intarea.is_in_group("interactables"):
 			return true
 	return false
+
+func _is_on_teleport(p: Node):
+	if not p.has_node("interact_area"):
+		print("hold up")
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("teleport_interact"):
+			return true
+	
+	return false
+			
 
 func _is_on_entanglable(p: Node):
 	if not p.has_node("interact_area"):
@@ -564,6 +571,8 @@ func _process(delta: float) -> void:
 				set_state_zero()
 			if !measured:
 				measure()
+		elif _is_on_teleport(player) or _is_on_teleport(player_2):
+			teleportation.run_teleportation()
 		var p
 		if state == 0:
 			p = player
