@@ -21,3 +21,10 @@ func _process(delta):
 		# Z Rotation
 		if Input.is_action_pressed("z_rotation"):
 			arrow.rotate_y(game_manager.delta_theta) 
+
+func _rotate_x(angle: float):
+	arrow.rotate_x(angle)
+func _rotate_y(angle:float):
+	arrow.rotate_y(angle)
+func _rotate_z(angle:float):
+	arrow.rotate_z(angle)

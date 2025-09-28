@@ -1,5 +1,4 @@
 res://scenes/game.tscn
-res://scripts/teleportation.gd
 res://scenes/gem.tscn
 res://scenes/level0.tscn
 res://scenes/finish.tscn
@@ -9,5 +8,7 @@ res://scenes/coin.tscn
 res://scenes/puzzle.tscn
 res://scenes/wire.tscn
 res://scenes/wire_teleport.tscn
-res://complex.gd
-res://scripts/wire_teleport.gd
+res://scripts/teleportation.gd
+res://scripts/game_manager.gd
+res://scenes/hud.tscn
+res://scripts/arrow.gd
