@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=43 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://clveei1rqh67u" path="res://scenes/suppos_pad.tscn" id="11_kvuet"]
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/measurement_pad.tscn" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://kjwmsthli58l" path="res://scenes/gem.tscn" id="14_ir15t"]
+[ext_resource type="PackedScene" uid="uid://xus6k5efdd5c" path="res://scenes/gem_block.tscn" id="14_v2yb1"]
 [ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/puzzle_1.gd" id="15_bhx41"]
 [ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/test.gd" id="15_ir15t"]
 [ext_resource type="PackedScene" uid="uid://bukjm6u0mt0tw" path="res://scenes/wire.tscn" id="16_qnb83"]
@@ -396,7 +397,7 @@ script = ExtResource("1_0tnpc")
 hud = NodePath("HUD")
 
 [node name="Player" parent="GameManager" instance=ExtResource("1_uwrxv")]
-position = Vector2(1300, 16)
+position = Vector2(1900, 16)
 
 [node name="Camera2D" type="Camera2D" parent="GameManager/Player"]
 position = Vector2(1, -61)
@@ -406,7 +407,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Player2" parent="GameManager" instance=ExtResource("1_uwrxv")]
-position = Vector2(1300, -64)
+position = Vector2(1900, -64)
 is_state_zero = false
 
 [node name="Camera2D" type="Camera2D" parent="GameManager/Player2"]
@@ -514,10 +515,15 @@ theme_override_fonts/font = ExtResource("8_gee14")
 theme_override_font_sizes/font_size = 32
 text = "THE END"
 
-[node name="suppos_pad" parent="GameManager" instance=ExtResource("11_kvuet")]
+[node name="Zones" type="Node" parent="GameManager"]
+
+[node name="measurement_pad" parent="GameManager/Zones" instance=ExtResource("12_dinhu")]
+position = Vector2(679, -78)
+
+[node name="suppos_pad" parent="GameManager/Zones" instance=ExtResource("11_kvuet")]
 position = Vector2(80, 2)
 
-[node name="Target" type="Label" parent="GameManager/suppos_pad"]
+[node name="Target" type="Label" parent="GameManager/Zones/suppos_pad"]
 offset_left = -87.0
 offset_top = -39.0
 offset_right = -66.0
@@ -526,15 +532,18 @@ theme_override_fonts/font = ExtResource("8_gee14")
 theme_override_font_sizes/font_size = 8
 text = "##"
 
-[node name="Measurement Pads" type="Node" parent="GameManager"]
+[node name="EntangledGem" type="Node" parent="GameManager"]
+
+[node name="Gem" parent="GameManager/EntangledGem" instance=ExtResource("14_ir15t")]
+position = Vector2(120, -70)
+
+[node name="Gem Block" parent="GameManager/EntangledGem" instance=ExtResource("14_v2yb1")]
+position = Vector2(2046, -80)
 
 [node name="HUD" parent="GameManager" instance=ExtResource("10_vtaks")]
 
 [node name="Camera2D" type="Camera2D" parent="GameManager"]
 zoom = Vector2(3, 3)
-
-[node name="Gem" parent="GameManager" instance=ExtResource("14_ir15t")]
-position = Vector2(120, -70)
 
 [node name="Timer" type="Timer" parent="GameManager"]
 wait_time = 0.6
@@ -636,9 +645,6 @@ theme_override_font_sizes/normal_font_size = 16
 text = "target state"
 fit_content = true
 scroll_active = false
-
-[node name="measurement_pad" parent="GameManager" instance=ExtResource("12_dinhu")]
-position = Vector2(679, -78)
 
 [node name="Teleportation" type="Node2D" parent="GameManager"]
 script = ExtResource("29_wljb1")
