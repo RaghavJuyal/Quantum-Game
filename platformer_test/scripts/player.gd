@@ -12,7 +12,6 @@ var stop = false
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 @onready var interact_area: Area2D = $interact_area
-
 func _ready() -> void:
 	if is_state_zero:
 		animated_sprite_2d.self_modulate.a = 1

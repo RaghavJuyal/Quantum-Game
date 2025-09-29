@@ -12,5 +12,5 @@ func _on_body_entered(body: Node2D) -> void:
 		measured_state = game_manager.measure_entangled()
 	if (body.is_state_zero and measured_state == 0) or (not body.is_state_zero and measured_state == 1):
 		Engine.time_scale = 0.5
-		body.get_node("CollisionShape2D").queue_free()
-		game_manager.schedule_respawn()
+		#body.get_node("CollisionShape2D").disabled = true
+		game_manager.schedule_respawn(body)

@@ -16,4 +16,10 @@ shape = SubResource("RectangleShape2D_suu0c")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_43aqb")
 
+[node name="layer1_marker" type="Marker2D" parent="."]
+position = Vector2(0, -3)
+
+[node name="layer0_marker" type="Marker2D" parent="."]
+position = Vector2(0, 36)
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
