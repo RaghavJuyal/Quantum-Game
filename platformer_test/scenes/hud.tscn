@@ -40,9 +40,9 @@ region = Rect2(0, 0, 32, 32)
 script = ExtResource("1_5ysmq")
 
 [node name="coin" type="TextureRect" parent="."]
-offset_left = 352.0
+offset_left = 336.0
 offset_top = 56.0
-offset_right = 421.0
+offset_right = 405.0
 offset_bottom = 122.0
 texture = SubResource("AtlasTexture_oo0fn")
 
@@ -54,9 +54,9 @@ offset_bottom = 173.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ysmq")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 432.0
+offset_left = 416.0
 offset_top = 67.0
-offset_right = 472.0
+offset_right = 456.0
 offset_bottom = 107.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
@@ -72,9 +72,9 @@ theme_override_font_sizes/font_size = 40
 text = "x"
 
 [node name="CoinsLabel" type="Label" parent="."]
-offset_left = 488.0
+offset_left = 472.0
 offset_top = 57.0
-offset_right = 616.0
+offset_right = 600.0
 offset_bottom = 121.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
@@ -237,9 +237,9 @@ offset_bottom = 136.0
 texture = ExtResource("7_5pdws")
 expand_mode = 1
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="heart" type="TextureRect" parent="."]
 offset_left = 24.0
-offset_top = 56.0
+offset_top = 48.0
 offset_right = 128.0
-offset_bottom = 144.0
+offset_bottom = 136.0
 texture = SubResource("AtlasTexture_0i1j5")
