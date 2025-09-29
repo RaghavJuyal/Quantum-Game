@@ -393,7 +393,7 @@ func handle_interaction(block:Node):
 		"run_circuit": 
 			_run_circuit()
 		
-		"Gem Block": _gem_block()
+		"Gem Block": _gem_block(block)
 
 		"z_gate": game_manager.carried_gate="Z"
 		"y_gate": game_manager.carried_gate="Y"
@@ -444,9 +444,11 @@ func _run_circuit_with_animation() -> void:
 		$incorrect.play()
 
 ## NON-PUZZLE LOGIC ##
-func _gem_block() -> void:
+func _gem_block(block: Node) -> void:
 	if (!game_manager.entangled_mode and game_manager.hold_gem):
 		gem_obstacle.hide()
 		gem_obstacle.queue_free()
+		block.queue_free()
+		
 		game_manager.hold_gem = false
 		game_manager.hud.get_node("gem_carried").visible = false
