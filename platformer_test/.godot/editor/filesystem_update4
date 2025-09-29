@@ -2,3 +2,4 @@ res://scenes/game.tscn
 res://scenes/entangle_enemy.tscn
 res://scripts/puzzle_1.gd
 res://scripts/game_manager.gd
+res://scenes/gem_block.tscn

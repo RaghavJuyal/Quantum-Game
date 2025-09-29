@@ -541,7 +541,7 @@ position = Vector2(1883, 10)
 is_state_zero = true
 
 [node name="Gem Block" parent="GameManager/EntangledGem" instance=ExtResource("14_v2yb1")]
-position = Vector2(1988, -82)
+position = Vector2(1959, -70)
 
 [node name="Gem Obstacle" type="TileMapLayer" parent="GameManager/EntangledGem"]
 position = Vector2(1216, 2)
