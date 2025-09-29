@@ -451,10 +451,14 @@ func de_entangle(outcome_idx: int) -> void:
 		elif outcome_idx == 2:
 			instantiate_gem(true)
 	elif hold_enemy:
-		if outcome_idx == 1:
-			instantiate_enemy(false)
+		if outcome_idx == 0:
+			instantiate_enemy(true, true)
+		elif outcome_idx == 1:
+			instantiate_enemy(false, false)
 		elif outcome_idx == 2:
-			instantiate_enemy(true)
+			instantiate_enemy(true, false)
+		else:
+			instantiate_enemy(false, true)
 	
 	edit_hud_deentangle()
 	
@@ -464,6 +468,7 @@ func de_entangle(outcome_idx: int) -> void:
 func edit_hud_deentangle() -> void:
 	if !hold_gem:
 		hud.get_node("gem_carried").visible = false
+	hud.get_node("enemy").visible = false
 	hud.get_node("BlochSphere").visible = true
 	hud.get_node("0_Bloch").visible = true
 	hud.get_node("1_Bloch").visible = true
@@ -495,15 +500,18 @@ func instantiate_gem_process():
 		else:
 			instantiate_gem(false)
 
-func instantiate_enemy(level_zero: bool) -> void:
+func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 	hold_enemy = false
 	var enemy = enemy_scene.instantiate()
+	var h_distance = 10
+	if not kill: 
+		h_distance = 35
 	if level_zero:
 		enemy.is_state_zero = true
-		enemy.global_position = player.global_position + Vector2(0, -10)
+		enemy.global_position = player.global_position + Vector2(h_distance, -20)
 	else:
 		enemy.is_state_zero = false
-		enemy.global_position = player_2.global_position + Vector2(0, -10)
+		enemy.global_position = player_2.global_position + Vector2(h_distance, -20)
 	get_tree().current_scene.add_child(enemy)
 	enemy.add_to_group("entanglables")
 	
@@ -619,6 +627,8 @@ func _process(delta: float) -> void:
 		if target != null:
 			if target.name == "Gem":
 				hold_gem = true
+			elif target.name == "EntangleEnemy":
+				hold_enemy = true
 
 			entangled_mode = true
 			# player is the control, object is the target

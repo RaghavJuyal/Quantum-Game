@@ -1,3 +1,4 @@
 res://scenes/game.tscn
 res://scenes/entangle_enemy.tscn
 res://scripts/game_manager.gd
+res://scenes/hud.tscn
