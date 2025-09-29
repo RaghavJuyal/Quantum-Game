@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cavk2o4ctghvk"]
+[gd_scene load_steps=15 format=3 uid="uid://cavk2o4ctghvk"]
 
 [ext_resource type="Script" uid="uid://07igknrhuyay" path="res://scripts/hud.gd" id="1_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://h2et6qe150l5" path="res://assets/sprites/coin.png" id="1_ahhtf"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://ch4t2vrvp7nkw" path="res://scripts/arrow.gd" id="5_uo2fv"]
 [ext_resource type="Texture2D" uid="uid://cvq0vahg1nm2u" path="res://assets/puzzle_game_gfx/Gems/gem_octagon_purple_outline.png" id="6_047uy"]
 [ext_resource type="Texture2D" uid="uid://bbf33oarwo80m" path="res://assets/puzzle_game_gfx/Animals/animal_squirrel.png" id="7_5pdws"]
+[ext_resource type="Texture2D" uid="uid://btwylfdjio5kr" path="res://assets/sprites/hearts.png" id="8_hd3ao"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")
@@ -31,63 +32,85 @@ height = 2.0
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_047uy"]
 albedo_color = Color(1, 0, 0.176471, 1)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_0i1j5"]
+atlas = ExtResource("8_hd3ao")
+region = Rect2(0, 0, 32, 32)
+
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_5ysmq")
 
 [node name="coin" type="TextureRect" parent="."]
-offset_left = 24.0
+offset_left = 352.0
 offset_top = 56.0
-offset_right = 93.0
+offset_right = 421.0
 offset_bottom = 122.0
 texture = SubResource("AtlasTexture_oo0fn")
 
 [node name="Panel" type="Panel" parent="."]
 offset_left = 20.0
 offset_top = 13.0
-offset_right = 1992.0
+offset_right = 2232.0
 offset_bottom = 173.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ysmq")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 103.0
+offset_left = 432.0
 offset_top = 67.0
-offset_right = 143.0
+offset_right = 472.0
+offset_bottom = 107.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 40
+text = "x"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 120.0
+offset_top = 67.0
+offset_right = 160.0
 offset_bottom = 107.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "x"
 
 [node name="CoinsLabel" type="Label" parent="."]
-offset_left = 146.0
+offset_left = 488.0
 offset_top = 57.0
-offset_right = 274.0
+offset_right = 616.0
+offset_bottom = 121.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 64
+text = "##"
+
+[node name="HeartLabel" type="Label" parent="."]
+offset_left = 168.0
+offset_top = 57.0
+offset_right = 296.0
 offset_bottom = 121.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="0" type="Label" parent="."]
-offset_left = 296.0
+offset_left = 672.0
 offset_top = 112.0
-offset_right = 406.0
+offset_right = 782.0
 offset_bottom = 152.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "|0>:"
 
 [node name="phi" type="Label" parent="."]
-offset_left = 984.0
+offset_left = 1336.0
 offset_top = 112.0
-offset_right = 1104.0
+offset_right = 1456.0
 offset_bottom = 152.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "phi:"
 
 [node name="0_Bloch" type="Label" parent="."]
-offset_left = 816.0
+offset_left = 1168.0
 offset_top = 16.0
-offset_right = 926.0
+offset_right = 1278.0
 offset_bottom = 56.0
 scale = Vector2(0.4, 0.442)
 theme_override_fonts/font = ExtResource("3_6fi6k")
@@ -95,63 +118,63 @@ theme_override_font_sizes/font_size = 40
 text = "|0>"
 
 [node name="Percent0" type="Label" parent="."]
-offset_left = 432.0
+offset_left = 792.0
 offset_top = 104.0
-offset_right = 560.0
+offset_right = 920.0
 offset_bottom = 168.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="phi_value" type="Label" parent="."]
-offset_left = 1184.0
+offset_left = 1536.0
 offset_top = 104.0
-offset_right = 1312.0
+offset_right = 1664.0
 offset_bottom = 168.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="Percent1" type="Label" parent="."]
-offset_left = 432.0
+offset_left = 792.0
 offset_top = 32.0
-offset_right = 560.0
+offset_right = 920.0
 offset_bottom = 96.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="theta_value" type="Label" parent="."]
-offset_left = 1184.0
+offset_left = 1536.0
 offset_top = 24.0
-offset_right = 1312.0
+offset_right = 1664.0
 offset_bottom = 88.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
 
 [node name="1" type="Label" parent="."]
-offset_left = 296.0
+offset_left = 672.0
 offset_top = 40.0
-offset_right = 406.0
+offset_right = 782.0
 offset_bottom = 80.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "|1>:"
 
 [node name="theta" type="Label" parent="."]
-offset_left = 976.0
+offset_left = 1328.0
 offset_top = 40.0
-offset_right = 1086.0
+offset_right = 1518.0
 offset_bottom = 80.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "theta:"
 
 [node name="1_Bloch" type="Label" parent="."]
-offset_left = 816.0
+offset_left = 1168.0
 offset_top = 150.0
-offset_right = 926.0
+offset_right = 1278.0
 offset_bottom = 190.0
 scale = Vector2(0.4, 0.478)
 theme_override_fonts/font = ExtResource("3_6fi6k")
@@ -159,9 +182,9 @@ theme_override_font_sizes/font_size = 40
 text = "|1>"
 
 [node name="BlochSphere" type="SubViewportContainer" parent="."]
-offset_left = 280.0
+offset_left = 632.0
 offset_top = -192.0
-offset_right = 1386.0
+offset_right = 1738.0
 offset_bottom = 372.0
 stretch = true
 
@@ -188,9 +211,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_047uy")
 script = ExtResource("5_uo2fv")
 
 [node name="carried_gate" type="Label" parent="."]
-offset_left = 1512.0
+offset_left = 1768.0
 offset_top = 56.0
-offset_right = 1640.0
+offset_right = 1896.0
 offset_bottom = 120.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
@@ -198,18 +221,25 @@ text = "##"
 
 [node name="gem_carried" type="TextureRect" parent="."]
 visible = false
-offset_left = 1736.0
+offset_left = 1976.0
 offset_top = 40.0
-offset_right = 1832.0
+offset_right = 2072.0
 offset_bottom = 136.0
 texture = ExtResource("6_047uy")
 expand_mode = 1
 
 [node name="enemy" type="TextureRect" parent="."]
 visible = false
-offset_left = 1856.0
+offset_left = 2104.0
 offset_top = 40.0
-offset_right = 1952.0
+offset_right = 2200.0
 offset_bottom = 136.0
 texture = ExtResource("7_5pdws")
 expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = 24.0
+offset_top = 56.0
+offset_right = 128.0
+offset_bottom = 144.0
+texture = SubResource("AtlasTexture_0i1j5")

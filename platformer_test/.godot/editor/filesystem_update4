@@ -1,2 +1,7 @@
 res://scenes/heart.tscn
 res://scenes/music.tscn
+res://scenes/hud.tscn
+res://scenes/game.tscn
+res://scenes/gem_block.tscn
+res://scenes/coin.tscn
+res://scripts/hud.gd
