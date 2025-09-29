@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://xus6k5efdd5c"]
+
+[ext_resource type="Texture2D" uid="uid://dgke1ytqvkrag" path="res://assets/puzzle_game_gfx/Polyominoes/polyominoes_tetromino_7.png" id="1_rorc2"]
+
+[node name="Node2D" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1.42109e-14, -3.55271e-15)
+scale = Vector2(0.041276, 0.0402344)
+texture = ExtResource("1_rorc2")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-10, 4.5)
+polygon = PackedVector2Array(5, -13.5, 0, -13.5, 0, -13.5, 0, 5.5, -10, 5.5, -10, 14.5, 10, 14.5, 10, -13.5)

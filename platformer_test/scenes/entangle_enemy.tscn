@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://b3snixrae4lh6"]
+
+[ext_resource type="PackedScene" uid="uid://b0exx33d87cji" path="res://scenes/killzone.tscn" id="1_lv8k4"]
+[ext_resource type="Script" uid="uid://csqspn00tocxw" path="res://scripts/entangle_enemy.gd" id="1_wwfcx"]
+[ext_resource type="Texture2D" uid="uid://bbf33oarwo80m" path="res://assets/puzzle_game_gfx/Animals/animal_squirrel.png" id="1_x4c7e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x4c7e"]
+size = Vector2(38, 37.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwfcx"]
+size = Vector2(104, 39)
+
+[node name="EntangleEnemy" type="Area2D"]
+script = ExtResource("1_wwfcx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8.34465e-07, 9.53674e-07)
+scale = Vector2(0.09375, 0.0864258)
+texture = ExtResource("1_x4c7e")
+
+[node name="Killzone" parent="." instance=ExtResource("1_lv8k4")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
+position = Vector2(0, 0.75)
+shape = SubResource("RectangleShape2D_x4c7e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, -0.5)
+shape = SubResource("RectangleShape2D_wwfcx")

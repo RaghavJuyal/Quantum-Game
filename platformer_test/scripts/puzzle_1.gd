@@ -16,6 +16,10 @@ const Complex = preload("res://complex.gd")
 @onready var add_gate_left_down: Node = $Add_gates/add_gate_left_down
 @onready var add_gate_right_down: Node = $Add_gates/add_gate_right_down
 
+## TODO: Refactor interaction to a common area ##
+@onready var gem_block: Node = $"../EntangledGem/Gem Block"
+@onready var gem_obstacle: Node = $"../EntangledGem/Gem Obstacle"
+
 @onready var puzzle_obstacle: TileMapLayer = $Puzzle_obstacle
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 
@@ -33,8 +37,6 @@ const Complex = preload("res://complex.gd")
 @onready var current_state_label: RichTextLabel = $current_state_label
 @onready var target_state_label: RichTextLabel = $target_state_label
 
-
-
 # --- Puzzle data ---
 var circuit_sequence: Array = []         # Stores gate matrices in order
 var initial_state: Array = []            # 4x1 vector of Complex numbers
@@ -48,7 +50,8 @@ func _ready() -> void:
 		remove_gate_left_up, remove_gate_left_down, remove_gate_right_down, remove_gate_right_up,
 		add_gate_left_up, add_gate_right_up, add_gate_left_down, add_gate_right_down,
 		reset_circuit, run_circuit,
-		z_gate, y_gate, x_gate, cnot_gate, hadamard_gate
+		z_gate, y_gate, x_gate, cnot_gate, hadamard_gate, 
+		gem_block
 	]
 	for block in interactables:
 		if block != null:
@@ -389,7 +392,8 @@ func handle_interaction(block:Node):
 		"reset_circuit": _reset_both()
 		"run_circuit": 
 			_run_circuit()
-			print("HI")
+		
+		"Gem Block": _gem_block()
 
 		"z_gate": game_manager.carried_gate="Z"
 		"y_gate": game_manager.carried_gate="Y"
@@ -438,3 +442,11 @@ func _run_circuit_with_animation() -> void:
 		print("Target state:")
 		print(_state_to_string(target_state))
 		$incorrect.play()
+
+## NON-PUZZLE LOGIC ##
+func _gem_block() -> void:
+	if (!game_manager.entangled_mode and game_manager.hold_gem):
+		gem_obstacle.hide()
+		gem_obstacle.queue_free()
+		game_manager.hold_gem = false
+		game_manager.hud.get_node("gem_carried").visible = false

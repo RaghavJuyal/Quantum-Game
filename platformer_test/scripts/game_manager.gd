@@ -13,10 +13,12 @@ var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
 var entangled_state = null
-var hold_gem = false
 var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
+var enemy_scene: PackedScene = preload("res://scenes/entangle_enemy.tscn")
 
 @export var entangled_mode = false
+@export var hold_gem = false
+@export var hold_enemy = false
 @export var hud: CanvasLayer
 @export var entangled_probs = null
 @onready var player: CharacterBody2D = $Player
@@ -28,8 +30,9 @@ var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var timer: Timer = $Timer
 @onready var puzzle_1: Node = $Puzzle_1
-@onready var gem: Node = $Gem
 @onready var teleportation: Node2D = $Teleportation
+@onready var gem: Node = $EntangledGem/Gem
+@onready var ent_enemy: Node = $EntangleEnemy
 
 func _ready() -> void:
 	score = 0
@@ -37,7 +40,8 @@ func _ready() -> void:
 	camera_2d.global_position = camera0.global_position
 	carried_gate = ""
 	var entanglables = [
-		gem
+		gem,
+		ent_enemy
 	]
 	for block in entanglables:
 		if block != null:
@@ -420,6 +424,8 @@ func apply_gate_entangled(U: Array) -> void:
 func edit_hud_entangle() -> void:
 	if hold_gem:
 		hud.get_node("gem_carried").visible = true
+	if hold_enemy:
+		hud.get_node("enemy").visible = true
 	hud.get_node("BlochSphere").visible = false
 	hud.get_node("0_Bloch").visible = false
 	hud.get_node("1_Bloch").visible = false
@@ -444,6 +450,15 @@ func de_entangle(outcome_idx: int) -> void:
 			instantiate_gem(false)
 		elif outcome_idx == 2:
 			instantiate_gem(true)
+	elif hold_enemy:
+		if outcome_idx == 0:
+			instantiate_enemy(true, true)
+		elif outcome_idx == 1:
+			instantiate_enemy(false, false)
+		elif outcome_idx == 2:
+			instantiate_enemy(true, false)
+		else:
+			instantiate_enemy(false, true)
 	
 	edit_hud_deentangle()
 	
@@ -453,6 +468,7 @@ func de_entangle(outcome_idx: int) -> void:
 func edit_hud_deentangle() -> void:
 	if !hold_gem:
 		hud.get_node("gem_carried").visible = false
+	hud.get_node("enemy").visible = false
 	hud.get_node("BlochSphere").visible = true
 	hud.get_node("0_Bloch").visible = true
 	hud.get_node("1_Bloch").visible = true
@@ -483,6 +499,23 @@ func instantiate_gem_process():
 			instantiate_gem(true)
 		else:
 			instantiate_gem(false)
+
+func instantiate_enemy(level_zero: bool, kill: bool) -> void:
+	hold_enemy = false
+	var enemy = enemy_scene.instantiate()
+	var h_distance = 10
+	if not kill: 
+		h_distance = 35
+	if level_zero:
+		enemy.is_state_zero = true
+		enemy.global_position = player.global_position + Vector2(h_distance, -20)
+	else:
+		enemy.is_state_zero = false
+		enemy.global_position = player_2.global_position + Vector2(h_distance, -20)
+	get_tree().current_scene.add_child(enemy)
+	enemy.add_to_group("entanglables")
+	
+	hud.get_node("enemy").visible = false
 
 ## PROCESS ##
 
@@ -567,8 +600,6 @@ func _process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("Interact"):
 		if _is_on_interactable(player) or _is_on_interactable(player_2):
-			if entangled_mode: ## TODO: Improve handling for this case
-				set_state_zero()
 			if !measured:
 				measure()
 		elif _is_on_teleport(player) or _is_on_teleport(player_2):
@@ -596,6 +627,8 @@ func _process(delta: float) -> void:
 		if target != null:
 			if target.name == "Gem":
 				hold_gem = true
+			elif target.name == "EntangleEnemy":
+				hold_enemy = true
 
 			entangled_mode = true
 			# player is the control, object is the target
