@@ -14,7 +14,8 @@ var suppos_allowed = true
 var carried_gate
 var entangled_state = null
 var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
-var enemy_scene: PackedScene = preload("res://scenes/entangle_enemy.tscn")
+var ent_enemy_scene: PackedScene = preload("res://scenes/entangle_enemy.tscn")
+var ent_enemy_position = null
 
 @export var entangled_mode = false
 @export var hold_gem = false
@@ -502,16 +503,19 @@ func instantiate_gem_process():
 
 func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 	hold_enemy = false
-	var enemy = enemy_scene.instantiate()
-	var h_distance = 10
-	if not kill: 
-		h_distance = 35
+	var enemy = ent_enemy_scene.instantiate()
 	if level_zero:
 		enemy.is_state_zero = true
-		enemy.global_position = player.global_position + Vector2(h_distance, -20)
+		if kill:
+			enemy.global_position = player.global_position + Vector2(0, -20)
+		else:
+			enemy.global_position = Vector2(ent_enemy_position, player.global_position.y - 20)
 	else:
 		enemy.is_state_zero = false
-		enemy.global_position = player_2.global_position + Vector2(h_distance, -20)
+		if kill:		
+			enemy.global_position = player_2.global_position + Vector2(0, -20)
+		else:
+			enemy.global_position = Vector2(ent_enemy_position, player_2.global_position.y - 20)
 	get_tree().current_scene.add_child(enemy)
 	enemy.add_to_group("entanglables")
 	
@@ -629,6 +633,7 @@ func _process(delta: float) -> void:
 				hold_gem = true
 			elif target.name == "EntangleEnemy":
 				hold_enemy = true
+				ent_enemy_position = target.global_position.x
 
 			entangled_mode = true
 			# player is the control, object is the target

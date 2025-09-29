@@ -5,10 +5,10 @@
 [ext_resource type="Texture2D" uid="uid://bbf33oarwo80m" path="res://assets/puzzle_game_gfx/Animals/animal_squirrel.png" id="1_x4c7e"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x4c7e"]
-size = Vector2(38, 37.5)
+size = Vector2(48, 39.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wwfcx"]
-size = Vector2(104, 39)
+size = Vector2(86, 39)
 
 [node name="EntangleEnemy" type="Area2D"]
 script = ExtResource("1_wwfcx")
@@ -21,7 +21,7 @@ texture = ExtResource("1_x4c7e")
 [node name="Killzone" parent="." instance=ExtResource("1_lv8k4")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(0, 0.75)
+position = Vector2(0, -0.25)
 shape = SubResource("RectangleShape2D_x4c7e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

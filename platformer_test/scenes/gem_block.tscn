@@ -1,14 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://xus6k5efdd5c"]
+[gd_scene load_steps=3 format=3 uid="uid://xus6k5efdd5c"]
 
-[ext_resource type="Texture2D" uid="uid://dgke1ytqvkrag" path="res://assets/puzzle_game_gfx/Polyominoes/polyominoes_tetromino_7.png" id="1_rorc2"]
+[ext_resource type="Texture2D" uid="uid://dwwk2nhqv0gu0" path="res://assets/puzzle_game_gfx/Blocks/block_1_yellow.png" id="1_rorc2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ll835"]
+size = Vector2(14, 14)
 
 [node name="Node2D" type="RigidBody2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.42109e-14, -3.55271e-15)
-scale = Vector2(0.041276, 0.0402344)
+position = Vector2(-2.38419e-07, -4.76837e-07)
+scale = Vector2(0.0284505, 0.0277326)
 texture = ExtResource("1_rorc2")
 
-[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(-10, 4.5)
-polygon = PackedVector2Array(5, -13.5, 0, -13.5, 0, -13.5, 0, 5.5, -10, 5.5, -10, 14.5, 10, 14.5, 10, -13.5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ll835")
