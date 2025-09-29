@@ -25,7 +25,7 @@ func _on_body_entered(body: Node2D) -> void:
 	# we remove the player that didn't trigger if fidelity condition fails
 	if triggered:
 		if fidelity < fidelity_threshold:
-			body.get_node("CollisionShape2D").disabled = true
+			body.get_node("CollisionShape2D").queue_free()
 		return
 	triggered = true
 	fidelity_label.text += "\nFidelity: %.2f" % (round(fidelity*1000)/1000)
@@ -38,9 +38,8 @@ func _on_body_entered(body: Node2D) -> void:
 	else:
 		game_manager.set_state_zero()
 		Engine.time_scale = 0.5
-		body.get_node("CollisionShape2D").disabled = true
-		game_manager.schedule_respawn(body)
-		return
+		body.get_node("CollisionShape2D").queue_free()
+		game_manager.schedule_respawn()
 	# removes check zone if passed, but not the label
 	self_node.get_node("CollisionShape2D").queue_free()
 	self_node.get_node("Sprite2D").queue_free()

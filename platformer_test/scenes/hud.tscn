@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cavk2o4ctghvk"]
+[gd_scene load_steps=15 format=3 uid="uid://cavk2o4ctghvk"]
 
 [ext_resource type="Script" uid="uid://07igknrhuyay" path="res://scripts/hud.gd" id="1_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://h2et6qe150l5" path="res://assets/sprites/coin.png" id="1_ahhtf"]
@@ -28,6 +28,9 @@ albedo_color = Color(0.490196, 0.921569, 0.992157, 0.145098)
 material = SubResource("StandardMaterial3D_uo2fv")
 radius = 1.0
 height = 2.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_047uy"]
+albedo_color = Color(1, 0, 0.176471, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0i1j5"]
 atlas = ExtResource("8_hd3ao")
@@ -204,6 +207,7 @@ mesh = SubResource("SphereMesh_6fi6k")
 [node name="arrow" type="MeshInstance3D" parent="BlochSphere/SubViewport"]
 transform = Transform3D(-1.74846e-09, 8.74228e-10, -0.02, -0.02, 8.74228e-10, 1.74846e-09, 8.74228e-10, 0.02, 8.74228e-10, 0, 0.2, 0)
 mesh = ExtResource("4_6fi6k")
+surface_material_override/0 = SubResource("StandardMaterial3D_047uy")
 script = ExtResource("5_uo2fv")
 
 [node name="carried_gate" type="Label" parent="."]
