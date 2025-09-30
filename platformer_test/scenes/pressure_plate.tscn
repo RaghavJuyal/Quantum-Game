@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://b5of0va0jbsvq"]
+
+[ext_resource type="Texture2D" uid="uid://c42p8jtc2lp1p" path="res://assets/puzzle_game_gfx/Blocks/block_2_pink.png" id="1_ct5vs"]
+[ext_resource type="Script" path="res://scripts/pressure_plate.gd" id="1_xtofl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ct5vs"]
+size = Vector2(34, 17)
+
+[node name="PressurePlate" type="StaticBody2D"]
+collision_mask = 3
+script = ExtResource("1_xtofl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0332031, 0.0332031)
+texture = ExtResource("1_ct5vs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ct5vs")
