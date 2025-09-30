@@ -100,9 +100,9 @@ func _on_timer_timeout() -> void:
 	# Respawn logic
 	var respawn_player: Node2D = pending_respawn
 	pending_respawn.get_node("CollisionShape2D").disabled = false
-	isdead = false
 	player.global_position = checkpoint_position_0
 	player_2.global_position = checkpoint_position_1
+	isdead = false
 	if checkpoint_player == player:
 		theta = 0
 		phi = 0
