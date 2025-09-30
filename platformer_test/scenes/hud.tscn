@@ -211,9 +211,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_047uy")
 script = ExtResource("5_uo2fv")
 
 [node name="carried_gate" type="Label" parent="."]
-offset_left = 1768.0
+offset_left = 1824.0
 offset_top = 56.0
-offset_right = 1896.0
+offset_right = 1952.0
 offset_bottom = 120.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
