@@ -1,5 +1,4 @@
 res://scenes/game.tscn
-res://scripts/suppos_pad.gd
 res://scenes/gem_block.tscn
 res://scenes/coin.tscn
 res://scenes/heart.tscn
@@ -7,5 +6,4 @@ res://scenes/music.tscn
 res://scenes/hud.tscn
 res://scenes/measurement_pad.tscn
 res://scenes/player.tscn
-res://scripts/game_manager.gd
 res://scenes/suppos_pad.tscn

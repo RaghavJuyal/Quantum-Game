@@ -109,7 +109,6 @@ func _on_timer_timeout() -> void:
 		measured = false
 		measure()
 		camera_2d.global_position = camera0.global_position
-		print("hi")
 		
 	else:
 		theta = PI
@@ -117,7 +116,6 @@ func _on_timer_timeout() -> void:
 		measured = false
 		measure()
 		camera_2d.global_position = camera1.global_position
-		print("bye")
 	
 
 	# Make player invisible first
@@ -130,9 +128,6 @@ func _on_timer_timeout() -> void:
 		Color(respawn_player.modulate.r, respawn_player.modulate.g, respawn_player.modulate.b, 1.0),
 		0.4
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
-	print(theta)
-	print(phi)
-	print(bloch_vec)
 
 ## SUPERPOSITION HANDLING ##
 
@@ -147,7 +142,6 @@ func measure():
 		set_state_zero()
 	else:
 		set_state_one()
-	print(state)
 	return state
 
 func set_state_zero():
