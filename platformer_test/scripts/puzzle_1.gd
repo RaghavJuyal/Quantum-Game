@@ -434,13 +434,9 @@ func _run_circuit_with_animation() -> void:
 		remove_gates.queue_free()
 		run_circuit.queue_free()
 		reset_circuit.queue_free()
-		print("Puzzle solved!")
+		game_manager.carried_gate = ""
 		$correct.play()
 	else:
-		print("Failed. Final state:")
-		print(_state_to_string(state))
-		print("Target state:")
-		print(_state_to_string(target_state))
 		$incorrect.play()
 
 ## NON-PUZZLE LOGIC ##

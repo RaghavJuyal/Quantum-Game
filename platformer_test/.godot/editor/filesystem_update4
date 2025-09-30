@@ -1,5 +1,9 @@
 res://scenes/game.tscn
-res://scenes/entangle_enemy.tscn
-res://scripts/puzzle_1.gd
-res://scripts/game_manager.gd
 res://scenes/gem_block.tscn
+res://scenes/coin.tscn
+res://scenes/heart.tscn
+res://scenes/music.tscn
+res://scenes/hud.tscn
+res://scenes/measurement_pad.tscn
+res://scenes/player.tscn
+res://scenes/suppos_pad.tscn

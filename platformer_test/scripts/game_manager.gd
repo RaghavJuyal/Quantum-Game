@@ -16,6 +16,12 @@ var entangled_state = null
 var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 var ent_enemy_scene: PackedScene = preload("res://scenes/entangle_enemy.tscn")
 var ent_enemy_position = null
+var hearts: int = 3
+var checkpoint_position_0:  Vector2
+var checkpoint_position_1: Vector2
+var checkpoint_player
+var pending_respawn
+var isdead = false
 
 @export var entangled_mode = false
 @export var hold_gem = false
@@ -34,9 +40,16 @@ var ent_enemy_position = null
 @onready var teleportation: Node2D = $Teleportation
 @onready var gem: Node = $EntangledGem/Gem
 @onready var ent_enemy: Node = $EntangleEnemy
-
+const KILLZONE = preload("res://scenes/killzone.tscn")
 func _ready() -> void:
 	score = 0
+	hearts = 3
+	isdead = false
+	checkpoint_player = player
+	checkpoint_position_0 = player.global_position
+	checkpoint_position_1 = player_2.global_position
+	hud.heart_label.text = str(hearts)
+	hud.coins_label.text = str(score)
 	camera_2d.make_current()
 	camera_2d.global_position = camera0.global_position
 	carried_gate = ""
@@ -52,13 +65,69 @@ func add_point():
 	# Update coins collected
 	score += 1
 	hud.get_node("CoinsLabel").text = str(score)
+	if score % 5 == 0:
+		hearts+=1
+		hud.heart_label.text = str(hearts)
 
-func schedule_respawn():
+
+func schedule_respawn(dead_body: Node2D) -> void:
+	pending_respawn = dead_body
+	# Tween fade-out
+	var tween = get_tree().create_tween()
+	tween.tween_property(
+		pending_respawn, "modulate",
+		Color(pending_respawn.modulate.r, pending_respawn.modulate.g, pending_respawn.modulate.b, 0.0),
+		0.4
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+	# Start respawn timer
 	timer.start()
 
-func _on_timer_timeout():
-	Engine.time_scale = 1
-	get_tree().reload_current_scene()
+func _on_timer_timeout() -> void:
+	Engine.time_scale = 1.0
+
+	# Update hearts / reset game if needed
+	hearts -= 1
+	hud.heart_label.text = str(hearts)
+	if hearts <= 0:
+		score = 0
+		hud.coins_label.text = str(score)
+		hearts = 3
+		hud.heart_label.text = str(hearts)
+		get_tree().reload_current_scene()
+		return
+
+	# Respawn logic
+	var respawn_player: Node2D = pending_respawn
+	pending_respawn.get_node("CollisionShape2D").disabled = false
+	player.global_position = checkpoint_position_0
+	player_2.global_position = checkpoint_position_1
+	isdead = false
+	if checkpoint_player == player:
+		theta = 0
+		phi = 0
+		measured = false
+		measure()
+		camera_2d.global_position = camera0.global_position
+		
+	else:
+		theta = PI
+		phi = 0
+		measured = false
+		measure()
+		camera_2d.global_position = camera1.global_position
+	
+
+	# Make player invisible first
+	respawn_player.modulate.a = 0.0
+
+	# Tween fade-in
+	var tween = get_tree().create_tween()
+	tween.tween_property(
+		respawn_player, "modulate",
+		Color(respawn_player.modulate.r, respawn_player.modulate.g, respawn_player.modulate.b, 1.0),
+		0.4
+	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 ## SUPERPOSITION HANDLING ##
 
@@ -80,7 +149,7 @@ func set_state_zero():
 	hud.get_node("Percent0").text = str(100.0)
 	hud.get_node("Percent1").text = str(0.0)
 	theta = 0
-	phi = 1
+	phi = 0
 	bloch_vec = Vector3(0, 0, 1)
 	camera_2d.global_position = camera_2d.global_position.lerp(camera0.global_position,0.005)
 
