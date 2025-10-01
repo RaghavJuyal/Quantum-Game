@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=47 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" uid="uid://b0nr3ui5i7ucj" path="res://scripts/teleportation.gd" id="29_wljb1"]
 [ext_resource type="Texture2D" uid="uid://c1u3sdkkcriv5" path="res://assets/puzzle_game_gfx/Blocks/block_1_blue_outline.png" id="30_sgl2t"]
 [ext_resource type="PackedScene" uid="uid://dfoervmeqi0lp" path="res://scenes/wire_teleport.tscn" id="31_qouja"]
+[ext_resource type="PackedScene" uid="uid://b7gx8whhx2d57" path="res://scenes/merlin.tscn" id="37_02fa5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -710,6 +711,9 @@ middle_count = 4
 [node name="wire_teleport_down" parent="GameManager/Teleportation/teleport_wires" instance=ExtResource("31_qouja")]
 position = Vector2(1616, -13)
 middle_count = 4
+
+[node name="merlin" parent="GameManager" instance=ExtResource("37_02fa5")]
+position = Vector2(40, -77)
 
 [connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]
 
