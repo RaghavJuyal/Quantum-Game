@@ -581,6 +581,7 @@ script = ExtResource("15_ir15t")
 
 [node name="Puzzle_1" type="Node2D" parent="GameManager"]
 script = ExtResource("15_bhx41")
+target_state_re = Array[float]([0.0, 1.0, 0.0, 0.0])
 
 [node name="wire_up" parent="GameManager/Puzzle_1" instance=ExtResource("16_qnb83")]
 position = Vector2(920, -90)
@@ -648,7 +649,7 @@ stream = ExtResource("27_suyxu")
 [node name="current_state_label" type="RichTextLabel" parent="GameManager/Puzzle_1"]
 offset_left = 726.0
 offset_top = 92.0
-offset_right = 1151.0
+offset_right = 1181.0
 offset_bottom = 127.0
 theme_override_fonts/normal_font = ExtResource("8_gee14")
 theme_override_font_sizes/normal_font_size = 16
@@ -657,10 +658,10 @@ fit_content = true
 scroll_active = false
 
 [node name="target_state_label" type="RichTextLabel" parent="GameManager/Puzzle_1"]
-offset_left = 731.0
-offset_top = 143.0
-offset_right = 1151.0
-offset_bottom = 185.0
+offset_left = 740.0
+offset_top = 133.0
+offset_right = 1181.0
+offset_bottom = 175.0
 theme_override_fonts/normal_font = ExtResource("8_gee14")
 theme_override_font_sizes/normal_font_size = 16
 text = "target state"

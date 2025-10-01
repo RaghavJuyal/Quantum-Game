@@ -251,10 +251,10 @@ text = "target state"
 fit_content = true
 scroll_active = false
 
-[node name="Other blocks" type="Node2D" parent="."]
+[node name="Other_blocks" type="Node2D" parent="."]
 
-[node name="run_circuit" parent="Other blocks" instance=ExtResource("6_8a32l")]
+[node name="run_circuit" parent="Other_blocks" instance=ExtResource("6_8a32l")]
 position = Vector2(793, -69)
 
-[node name="reset_circuit" parent="Other blocks" instance=ExtResource("7_udsb1")]
+[node name="reset_circuit" parent="Other_blocks" instance=ExtResource("7_udsb1")]
 position = Vector2(793, 9)
