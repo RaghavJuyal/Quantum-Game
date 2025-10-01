@@ -326,6 +326,11 @@ func _is_on_teleport(p: Node):
 	return false
 
 func _is_on_entanglable(p: Node):
+	if measured:
+		if p.is_state_zero and state != 0:
+			return null
+		elif !p.is_state_zero and state != 1:
+			return null
 	if not p.has_node("interact_area"):
 		print("hold up") # shouldn't happen
 	var area = p.get_node("interact_area")

@@ -400,7 +400,7 @@ script = ExtResource("1_0tnpc")
 hud = NodePath("HUD")
 
 [node name="Player" parent="GameManager" instance=ExtResource("1_uwrxv")]
-position = Vector2(2200, 16)
+position = Vector2(1900, 16)
 
 [node name="Camera2D" type="Camera2D" parent="GameManager/Player"]
 position = Vector2(1, -61)
@@ -410,7 +410,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Player2" parent="GameManager" instance=ExtResource("1_uwrxv")]
-position = Vector2(2200, -64)
+position = Vector2(1900, -64)
 is_state_zero = false
 
 [node name="Camera2D" type="Camera2D" parent="GameManager/Player2"]
