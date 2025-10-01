@@ -554,11 +554,9 @@ tile_set = SubResource("TileSet_ir15t")
 
 [node name="PressureLock" parent="GameManager/PressureKeyLock" instance=ExtResource("15_twgab")]
 position = Vector2(2346, -5)
-script = null
 
 [node name="PressurePlate" parent="GameManager/PressureKeyLock" instance=ExtResource("16_02fa5")]
 position = Vector2(2250, 10)
-script = null
 
 [node name="EntangleEnemy" parent="GameManager" instance=ExtResource("15_js0lu")]
 position = Vector2(2121, -1)

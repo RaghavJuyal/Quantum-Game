@@ -1,6 +1,7 @@
 extends Node
 
 const Complex = preload("res://complex.gd")
+const KILLZONE = preload("res://scenes/killzone.tscn")
 
 var score = 0
 var theta = 0
@@ -40,7 +41,7 @@ var isdead = false
 @onready var teleportation: Node2D = $Teleportation
 @onready var gem: Node = $EntangledGem/Gem
 @onready var ent_enemy: Node = $EntangleEnemy
-const KILLZONE = preload("res://scenes/killzone.tscn")
+
 func _ready() -> void:
 	score = 0
 	hearts = 3
@@ -68,7 +69,6 @@ func add_point():
 	if score % 5 == 0:
 		hearts+=1
 		hud.heart_label.text = str(hearts)
-
 
 func schedule_respawn(dead_body: Node2D) -> void:
 	pending_respawn = dead_body
@@ -318,7 +318,6 @@ func _is_on_teleport(p: Node):
 			return true
 	
 	return false
-			
 
 func _is_on_entanglable(p: Node):
 	if not p.has_node("interact_area"):
@@ -717,7 +716,7 @@ func _process(delta: float) -> void:
 func Stopper() -> void:
 	player.stop = true
 	player_2.stop = true
-	
+
 func Starter() -> void:
 	player.stop = false
 	player_2.stop = false
