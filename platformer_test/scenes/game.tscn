@@ -556,10 +556,14 @@ tile_set = SubResource("TileSet_ir15t")
 position = Vector2(2346, -5)
 
 [node name="PressurePlate" parent="GameManager/PressureKeyLock" instance=ExtResource("16_02fa5")]
-position = Vector2(2250, 10)
+position = Vector2(2246, -72)
 
 [node name="EntangleEnemy" parent="GameManager" instance=ExtResource("15_js0lu")]
 position = Vector2(2121, -1)
+is_state_zero = true
+
+[node name="EntangleEnemy2" parent="GameManager" instance=ExtResource("15_js0lu")]
+position = Vector2(2246, -2)
 is_state_zero = true
 
 [node name="HUD" parent="GameManager" instance=ExtResource("10_vtaks")]

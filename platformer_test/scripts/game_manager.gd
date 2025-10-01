@@ -16,6 +16,7 @@ var entangled_state = null
 var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
 var ent_enemy_scene: PackedScene = preload("res://scenes/entangle_enemy.tscn")
 var ent_enemy_position = null
+var ent_enemy_y_displacement = 0
 var hearts: int = 3
 var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
@@ -40,6 +41,7 @@ var isdead = false
 @onready var teleportation: Node2D = $Teleportation
 @onready var gem: Node = $EntangledGem/Gem
 @onready var ent_enemy: Node = $EntangleEnemy
+@onready var ent_enemy_pressure: Node = $EntangleEnemy2
 @onready var pressure_lock: Node = $PressureKeyLock/PressureLock
 @onready var pressure_plate: Node = $PressureKeyLock/PressurePlate
 
@@ -57,7 +59,8 @@ func _ready() -> void:
 	carried_gate = ""
 	var entanglables = [
 		gem,
-		ent_enemy
+		ent_enemy,
+		ent_enemy_pressure
 	]
 	for block in entanglables:
 		if block != null:
@@ -580,13 +583,13 @@ func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 		if kill:
 			enemy.global_position = player.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_position, player.global_position.y - 20)
+			enemy.global_position = Vector2(ent_enemy_position, player.global_position.y + ent_enemy_y_displacement - 20)
 	else:
 		enemy.is_state_zero = false
 		if kill:		
 			enemy.global_position = player_2.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_position, player_2.global_position.y - 20)
+			enemy.global_position = Vector2(ent_enemy_position, player_2.global_position.y + ent_enemy_y_displacement - 20)
 	get_tree().current_scene.add_child(enemy)
 	enemy.add_to_group("entanglables")
 	
@@ -705,6 +708,10 @@ func _process(delta: float) -> void:
 			elif target.name == "EntangleEnemy":
 				hold_enemy = true
 				ent_enemy_position = target.global_position.x
+			elif target.name == "EntangleEnemy2":
+				hold_enemy = true
+				ent_enemy_position = pressure_plate.global_position.x
+				ent_enemy_y_displacement = -20
 
 			entangled_mode = true
 			# player is the control, object is the target

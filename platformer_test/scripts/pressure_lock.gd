@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends Area2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collider: CollisionShape2D = $CollisionShape2D

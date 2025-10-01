@@ -10,7 +10,7 @@ gradient = SubResource("Gradient_i0h1j")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0h1j"]
 size = Vector2(20, 46)
 
-[node name="PressureLock" type="StaticBody2D"]
+[node name="PressureLock" type="Area2D"]
 collision_mask = 3
 script = ExtResource("1_vaf5f")
 
