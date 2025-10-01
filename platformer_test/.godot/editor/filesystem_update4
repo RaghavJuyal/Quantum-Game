@@ -2,3 +2,4 @@ res://scenes/game.tscn
 res://scenes/player.tscn
 res://scenes/merlin.tscn
 res://scripts/merlin.gd
+res://scenes/puzzle.tscn

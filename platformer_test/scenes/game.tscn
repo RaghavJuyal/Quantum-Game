@@ -621,12 +621,6 @@ position = Vector2(1216, 2)
 tile_map_data = PackedByteArray("AAAAAAAAAQABAAEAAAAAAP//AQABAAEAAAAAAPv/AQAIAAEAAAAAAPr/AQAIAAEAAAAAAPn/AQAIAAEAAAAAAPj/AQAIAAEAAAAAAP7/AQAIAAEAAAA=")
 tile_set = SubResource("TileSet_ir15t")
 
-[node name="run_circuit" parent="GameManager/Puzzle_1" instance=ExtResource("19_sgl2t")]
-position = Vector2(793, -69)
-
-[node name="reset_circuit" parent="GameManager/Puzzle_1" instance=ExtResource("20_qouja")]
-position = Vector2(793, 9)
-
 [node name="gates" type="Node2D" parent="GameManager/Puzzle_1"]
 
 [node name="z_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("21_wljb1")]
@@ -673,6 +667,14 @@ text = "target state"
 fit_content = true
 scroll_active = false
 
+[node name="Other_blocks" type="Node2D" parent="GameManager/Puzzle_1"]
+
+[node name="run_circuit" parent="GameManager/Puzzle_1/Other_blocks" instance=ExtResource("19_sgl2t")]
+position = Vector2(793, -69)
+
+[node name="reset_circuit" parent="GameManager/Puzzle_1/Other_blocks" instance=ExtResource("20_qouja")]
+position = Vector2(793, 9)
+
 [node name="Teleportation" type="Node2D" parent="GameManager"]
 script = ExtResource("29_wljb1")
 
@@ -716,5 +718,3 @@ middle_count = 4
 position = Vector2(40, -77)
 
 [connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]
-
-[editable path="GameManager/Puzzle_1/Add_gates/add_gate_left_up"]
