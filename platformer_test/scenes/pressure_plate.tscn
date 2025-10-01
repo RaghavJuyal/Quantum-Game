@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5of0va0jbsvq"]
+
+[ext_resource type="Texture2D" uid="uid://c42p8jtc2lp1p" path="res://assets/puzzle_game_gfx/Blocks/block_2_pink.png" id="1_ct5vs"]
+[ext_resource type="Script" uid="uid://cb1fmucv1fi3u" path="res://scripts/pressure_plate.gd" id="1_xtofl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtofl"]
+size = Vector2(34, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r34r6"]
+size = Vector2(34, 11)
+
+[node name="PressurePlate" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.0332031, 0.0332031)
+texture = ExtResource("1_ct5vs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_xtofl")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("1_xtofl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_r34r6")
+
+[connection signal="area_entered" from="Area2D" to="Area2D" method="_on_body_entered"]
+[connection signal="area_exited" from="Area2D" to="Area2D" method="_on_body_exited"]
