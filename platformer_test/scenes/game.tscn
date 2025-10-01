@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=47 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="1_uwrxv"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" uid="uid://b0nr3ui5i7ucj" path="res://scripts/teleportation.gd" id="29_wljb1"]
 [ext_resource type="Texture2D" uid="uid://c1u3sdkkcriv5" path="res://assets/puzzle_game_gfx/Blocks/block_1_blue_outline.png" id="30_sgl2t"]
 [ext_resource type="PackedScene" uid="uid://dfoervmeqi0lp" path="res://scenes/wire_teleport.tscn" id="31_qouja"]
+[ext_resource type="PackedScene" uid="uid://b7gx8whhx2d57" path="res://scenes/merlin.tscn" id="37_02fa5"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")
@@ -580,6 +581,7 @@ script = ExtResource("15_ir15t")
 
 [node name="Puzzle_1" type="Node2D" parent="GameManager"]
 script = ExtResource("15_bhx41")
+target_state_re = Array[float]([0.0, 1.0, 0.0, 0.0])
 
 [node name="wire_up" parent="GameManager/Puzzle_1" instance=ExtResource("16_qnb83")]
 position = Vector2(920, -90)
@@ -620,12 +622,6 @@ position = Vector2(1216, 2)
 tile_map_data = PackedByteArray("AAAAAAAAAQABAAEAAAAAAP//AQABAAEAAAAAAPv/AQAIAAEAAAAAAPr/AQAIAAEAAAAAAPn/AQAIAAEAAAAAAPj/AQAIAAEAAAAAAP7/AQAIAAEAAAA=")
 tile_set = SubResource("TileSet_ir15t")
 
-[node name="run_circuit" parent="GameManager/Puzzle_1" instance=ExtResource("19_sgl2t")]
-position = Vector2(793, -69)
-
-[node name="reset_circuit" parent="GameManager/Puzzle_1" instance=ExtResource("20_qouja")]
-position = Vector2(793, 9)
-
 [node name="gates" type="Node2D" parent="GameManager/Puzzle_1"]
 
 [node name="z_gate" parent="GameManager/Puzzle_1/gates" instance=ExtResource("21_wljb1")]
@@ -653,7 +649,7 @@ stream = ExtResource("27_suyxu")
 [node name="current_state_label" type="RichTextLabel" parent="GameManager/Puzzle_1"]
 offset_left = 726.0
 offset_top = 92.0
-offset_right = 1151.0
+offset_right = 1181.0
 offset_bottom = 127.0
 theme_override_fonts/normal_font = ExtResource("8_gee14")
 theme_override_font_sizes/normal_font_size = 16
@@ -662,15 +658,23 @@ fit_content = true
 scroll_active = false
 
 [node name="target_state_label" type="RichTextLabel" parent="GameManager/Puzzle_1"]
-offset_left = 731.0
-offset_top = 143.0
-offset_right = 1151.0
-offset_bottom = 185.0
+offset_left = 740.0
+offset_top = 133.0
+offset_right = 1181.0
+offset_bottom = 175.0
 theme_override_fonts/normal_font = ExtResource("8_gee14")
 theme_override_font_sizes/normal_font_size = 16
 text = "target state"
 fit_content = true
 scroll_active = false
+
+[node name="Other_blocks" type="Node2D" parent="GameManager/Puzzle_1"]
+
+[node name="run_circuit" parent="GameManager/Puzzle_1/Other_blocks" instance=ExtResource("19_sgl2t")]
+position = Vector2(793, -69)
+
+[node name="reset_circuit" parent="GameManager/Puzzle_1/Other_blocks" instance=ExtResource("20_qouja")]
+position = Vector2(793, 9)
 
 [node name="Teleportation" type="Node2D" parent="GameManager"]
 script = ExtResource("29_wljb1")
@@ -711,6 +715,7 @@ middle_count = 4
 position = Vector2(1616, -13)
 middle_count = 4
 
-[connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]
+[node name="merlin" parent="GameManager" instance=ExtResource("37_02fa5")]
+position = Vector2(40, -77)
 
-[editable path="GameManager/Puzzle_1/Add_gates/add_gate_left_up"]
+[connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]

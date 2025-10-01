@@ -23,8 +23,8 @@ const Complex = preload("res://complex.gd")
 @onready var puzzle_obstacle: TileMapLayer = $Puzzle_obstacle
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 
-@onready var run_circuit: Node = $run_circuit
-@onready var reset_circuit: Node = $reset_circuit
+@onready var run_circuit: RigidBody2D = $Other_blocks/run_circuit
+@onready var reset_circuit: RigidBody2D = $Other_blocks/reset_circuit
 
 @onready var z_gate: Node = $gates/z_gate
 @onready var y_gate: Node = $gates/y_gate
@@ -36,6 +36,17 @@ const Complex = preload("res://complex.gd")
 @onready var remove_gates: Node2D = $Remove_gates
 @onready var current_state_label: RichTextLabel = $current_state_label
 @onready var target_state_label: RichTextLabel = $target_state_label
+@export var initial_state_re: Array[float] = [1.0, 0.0, 0.0, 0.0]
+@export var initial_state_im: Array[float] = [0.0, 0.0, 0.0, 0.0]
+
+@export var target_state_re: Array[float] = [1.0, 0.0, 0.0, 0.0]
+@export var target_state_im: Array[float] = [0.0, 0.0, 0.0, 0.0]
+
+#var target_state: Array = []  # actual Complex array
+
+
+
+#var initial_state: Array = []
 
 # --- Puzzle data ---
 var circuit_sequence: Array = []         # Stores gate matrices in order
@@ -61,14 +72,20 @@ func _ready() -> void:
 	_init_gate_matrices()
 
 	# Example initial and target states
-	initial_state = [
-		Complex.new(1,0), Complex.new(0,0),
-		Complex.new(0,0), Complex.new(0,0)
-	]
-	target_state = [
-		Complex.new(0,0), Complex.new(0,0),
-		Complex.new(-1,0), Complex.new(0,0)
-	]
+	#initial_state = [
+		#Complex.new(1,0), Complex.new(0,0),
+		#Complex.new(0,0), Complex.new(0,0)
+	#]
+	initial_state.clear()
+	for i in range(4):
+		initial_state.append(Complex.new(initial_state_re[i], initial_state_im[i]))
+	#target_state = [
+		#Complex.new(0,0), Complex.new(0,0),
+		#Complex.new(-1,0), Complex.new(0,0)
+	#]
+	target_state.clear()
+	for i in range(4):
+		target_state.append(Complex.new(target_state_re[i], target_state_im[i]))
 	current_state_label.bbcode_enabled = true
 	target_state_label.bbcode_enabled = true
 	var state = initial_state.duplicate()

@@ -1,6 +1,6 @@
 res://scenes/game.tscn
-res://scenes/pressure_lock.tscn
-res://scenes/pressure_plate.tscn
-res://scripts/pressure_lock.gd
-res://scripts/pressure_plate.gd
-res://scripts/game_manager.gd
+res://scenes/player.tscn
+res://scenes/merlin.tscn
+res://scripts/merlin.gd
+res://scenes/puzzle.tscn
+res://scripts/puzzle_1.gd
