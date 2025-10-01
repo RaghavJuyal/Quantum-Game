@@ -1,7 +1,6 @@
 extends Node
 
 const Complex = preload("res://complex.gd")
-const KILLZONE = preload("res://scenes/killzone.tscn")
 
 var score = 0
 var theta = 0
@@ -41,6 +40,8 @@ var isdead = false
 @onready var teleportation: Node2D = $Teleportation
 @onready var gem: Node = $EntangledGem/Gem
 @onready var ent_enemy: Node = $EntangleEnemy
+@onready var pressure_lock: Node = $PressureKeyLock/PressureLock
+@onready var pressure_plate: Node = $PressureKeyLock/PressurePlate
 
 func _ready() -> void:
 	score = 0
@@ -61,6 +62,8 @@ func _ready() -> void:
 	for block in entanglables:
 		if block != null:
 			block.add_to_group("entanglables")
+	pressure_plate.get_node("Area2D").pressed.connect(pressure_lock.open)
+	pressure_plate.get_node("Area2D").released.connect(pressure_lock.close)
 
 func add_point():
 	# Update coins collected
