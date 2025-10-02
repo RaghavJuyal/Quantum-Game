@@ -21,15 +21,17 @@ var entangled_state = null
 @export var hold_gem = false
 @export var hold_enemy = false
 
-## GAMEPLAY VARIABLES ##
+## HUD VARIABLES ##
 var score = 0
 var hearts: int = 3
 var carried_gate = ""
+
+## RESPAWN VARIABLES ##
 var pending_respawn
 var is_dead = false
-
-var ent_enemy_position = null
-var ent_enemy_y_displacement = 0
+var checkpoint_position_0:  Vector2
+var checkpoint_position_1: Vector2
+var checkpoint_player
 
 func add_point():
 	# Update coins collected
@@ -70,10 +72,10 @@ func _on_timer_timeout() -> void:
 	# Respawn logic
 	var respawn_player: Node2D = pending_respawn
 	pending_respawn.get_node("CollisionShape2D").disabled = false
-	current_level.player.global_position = current_level.checkpoint_position_0
-	current_level.player_2.global_position = current_level.checkpoint_position_1
+	current_level.player.global_position = checkpoint_position_0
+	current_level.player_2.global_position = checkpoint_position_1
 	is_dead = false
-	if current_level.checkpoint_player == current_level.player:
+	if checkpoint_player == current_level.player:
 		theta = 0
 		phi = 0
 		measured = false
@@ -341,9 +343,9 @@ func load_level(path: String):
 	
 	var level_scene = load(path).instantiate()
 	add_child(level_scene)
+	current_level = level_scene
 	if level_scene.has_method("set_game_manager"):
 		level_scene.set_game_manager(self)
-	current_level = level_scene
 
 ## PROCESS ##
 

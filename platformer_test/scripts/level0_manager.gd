@@ -14,28 +14,26 @@ var game_manager: Node = null
 @onready var midground_2: TileMapLayer = $Tilemap/Midground2
 @onready var timer: Timer = $Timer
 
-## LEVEL-0 VARIABLES ##
-var checkpoint_position_0:  Vector2
-var checkpoint_position_1: Vector2
-var checkpoint_player
-
 func _ready() -> void:
 	camera_2d.make_current()
-	camera_2d.global_position = camera0.global_position
-	
-	checkpoint_player = player
-	checkpoint_position_0 = player.global_position
-	checkpoint_position_1 = player_2.global_position
-
-func game_manager_ready():
-	if game_manager == null:
-		return
-	hud.heart_label.text = str(game_manager.hearts)
-	hud.coins_label.text = str(game_manager.score)
+	camera_2d.global_position = camera1.global_position
 
 func set_game_manager(manager: Node):
 	game_manager = manager
 	game_manager_ready()
+
+func game_manager_ready():
+	if game_manager == null:
+		return
+	
+	game_manager.checkpoint_player = player_2
+	game_manager.checkpoint_position_0 = player.global_position
+	game_manager.checkpoint_position_1 = player_2.global_position
+	
+	hud.heart_label.text = str(game_manager.hearts)
+	hud.coins_label.text = str(game_manager.score)
+	
+	game_manager.set_state_one()
 
 func _process(delta: float) -> void:
 	# this ensures process doesn't run before level is loaded
@@ -82,5 +80,4 @@ func _process(delta: float) -> void:
 		camera_target = camera0
 	else:
 		camera_target = camera1
-
-	camera_2d.global_position = camera_2d.global_position.lerp(camera_target.global_position,0.005)
+	camera_2d.global_position = camera_2d.global_position.lerp(camera_target.global_position, 0.005)
