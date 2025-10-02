@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci1pentueqstn"]
+
+[ext_resource type="Script" uid="uid://b3g6ugabxoa2w" path="res://scripts/level_button.gd" id="1_aeu7d"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+offset = Vector2(500, 500)
+scale = Vector2(10, 10)
+transform = Transform2D(10, 0, 0, 10, 500, 500)
+
+[node name="level0" type="Button" parent="CanvasLayer"]
+offset_right = 33.0
+offset_bottom = 18.0
+script = ExtResource("1_aeu7d")
+
+[node name="game" type="Button" parent="CanvasLayer"]
+offset_left = 50.5
+offset_right = 83.5
+offset_bottom = 18.0
+script = ExtResource("1_aeu7d")
+
+[node name="game2" type="Button" parent="CanvasLayer"]
+offset_left = 97.6
+offset_right = 130.6
+offset_bottom = 18.0
+script = ExtResource("1_aeu7d")
+
+[connection signal="pressed" from="CanvasLayer/level0" to="CanvasLayer/level0" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/game" to="CanvasLayer/game" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/game2" to="CanvasLayer/game2" method="_on_button_pressed"]
