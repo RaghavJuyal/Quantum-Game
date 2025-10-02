@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=4 uid="uid://ckg7tsimjlkkl"]
+[gd_scene load_steps=46 format=4 uid="uid://ckg7tsimjlkkl"]
 
 [ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/objects/player.tscn" id="1_uwrxv"]
@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://kjwmsthli58l" path="res://scenes/objects/gem.tscn" id="14_ir15t"]
 [ext_resource type="PackedScene" uid="uid://xus6k5efdd5c" path="res://scenes/objects/gem_block.tscn" id="14_v2yb1"]
 [ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/objects/puzzle_1.gd" id="15_bhx41"]
-[ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/objects/test.gd" id="15_ir15t"]
 [ext_resource type="PackedScene" uid="uid://b3snixrae4lh6" path="res://scenes/objects/entangle_enemy.tscn" id="15_js0lu"]
 [ext_resource type="PackedScene" uid="uid://beatj8umtufic" path="res://scenes/objects/pressure_lock.tscn" id="15_twgab"]
 [ext_resource type="PackedScene" uid="uid://b5of0va0jbsvq" path="res://scenes/objects/pressure_plate.tscn" id="16_02fa5"]
@@ -575,9 +574,6 @@ zoom = Vector2(3, 3)
 [node name="Timer" type="Timer" parent="GameManager"]
 wait_time = 0.6
 one_shot = true
-
-[node name="test" type="Node" parent="GameManager"]
-script = ExtResource("15_ir15t")
 
 [node name="Puzzle_1" type="Node2D" parent="GameManager"]
 script = ExtResource("15_bhx41")

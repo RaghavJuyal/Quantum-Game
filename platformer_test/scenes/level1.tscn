@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=4 uid="uid://b5wlgna4td1ck"]
+[gd_scene load_steps=19 format=4 uid="uid://b5wlgna4td1ck"]
 
 [ext_resource type="Script" uid="uid://dnbc0sgn3avo4" path="res://scripts/level1_manager.gd" id="1_dxn3v"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/objects/player.tscn" id="2_14jow"]
@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://clveei1rqh67u" path="res://scenes/objects/suppos_pad.tscn" id="10_3oqy1"]
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/objects/measurement_pad.tscn" id="11_mq0oc"]
 [ext_resource type="PackedScene" uid="uid://cavk2o4ctghvk" path="res://scenes/objects/hud.tscn" id="12_msy1c"]
-[ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/objects/test.gd" id="13_7dkav"]
 [ext_resource type="PackedScene" uid="uid://d3h8bqmmiqq2n" path="res://scenes/objects/texts.tscn" id="14_4niyd"]
 [ext_resource type="PackedScene" uid="uid://jfixbjr8sth4" path="res://scenes/objects/dialogue.tscn" id="15_3umqw"]
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/objects/finish.tscn" id="16_gqmnx"]
@@ -273,10 +272,10 @@ position = Vector2(1240, 42)
 [node name="Labels" type="Node" parent="Level1_Manager"]
 
 [node name="Label" type="Label" parent="Level1_Manager/Labels"]
-offset_left = -184.0
-offset_top = 3.0
-offset_right = 20.0
-offset_bottom = 36.0
+offset_left = -230.0
+offset_top = -28.0
+offset_right = -26.0
+offset_bottom = 5.0
 theme_override_fonts/font = ExtResource("9_phfsf")
 theme_override_font_sizes/font_size = 8
 text = "Space to jump (Lvl1)"
@@ -337,9 +336,6 @@ zoom = Vector2(3, 3)
 [node name="Timer" type="Timer" parent="Level1_Manager"]
 wait_time = 0.6
 one_shot = true
-
-[node name="test" type="Node" parent="Level1_Manager"]
-script = ExtResource("13_7dkav")
 
 [node name="Textcontainer" type="CanvasLayer" parent="Level1_Manager"]
 offset = Vector2(95, 730)

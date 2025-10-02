@@ -272,10 +272,10 @@ position = Vector2(1240, 42)
 [node name="Labels" type="Node" parent="Level2_Manager"]
 
 [node name="Label" type="Label" parent="Level2_Manager/Labels"]
-offset_left = -184.0
-offset_top = 3.0
-offset_right = 20.0
-offset_bottom = 36.0
+offset_left = -234.0
+offset_top = -28.0
+offset_right = -30.0
+offset_bottom = 5.0
 theme_override_fonts/font = ExtResource("9_ekhvm")
 theme_override_font_sizes/font_size = 8
 text = "Space to jump (Lvl2)"
