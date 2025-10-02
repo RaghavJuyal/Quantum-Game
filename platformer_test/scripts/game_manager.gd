@@ -38,8 +38,9 @@ func add_point():
 	# Update coins collected
 	score += 1
 	current_level.hud.get_node("CoinsLabel").text = str(score)
+	# 5 coins = +1 heart
 	if score % 5 == 0:
-		hearts+=1
+		hearts += 1
 		current_level.hud.heart_label.text = str(hearts)
 
 func schedule_respawn(dead_body: Node2D) -> void:

@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var game_manager: Node = %GameManager
+@onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 @onready var player: CharacterBody2D = $"../../Player"
 @onready var player_2: CharacterBody2D = $"../../Player2"
 

@@ -2,6 +2,7 @@ extends Area2D
 
 @onready var timer: Timer = $Timer
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
+
 func _on_body_entered(body: Node2D) -> void:
 	# Measure on interaction with the killzone
 	var measured_state = null

@@ -2,7 +2,7 @@ extends Area2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var self_node: Node = $"."
-@onready var game_manager: Node = %GameManager
+@onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 @onready var coin_pick_sound: AudioStreamPlayer2D = $pickupsound
 
 @export var target_theta: float = PI / 2
