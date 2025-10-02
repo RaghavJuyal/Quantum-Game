@@ -1,6 +1,7 @@
 extends Node
 
-const Complex = preload("res://complex.gd")
+## PRELOAD SCRIPTS
+const Complex = preload("res://scripts/complex.gd")
 
 var score = 0
 var theta = 0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=4 uid="uid://b3167q6xah8d"]
 
-[ext_resource type="Script" uid="uid://b6eeiu8etolwq" path="res://scripts/level_manager.gd" id="1_ooohs"]
+[ext_resource type="Script" uid="uid://hfmld5u0slt6" path="res://scripts/level0_manager.gd" id="1_ooohs"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/player.tscn" id="2_rb68y"]
 [ext_resource type="Texture2D" uid="uid://da1al1um5semr" path="res://assets/sprites/world_tileset.png" id="3_jmh5o"]
 [ext_resource type="PackedScene" uid="uid://b0exx33d87cji" path="res://scenes/killzone.tscn" id="5_s53dc"]
