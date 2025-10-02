@@ -1,8 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://ywyssibl6741"]
 
-[ext_resource type="Script" uid="uid://c32f2pkyc3ty4" path="res://scripts/game_manager.gd" id="1_0tnpc"]
+[ext_resource type="Script" uid="uid://b75g8dvmgghpe" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 
 [node name="Game" type="Node2D"]
 
 [node name="GameManager" type="Node" parent="."]
 script = ExtResource("1_0tnpc")
+entangled_mode = null
+hold_gem = null
+hold_enemy = null

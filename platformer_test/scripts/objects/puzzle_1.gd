@@ -1,7 +1,7 @@
 extends Node
 
 # --- Load Complex number class ---
-const Complex = preload("res://complex.gd")
+const Complex = preload("res://scripts/complex.gd")
 
 # --- Nodes ---
 @onready var wire_up: Node = $wire_up

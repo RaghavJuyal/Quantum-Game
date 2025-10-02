@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var bullet_scene: PackedScene = preload("res://scenes/bullet.tscn")
+@export var bullet_scene: PackedScene = preload("res://scenes/objects/bullet.tscn")
 @export var fire_rate: float = 0.5   # seconds between shots
 @export var bullet_offset: Vector2 = Vector2(10, 0)
 @export var direction := 1  # 1 = right, -1 = left
