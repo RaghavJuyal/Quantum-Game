@@ -9,7 +9,6 @@
 [ext_resource type="Texture2D" uid="uid://bbf33oarwo80m" path="res://assets/puzzle_game_gfx/Animals/animal_squirrel.png" id="7_5pdws"]
 [ext_resource type="Texture2D" uid="uid://btwylfdjio5kr" path="res://assets/sprites/hearts.png" id="8_hd3ao"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")
 region = Rect2(3, 3, 10, 10)
@@ -218,7 +217,6 @@ offset_right = 1952.0
 offset_bottom = 120.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
-text = "##"
 
 [node name="gem_carried" type="TextureRect" parent="."]
 visible = false

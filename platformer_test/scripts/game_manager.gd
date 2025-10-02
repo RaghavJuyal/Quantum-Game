@@ -6,7 +6,7 @@ const Complex = preload("res://scripts/complex.gd")
 ## GAME CONTROL ##
 var current_level: Node = null
 var delta_theta = 0
-@onready var timer: Timer = $"../Timer"
+@onready var timer: Timer = $Timer
 
 ## PLAYER STATE ##
 var suppos_allowed = true
