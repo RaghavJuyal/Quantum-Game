@@ -3,12 +3,11 @@ extends Node
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
 
-## GAME STATE VARIABLES ##
-	## GAME CONTROL ##
+## GAME CONTROL ##
 var current_level: Node = null
 var delta_theta = 0
 
-	## PLAYER STATE ##
+## PLAYER STATE ##
 var suppos_allowed = true
 var measured: bool = false
 var state = -1 # -1 default, 0 means |0> 1 means |1>
@@ -17,57 +16,23 @@ var phi = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var entangled_state = null
 
-	## HUD VARIABLES ##
-var score = 0
-var hearts: int = 3
-var carried_gate
-
-var measured_only_player: bool = false
-
-var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
-var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
-var ent_enemy_position = null
-var ent_enemy_y_displacement = 0
-var pending_respawn
-var isdead = false
-
 @export var entangled_mode = false
+@export var entangled_probs = null
 @export var hold_gem = false
 @export var hold_enemy = false
-@export var entangled_probs = null
 
-@onready var midground: TileMapLayer = $Tilemap/Midground
-@onready var midground_2: TileMapLayer = $Tilemap/Midground2
-@onready var camera_2d: Camera2D = $Camera2D
-@onready var camera0: Camera2D = $Player/Camera2D
-@onready var camera1: Camera2D = $Player2/Camera2D
+## GAMEPLAY VARIABLES ##
+var score = 0
+var hearts: int = 3
+var carried_gate = ""
+var pending_respawn
+var is_dead = false
+
 @onready var timer: Timer = $Timer
 @onready var puzzle_1: Node = $Puzzle_1
-@onready var teleportation: Node2D = $Teleportation
-@onready var gem: Node = $EntangledGem/Gem
-@onready var ent_enemy: Node = $EntangleEnemy
-@onready var ent_enemy_pressure: Node = $EntangleEnemy2
-@onready var pressure_lock: Node = $PressureKeyLock/PressureLock
-@onready var pressure_plate: Node = $PressureKeyLock/PressurePlate
 
-func _ready() -> void:
-	score = 0
-	hearts = 3
-	isdead = false
-
-	camera_2d.make_current()
-	camera_2d.global_position = camera0.global_position
-	carried_gate = ""
-	var entanglables = [
-		gem,
-		ent_enemy,
-		ent_enemy_pressure
-	]
-	for block in entanglables:
-		if block != null:
-			block.add_to_group("entanglables")
-	pressure_plate.get_node("Area2D").pressed.connect(pressure_lock.open)
-	pressure_plate.get_node("Area2D").released.connect(pressure_lock.close)
+var ent_enemy_position = null
+var ent_enemy_y_displacement = 0
 
 func add_point():
 	# Update coins collected
@@ -109,19 +74,19 @@ func _on_timer_timeout() -> void:
 	pending_respawn.get_node("CollisionShape2D").disabled = false
 	current_level.player.global_position = current_level.checkpoint_position_0
 	current_level.player_2.global_position = current_level.checkpoint_position_1
-	isdead = false
+	is_dead = false
 	if current_level.checkpoint_player == current_level.player:
 		theta = 0
 		phi = 0
 		measured = false
 		measure()
-		camera_2d.global_position = camera0.global_position
+		current_level.camera_2d.global_position = current_level.camera0.global_position
 	else:
 		theta = PI
 		phi = 0
 		measured = false
 		measure()
-		camera_2d.global_position = camera1.global_position
+		current_level.camera_2d.global_position = current_level.camera1.global_position
 
 	# Make player invisible first
 	respawn_player.modulate.a = 0.0
@@ -156,7 +121,7 @@ func set_state_zero():
 	theta = 0
 	phi = 0
 	bloch_vec = Vector3(0, 0, 1)
-	camera_2d.global_position = camera_2d.global_position.lerp(camera0.global_position,0.005)
+	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(current_level.camera0.global_position,0.005)
 
 func set_state_one():
 	state = 1
@@ -165,17 +130,17 @@ func set_state_one():
 	theta = PI
 	phi = 0
 	bloch_vec = Vector3(0, 0, -1)
-	camera_2d.global_position = camera_2d.global_position.lerp(camera1.global_position,0.005)
+	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(current_level.camera1.global_position,0.005)
 
 func find_safe_spawn(x_global: float, current_is_layer1: bool):
 	var current_layer: TileMapLayer
 	var target_layer: TileMapLayer
 	if current_is_layer1:
-		current_layer = midground
-		target_layer = midground_2
+		current_layer = current_level.midground
+		target_layer = current_level.midground_2
 	else:
-		current_layer = midground_2
-		target_layer = midground
+		current_layer = current_level.midground_2
+		target_layer = current_level.midground
 	
 	var local_coord = target_layer.to_local(Vector2(x_global,0.0))
 	var cell = target_layer.local_to_map(local_coord)
@@ -212,7 +177,6 @@ func try_superposition(requester:CharacterBody2D)->bool:
 	
 	partner.global_position = spawn_at
 	measured = false
-	measured_only_player = false
 	state = -1
 	return true
 
@@ -263,21 +227,21 @@ func rotate_x(angle: float) -> void:
 	var rot = Basis(Vector3(1, 0, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	#instantiate_gem_process(): TODO: Add this back correctly
 
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	#instantiate_gem_process()
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
 	var rot = Basis(Vector3(0, 0, 1), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	#instantiate_gem_process()
 
 # Convert cartesian bloch_vec → spherical angles
 func _update_theta_phi() -> void:
@@ -341,264 +305,6 @@ func _is_on_entanglable(p: Node):
 			return intarea
 	return null
 
-## ENTANGLEMENT HANDLING ##
-
-func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool) -> Array:
-	var cos_val = Complex.new(cos(theta / 2.0), 0)
-	var sin_val = Complex.new(sin(theta / 2.0), 0)
-	var state: Array
-	var phase = Complex.new(cos(phi), sin(phi))  # e^{i phi}
-	
-	if target_current_state_zero:
-		# [cos, 0, 0, e^{i phi} * sin]
-		state = [
-			cos_val,
-			Complex.new(0, 0),
-			Complex.new(0, 0),
-			phase.mul(sin_val)
-		]
-	else:
-		# [0, cos, e^{i phi} * sin, 0]
-		state = [
-			Complex.new(0, 0),
-			cos_val,
-			phase.mul(sin_val),
-			Complex.new(0, 0)
-		]
-	return state
-
-func calculate_entangled_probs():
-	var probs = []
-	for amp in entangled_state:
-		probs.append(amp.abs()**2)
-	return probs
-
-func measure_entangled() -> int:
-	if measured:
-		return state
-	
-	measured = true
-	suppos_allowed = false
-
-	# Sample outcome from full joint distribution
-	var r = randf()
-	var cumulative = 0.0
-	var outcome_idx = 0
-	for i in range(entangled_probs.size()):
-		cumulative += entangled_probs[i]
-		if r < cumulative:
-			outcome_idx = i
-			break
-	
-	# ========================= #
-	# no need to update anymore because we collapse 2 qubit state
-	# but this exists in case we want to add it back
-	# var collapsed: Array = []
-	# for i in range(4):
-		# if i == outcome_idx:
-			# collapsed.append(Complex.new(1, 0))  # pure basis state
-		# else:
-			# collapsed.append(Complex.new(0, 0))
-	# entangled_state = collapsed
-	# entangled_probs = calculate_entangled_probs()
-	# ========================= #
-
-	de_entangle(outcome_idx)
-
-	if outcome_idx == 0 or outcome_idx == 1:
-		state = 0
-		set_state_zero()
-	else:
-		state = 1
-		set_state_one()
-
-	return state
-
-func measure_entangled_only_player() -> int:
-	if measured:
-		return state
-	if measured_only_player:
-		return state
-	measured_only_player = true
-	suppos_allowed = false
-	
-	# Compute marginal probs for measuring player qubit in Z
-	var prob_zero = entangled_probs[0] + entangled_probs[1]
-	var prob_one  = entangled_probs[2] + entangled_probs[3]
-
-	# Sample outcome
-	var r = randf()
-	var outcome_player: int
-	if r < prob_zero:
-		outcome_player = 0
-	else:
-		outcome_player = 1
-
-	# Collapse state
-	var collapsed: Array = []
-	if outcome_player == 0:
-		collapsed = [entangled_state[0], entangled_state[1], Complex.new(0,0), Complex.new(0,0)]
-	else:
-		collapsed = [Complex.new(0,0), Complex.new(0,0), entangled_state[2], entangled_state[3]]
-
-	# Renormalize
-	var norm = 0.0
-	for amp in collapsed:
-		norm += amp.abs()**2
-	if norm > 0:
-		for i in range(collapsed.size()):
-			collapsed[i] = collapsed[i].div(Complex.new(sqrt(norm), 0))
-
-	# Replace global state
-	entangled_state = collapsed
-	entangled_probs = calculate_entangled_probs()
-	state = outcome_player
-	return outcome_player
-
-func rotate_x_entangled(angle: float) -> void:
-	var c = cos(angle/2.0)
-	var s = -sin(angle/2.0) # minus for exp(-i θ σ/2)
-	var x_gate = [
-		[Complex.new(c, 0), Complex.new(0, s)],
-		[Complex.new(0, s), Complex.new(c, 0)]
-	]
-	apply_gate_entangled(x_gate)
-
-func rotate_y_entangled(angle: float) -> void:
-	var c = cos(angle/2.0)
-	var s = sin(angle/2.0)
-	var y_gate = [
-		[Complex.new(c, 0), Complex.new(-s, 0)],
-		[Complex.new(s, 0), Complex.new(c, 0)]
-	]
-	apply_gate_entangled(y_gate)
-
-func rotate_z_entangled(angle: float) -> void:
-	var e_minus = Complex.new(cos(-angle/2.0), sin(-angle/2.0))
-	var e_plus  = Complex.new(cos(angle/2.0),  sin(angle/2.0))
-	var z_gate = [
-		[ e_minus, Complex.new(0,0)],
-		[ Complex.new(0,0), e_plus ]
-	]
-	apply_gate_entangled(z_gate)
-
-func apply_gate_entangled(U: Array) -> void:
-	var gate = [
-		[U[0][0], Complex.new(0,0), U[0][1], Complex.new(0,0)],
-		[Complex.new(0,0), U[0][0], Complex.new(0,0), U[0][1]],
-		[U[1][0], Complex.new(0,0), U[1][1], Complex.new(0,0)],
-		[Complex.new(0,0), U[1][0], Complex.new(0,0), U[1][1]]
-	]
-	
-	var new_state = []
-	for i in range(4):
-		var acc = Complex.new(0,0)
-		for j in range(4):
-			acc = acc.add(gate[i][j].mul(entangled_state[j]))
-		new_state.append(acc)
-	
-	entangled_state = new_state
-	entangled_probs = calculate_entangled_probs()
-
-func edit_hud_entangle() -> void:
-	if hold_gem:
-		current_level.hud.get_node("gem_carried").visible = true
-	if hold_enemy:
-		current_level.hud.get_node("enemy").visible = true
-	current_level.hud.get_node("BlochSphere").visible = false
-	current_level.hud.get_node("0_Bloch").visible = false
-	current_level.hud.get_node("1_Bloch").visible = false
-	
-	current_level.hud.get_node("0").text = "|01>: "
-	current_level.hud.get_node("1").text = "|00>: "
-	current_level.hud.get_node("phi").text = "|11>: "
-	current_level.hud.get_node("theta").text = "|10>: "
-	
-	update_hud_entangle()
-
-func update_hud_entangle() -> void:
-	current_level.hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
-	current_level.hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
-	current_level.hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
-	current_level.hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
-
-func de_entangle(outcome_idx: int) -> void:
-	entangled_mode = false
-	if hold_gem:
-		if outcome_idx == 1:
-			instantiate_gem(false)
-		elif outcome_idx == 2:
-			instantiate_gem(true)
-	elif hold_enemy:
-		if outcome_idx == 0:
-			instantiate_enemy(true, true)
-		elif outcome_idx == 1:
-			instantiate_enemy(false, false)
-		elif outcome_idx == 2:
-			instantiate_enemy(true, false)
-		else:
-			instantiate_enemy(false, true)
-	
-	edit_hud_deentangle()
-	
-	current_level.player.uncolor_sprite()
-	current_level.player_2.uncolor_sprite()
-
-func edit_hud_deentangle() -> void:
-	if !hold_gem:
-		current_level.hud.get_node("gem_carried").visible = false
-	current_level.hud.get_node("enemy").visible = false
-	current_level.hud.get_node("BlochSphere").visible = true
-	current_level.hud.get_node("0_Bloch").visible = true
-	current_level.hud.get_node("1_Bloch").visible = true
-	
-	current_level.hud.get_node("0").text = "|0>: "
-	current_level.hud.get_node("1").text = "|1>: "
-	current_level.hud.get_node("phi").text = "phi: "
-	current_level.hud.get_node("theta").text = "theta: "
-
-func instantiate_gem(level_zero: bool) -> void:
-	hold_gem = false
-	var gem = gem_scene.instantiate()
-	if level_zero:
-		gem.is_state_zero = true
-		gem.global_position = current_level.player.global_position + Vector2(0, -10)
-	else:
-		gem.is_state_zero = false
-		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
-	get_tree().current_scene.add_child(gem)
-	gem.add_to_group("entanglables")
-	
-	current_level.hud.get_node("gem_carried").visible = false
-
-func instantiate_gem_process():
-	# Drop gem if holding
-	if hold_gem:
-		if cos(theta/2.0)**2 > 0.5:
-			instantiate_gem(true)
-		else:
-			instantiate_gem(false)
-
-func instantiate_enemy(level_zero: bool, kill: bool) -> void:
-	hold_enemy = false
-	var enemy = ent_enemy_scene.instantiate()
-	if level_zero:
-		enemy.is_state_zero = true
-		if kill:
-			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
-		else:
-			enemy.global_position = Vector2(ent_enemy_position, current_level.player.global_position.y + ent_enemy_y_displacement - 20)
-	else:
-		enemy.is_state_zero = false
-		if kill:		
-			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
-		else:
-			enemy.global_position = Vector2(ent_enemy_position, current_level.player_2.global_position.y + ent_enemy_y_displacement - 20)
-	get_tree().current_scene.add_child(enemy)
-	enemy.add_to_group("entanglables")
-	
-	current_level.hud.get_node("enemy").visible = false
-
 func Stopper() -> void:
 	current_level.player.stop = true
 	current_level.player_2.stop = true
@@ -624,4 +330,4 @@ func load_level(path: String):
 
 func _process(delta: float) -> void:
 	## TODO: Add start / end scenes etc.
-	load_level("res://scripts/level0.tscn")
+	load_level("res://scenes/level0.tscn")

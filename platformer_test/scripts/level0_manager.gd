@@ -4,9 +4,14 @@ extends Node
 var game_manager: Node = null
 
 ## LEVEL-0 OBJECT INSTANCES ##
-@export var hud: CanvasLayer
+@onready var hud: CanvasLayer = $HUD
 @onready var player: CharacterBody2D = $Player
 @onready var player_2: CharacterBody2D = $Player2
+@onready var camera_2d: Camera2D = $Camera2D
+@onready var camera0: Camera2D = $Player/Camera2D
+@onready var camera1: Camera2D = $Player2/Camera2D
+@onready var midground: TileMapLayer = $Tilemap/Midground
+@onready var midground_2: TileMapLayer = $Tilemap/Midground2
 
 ## LEVEL-0 VARIABLES ##
 var checkpoint_position_0:  Vector2
@@ -14,15 +19,22 @@ var checkpoint_position_1: Vector2
 var checkpoint_player
 
 func _ready() -> void:
-	hud.heart_label.text = str(game_manager.hearts)
-	hud.coins_label.text = str(game_manager.score)
+	camera_2d.make_current()
+	camera_2d.global_position = camera0.global_position
 	
 	checkpoint_player = player
 	checkpoint_position_0 = player.global_position
 	checkpoint_position_1 = player_2.global_position
 
+func game_manager_ready():
+	if game_manager == null:
+		return
+	hud.heart_label.text = str(game_manager.hearts)
+	hud.coins_label.text = str(game_manager.score)
+
 func set_game_manager(manager: Node):
 	game_manager = manager
+	game_manager_ready()
 
 func _process(delta: float) -> void:
 	# this ensures process doesn't run before level is loaded
@@ -68,9 +80,6 @@ func _process(delta: float) -> void:
 			#measure()
 		#elif !measured and entangled_mode:
 			#measure_entangled()
-	#if Input.is_action_just_pressed("EntMeasureOnlyPlayer"):
-		#if entangled_mode and !measured and !measured_only_player:
-			#measure_entangled_only_player()
 #
 	#if !entangled_mode:
 		#var prob0_raw = (cos(theta/2.0)**2)*100

@@ -645,9 +645,6 @@ func _process(delta: float) -> void:
 			measure()
 		elif !measured and entangled_mode:
 			measure_entangled()
-	if Input.is_action_just_pressed("EntMeasureOnlyPlayer"):
-		if entangled_mode and !measured and !measured_only_player:
-			measure_entangled_only_player()
 
 	if !entangled_mode:
 		var prob0_raw = (cos(theta/2.0)**2)*100
