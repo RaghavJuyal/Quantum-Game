@@ -14,8 +14,8 @@ var state = -1 # -1 default, 0 means |0> 1 means |1>
 var suppos_allowed = true
 var carried_gate
 var entangled_state = null
-var gem_scene: PackedScene = preload("res://scenes/gem.tscn")
-var ent_enemy_scene: PackedScene = preload("res://scenes/entangle_enemy.tscn")
+var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
+var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
 var ent_enemy_position = null
 var ent_enemy_y_displacement = 0
 var hearts: int = 3
