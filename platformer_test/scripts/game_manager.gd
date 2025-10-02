@@ -1,28 +1,29 @@
 extends Node
 
-## PRELOAD SCRIPTS
+## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
 
-## GAME STATE VARIABLES
-var delta_theta = 0
-var suppos_allowed = true
-var state = -1 # -1 default, 0 means |0> 1 means |1>
-
-var score = 0
-var hearts: int = 3
+## GAME STATE VARIABLES ##
+	## GAME CONTROL ##
 var current_level: Node = null
+var delta_theta = 0
 
+	## PLAYER STATE ##
+var suppos_allowed = true
+var measured: bool = false
+var state = -1 # -1 default, 0 means |0> 1 means |1>
 var theta = 0
 var phi = 0
-
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
+var entangled_state = null
 
-var measured: bool = false
+	## HUD VARIABLES ##
+var score = 0
+var hearts: int = 3
+var carried_gate
 
 var measured_only_player: bool = false
 
-var carried_gate
-var entangled_state = null
 var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
 var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
 var ent_enemy_position = null
@@ -33,7 +34,6 @@ var isdead = false
 @export var entangled_mode = false
 @export var hold_gem = false
 @export var hold_enemy = false
-@export var hud: CanvasLayer
 @export var entangled_probs = null
 
 @onready var midground: TileMapLayer = $Tilemap/Midground
@@ -55,8 +55,6 @@ func _ready() -> void:
 	hearts = 3
 	isdead = false
 
-	hud.heart_label.text = str(hearts)
-	hud.coins_label.text = str(score)
 	camera_2d.make_current()
 	camera_2d.global_position = camera0.global_position
 	carried_gate = ""
@@ -74,10 +72,10 @@ func _ready() -> void:
 func add_point():
 	# Update coins collected
 	score += 1
-	hud.get_node("CoinsLabel").text = str(score)
+	current_level.hud.get_node("CoinsLabel").text = str(score)
 	if score % 5 == 0:
 		hearts+=1
-		hud.heart_label.text = str(hearts)
+		current_level.hud.heart_label.text = str(hearts)
 
 func schedule_respawn(dead_body: Node2D) -> void:
 	pending_respawn = dead_body
@@ -97,35 +95,33 @@ func _on_timer_timeout() -> void:
 
 	# Update hearts / reset game if needed
 	hearts -= 1
-	hud.heart_label.text = str(hearts)
+	current_level.hud.heart_label.text = str(hearts)
 	if hearts <= 0:
 		score = 0
-		hud.coins_label.text = str(score)
+		current_level.hud.coins_label.text = str(score)
 		hearts = 3
-		hud.heart_label.text = str(hearts)
+		current_level.hud.heart_label.text = str(hearts)
 		get_tree().reload_current_scene()
 		return
 
 	# Respawn logic
 	var respawn_player: Node2D = pending_respawn
 	pending_respawn.get_node("CollisionShape2D").disabled = false
-	player.global_position = checkpoint_position_0
-	player_2.global_position = checkpoint_position_1
+	current_level.player.global_position = current_level.checkpoint_position_0
+	current_level.player_2.global_position = current_level.checkpoint_position_1
 	isdead = false
-	if checkpoint_player == player:
+	if current_level.checkpoint_player == current_level.player:
 		theta = 0
 		phi = 0
 		measured = false
 		measure()
 		camera_2d.global_position = camera0.global_position
-		
 	else:
 		theta = PI
 		phi = 0
 		measured = false
 		measure()
 		camera_2d.global_position = camera1.global_position
-	
 
 	# Make player invisible first
 	respawn_player.modulate.a = 0.0
@@ -155,8 +151,8 @@ func measure():
 
 func set_state_zero():
 	state = 0
-	hud.get_node("Percent0").text = str(100.0)
-	hud.get_node("Percent1").text = str(0.0)
+	current_level.hud.get_node("Percent0").text = str(100.0)
+	current_level.hud.get_node("Percent1").text = str(0.0)
 	theta = 0
 	phi = 0
 	bloch_vec = Vector3(0, 0, 1)
@@ -164,8 +160,8 @@ func set_state_zero():
 
 func set_state_one():
 	state = 1
-	hud.get_node("Percent0").text = str(0.0)
-	hud.get_node("Percent1").text = str(100.0)
+	current_level.hud.get_node("Percent0").text = str(0.0)
+	current_level.hud.get_node("Percent1").text = str(100.0)
 	theta = PI
 	phi = 0
 	bloch_vec = Vector3(0, 0, -1)
@@ -204,12 +200,12 @@ func find_safe_spawn(x_global: float, current_is_layer1: bool):
 func try_superposition(requester:CharacterBody2D)->bool:
 	if not measured:
 		return false
-	var requester_is_layer_1 = (requester == player)
+	var requester_is_layer_1 = (requester == current_level.player)
 	var partner 
 	if requester_is_layer_1:
-		partner = player_2
+		partner = current_level.player_2
 	else:
-		partner = player
+		partner = current_level.player
 	var spawn_at = find_safe_spawn(requester.global_position.x, requester_is_layer_1)
 	if spawn_at == Vector2.INF:
 		return false
@@ -234,10 +230,10 @@ func get_horizontal_blocked_distance(player):
 func sync_players():
 	# Skip collapsed players
 	var active_players = []
-	if player.animated_sprite_2d.self_modulate.a > 1e-5:
-		active_players.append(player)
-	if player_2.animated_sprite_2d.self_modulate.a > 1e-5:
-		active_players.append(player_2)
+	if current_level.player.animated_sprite_2d.self_modulate.a > 1e-5:
+		active_players.append(current_level.player)
+	if current_level.player_2.animated_sprite_2d.self_modulate.a > 1e-5:
+		active_players.append(current_level.player_2)
 
 	if active_players.size() < 2:
 		return  # nothing to sync
@@ -506,25 +502,25 @@ func apply_gate_entangled(U: Array) -> void:
 
 func edit_hud_entangle() -> void:
 	if hold_gem:
-		hud.get_node("gem_carried").visible = true
+		current_level.hud.get_node("gem_carried").visible = true
 	if hold_enemy:
-		hud.get_node("enemy").visible = true
-	hud.get_node("BlochSphere").visible = false
-	hud.get_node("0_Bloch").visible = false
-	hud.get_node("1_Bloch").visible = false
+		current_level.hud.get_node("enemy").visible = true
+	current_level.hud.get_node("BlochSphere").visible = false
+	current_level.hud.get_node("0_Bloch").visible = false
+	current_level.hud.get_node("1_Bloch").visible = false
 	
-	hud.get_node("0").text = "|01>: "
-	hud.get_node("1").text = "|00>: "
-	hud.get_node("phi").text = "|11>: "
-	hud.get_node("theta").text = "|10>: "
+	current_level.hud.get_node("0").text = "|01>: "
+	current_level.hud.get_node("1").text = "|00>: "
+	current_level.hud.get_node("phi").text = "|11>: "
+	current_level.hud.get_node("theta").text = "|10>: "
 	
 	update_hud_entangle()
 
 func update_hud_entangle() -> void:
-	hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
-	hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
-	hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
-	hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
+	current_level.hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
+	current_level.hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
+	current_level.hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
+	current_level.hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
 
 func de_entangle(outcome_idx: int) -> void:
 	entangled_mode = false
@@ -545,35 +541,35 @@ func de_entangle(outcome_idx: int) -> void:
 	
 	edit_hud_deentangle()
 	
-	player.uncolor_sprite()
-	player_2.uncolor_sprite()
+	current_level.player.uncolor_sprite()
+	current_level.player_2.uncolor_sprite()
 
 func edit_hud_deentangle() -> void:
 	if !hold_gem:
-		hud.get_node("gem_carried").visible = false
-	hud.get_node("enemy").visible = false
-	hud.get_node("BlochSphere").visible = true
-	hud.get_node("0_Bloch").visible = true
-	hud.get_node("1_Bloch").visible = true
+		current_level.hud.get_node("gem_carried").visible = false
+	current_level.hud.get_node("enemy").visible = false
+	current_level.hud.get_node("BlochSphere").visible = true
+	current_level.hud.get_node("0_Bloch").visible = true
+	current_level.hud.get_node("1_Bloch").visible = true
 	
-	hud.get_node("0").text = "|0>: "
-	hud.get_node("1").text = "|1>: "
-	hud.get_node("phi").text = "phi: "
-	hud.get_node("theta").text = "theta: "
+	current_level.hud.get_node("0").text = "|0>: "
+	current_level.hud.get_node("1").text = "|1>: "
+	current_level.hud.get_node("phi").text = "phi: "
+	current_level.hud.get_node("theta").text = "theta: "
 
 func instantiate_gem(level_zero: bool) -> void:
 	hold_gem = false
 	var gem = gem_scene.instantiate()
 	if level_zero:
 		gem.is_state_zero = true
-		gem.global_position = player.global_position + Vector2(0, -10)
+		gem.global_position = current_level.player.global_position + Vector2(0, -10)
 	else:
 		gem.is_state_zero = false
-		gem.global_position = player_2.global_position + Vector2(0, -10)
+		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
 	get_tree().current_scene.add_child(gem)
 	gem.add_to_group("entanglables")
 	
-	hud.get_node("gem_carried").visible = false
+	current_level.hud.get_node("gem_carried").visible = false
 
 func instantiate_gem_process():
 	# Drop gem if holding
@@ -589,27 +585,27 @@ func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 	if level_zero:
 		enemy.is_state_zero = true
 		if kill:
-			enemy.global_position = player.global_position + Vector2(0, -20)
+			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_position, player.global_position.y + ent_enemy_y_displacement - 20)
+			enemy.global_position = Vector2(ent_enemy_position, current_level.player.global_position.y + ent_enemy_y_displacement - 20)
 	else:
 		enemy.is_state_zero = false
 		if kill:		
-			enemy.global_position = player_2.global_position + Vector2(0, -20)
+			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_position, player_2.global_position.y + ent_enemy_y_displacement - 20)
+			enemy.global_position = Vector2(ent_enemy_position, current_level.player_2.global_position.y + ent_enemy_y_displacement - 20)
 	get_tree().current_scene.add_child(enemy)
 	enemy.add_to_group("entanglables")
 	
-	hud.get_node("enemy").visible = false
+	current_level.hud.get_node("enemy").visible = false
 
 func Stopper() -> void:
-	player.stop = true
-	player_2.stop = true
+	current_level.player.stop = true
+	current_level.player_2.stop = true
 
 func Starter() -> void:
-	player.stop = false
-	player_2.stop = false
+	current_level.player.stop = false
+	current_level.player_2.stop = false
 
 ## LEVEL LOAD LOGIC ##
 

@@ -4,6 +4,7 @@ extends Node
 var game_manager: Node = null
 
 ## LEVEL-0 OBJECT INSTANCES ##
+@export var hud: CanvasLayer
 @onready var player: CharacterBody2D = $Player
 @onready var player_2: CharacterBody2D = $Player2
 
@@ -13,6 +14,9 @@ var checkpoint_position_1: Vector2
 var checkpoint_player
 
 func _ready() -> void:
+	hud.heart_label.text = str(game_manager.hearts)
+	hud.coins_label.text = str(game_manager.score)
+	
 	checkpoint_player = player
 	checkpoint_position_0 = player.global_position
 	checkpoint_position_1 = player_2.global_position
@@ -21,7 +25,7 @@ func set_game_manager(manager: Node):
 	game_manager = manager
 
 func _process(delta: float) -> void:
-	# This ensures process doesn't run before level is loaded
+	# this ensures process doesn't run before level is loaded
 	if game_manager == null:
 		return
 	
@@ -29,9 +33,9 @@ func _process(delta: float) -> void:
 	if !game_manager.suppos_allowed:
 		var requester
 		if game_manager.state == 0:
-			requester = game_manager.player
+			requester = player
 		elif game_manager.state == 1:
-			requester = game_manager.player_2
+			requester = player_2
 		#var ok = try_superposition(requester)
 		#if _is_on_interactable(player) or _is_on_interactable(player_2):
 			#ok = false
