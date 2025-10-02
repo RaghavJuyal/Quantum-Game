@@ -12,7 +12,6 @@ var game_manager: Node = null
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var midground: TileMapLayer = $Tilemap/Midground
 @onready var midground_2: TileMapLayer = $Tilemap/Midground2
-@onready var timer: Timer = $Timer
 
 func _ready() -> void:
 	camera_2d.make_current()

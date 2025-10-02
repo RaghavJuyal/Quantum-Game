@@ -6,6 +6,7 @@ const Complex = preload("res://scripts/complex.gd")
 ## GAME CONTROL ##
 var current_level: Node = null
 var delta_theta = 0
+@onready var timer: Timer = $"../Timer"
 
 ## PLAYER STATE ##
 var suppos_allowed = true
@@ -53,7 +54,7 @@ func schedule_respawn(dead_body: Node2D) -> void:
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 	# Start respawn timer
-	current_level.timer.start()
+	timer.start()
 
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
