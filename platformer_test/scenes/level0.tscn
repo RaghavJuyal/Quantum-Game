@@ -244,10 +244,10 @@ position = Vector2(1008, 24)
 position = Vector2(1088, 40)
 
 [node name="Coin4" parent="Coins" instance=ExtResource("6_mt4f5")]
-position = Vector2(264, 208)
+position = Vector2(768, -73)
 
 [node name="Coin5" parent="Coins" instance=ExtResource("6_mt4f5")]
-position = Vector2(272, 120)
+position = Vector2(408, -87)
 
 [node name="Slimes" type="Node" parent="."]
 

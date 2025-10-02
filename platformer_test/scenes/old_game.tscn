@@ -241,7 +241,7 @@ _data = {
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p57ef"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dcth2"]
 texture = ExtResource("1_yqjtg")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -387,7 +387,7 @@ texture = ExtResource("1_yqjtg")
 
 [sub_resource type="TileSet" id="TileSet_ir15t"]
 physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_trtic")
+sources/1 = SubResource("TileSetAtlasSource_dcth2")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suyxu"]
 size = Vector2(14, 14)

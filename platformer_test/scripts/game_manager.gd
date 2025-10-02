@@ -382,9 +382,31 @@ func process_camera():
 		camera_target = current_level.camera1
 	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(camera_target.global_position, 0.005)
 
+func process_interact(puzzle, teleportation):
+	if Input.is_action_just_pressed("Interact"):
+		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+			if !measured:
+				measure()
+		elif _is_on_teleport(current_level.player) or _is_on_teleport(current_level.player_2):
+			teleportation.run_teleportation()
+		var p
+		if state == 0:
+			p = current_level.player
+		else:
+			p = current_level.player_2
+		var interact_area = p.get_node("interact_area")
+		var bodies = interact_area.get_overlapping_bodies()
+		for body in bodies:
+			if body.is_in_group("interactables"):
+				puzzle.handle_interaction(body)
+		var areas = interact_area.get_overlapping_areas()
+		for area in areas:
+			if area.is_in_group("interactables"):
+				puzzle.handle_interaction(area)
+
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
 	if current_level == null:
-		load_level("res://scenes/level0.tscn")
+		load_level("res://scenes/level1.tscn")

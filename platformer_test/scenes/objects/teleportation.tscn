@@ -1,0 +1,48 @@
+[gd_scene load_steps=6 format=3 uid="uid://du0os7yr3xt8y"]
+
+[ext_resource type="Script" uid="uid://b0nr3ui5i7ucj" path="res://scripts/objects/teleportation.gd" id="1_m458l"]
+[ext_resource type="Texture2D" uid="uid://dfylk1t3er3tv" path="res://assets/puzzle_game_gfx/Blocks/block_1_orange_outline.png" id="2_1w1r3"]
+[ext_resource type="Texture2D" uid="uid://c1u3sdkkcriv5" path="res://assets/puzzle_game_gfx/Blocks/block_1_blue_outline.png" id="3_p66o8"]
+[ext_resource type="PackedScene" uid="uid://dfoervmeqi0lp" path="res://scenes/objects/wire_teleport.tscn" id="4_07vus"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uci1l"]
+size = Vector2(14, 14)
+
+[node name="Teleportation" type="Node2D"]
+script = ExtResource("1_m458l")
+
+[node name="teleport_start" type="RigidBody2D" parent="."]
+position = Vector2(1592, 9)
+
+[node name="Sprite2D" type="Sprite2D" parent="teleport_start"]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("2_1w1r3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="teleport_start"]
+shape = SubResource("RectangleShape2D_uci1l")
+
+[node name="teleport_end" type="RigidBody2D" parent="."]
+position = Vector2(1864, 9)
+
+[node name="Sprite2D" type="Sprite2D" parent="teleport_end"]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("3_p66o8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="teleport_end"]
+shape = SubResource("RectangleShape2D_uci1l")
+
+[node name="teleport_wires" type="Node2D" parent="."]
+position = Vector2(80, 0)
+
+[node name="wire_teleport_up" parent="teleport_wires" instance=ExtResource("4_07vus")]
+position = Vector2(1616, -83)
+middle_count = 4
+begin_variant = 2
+
+[node name="wire_teleport_mid" parent="teleport_wires" instance=ExtResource("4_07vus")]
+position = Vector2(1616, -49)
+middle_count = 4
+
+[node name="wire_teleport_down" parent="teleport_wires" instance=ExtResource("4_07vus")]
+position = Vector2(1616, -13)
+middle_count = 4
