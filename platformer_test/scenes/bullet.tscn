@@ -1,8 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://c5c7hgcgjovrv"]
 
-[ext_resource type="Script" uid="uid://du7n4f0k8wddt" path="res://scripts/bullet.gd" id="1_l5glv"]
+[ext_resource type="Script" uid="uid://du7n4f0k8wddt" path="res://scripts/objects/bullet.gd" id="1_l5glv"]
 [ext_resource type="Texture2D" uid="uid://xmukgqlmc6ku" path="res://assets/sprites/shooter_tilemap.png" id="1_mkf8s"]
 [ext_resource type="PackedScene" uid="uid://b0exx33d87cji" path="res://scenes/killzone.tscn" id="2_y25gk"]
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mkf8s"]
 atlas = ExtResource("1_mkf8s")

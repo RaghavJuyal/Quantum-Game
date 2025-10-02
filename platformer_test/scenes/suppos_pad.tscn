@@ -1,7 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://clveei1rqh67u"]
 
-[ext_resource type="Script" uid="uid://fi4l4xwglmcv" path="res://scripts/suppos_pad.gd" id="1_lt4km"]
+[ext_resource type="Script" uid="uid://fi4l4xwglmcv" path="res://scripts/objects/suppos_pad.gd" id="1_lt4km"]
 [ext_resource type="AudioStream" uid="uid://8pqlteyob1ow" path="res://assets/sounds/coin.wav" id="2_lt4km"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wtwe7"]
 size = Vector2(32, 363)

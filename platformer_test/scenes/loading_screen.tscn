@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddwat60ogbkph"]
 
 [ext_resource type="ArrayMesh" uid="uid://boujjq24wl4ol" path="res://assets/sprites/uploads_files_2780780_Modern+Arrow.obj" id="1_hprjd"]
-[ext_resource type="Script" uid="uid://bjp6kcht7vawn" path="res://scripts/arrow_loading_rotation.gd" id="1_ku3bi"]
+[ext_resource type="Script" uid="uid://bjp6kcht7vawn" path="res://scripts/objects/arrow_loading_rotation.gd" id="1_ku3bi"]
+
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hprjd"]
 albedo_color = Color(1, 0, 0.176471, 1)

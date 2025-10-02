@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dfoervmeqi0lp"]
 
 [ext_resource type="Texture2D" uid="uid://bw3il2ahqpaom" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-0.png" id="1_dvvk2"]
-[ext_resource type="Script" uid="uid://dncrfsdxgm8gm" path="res://scripts/wire_teleport.gd" id="1_lll5a"]
+[ext_resource type="Script" uid="uid://dncrfsdxgm8gm" path="res://scripts/objects/wire_teleport.gd" id="1_lll5a"]
 [ext_resource type="Texture2D" uid="uid://xxomsi3mwors" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-1.png" id="2_lll5a"]
 [ext_resource type="Texture2D" uid="uid://bvo5y4fja8pk4" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-1-pushed.png" id="3_57ted"]
 [ext_resource type="Texture2D" uid="uid://du2t2ho1bib87" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-!blank.png" id="4_vc3t0"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://caewmose0j0yc" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-C.png" id="16_ylamf"]
 [ext_resource type="Texture2D" uid="uid://cyq45sc0v0ic" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-C-pushed.png" id="17_sp1dx"]
 [ext_resource type="Texture2D" uid="uid://b62xuy37pwqql" path="res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-0-pushed.png" id="18_q5324"]
+
 
 [node name="wire_teleport" type="Node2D"]
 script = ExtResource("1_lll5a")

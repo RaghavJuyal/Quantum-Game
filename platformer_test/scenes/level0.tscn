@@ -13,9 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/measurement_pad.tscn" id="12_uw5x2"]
 [ext_resource type="PackedScene" uid="uid://cavk2o4ctghvk" path="res://scenes/hud.tscn" id="13_7mtyo"]
 [ext_resource type="PackedScene" uid="uid://d3h8bqmmiqq2n" path="res://scenes/texts.tscn" id="13_pnrra"]
-[ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/test.gd" id="14_jahao"]
+[ext_resource type="Script" uid="uid://vhd56nwy11w0" path="res://scripts/objects/test.gd" id="14_jahao"]
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/finish.tscn" id="14_ooohs"]
 [ext_resource type="PackedScene" uid="uid://jfixbjr8sth4" path="res://scenes/dialogue.tscn" id="15_yoi1k"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("3_jmh5o")

@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://jfixbjr8sth4"]
 
-[ext_resource type="Script" uid="uid://dukfi2rdrlnxs" path="res://scripts/dialogue_area.gd" id="1_jwyou"]
+[ext_resource type="Script" uid="uid://dukfi2rdrlnxs" path="res://scripts/objects/dialogue_area.gd" id="1_jwyou"]
 [ext_resource type="Texture2D" uid="uid://d0a7miy5k47wo" path="res://assets/sprites/info.png" id="2_3n4vj"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vidaj"]
 size = Vector2(24, 24)

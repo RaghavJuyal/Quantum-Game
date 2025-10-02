@@ -1,7 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://blpn1xx5kspbh"]
 
 [ext_resource type="Texture2D" uid="uid://c6ltd4nc2ke37" path="res://assets/sprites/measurement_pad.png" id="1_43aqb"]
-[ext_resource type="Script" uid="uid://c1dhpnnxlfvmc" path="res://scripts/measurement_pad.gd" id="1_suu0c"]
+[ext_resource type="Script" uid="uid://c1dhpnnxlfvmc" path="res://scripts/objects/measurement_pad.gd" id="1_suu0c"]
+
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_suu0c"]
 size = Vector2(32, 32)

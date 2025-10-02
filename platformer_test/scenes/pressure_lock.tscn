@@ -1,6 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://beatj8umtufic"]
 
-[ext_resource type="Script" uid="uid://bchxrot7yca7p" path="res://scripts/pressure_lock.gd" id="1_vaf5f"]
+[ext_resource type="Script" uid="uid://bchxrot7yca7p" path="res://scripts/objects/pressure_lock.gd" id="1_vaf5f"]
+
 
 [sub_resource type="Gradient" id="Gradient_i0h1j"]
 

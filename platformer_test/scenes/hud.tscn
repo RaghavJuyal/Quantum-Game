@@ -1,13 +1,14 @@
 [gd_scene load_steps=15 format=3 uid="uid://cavk2o4ctghvk"]
 
-[ext_resource type="Script" uid="uid://07igknrhuyay" path="res://scripts/hud.gd" id="1_5ysmq"]
+[ext_resource type="Script" uid="uid://07igknrhuyay" path="res://scripts/objects/hud.gd" id="1_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://h2et6qe150l5" path="res://assets/sprites/coin.png" id="1_ahhtf"]
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="3_6fi6k"]
 [ext_resource type="ArrayMesh" uid="uid://boujjq24wl4ol" path="res://assets/sprites/uploads_files_2780780_Modern+Arrow.obj" id="4_6fi6k"]
-[ext_resource type="Script" uid="uid://ch4t2vrvp7nkw" path="res://scripts/arrow.gd" id="5_uo2fv"]
+[ext_resource type="Script" uid="uid://ch4t2vrvp7nkw" path="res://scripts/objects/arrow.gd" id="5_uo2fv"]
 [ext_resource type="Texture2D" uid="uid://cvq0vahg1nm2u" path="res://assets/puzzle_game_gfx/Gems/gem_octagon_purple_outline.png" id="6_047uy"]
 [ext_resource type="Texture2D" uid="uid://bbf33oarwo80m" path="res://assets/puzzle_game_gfx/Animals/animal_squirrel.png" id="7_5pdws"]
 [ext_resource type="Texture2D" uid="uid://btwylfdjio5kr" path="res://assets/sprites/hearts.png" id="8_hd3ao"]
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")
