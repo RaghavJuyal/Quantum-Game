@@ -25,7 +25,7 @@ var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
 var checkpoint_player
 var pending_respawn
-var isdead = false
+var is_dead = false
 
 @export var entangled_mode = false
 @export var hold_gem = false
@@ -51,7 +51,7 @@ var isdead = false
 func _ready() -> void:
 	score = 0
 	hearts = 3
-	isdead = false
+	is_dead = false
 	checkpoint_player = player
 	checkpoint_position_0 = player.global_position
 	checkpoint_position_1 = player_2.global_position
@@ -111,7 +111,7 @@ func _on_timer_timeout() -> void:
 	pending_respawn.get_node("CollisionShape2D").disabled = false
 	player.global_position = checkpoint_position_0
 	player_2.global_position = checkpoint_position_1
-	isdead = false
+	is_dead = false
 	if checkpoint_player == player:
 		theta = 0
 		phi = 0

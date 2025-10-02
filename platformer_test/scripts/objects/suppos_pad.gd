@@ -25,13 +25,13 @@ func _on_body_entered(body: Node2D) -> void:
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
 	# since both players enter, we trigger only once
 	# we remove the player that didn't trigger if fidelity condition fails
-	if game_manager.isdead:
+	if game_manager.is_dead:
 		return
 	if triggered:
 		if fidelity < fidelity_threshold:
 			#body.get_node("CollisionShape2D").queue_free()
 			game_manager.schedule_respawn(body)
-			game_manager.isdead = true
+			game_manager.is_dead = true
 		return
 	triggered = true
 	if !fidelity_shown:
@@ -53,7 +53,7 @@ func _on_body_entered(body: Node2D) -> void:
 	else:
 		game_manager.set_state_zero()
 		Engine.time_scale = 0.5
-		game_manager.isdead = true
+		game_manager.is_dead = true
 		#body.get_node("CollisionShape2D").queue_free()
 		game_manager.schedule_respawn(body)
 		triggered = false

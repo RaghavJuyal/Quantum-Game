@@ -28,9 +28,6 @@ var carried_gate = ""
 var pending_respawn
 var is_dead = false
 
-@onready var timer: Timer = $Timer
-@onready var puzzle_1: Node = $Puzzle_1
-
 var ent_enemy_position = null
 var ent_enemy_y_displacement = 0
 
@@ -54,7 +51,7 @@ func schedule_respawn(dead_body: Node2D) -> void:
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
 	# Start respawn timer
-	timer.start()
+	current_level.timer.start()
 
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
@@ -265,6 +262,27 @@ func compute_fidelity(target_theta: float, target_phi: float) -> float:
 	var dot = r.dot(rt)
 	return 0.5 * (1.0 + dot)
 
+func update_hud():
+	var prob0_raw = (cos(theta/2.0)**2)*100
+	var prob0 = round(prob0_raw * 10.0) / 10.0
+	var prob1 = round((100 - prob0) * 10.0) / 10.0
+	if prob0_raw >= 100.0-0.02:
+		measured = true
+		state = 0
+		suppos_allowed = false
+		theta = 0
+		phi = 0
+	elif prob0_raw <= 0.02:
+		measured = true
+		state = 1
+		suppos_allowed = false
+		theta = PI
+		phi = 0
+	current_level.hud.get_node("Percent0").text = str(prob0)
+	current_level.hud.get_node("Percent1").text = str(prob1)
+	current_level.hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
+	current_level.hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+
 ## INTERACTABLE / ENTANGLABLE ##
 
 func _is_on_interactable(p: Node):
@@ -329,6 +347,7 @@ func load_level(path: String):
 
 ## PROCESS ##
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
-	load_level("res://scenes/level0.tscn")
+	if current_level == null:
+		load_level("res://scenes/level0.tscn")
