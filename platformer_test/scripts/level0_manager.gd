@@ -41,42 +41,16 @@ func _process(delta: float) -> void:
 	
 	game_manager.delta_theta = delta*PI/2.0
 	
-	# superposition logic
-	if !game_manager.suppos_allowed:
-		var requester
-		if game_manager.state == 0:
-			requester = player
-		elif game_manager.state == 1:
-			requester = player_2
-		var ok = game_manager.try_superposition(requester)
-		if ok:
-			game_manager.suppos_allowed = true
-	if game_manager.suppos_allowed:
-		if Input.is_action_pressed("x_rotation"):
-			if game_manager.measured:
-				game_manager.state = -1
-			game_manager.rotate_x(game_manager.delta_theta)
-		if Input.is_action_pressed("y_rotation"):
-			if game_manager.measured:
-				game_manager.state = -1
-			game_manager.rotate_y(game_manager.delta_theta)
-		if Input.is_action_pressed("z_rotation"):
-			if game_manager.measured:
-				game_manager.state = -1
-			game_manager.rotate_z(game_manager.delta_theta)
+	# superposition
+	game_manager.process_superposition()
 	
 	# measurement
 	if Input.is_action_pressed("Measure"):
 		if !game_manager.measured:
 			game_manager.measure()
 	
-	game_manager.update_hud()
+	# update hud
+	game_manager.process_update_hud()
 	
-	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
-	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a
-	var camera_target
-	if alpha0 >= alpha1:
-		camera_target = camera0
-	else:
-		camera_target = camera1
-	camera_2d.global_position = camera_2d.global_position.lerp(camera_target.global_position, 0.005)
+	# update camera
+	game_manager.process_camera()

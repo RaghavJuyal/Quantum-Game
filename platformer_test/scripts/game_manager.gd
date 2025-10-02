@@ -265,27 +265,6 @@ func compute_fidelity(target_theta: float, target_phi: float) -> float:
 	var dot = r.dot(rt)
 	return 0.5 * (1.0 + dot)
 
-func update_hud():
-	var prob0_raw = (cos(theta/2.0)**2)*100
-	var prob0 = round(prob0_raw * 10.0) / 10.0
-	var prob1 = round((100 - prob0) * 10.0) / 10.0
-	if prob0_raw >= 100.0-0.02:
-		measured = true
-		state = 0
-		suppos_allowed = false
-		theta = 0
-		phi = 0
-	elif prob0_raw <= 0.02:
-		measured = true
-		state = 1
-		suppos_allowed = false
-		theta = PI
-		phi = 0
-	current_level.hud.get_node("Percent0").text = str(prob0)
-	current_level.hud.get_node("Percent1").text = str(prob1)
-	current_level.hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
-	current_level.hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
-
 ## INTERACTABLE / ENTANGLABLE ##
 
 func _is_on_interactable(p: Node):
@@ -335,7 +314,7 @@ func Starter() -> void:
 	current_level.player.stop = false
 	current_level.player_2.stop = false
 
-## LEVEL LOAD LOGIC ##
+## LEVEL HELPERS ##
 
 func load_level(path: String):
 	## TODO: Better handling needed than queue_free()
@@ -347,6 +326,61 @@ func load_level(path: String):
 	current_level = level_scene
 	if level_scene.has_method("set_game_manager"):
 		level_scene.set_game_manager(self)
+
+func process_superposition():
+	if !suppos_allowed:
+		var requester
+		if state == 0:
+			requester = current_level.player
+		elif state == 1:
+			requester = current_level.player_2
+		var ok = try_superposition(requester)
+		if ok:
+			suppos_allowed = true
+	if suppos_allowed:
+		if Input.is_action_pressed("x_rotation"):
+			if measured:
+				state = -1
+			rotate_x(delta_theta)
+		if Input.is_action_pressed("y_rotation"):
+			if measured:
+				state = -1
+			rotate_y(delta_theta)
+		if Input.is_action_pressed("z_rotation"):
+			if measured:
+				state = -1
+			rotate_z(delta_theta)
+
+func process_update_hud():
+	var prob0_raw = (cos(theta/2.0)**2)*100
+	var prob0 = round(prob0_raw * 10.0) / 10.0
+	var prob1 = round((100 - prob0) * 10.0) / 10.0
+	if prob0_raw >= 100.0-0.02:
+		measured = true
+		state = 0
+		suppos_allowed = false
+		theta = 0
+		phi = 0
+	elif prob0_raw <= 0.02:
+		measured = true
+		state = 1
+		suppos_allowed = false
+		theta = PI
+		phi = 0
+	current_level.hud.get_node("Percent0").text = str(prob0)
+	current_level.hud.get_node("Percent1").text = str(prob1)
+	current_level.hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
+	current_level.hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+
+func process_camera():
+	var alpha0 = current_level.player.get_node("AnimatedSprite2D").self_modulate.a
+	var alpha1 = current_level.player_2.get_node("AnimatedSprite2D").self_modulate.a
+	var camera_target
+	if alpha0 >= alpha1:
+		camera_target = current_level.camera0
+	else:
+		camera_target = current_level.camera1
+	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(camera_target.global_position, 0.005)
 
 ## PROCESS ##
 
