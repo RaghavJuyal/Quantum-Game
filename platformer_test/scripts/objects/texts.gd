@@ -2,7 +2,7 @@ extends TextEdit
 
 @onready var label: Label = $MarginContainer/Label
 var text_name = "dialogue0"
-var filepath = "res://scripts/dialogue.json"
+var filepath = "res://scripts/objects/dialogue.json"
 var parsedResult
 
 func _ready() -> void:
