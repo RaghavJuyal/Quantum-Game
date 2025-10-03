@@ -365,20 +365,6 @@ position = Vector2(800, 8)
 collision_layer = 2
 collision_mask = 2
 
-[node name="EntangledGem" type="Node" parent="GameManager"]
-
-[node name="Gem" parent="GameManager/EntangledGem" instance=ExtResource("16_3i82n")]
-position = Vector2(1883, 10)
-is_state_zero = true
-
-[node name="Gem Block" parent="GameManager/EntangledGem" instance=ExtResource("17_3mf5k")]
-position = Vector2(1959, -70)
-
-[node name="Gem Obstacle" type="TileMapLayer" parent="GameManager/EntangledGem"]
-position = Vector2(1216, 2)
-tile_map_data = PackedByteArray("AAAxAP7/AQABAAEAAAAxAP//AQABAAEAAAAxAAAAAQABAAEAAAAxAPv/AQAIAAAAAAAxAPr/AQAIAAAAAAAxAPn/AQAIAAAAAAAxAPj/AQAIAAAAAAA=")
-tile_set = SubResource("TileSet_l1g8i")
-
 [node name="Finish" parent="." instance=ExtResource("14_ooohs")]
 position = Vector2(1456, -80)
 
