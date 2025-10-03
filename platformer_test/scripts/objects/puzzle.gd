@@ -16,9 +16,6 @@ const Complex = preload("res://scripts/complex.gd")
 @onready var add_gate_left_down: Node = $Add_gates/add_gate_left_down
 @onready var add_gate_right_down: Node = $Add_gates/add_gate_right_down
 
-## TODO: Refactor interaction to a common area ##
-@onready var gem_block: Node = $"../EntangledGem/Gem Block"
-@onready var gem_obstacle: Node = $"../EntangledGem/Gem Obstacle"
 
 @onready var puzzle_obstacle: TileMapLayer = $Puzzle_obstacle
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
@@ -61,8 +58,7 @@ func _ready() -> void:
 		remove_gate_left_up, remove_gate_left_down, remove_gate_right_down, remove_gate_right_up,
 		add_gate_left_up, add_gate_right_up, add_gate_left_down, add_gate_right_down,
 		reset_circuit, run_circuit,
-		z_gate, y_gate, x_gate, cnot_gate, hadamard_gate, 
-		gem_block
+		z_gate, y_gate, x_gate, cnot_gate, hadamard_gate
 	]
 	for block in interactables:
 		if block != null:
@@ -409,8 +405,6 @@ func handle_interaction(block:Node):
 		"reset_circuit": _reset_both()
 		"run_circuit": 
 			_run_circuit()
-		
-		"Gem Block": _gem_block(block)
 
 		"z_gate": game_manager.carried_gate="Z"
 		"y_gate": game_manager.carried_gate="Y"
@@ -457,12 +451,3 @@ func _run_circuit_with_animation() -> void:
 		$incorrect.play()
 
 ## NON-PUZZLE LOGIC ##
-func _gem_block(block: Node) -> void:
-	if (!game_manager.entangled_mode and game_manager.hold_gem):
-		gem_obstacle.hide()
-		gem_obstacle.queue_free()
-		block.queue_free()
-		
-		game_manager.hold_gem = false
-		var current_level = game_manager.current_level
-		current_level.hud.get_node("gem_carried").visible = false

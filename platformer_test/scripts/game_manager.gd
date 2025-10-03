@@ -482,6 +482,8 @@ func _is_on_interactable(p: Node):
 	for body in area.get_overlapping_bodies():
 		if body.is_in_group("interactables_puzzle"):
 			return true
+		if body.is_in_group("interactables_entangle"):
+			return true
 	for intarea in area.get_overlapping_areas():
 		if intarea.is_in_group("interactables_puzzle"):
 			return true
@@ -508,8 +510,7 @@ func update_current_teleport():
 			break
 	return current_teleport_body.get_parent()
 	
-func _is_on_gem(p: Node):
-	pass
+	
 func _is_on_entanglable(p: Node):
 	if measured:
 		if p.is_state_zero and state != 0:
@@ -636,6 +637,10 @@ func process_interact():
 			if body.is_in_group("interactables_puzzle"):
 				var current_puzzle = body.get_parent().get_parent()
 				current_puzzle.handle_interaction(body)
+			if body.is_in_group("interactables_entangle"):
+				var current_entangle_block = body.get_parent()
+				current_entangle_block._gem_block(body)
+				
 		var areas = interact_area.get_overlapping_areas()
 		for area in areas:
 			if area.is_in_group("interactables_puzzle"):
@@ -647,4 +652,4 @@ func process_interact():
 func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
 	if current_level == null:
-		load_level("res://scenes/level1.tscn")
+		load_level("res://scenes/level2.tscn")
