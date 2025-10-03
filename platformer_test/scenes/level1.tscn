@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=4 uid="uid://b5wlgna4td1ck"]
+[gd_scene load_steps=21 format=4 uid="uid://b5wlgna4td1ck"]
 
 [ext_resource type="Script" uid="uid://dnbc0sgn3avo4" path="res://scripts/level1_manager.gd" id="1_dxn3v"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/objects/player.tscn" id="2_14jow"]
@@ -14,21 +14,9 @@
 [ext_resource type="PackedScene" uid="uid://cavk2o4ctghvk" path="res://scenes/objects/hud.tscn" id="12_msy1c"]
 [ext_resource type="PackedScene" uid="uid://d3h8bqmmiqq2n" path="res://scenes/objects/texts.tscn" id="14_4niyd"]
 [ext_resource type="PackedScene" uid="uid://jfixbjr8sth4" path="res://scenes/objects/dialogue.tscn" id="15_3umqw"]
-[ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/objects/puzzle_1.gd" id="16_7dkav"]
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/objects/finish.tscn" id="16_gqmnx"]
-[ext_resource type="PackedScene" uid="uid://bukjm6u0mt0tw" path="res://scenes/objects/wire.tscn" id="17_4niyd"]
-[ext_resource type="PackedScene" uid="uid://dcgby18clyino" path="res://scenes/objects/remove_gate.tscn" id="18_3umqw"]
-[ext_resource type="PackedScene" uid="uid://bl4a1pld6v3mh" path="res://scenes/objects/add_gate.tscn" id="19_gqmnx"]
-[ext_resource type="PackedScene" uid="uid://dog4dsj2egfvx" path="res://scenes/objects/z_gate.tscn" id="20_p71k4"]
-[ext_resource type="PackedScene" uid="uid://bujxh17jiq3c2" path="res://scenes/objects/y_gate.tscn" id="21_1oofn"]
-[ext_resource type="PackedScene" uid="uid://bt0vqdy3bjk4l" path="res://scenes/objects/x_gate.tscn" id="22_6i0tl"]
-[ext_resource type="PackedScene" uid="uid://b16j76sxip8n4" path="res://scenes/objects/cnot_gate.tscn" id="23_6lx4c"]
-[ext_resource type="PackedScene" uid="uid://bv41imahweahl" path="res://scenes/objects/hadamard_gate.tscn" id="24_6xmqk"]
+[ext_resource type="PackedScene" uid="uid://cb5u4d8i5lwf2" path="res://scenes/objects/puzzle.tscn" id="17_14jow"]
 [ext_resource type="PackedScene" uid="uid://du0os7yr3xt8y" path="res://scenes/objects/teleportation.tscn" id="25_4niyd"]
-[ext_resource type="AudioStream" uid="uid://drmxcfug72t6i" path="res://assets/sounds/Fruit collect 1.wav" id="25_hvrd6"]
-[ext_resource type="AudioStream" uid="uid://bg113uwbm48lp" path="res://assets/sounds/JDSherbert - Pixel UI SFX Pack - Cancel 2 (Square).wav" id="26_1vjko"]
-[ext_resource type="PackedScene" uid="uid://dyht31nx3qd4n" path="res://scenes/objects/run_circuit.tscn" id="27_y3pui"]
-[ext_resource type="PackedScene" uid="uid://m13gbjrmk6ot" path="res://scenes/objects/reset_circuit.tscn" id="28_7vcq6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("3_mvsps")
@@ -196,159 +184,11 @@ sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_p57ef"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dqir8"]
-texture = ExtResource("3_mvsps")
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-2:0/0 = 0
-3:0/0 = 0
-4:0/0 = 0
-4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-5:0/0 = 0
-5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-6:0/0 = 0
-6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-7:0/0 = 0
-7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-8:0/0 = 0
-8:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-9:0/0 = 0
-10:0/0 = 0
-11:0/0 = 0
-0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-1:1/0 = 0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-2:1/0 = 0
-3:1/0 = 0
-4:1/0 = 0
-4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-5:1/0 = 0
-5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-6:1/0 = 0
-6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-7:1/0 = 0
-7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-8:1/0 = 0
-8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
-9:1/0 = 0
-10:1/0 = 0
-11:1/0 = 0
-0:2/0 = 0
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-4:2/0 = 0
-5:2/0 = 0
-6:2/0 = 0
-7:2/0 = 0
-8:2/0 = 0
-9:2/0 = 0
-10:2/0 = 0
-11:2/0 = 0
-0:3/0 = 0
-1:3/0 = 0
-2:3/0 = 0
-5:3/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-8:3/0 = 0
-9:3/0 = 0
-0:4/0 = 0
-1:4/0 = 0
-2:4/0 = 0
-3:4/0 = 0
-4:4/0 = 0
-5:4/0 = 0
-6:4/0 = 0
-7:4/0 = 0
-8:4/0 = 0
-9:4/0 = 0
-0:5/0 = 0
-1:5/0 = 0
-2:5/0 = 0
-3:5/0 = 0
-4:5/0 = 0
-5:5/0 = 0
-6:5/0 = 0
-7:5/0 = 0
-8:5/0 = 0
-1:6/0 = 0
-2:6/0 = 0
-3:6/0 = 0
-4:6/0 = 0
-5:6/0 = 0
-6:6/0 = 0
-7:6/0 = 0
-8:6/0 = 0
-0:7/0 = 0
-1:7/0 = 0
-3:7/0 = 0
-5:7/0 = 0
-6:7/0 = 0
-7:7/0 = 0
-8:7/0 = 0
-0:8/0 = 0
-1:8/0 = 0
-2:8/0 = 0
-3:8/0 = 0
-4:8/0 = 0
-5:8/0 = 0
-6:8/0 = 0
-7:8/0 = 0
-8:8/0 = 0
-0:9/0 = 0
-1:9/0 = 0
-2:9/0 = 0
-3:9/0 = 0
-4:9/0 = 0
-5:9/0 = 0
-6:9/0 = 0
-7:9/0 = 0
-0:10/0 = 0
-1:10/0 = 0
-2:10/0 = 0
-3:10/0 = 0
-4:10/0 = 0
-6:10/0 = 0
-0:11/0 = 0
-1:11/0 = 0
-2:11/0 = 0
-3:11/0 = 0
-4:11/0 = 0
-5:11/0 = 0
-0:12/0 = 0
-1:12/0 = 0
-2:12/0 = 0
-3:12/0 = 0
-4:12/0 = 0
-0:13/0 = 0
-1:13/0 = 0
-2:13/0 = 0
-3:13/0 = 0
-4:13/0 = 0
-5:13/0 = 0
-0:14/0 = 0
-1:14/0 = 0
-2:14/0 = 0
-3:14/0 = 0
-4:14/0 = 0
-0:15/0 = 0
-1:15/0 = 0
-2:15/0 = 0
-3:15/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_0j6b7"]
-physics_layer_0/collision_layer = 1
-sources/1 = SubResource("TileSetAtlasSource_dqir8")
-
 [node name="Level1_Manager" type="Node2D"]
 script = ExtResource("1_dxn3v")
 
 [node name="Player" parent="." instance=ExtResource("2_14jow")]
-position = Vector2(-72, 16)
+position = Vector2(1268, 47)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(1, -61)
@@ -358,7 +198,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Player2" parent="." instance=ExtResource("2_14jow")]
-position = Vector2(-72, -64)
+position = Vector2(1268, -65)
 is_state_zero = false
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
@@ -501,104 +341,6 @@ theme_override_fonts/font = ExtResource("9_phfsf")
 theme_override_font_sizes/font_size = 8
 text = "##"
 
-[node name="Puzzle" type="Node2D" parent="."]
-position = Vector2(570, 1)
-script = ExtResource("16_7dkav")
-target_state_re = Array[float]([0.0, 1.0, 0.0, 0.0])
-
-[node name="wire_up" parent="Puzzle" instance=ExtResource("17_4niyd")]
-position = Vector2(920, -90)
-
-[node name="wire_down" parent="Puzzle" instance=ExtResource("17_4niyd")]
-position = Vector2(920, -10)
-
-[node name="Remove_gates" type="Node2D" parent="Puzzle"]
-
-[node name="remove_gate_left_up" parent="Puzzle/Remove_gates" instance=ExtResource("18_3umqw")]
-position = Vector2(842, -69)
-
-[node name="remove_gate_left_down" parent="Puzzle/Remove_gates" instance=ExtResource("18_3umqw")]
-position = Vector2(842, 9)
-
-[node name="remove_gate_right_down" parent="Puzzle/Remove_gates" instance=ExtResource("18_3umqw")]
-position = Vector2(1095, 9)
-
-[node name="remove_gate_right_up" parent="Puzzle/Remove_gates" instance=ExtResource("18_3umqw")]
-position = Vector2(1095, -69)
-
-[node name="Add_gates" type="Node2D" parent="Puzzle"]
-
-[node name="add_gate_left_up" parent="Puzzle/Add_gates" instance=ExtResource("19_gqmnx")]
-position = Vector2(888, -69)
-
-[node name="add_gate_right_up" parent="Puzzle/Add_gates" instance=ExtResource("19_gqmnx")]
-position = Vector2(1049, -69)
-
-[node name="add_gate_left_down" parent="Puzzle/Add_gates" instance=ExtResource("19_gqmnx")]
-position = Vector2(888, 9)
-
-[node name="add_gate_right_down" parent="Puzzle/Add_gates" instance=ExtResource("19_gqmnx")]
-position = Vector2(1049, 9)
-
-[node name="Puzzle_obstacle" type="TileMapLayer" parent="Puzzle"]
-position = Vector2(1216, 2)
-tile_map_data = PackedByteArray("AAAAAAAAAQABAAEAAAAAAP//AQABAAEAAAAAAPv/AQAIAAEAAAAAAPr/AQAIAAEAAAAAAPn/AQAIAAEAAAAAAPj/AQAIAAEAAAAAAP7/AQAIAAEAAAA=")
-tile_set = SubResource("TileSet_0j6b7")
-
-[node name="gates" type="Node2D" parent="Puzzle"]
-
-[node name="z_gate" parent="Puzzle/gates" instance=ExtResource("20_p71k4")]
-position = Vector2(1131, 11)
-
-[node name="y_gate" parent="Puzzle/gates" instance=ExtResource("21_1oofn")]
-position = Vector2(1182, 11)
-
-[node name="x_gate" parent="Puzzle/gates" instance=ExtResource("22_6i0tl")]
-position = Vector2(1198, -69)
-
-[node name="cnot_gate" parent="Puzzle/gates" instance=ExtResource("23_6lx4c")]
-position = Vector2(1158, -70)
-
-[node name="hadamard_gate" parent="Puzzle/gates" instance=ExtResource("24_6xmqk")]
-position = Vector2(767, 12)
-
-[node name="correct" type="AudioStreamPlayer2D" parent="Puzzle"]
-stream = ExtResource("25_hvrd6")
-volume_db = 15.0
-
-[node name="incorrect" type="AudioStreamPlayer2D" parent="Puzzle"]
-stream = ExtResource("26_1vjko")
-
-[node name="current_state_label" type="RichTextLabel" parent="Puzzle"]
-offset_left = 726.0
-offset_top = 92.0
-offset_right = 1181.0
-offset_bottom = 127.0
-theme_override_fonts/normal_font = ExtResource("9_phfsf")
-theme_override_font_sizes/normal_font_size = 16
-text = "current state"
-fit_content = true
-scroll_active = false
-
-[node name="target_state_label" type="RichTextLabel" parent="Puzzle"]
-offset_left = 740.0
-offset_top = 133.0
-offset_right = 1181.0
-offset_bottom = 175.0
-theme_override_fonts/normal_font = ExtResource("9_phfsf")
-theme_override_font_sizes/normal_font_size = 16
-text = "target state"
-fit_content = true
-scroll_active = false
-
-[node name="Other_blocks" type="Node2D" parent="Puzzle"]
-
-[node name="run_circuit" parent="Puzzle/Other_blocks" instance=ExtResource("27_y3pui")]
-position = Vector2(793, -69)
-
-[node name="reset_circuit" parent="Puzzle/Other_blocks" instance=ExtResource("28_7vcq6")]
-position = Vector2(793, 9)
-
 [node name="Teleportation" parent="." instance=ExtResource("25_4niyd")]
 position = Vector2(224, 33)
 
@@ -644,3 +386,8 @@ collision_mask = 2
 
 [node name="Finish" parent="." instance=ExtResource("16_gqmnx")]
 position = Vector2(2211, -82)
+
+[node name="Puzzle" parent="." instance=ExtResource("17_14jow")]
+position = Vector2(570, 1)
+
+[connection signal="finished_level" from="Finish" to="." method="load_next_level"]

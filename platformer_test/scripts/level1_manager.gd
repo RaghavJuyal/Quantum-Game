@@ -2,6 +2,7 @@ extends Node
 
 ## GAME MANAGER INSTANCE ##
 var game_manager: Node = null
+const next_level = "res://scenes/level2.tscn"
 
 ## LEVEL-1 OBJECT INSTANCES ##
 @onready var hud: CanvasLayer = $HUD
@@ -12,9 +13,6 @@ var game_manager: Node = null
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var midground: TileMapLayer = $Tilemap/Midground
 @onready var midground_2: TileMapLayer = $Tilemap/Midground2
-
-@onready var puzzle: Node = $Puzzle
-@onready var teleportation: Node2D = $Teleportation
 
 func _ready() -> void:
 	camera_2d.make_current()
@@ -36,6 +34,9 @@ func game_manager_ready():
 	hud.coins_label.text = str(game_manager.score)
 	
 	game_manager.set_state_one()
+
+func load_next_level():
+	game_manager.load_level(next_level)
 
 func _process(delta: float) -> void:
 	# this ensures process doesn't run before level is loaded
@@ -60,4 +61,4 @@ func _process(delta: float) -> void:
 	game_manager.process_camera()
 	
 	# interact for puzzle / teleportation
-	game_manager.process_interact(puzzle, teleportation)
+	game_manager.process_interact()

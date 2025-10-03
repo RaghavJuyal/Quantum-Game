@@ -13,9 +13,6 @@ var game_manager: Node = null
 @onready var midground: TileMapLayer = $Tilemap/Midground
 @onready var midground_2: TileMapLayer = $Tilemap/Midground2
 
-@onready var puzzle: Node = $Puzzle
-@onready var teleportation: Node2D = $Teleportation
-
 @onready var gem: Node = $EntangledGem/Gem
 @onready var ent_enemy: Node = $EntangleEnemy
 @onready var ent_enemy_pressure: Node = $EntangleEnemy2
@@ -82,7 +79,7 @@ func _process(delta: float) -> void:
 	game_manager.process_camera()
 	
 	# interact for puzzle / teleportation
-	game_manager.process_interact(puzzle, teleportation)
+	game_manager.process_interact()
 	
 	# entangle
 	if Input.is_action_just_pressed("c_not"):
