@@ -14,9 +14,6 @@ const next_level = "res://scenes/level2.tscn"
 @onready var midground: TileMapLayer = $Tilemap/Midground
 @onready var midground_2: TileMapLayer = $Tilemap/Midground2
 
-@onready var puzzle: Node = $Puzzle
-@onready var teleportation: Node2D = $Teleportation
-
 func _ready() -> void:
 	camera_2d.make_current()
 	camera_2d.global_position = camera1.global_position
@@ -64,4 +61,4 @@ func _process(delta: float) -> void:
 	game_manager.process_camera()
 	
 	# interact for puzzle / teleportation
-	game_manager.process_interact(puzzle, teleportation)
+	game_manager.process_interact()

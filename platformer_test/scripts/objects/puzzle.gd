@@ -66,7 +66,7 @@ func _ready() -> void:
 	]
 	for block in interactables:
 		if block != null:
-			block.add_to_group("interactables")
+			block.add_to_group("interactables_puzzle")
 
 	# Initialize gate matrices
 	_init_gate_matrices()

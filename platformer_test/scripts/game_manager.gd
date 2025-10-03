@@ -480,10 +480,10 @@ func _is_on_interactable(p: Node):
 		print("hold up")
 	var area = p.get_node("interact_area")
 	for body in area.get_overlapping_bodies():
-		if body.is_in_group("interactables"):
+		if body.is_in_group("interactables_puzzle"):
 			return true
 	for intarea in area.get_overlapping_areas():
-		if intarea.is_in_group("interactables"):
+		if intarea.is_in_group("interactables_puzzle"):
 			return true
 	return false
 
@@ -497,6 +497,19 @@ func _is_on_teleport(p: Node):
 	
 	return false
 
+func update_current_teleport():
+	var current_teleport_body = null
+	var area = current_level.player.get_node("interact_area")
+	if area == null:
+		area = current_level.player_2.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("teleport_interact"):
+			current_teleport_body = body
+			break
+	return current_teleport_body.get_parent()
+	
+func _is_on_gem(p: Node):
+	pass
 func _is_on_entanglable(p: Node):
 	if measured:
 		if p.is_state_zero and state != 0:
@@ -601,13 +614,17 @@ func process_camera():
 		camera_target = current_level.camera1
 	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(camera_target.global_position, 0.005)
 
-func process_interact(puzzle, teleportation):
+func process_interact():
 	if Input.is_action_just_pressed("Interact"):
+		
+			
 		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
 			if !measured:
 				measure()
 		elif _is_on_teleport(current_level.player) or _is_on_teleport(current_level.player_2):
-			teleportation.run_teleportation()
+			var current_teleport = update_current_teleport()
+			current_teleport.run_teleportation()
+			
 		var p
 		if state == 0:
 			p = current_level.player
@@ -616,16 +633,18 @@ func process_interact(puzzle, teleportation):
 		var interact_area = p.get_node("interact_area")
 		var bodies = interact_area.get_overlapping_bodies()
 		for body in bodies:
-			if body.is_in_group("interactables"):
-				puzzle.handle_interaction(body)
+			if body.is_in_group("interactables_puzzle"):
+				var current_puzzle = body.get_parent().get_parent()
+				current_puzzle.handle_interaction(body)
 		var areas = interact_area.get_overlapping_areas()
 		for area in areas:
-			if area.is_in_group("interactables"):
-				puzzle.handle_interaction(area)
+			if area.is_in_group("interactables_puzzle"):
+				var current_puzzle = area.get_parent().get_parent()
+				current_puzzle.handle_interaction(area)
 
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
 	if current_level == null:
-		load_level("res://scenes/level0.tscn")
+		load_level("res://scenes/level1.tscn")
