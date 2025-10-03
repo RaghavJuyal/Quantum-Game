@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cruajyjjmjwmr"]
+
+[ext_resource type="Script" uid="uid://dfh2cd2c4mvdy" path="res://scripts/objects/pressure_key_lock.gd" id="1_and8d"]
+[ext_resource type="PackedScene" uid="uid://beatj8umtufic" path="res://scenes/objects/pressure_lock.tscn" id="1_ybg4v"]
+[ext_resource type="PackedScene" uid="uid://b5of0va0jbsvq" path="res://scenes/objects/pressure_plate.tscn" id="2_and8d"]
+
+[node name="PressureKeyLock" type="Node2D"]
+script = ExtResource("1_and8d")
+
+[node name="PressureLock" parent="." instance=ExtResource("1_ybg4v")]
+position = Vector2(2342, -10)
+
+[node name="PressurePlate" parent="." instance=ExtResource("2_and8d")]
+position = Vector2(2156, -59)

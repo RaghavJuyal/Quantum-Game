@@ -645,6 +645,24 @@ func process_interact():
 				var current_puzzle = area.get_parent().get_parent()
 				current_puzzle.handle_interaction(area)
 
+func process_entanglement():
+	if Input.is_action_just_pressed("c_not"):
+		var target = _is_on_entanglable(current_level.player)
+		if target == null:
+			target = _is_on_entanglable(current_level.player_2)
+			
+		if target != null:
+			var target_parent = target.get_parent()
+			target_parent.handle_entanglement(target)
+			entangled_mode = true
+			entangled_state = calculate_entangled_state(target.is_state_zero)
+			entangled_probs = calculate_entangled_probs()
+			edit_hud_entangle()
+			current_level.player.color_sprite()
+			current_level.player_2.color_sprite()
+			target.queue_free()
+		
+		
 ## PROCESS ##
 
 func _process(_delta: float) -> void:

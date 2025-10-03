@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://6vy6e47v3ywj"]
+
+[ext_resource type="PackedScene" uid="uid://b3snixrae4lh6" path="res://scenes/objects/entangle_enemy.tscn" id="1_gvk6k"]
+[ext_resource type="Script" uid="uid://btcx727hck8er" path="res://scripts/objects/entangled_enemy.gd" id="1_vqua8"]
+
+[node name="entangled_enemy" type="Node2D"]
+script = ExtResource("1_vqua8")
+
+[node name="EntangleEnemy" parent="." instance=ExtResource("1_gvk6k")]
