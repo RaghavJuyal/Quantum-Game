@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Platformer_Test"
-run/main_scene="uid://ckg7tsimjlkkl"
+run/main_scene="uid://ywyssibl6741"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/icon.svg"
 
 [autoload]
 
-Music="*res://scenes/music.tscn"
+Music="*res://scenes/objects/music.tscn"
 
 [display]
 
@@ -76,11 +76,6 @@ Interact={
 c_not={
 "deadzone": 0.2,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":67,"key_label":0,"unicode":99,"location":0,"echo":false,"script":null)
-]
-}
-EntMeasureOnlyPlayer={
-"deadzone": 0.2,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":78,"key_label":0,"unicode":110,"location":0,"echo":false,"script":null)
 ]
 }
 

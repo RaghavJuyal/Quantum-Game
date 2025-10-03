@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://b7gx8whhx2d57"]
+
+[ext_resource type="Texture2D" uid="uid://b1r73gspwjx2a" path="res://assets/sprites/merlin_.png" id="1_qxl0p"]
+[ext_resource type="Script" uid="uid://orhkoht8fk5" path="res://scripts/objects/merlin.gd" id="1_rvmck"]
+
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rvmck"]
+atlas = ExtResource("1_qxl0p")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gwtk2"]
+atlas = ExtResource("1_qxl0p")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0d1c"]
+atlas = ExtResource("1_qxl0p")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_251g0"]
+atlas = ExtResource("1_qxl0p")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t55lj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rvmck")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gwtk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0d1c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_251g0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_34yqw"]
+radius = 7.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rvmck"]
+
+[node name="merlin" type="CharacterBody2D"]
+script = ExtResource("1_rvmck")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_t55lj")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("CircleShape2D_34yqw")
+one_way_collision = true
+
+[node name="interact_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="interact_area"]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_rvmck")

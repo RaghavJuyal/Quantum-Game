@@ -1,0 +1,43 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3h8bqmmiqq2n"]
+
+[ext_resource type="Texture2D" uid="uid://w24q7dfxp46c" path="res://assets/sprites/dialog_box.png" id="1_j44tr"]
+[ext_resource type="Script" uid="uid://l6ejnqtjavcb" path="res://scripts/objects/texts.gd" id="1_yc4h5"]
+[ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="2_s13s5"]
+
+
+[node name="TextEdit" type="TextEdit"]
+clip_contents = false
+custom_minimum_size = Vector2(1, 1)
+offset_left = 5.0
+offset_right = 13.0
+offset_bottom = 8.0
+pivot_offset = Vector2(0, 300)
+size_flags_horizontal = 3
+script = ExtResource("1_yc4h5")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_direction = 2
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 256.0
+texture = ExtResource("1_j44tr")
+region_rect = Rect2(0, 0, 48, 48)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 0
+offset_right = 4800.0
+offset_bottom = 896.0
+scale = Vector2(0.4, 0.25)
+
+[node name="Label" type="Label" parent="MarginContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_s13s5")
+theme_override_font_sizes/font_size = 144
+text = "According to all known laws of aviation, there is no way a bee should be able to fly.
+"
+vertical_alignment = 1
+autowrap_mode = 2

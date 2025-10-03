@@ -1,51 +1,83 @@
 extends Node
 
-## PRELOAD SCRIPTS ##
+## THIS IS OLD
+
+## PRELOAD SCRIPTS
 const Complex = preload("res://scripts/complex.gd")
-var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
-var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
 
-## GAME CONTROL ##
-var current_level: Node = null
-var delta_theta = 0
-@onready var timer: Timer = $Timer
-
-## PLAYER STATE ##
-var suppos_allowed = true
-var measured: bool = false
-var state = -1 # -1 default, 0 means |0> 1 means |1>
+var score = 0
 var theta = 0
 var phi = 0
+var delta_theta = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
+var measured: bool = false
+var measured_only_player: bool = false
+var state = -1 # -1 default, 0 means |0> 1 means |1>
+var suppos_allowed = true
+var carried_gate
 var entangled_state = null
-var ent_enemy_x_position = 0
+var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
+var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
+var ent_enemy_position = null
 var ent_enemy_y_displacement = 0
-
-@export var entangled_mode = false
-@export var entangled_probs = null
-@export var hold_gem = false
-@export var hold_enemy = false
-
-## HUD VARIABLES ##
-var score = 0
 var hearts: int = 3
-var carried_gate = ""
-
-## RESPAWN VARIABLES ##
-var pending_respawn
-var is_dead = false
 var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
 var checkpoint_player
+var pending_respawn
+var is_dead = false
+
+@export var entangled_mode = false
+@export var hold_gem = false
+@export var hold_enemy = false
+@export var hud: CanvasLayer
+@export var entangled_probs = null
+@onready var player: CharacterBody2D = $Player
+@onready var player_2: CharacterBody2D = $Player2
+@onready var midground: TileMapLayer = $Tilemap/Midground
+@onready var midground_2: TileMapLayer = $Tilemap/Midground2
+@onready var camera_2d: Camera2D = $Camera2D
+@onready var camera0: Camera2D = $Player/Camera2D
+@onready var camera1: Camera2D = $Player2/Camera2D
+@onready var timer: Timer = $Timer
+@onready var puzzle_1: Node = $Puzzle_1
+@onready var teleportation: Node2D = $Teleportation
+@onready var gem: Node = $EntangledGem/Gem
+@onready var ent_enemy: Node = $EntangleEnemy
+@onready var ent_enemy_pressure: Node = $EntangleEnemy2
+@onready var pressure_lock: Node = $PressureKeyLock/PressureLock
+@onready var pressure_plate: Node = $PressureKeyLock/PressurePlate
+
+func _ready() -> void:
+	score = 0
+	hearts = 3
+	is_dead = false
+	checkpoint_player = player
+	checkpoint_position_0 = player.global_position
+	checkpoint_position_1 = player_2.global_position
+	hud.heart_label.text = str(hearts)
+	hud.coins_label.text = str(score)
+	camera_2d.make_current()
+	camera_2d.global_position = camera0.global_position
+	carried_gate = ""
+	var entanglables = [
+		gem,
+		ent_enemy,
+		ent_enemy_pressure
+	]
+	for block in entanglables:
+		if block != null:
+			block.add_to_group("entanglables")
+	pressure_plate.get_node("Area2D").pressed.connect(pressure_lock.open)
+	pressure_plate.get_node("Area2D").released.connect(pressure_lock.close)
 
 func add_point():
 	# Update coins collected
 	score += 1
-	current_level.hud.get_node("CoinsLabel").text = str(score)
-	# 5 coins = +1 heart
+	hud.get_node("CoinsLabel").text = str(score)
 	if score % 5 == 0:
-		hearts += 1
-		current_level.hud.heart_label.text = str(hearts)
+		hearts+=1
+		hud.heart_label.text = str(hearts)
 
 func schedule_respawn(dead_body: Node2D) -> void:
 	pending_respawn = dead_body
@@ -65,33 +97,35 @@ func _on_timer_timeout() -> void:
 
 	# Update hearts / reset game if needed
 	hearts -= 1
-	current_level.hud.heart_label.text = str(hearts)
+	hud.heart_label.text = str(hearts)
 	if hearts <= 0:
 		score = 0
-		current_level.hud.coins_label.text = str(score)
+		hud.coins_label.text = str(score)
 		hearts = 3
-		current_level.hud.heart_label.text = str(hearts)
+		hud.heart_label.text = str(hearts)
 		get_tree().reload_current_scene()
 		return
 
 	# Respawn logic
 	var respawn_player: Node2D = pending_respawn
 	pending_respawn.get_node("CollisionShape2D").disabled = false
-	current_level.player.global_position = checkpoint_position_0
-	current_level.player_2.global_position = checkpoint_position_1
+	player.global_position = checkpoint_position_0
+	player_2.global_position = checkpoint_position_1
 	is_dead = false
-	if checkpoint_player == current_level.player:
+	if checkpoint_player == player:
 		theta = 0
 		phi = 0
 		measured = false
 		measure()
-		current_level.camera_2d.global_position = current_level.camera0.global_position
+		camera_2d.global_position = camera0.global_position
+		
 	else:
 		theta = PI
 		phi = 0
 		measured = false
 		measure()
-		current_level.camera_2d.global_position = current_level.camera1.global_position
+		camera_2d.global_position = camera1.global_position
+	
 
 	# Make player invisible first
 	respawn_player.modulate.a = 0.0
@@ -121,31 +155,31 @@ func measure():
 
 func set_state_zero():
 	state = 0
-	current_level.hud.get_node("Percent0").text = str(100.0)
-	current_level.hud.get_node("Percent1").text = str(0.0)
+	hud.get_node("Percent0").text = str(100.0)
+	hud.get_node("Percent1").text = str(0.0)
 	theta = 0
 	phi = 0
 	bloch_vec = Vector3(0, 0, 1)
-	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(current_level.camera0.global_position,0.005)
+	camera_2d.global_position = camera_2d.global_position.lerp(camera0.global_position,0.005)
 
 func set_state_one():
 	state = 1
-	current_level.hud.get_node("Percent0").text = str(0.0)
-	current_level.hud.get_node("Percent1").text = str(100.0)
+	hud.get_node("Percent0").text = str(0.0)
+	hud.get_node("Percent1").text = str(100.0)
 	theta = PI
 	phi = 0
 	bloch_vec = Vector3(0, 0, -1)
-	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(current_level.camera1.global_position,0.005)
+	camera_2d.global_position = camera_2d.global_position.lerp(camera1.global_position,0.005)
 
 func find_safe_spawn(x_global: float, current_is_layer1: bool):
 	var current_layer: TileMapLayer
 	var target_layer: TileMapLayer
 	if current_is_layer1:
-		current_layer = current_level.midground
-		target_layer = current_level.midground_2
+		current_layer = midground
+		target_layer = midground_2
 	else:
-		current_layer = current_level.midground_2
-		target_layer = current_level.midground
+		current_layer = midground_2
+		target_layer = midground
 	
 	var local_coord = target_layer.to_local(Vector2(x_global,0.0))
 	var cell = target_layer.local_to_map(local_coord)
@@ -170,18 +204,19 @@ func find_safe_spawn(x_global: float, current_is_layer1: bool):
 func try_superposition(requester:CharacterBody2D)->bool:
 	if not measured:
 		return false
-	var requester_is_layer_1 = (requester == current_level.player)
+	var requester_is_layer_1 = (requester == player)
 	var partner 
 	if requester_is_layer_1:
-		partner = current_level.player_2
+		partner = player_2
 	else:
-		partner = current_level.player
+		partner = player
 	var spawn_at = find_safe_spawn(requester.global_position.x, requester_is_layer_1)
 	if spawn_at == Vector2.INF:
 		return false
 	
 	partner.global_position = spawn_at
 	measured = false
+	measured_only_player = false
 	state = -1
 	return true
 
@@ -199,10 +234,10 @@ func get_horizontal_blocked_distance(player):
 func sync_players():
 	# Skip collapsed players
 	var active_players = []
-	if current_level.player.animated_sprite_2d.self_modulate.a > 1e-5:
-		active_players.append(current_level.player)
-	if current_level.player_2.animated_sprite_2d.self_modulate.a > 1e-5:
-		active_players.append(current_level.player_2)
+	if player.animated_sprite_2d.self_modulate.a > 1e-5:
+		active_players.append(player)
+	if player_2.animated_sprite_2d.self_modulate.a > 1e-5:
+		active_players.append(player_2)
 
 	if active_players.size() < 2:
 		return  # nothing to sync
@@ -269,9 +304,50 @@ func compute_fidelity(target_theta: float, target_phi: float) -> float:
 	var dot = r.dot(rt)
 	return 0.5 * (1.0 + dot)
 
+## INTERACTABLE / ENTANGLABLE ##
+
+func _is_on_interactable(p: Node):
+	if not p.has_node("interact_area"):
+		print("hold up")
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("interactables"):
+			return true
+	for intarea in area.get_overlapping_areas():
+		if intarea.is_in_group("interactables"):
+			return true
+	return false
+
+func _is_on_teleport(p: Node):
+	if not p.has_node("interact_area"):
+		print("hold up")
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("teleport_interact"):
+			return true
+	
+	return false
+
+func _is_on_entanglable(p: Node):
+	if measured:
+		if p.is_state_zero and state != 0:
+			return null
+		elif !p.is_state_zero and state != 1:
+			return null
+	if not p.has_node("interact_area"):
+		print("hold up") # shouldn't happen
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("entanglables"):
+			return body
+	for intarea in area.get_overlapping_areas():
+		if intarea.is_in_group("entanglables"):
+			return intarea
+	return null
+
 ## ENTANGLEMENT HANDLING ##
 
-func calculate_entangled_state(target_current_state_zero: bool) -> Array:
+func calculate_entangled_state(phi: float, theta: float, target_current_state_zero: bool) -> Array:
 	var cos_val = Complex.new(cos(theta / 2.0), 0)
 	var sin_val = Complex.new(sin(theta / 2.0), 0)
 	var state: Array
@@ -317,6 +393,19 @@ func measure_entangled() -> int:
 		if r < cumulative:
 			outcome_idx = i
 			break
+	
+	# ========================= #
+	# no need to update anymore because we collapse 2 qubit state
+	# but this exists in case we want to add it back
+	# var collapsed: Array = []
+	# for i in range(4):
+		# if i == outcome_idx:
+			# collapsed.append(Complex.new(1, 0))  # pure basis state
+		# else:
+			# collapsed.append(Complex.new(0, 0))
+	# entangled_state = collapsed
+	# entangled_probs = calculate_entangled_probs()
+	# ========================= #
 
 	de_entangle(outcome_idx)
 
@@ -328,6 +417,47 @@ func measure_entangled() -> int:
 		set_state_one()
 
 	return state
+
+func measure_entangled_only_player() -> int:
+	if measured:
+		return state
+	if measured_only_player:
+		return state
+	measured_only_player = true
+	suppos_allowed = false
+	
+	# Compute marginal probs for measuring player qubit in Z
+	var prob_zero = entangled_probs[0] + entangled_probs[1]
+	var prob_one  = entangled_probs[2] + entangled_probs[3]
+
+	# Sample outcome
+	var r = randf()
+	var outcome_player: int
+	if r < prob_zero:
+		outcome_player = 0
+	else:
+		outcome_player = 1
+
+	# Collapse state
+	var collapsed: Array = []
+	if outcome_player == 0:
+		collapsed = [entangled_state[0], entangled_state[1], Complex.new(0,0), Complex.new(0,0)]
+	else:
+		collapsed = [Complex.new(0,0), Complex.new(0,0), entangled_state[2], entangled_state[3]]
+
+	# Renormalize
+	var norm = 0.0
+	for amp in collapsed:
+		norm += amp.abs()**2
+	if norm > 0:
+		for i in range(collapsed.size()):
+			collapsed[i] = collapsed[i].div(Complex.new(sqrt(norm), 0))
+
+	# Replace global state
+	entangled_state = collapsed
+	entangled_probs = calculate_entangled_probs()
+	state = outcome_player
+	return outcome_player
 
 func rotate_x_entangled(angle: float) -> void:
 	var c = cos(angle/2.0)
@@ -376,25 +506,25 @@ func apply_gate_entangled(U: Array) -> void:
 
 func edit_hud_entangle() -> void:
 	if hold_gem:
-		current_level.hud.get_node("gem_carried").visible = true
+		hud.get_node("gem_carried").visible = true
 	if hold_enemy:
-		current_level.hud.get_node("enemy").visible = true
-	current_level.hud.get_node("BlochSphere").visible = false
-	current_level.hud.get_node("0_Bloch").visible = false
-	current_level.hud.get_node("1_Bloch").visible = false
+		hud.get_node("enemy").visible = true
+	hud.get_node("BlochSphere").visible = false
+	hud.get_node("0_Bloch").visible = false
+	hud.get_node("1_Bloch").visible = false
 	
-	current_level.hud.get_node("0").text = "|01>: "
-	current_level.hud.get_node("1").text = "|00>: "
-	current_level.hud.get_node("phi").text = "|11>: "
-	current_level.hud.get_node("theta").text = "|10>: "
+	hud.get_node("0").text = "|01>: "
+	hud.get_node("1").text = "|00>: "
+	hud.get_node("phi").text = "|11>: "
+	hud.get_node("theta").text = "|10>: "
 	
 	update_hud_entangle()
 
 func update_hud_entangle() -> void:
-	current_level.hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
-	current_level.hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
-	current_level.hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
-	current_level.hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
+	hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
+	hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
+	hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
+	hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
 
 func de_entangle(outcome_idx: int) -> void:
 	entangled_mode = false
@@ -415,35 +545,35 @@ func de_entangle(outcome_idx: int) -> void:
 	
 	edit_hud_deentangle()
 	
-	current_level.player.uncolor_sprite()
-	current_level.player_2.uncolor_sprite()
+	player.uncolor_sprite()
+	player_2.uncolor_sprite()
 
 func edit_hud_deentangle() -> void:
 	if !hold_gem:
-		current_level.hud.get_node("gem_carried").visible = false
-	current_level.hud.get_node("enemy").visible = false
-	current_level.hud.get_node("BlochSphere").visible = true
-	current_level.hud.get_node("0_Bloch").visible = true
-	current_level.hud.get_node("1_Bloch").visible = true
+		hud.get_node("gem_carried").visible = false
+	hud.get_node("enemy").visible = false
+	hud.get_node("BlochSphere").visible = true
+	hud.get_node("0_Bloch").visible = true
+	hud.get_node("1_Bloch").visible = true
 	
-	current_level.hud.get_node("0").text = "|0>: "
-	current_level.hud.get_node("1").text = "|1>: "
-	current_level.hud.get_node("phi").text = "phi: "
-	current_level.hud.get_node("theta").text = "theta: "
+	hud.get_node("0").text = "|0>: "
+	hud.get_node("1").text = "|1>: "
+	hud.get_node("phi").text = "phi: "
+	hud.get_node("theta").text = "theta: "
 
 func instantiate_gem(level_zero: bool) -> void:
 	hold_gem = false
 	var gem = gem_scene.instantiate()
 	if level_zero:
 		gem.is_state_zero = true
-		gem.global_position = current_level.player.global_position + Vector2(0, -10)
+		gem.global_position = player.global_position + Vector2(0, -10)
 	else:
 		gem.is_state_zero = false
-		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
+		gem.global_position = player_2.global_position + Vector2(0, -10)
 	get_tree().current_scene.add_child(gem)
 	gem.add_to_group("entanglables")
 	
-	current_level.hud.get_node("gem_carried").visible = false
+	hud.get_node("gem_carried").visible = false
 
 func instantiate_gem_process():
 	# Drop gem if holding
@@ -459,91 +589,32 @@ func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 	if level_zero:
 		enemy.is_state_zero = true
 		if kill:
-			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
+			enemy.global_position = player.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y + ent_enemy_y_displacement - 20)
+			enemy.global_position = Vector2(ent_enemy_position, player.global_position.y + ent_enemy_y_displacement - 20)
 	else:
 		enemy.is_state_zero = false
 		if kill:		
-			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
+			enemy.global_position = player_2.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y + ent_enemy_y_displacement - 20)
+			enemy.global_position = Vector2(ent_enemy_position, player_2.global_position.y + ent_enemy_y_displacement - 20)
 	get_tree().current_scene.add_child(enemy)
 	enemy.add_to_group("entanglables")
 	
-	current_level.hud.get_node("enemy").visible = false
+	hud.get_node("enemy").visible = false
 
-## INTERACTABLE / ENTANGLABLE ##
+## PROCESS ##
 
-func _is_on_interactable(p: Node):
-	if not p.has_node("interact_area"):
-		print("hold up")
-	var area = p.get_node("interact_area")
-	for body in area.get_overlapping_bodies():
-		if body.is_in_group("interactables"):
-			return true
-	for intarea in area.get_overlapping_areas():
-		if intarea.is_in_group("interactables"):
-			return true
-	return false
-
-func _is_on_teleport(p: Node):
-	if not p.has_node("interact_area"):
-		print("hold up")
-	var area = p.get_node("interact_area")
-	for body in area.get_overlapping_bodies():
-		if body.is_in_group("teleport_interact"):
-			return true
-	
-	return false
-
-func _is_on_entanglable(p: Node):
-	if measured:
-		if p.is_state_zero and state != 0:
-			return null
-		elif !p.is_state_zero and state != 1:
-			return null
-	if not p.has_node("interact_area"):
-		print("hold up") # shouldn't happen
-	var area = p.get_node("interact_area")
-	for body in area.get_overlapping_bodies():
-		if body.is_in_group("entanglables"):
-			return body
-	for intarea in area.get_overlapping_areas():
-		if intarea.is_in_group("entanglables"):
-			return intarea
-	return null
-
-func Stopper() -> void:
-	current_level.player.stop = true
-	current_level.player_2.stop = true
-
-func Starter() -> void:
-	current_level.player.stop = false
-	current_level.player_2.stop = false
-
-## LEVEL HELPERS ##
-
-func load_level(path: String):
-	## TODO: Better handling needed than queue_free()
-	if current_level:
-		current_level.queue_free()
-	
-	var level_scene = load(path).instantiate()
-	add_child(level_scene)
-	current_level = level_scene
-	if level_scene.has_method("set_game_manager"):
-		level_scene.set_game_manager(self)
-
-func process_superposition():
+func _process(delta: float) -> void:
+	delta_theta = delta*PI/2.0
 	if !suppos_allowed:
 		var requester
 		if state == 0:
-			requester = current_level.player
+			requester = player
 		elif state == 1:
-			requester = current_level.player_2
+			requester = player_2
 		var ok = try_superposition(requester)
-		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+		if _is_on_interactable(player) or _is_on_interactable(player_2):
 			ok = false
 		if ok:
 			suppos_allowed = true
@@ -569,63 +640,98 @@ func process_superposition():
 				rotate_z(delta_theta)
 			else:
 				rotate_z_entangled(delta_theta)
+	if Input.is_action_pressed("Measure"):
+		if !measured and !entangled_mode:
+			measure()
+		elif !measured and entangled_mode:
+			measure_entangled()
 
-func process_update_hud():
-	var prob0_raw = (cos(theta/2.0)**2)*100
-	var prob0 = round(prob0_raw * 10.0) / 10.0
-	var prob1 = round((100 - prob0) * 10.0) / 10.0
-	if prob0_raw >= 100.0-0.02:
-		measured = true
-		state = 0
-		suppos_allowed = false
-		theta = 0
-		phi = 0
-	elif prob0_raw <= 0.02:
-		measured = true
-		state = 1
-		suppos_allowed = false
-		theta = PI
-		phi = 0
-	current_level.hud.get_node("Percent0").text = str(prob0)
-	current_level.hud.get_node("Percent1").text = str(prob1)
-	current_level.hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
-	current_level.hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
-
-func process_camera():
-	var alpha0 = current_level.player.get_node("AnimatedSprite2D").self_modulate.a
-	var alpha1 = current_level.player_2.get_node("AnimatedSprite2D").self_modulate.a
+	if !entangled_mode:
+		var prob0_raw = (cos(theta/2.0)**2)*100
+		var prob0 = round(prob0_raw * 10.0) / 10.0
+		var prob1 = round((100 - prob0) * 10.0) / 10.0
+		if prob0_raw >= 100.0-0.02:
+			measured = true
+			state = 0
+			suppos_allowed = false
+			theta = 0
+			phi = 0
+		elif prob0_raw <= 0.02:
+			measured = true
+			state = 1
+			suppos_allowed = false
+			theta = PI
+			phi = 0
+		hud.get_node("Percent0").text = str(prob0)
+		hud.get_node("Percent1").text = str(prob1)
+		hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
+		hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+	else:
+		update_hud_entangle()
+	
+	hud.get_node("carried_gate").text = str(carried_gate)
+	
+	var alpha0 = player.get_node("AnimatedSprite2D").self_modulate.a
+	var alpha1 = player_2.get_node("AnimatedSprite2D").self_modulate.a
 	var camera_target
 	if alpha0 >= alpha1:
-		camera_target = current_level.camera0
+		camera_target = camera0
 	else:
-		camera_target = current_level.camera1
-	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(camera_target.global_position, 0.005)
+		camera_target = camera1
 
-func process_interact(puzzle, teleportation):
+	camera_2d.global_position = camera_2d.global_position.lerp(camera_target.global_position,0.005)
+	
 	if Input.is_action_just_pressed("Interact"):
-		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+		if _is_on_interactable(player) or _is_on_interactable(player_2):
 			if !measured:
 				measure()
-		elif _is_on_teleport(current_level.player) or _is_on_teleport(current_level.player_2):
+		elif _is_on_teleport(player) or _is_on_teleport(player_2):
 			teleportation.run_teleportation()
 		var p
 		if state == 0:
-			p = current_level.player
+			p = player
 		else:
-			p = current_level.player_2
+			p = player_2
 		var interact_area = p.get_node("interact_area")
 		var bodies = interact_area.get_overlapping_bodies()
 		for body in bodies:
 			if body.is_in_group("interactables"):
-				puzzle.handle_interaction(body)
+				puzzle_1.handle_interaction(body)
 		var areas = interact_area.get_overlapping_areas()
 		for area in areas:
 			if area.is_in_group("interactables"):
-				puzzle.handle_interaction(area)
+				puzzle_1.handle_interaction(area)
+	
+	if Input.is_action_just_pressed("c_not"):
+		var target = _is_on_entanglable(player)
+		if target == null:
+			target = _is_on_entanglable(player_2)
+		
+		if target != null:
+			if target.name == "Gem":
+				hold_gem = true
+			elif target.name == "EntangleEnemy":
+				hold_enemy = true
+				ent_enemy_position = target.global_position.x
+			elif target.name == "EntangleEnemy2":
+				hold_enemy = true
+				ent_enemy_position = pressure_plate.global_position.x
+				ent_enemy_y_displacement = -20
 
-## PROCESS ##
+			entangled_mode = true
+			# player is the control, object is the target
+			entangled_state = calculate_entangled_state(phi, theta, target.is_state_zero)
+			entangled_probs = calculate_entangled_probs()
+			edit_hud_entangle()
+			
+			player.color_sprite()
+			player_2.color_sprite()
+			target.queue_free()
 
-func _process(_delta: float) -> void:
-	## TODO: Add start / end scenes etc.
-	if current_level == null:
-		load_level("res://scenes/level0.tscn")
+func Stopper() -> void:
+	player.stop = true
+	player_2.stop = true
+
+func Starter() -> void:
+	player.stop = false
+	player_2.stop = false

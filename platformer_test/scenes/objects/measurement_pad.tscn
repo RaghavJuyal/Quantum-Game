@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://blpn1xx5kspbh"]
+
+[ext_resource type="Texture2D" uid="uid://c6ltd4nc2ke37" path="res://assets/sprites/measurement_pad.png" id="1_43aqb"]
+[ext_resource type="Script" uid="uid://c1dhpnnxlfvmc" path="res://scripts/objects/measurement_pad.gd" id="1_suu0c"]
+
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_suu0c"]
+size = Vector2(32, 32)
+
+[node name="measurement_pad" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_suu0c")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_suu0c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_43aqb")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
