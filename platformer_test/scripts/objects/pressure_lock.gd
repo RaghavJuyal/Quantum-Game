@@ -8,8 +8,8 @@ func _ready() -> void:
 
 func open():
 	visible = false
-	collider.call_deferred("set", "disabled", true)
+	collider.call_deferred("set", "one_way_collision", true)
 
 func close():
 	visible = true
-	collider.call_deferred("set", "disabled", false)
+	collider.call_deferred("set", "one_way_collision", false)
