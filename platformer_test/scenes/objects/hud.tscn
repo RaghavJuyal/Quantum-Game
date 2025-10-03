@@ -118,10 +118,10 @@ theme_override_font_sizes/font_size = 40
 text = "|0>"
 
 [node name="Percent0" type="Label" parent="."]
-offset_left = 632.0
-offset_top = 86.0
-offset_right = 760.0
-offset_bottom = 150.0
+offset_left = 814.0
+offset_top = 99.0
+offset_right = 942.0
+offset_bottom = 163.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
