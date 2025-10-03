@@ -16,8 +16,7 @@ var game_manager: Node = null
 @onready var gem: Node = $EntangledGem/Gem
 @onready var ent_enemy: Node = $EntangleEnemy
 @onready var ent_enemy_pressure: Node = $EntangleEnemy2
-@onready var pressure_lock: Node = $PressureKeyLock/PressureLock
-@onready var pressure_plate: Node = $PressureKeyLock/PressurePlate
+
 
 func _ready() -> void:
 	camera_2d.make_current()
@@ -31,8 +30,7 @@ func _ready() -> void:
 	for block in entanglables:
 		if block != null:
 			block.add_to_group("entanglables")
-	pressure_plate.get_node("Area2D").pressed.connect(pressure_lock.open)
-	pressure_plate.get_node("Area2D").released.connect(pressure_lock.close)
+	
 
 func set_game_manager(manager: Node):
 	game_manager = manager
@@ -95,8 +93,8 @@ func _process(delta: float) -> void:
 				game_manager.ent_enemy_x_position = target.global_position.x
 			elif target.name == "EntangleEnemy2":
 				game_manager.hold_enemy = true
-				game_manager.ent_enemy_x_position = pressure_plate.global_position.x
-				game_manager.ent_enemy_y_displacement = -20
+				game_manager.ent_enemy_x_position = target.global_position.x
+				#game_manager.ent_enemy_y_displacement = -20
 
 			game_manager.entangled_mode = true
 			# player is the control, object is the target

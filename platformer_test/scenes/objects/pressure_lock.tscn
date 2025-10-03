@@ -8,14 +8,14 @@
 gradient = SubResource("Gradient_i0h1j")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0h1j"]
-size = Vector2(20, 46)
+size = Vector2(20, 48)
 
 [node name="PressureLock" type="RigidBody2D"]
 collision_mask = 3
 script = ExtResource("1_vaf5f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.296875, 0.726563)
+scale = Vector2(0.302, 0.74)
 texture = SubResource("GradientTexture2D_vaf5f")
 
 [node name="WallCollider" type="CollisionShape2D" parent="."]
