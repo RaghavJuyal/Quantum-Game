@@ -158,7 +158,6 @@ script = ExtResource("1_2uq1b")
 
 [node name="Gem" parent="." instance=ExtResource("1_1druc")]
 position = Vector2(2216, 10)
-is_state_zero = true
 
 [node name="Gem Block" parent="." instance=ExtResource("2_2uq1b")]
 position = Vector2(2280, -70)

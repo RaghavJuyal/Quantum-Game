@@ -7,8 +7,3 @@ extends Node2D
 func _ready() -> void:
 	pressure_plate.get_node("Area2D").pressed.connect(pressure_lock.open)
 	pressure_plate.get_node("Area2D").released.connect(pressure_lock.close)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass

@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/objects/finish.tscn" id="29_a1fvl"]
 [ext_resource type="PackedScene" uid="uid://2ssx8u4nr3nk" path="res://scenes/objects/entangled_gem.tscn" id="30_icuov"]
 [ext_resource type="PackedScene" uid="uid://cruajyjjmjwmr" path="res://scenes/objects/pressure_key_lock.tscn" id="32_3xffc"]
-[ext_resource type="PackedScene" uid="uid://b3snixrae4lh6" path="res://scenes/objects/entangle_enemy.tscn" id="32_wso6h"]
+[ext_resource type="PackedScene" uid="uid://6vy6e47v3ywj" path="res://scenes/objects/entangled_enemy.tscn" id="32_icuov"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("3_odav0")
@@ -351,7 +351,7 @@ sources/1 = SubResource("TileSetAtlasSource_dqir8")
 script = ExtResource("1_ac7c3")
 
 [node name="Player" parent="." instance=ExtResource("2_qo7hg")]
-position = Vector2(2700, 16)
+position = Vector2(2197, 16)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(1, -61)
@@ -361,7 +361,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Player2" parent="." instance=ExtResource("2_qo7hg")]
-position = Vector2(2700, -64)
+position = Vector2(2195, -64)
 is_state_zero = false
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
@@ -649,14 +649,15 @@ collision_mask = 2
 position = Vector2(3254, -83)
 
 [node name="EntangledGem" parent="." instance=ExtResource("30_icuov")]
-
-[node name="EntangleEnemy" parent="." instance=ExtResource("32_wso6h")]
-position = Vector2(2489, -3)
-is_state_zero = true
-
-[node name="EntangleEnemy2" parent="." instance=ExtResource("32_wso6h")]
-position = Vector2(2789, -3)
 is_state_zero = true
 
 [node name="PressureKeyLock" parent="." instance=ExtResource("32_3xffc")]
 position = Vector2(628, 5)
+
+[node name="entangled_enemy" parent="." instance=ExtResource("32_icuov")]
+position = Vector2(2489, -3)
+is_state_zero = true
+
+[node name="entangled_enemy2" parent="." instance=ExtResource("32_icuov")]
+position = Vector2(2789, -3)
+is_state_zero = true

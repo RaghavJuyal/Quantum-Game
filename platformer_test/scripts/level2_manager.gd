@@ -13,23 +13,13 @@ var game_manager: Node = null
 @onready var midground: TileMapLayer = $Tilemap/Midground
 @onready var midground_2: TileMapLayer = $Tilemap/Midground2
 
-@onready var gem: Node = $EntangledGem/Gem
-@onready var ent_enemy: Node = $EntangleEnemy
-@onready var ent_enemy_pressure: Node = $EntangleEnemy2
+
 
 
 func _ready() -> void:
 	camera_2d.make_current()
 	camera_2d.global_position = camera1.global_position
 	
-	var entanglables = [
-		gem,
-		ent_enemy,
-		ent_enemy_pressure
-	]
-	for block in entanglables:
-		if block != null:
-			block.add_to_group("entanglables")
 	
 
 func set_game_manager(manager: Node):
@@ -80,28 +70,4 @@ func _process(delta: float) -> void:
 	game_manager.process_interact()
 	
 	# entangle
-	if Input.is_action_just_pressed("c_not"):
-		var target = game_manager._is_on_entanglable(player)
-		if target == null:
-			target = game_manager._is_on_entanglable(player_2)
-		
-		if target != null:
-			if target.name == "Gem":
-				game_manager.hold_gem = true
-			elif target.name == "EntangleEnemy":
-				game_manager.hold_enemy = true
-				game_manager.ent_enemy_x_position = target.global_position.x
-			elif target.name == "EntangleEnemy2":
-				game_manager.hold_enemy = true
-				game_manager.ent_enemy_x_position = target.global_position.x
-				#game_manager.ent_enemy_y_displacement = -20
-
-			game_manager.entangled_mode = true
-			# player is the control, object is the target
-			game_manager.entangled_state = game_manager.calculate_entangled_state(target.is_state_zero)
-			game_manager.entangled_probs = game_manager.calculate_entangled_probs()
-			game_manager.edit_hud_entangle()
-			
-			player.color_sprite()
-			player_2.color_sprite()
-			target.queue_free()
+	game_manager.process_entanglement()
