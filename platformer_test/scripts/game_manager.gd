@@ -617,8 +617,6 @@ func process_camera():
 
 func process_interact():
 	if Input.is_action_just_pressed("Interact"):
-		
-			
 		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
 			if !measured:
 				measure()

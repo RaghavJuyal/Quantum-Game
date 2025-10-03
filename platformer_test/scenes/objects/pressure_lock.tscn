@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://bchxrot7yca7p" path="res://scripts/objects/pressure_lock.gd" id="1_vaf5f"]
 
-
 [sub_resource type="Gradient" id="Gradient_i0h1j"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vaf5f"]
@@ -11,7 +10,7 @@ gradient = SubResource("Gradient_i0h1j")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0h1j"]
 size = Vector2(20, 46)
 
-[node name="PressureLock" type="Area2D"]
+[node name="PressureLock" type="RigidBody2D"]
 collision_mask = 3
 script = ExtResource("1_vaf5f")
 
@@ -19,5 +18,5 @@ script = ExtResource("1_vaf5f")
 scale = Vector2(0.296875, 0.726563)
 texture = SubResource("GradientTexture2D_vaf5f")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="WallCollider" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_i0h1j")
