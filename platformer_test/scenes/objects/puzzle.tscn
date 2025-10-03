@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=4 uid="uid://cb5u4d8i5lwf2"]
 
-[ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/objects/puzzle_1.gd" id="1_sjxo2"]
+[ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/objects/puzzle.gd" id="1_sjxo2"]
 [ext_resource type="PackedScene" uid="uid://bukjm6u0mt0tw" path="res://scenes/objects/wire.tscn" id="2_f0mvw"]
 [ext_resource type="PackedScene" uid="uid://dcgby18clyino" path="res://scenes/objects/remove_gate.tscn" id="3_i3ry5"]
 [ext_resource type="PackedScene" uid="uid://bl4a1pld6v3mh" path="res://scenes/objects/add_gate.tscn" id="4_d07y3"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://drmxcfug72t6i" path="res://assets/sounds/Fruit collect 1.wav" id="13_iq1vr"]
 [ext_resource type="AudioStream" uid="uid://bg113uwbm48lp" path="res://assets/sounds/JDSherbert - Pixel UI SFX Pack - Cancel 2 (Square).wav" id="14_vbmd7"]
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="15_vbmd7"]
+
 
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trtic"]

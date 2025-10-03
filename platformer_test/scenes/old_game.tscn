@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/objects/measurement_pad.tscn" id="12_dinhu"]
 [ext_resource type="PackedScene" uid="uid://kjwmsthli58l" path="res://scenes/objects/gem.tscn" id="14_ir15t"]
 [ext_resource type="PackedScene" uid="uid://xus6k5efdd5c" path="res://scenes/objects/gem_block.tscn" id="14_v2yb1"]
-[ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/objects/puzzle_1.gd" id="15_bhx41"]
+[ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/objects/puzzle.gd" id="15_bhx41"]
 [ext_resource type="PackedScene" uid="uid://b3snixrae4lh6" path="res://scenes/objects/entangle_enemy.tscn" id="15_js0lu"]
 [ext_resource type="PackedScene" uid="uid://beatj8umtufic" path="res://scenes/objects/pressure_lock.tscn" id="15_twgab"]
 [ext_resource type="PackedScene" uid="uid://b5of0va0jbsvq" path="res://scenes/objects/pressure_plate.tscn" id="16_02fa5"]
@@ -36,6 +36,7 @@
 [ext_resource type="Texture2D" uid="uid://c1u3sdkkcriv5" path="res://assets/puzzle_game_gfx/Blocks/block_1_blue_outline.png" id="30_sgl2t"]
 [ext_resource type="PackedScene" uid="uid://dfoervmeqi0lp" path="res://scenes/objects/wire_teleport.tscn" id="31_qouja"]
 [ext_resource type="PackedScene" uid="uid://b7gx8whhx2d57" path="res://scenes/objects/merlin.tscn" id="37_02fa5"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("1_yqjtg")

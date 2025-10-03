@@ -26,8 +26,6 @@ var is_slots = false
 func _ready() -> void:
 	teleport_start.add_to_group("teleport_interact")
 	_init_circuit()
-	
-		
 
 func _init_circuit():
 	var up_slots = wire_teleport_up.slots

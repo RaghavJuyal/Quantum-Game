@@ -7,30 +7,12 @@ const Complex = preload("res://scripts/complex.gd")
 @onready var wire_up: Node = $wire_up
 @onready var wire_down: Node = $wire_down
 
-@onready var remove_gate_left_up: Node = $Remove_gates/remove_gate_left_up
-@onready var remove_gate_left_down: Node = $Remove_gates/remove_gate_left_down
-@onready var remove_gate_right_down: Node = $Remove_gates/remove_gate_right_down
-@onready var remove_gate_right_up: Node = $Remove_gates/remove_gate_right_up
-@onready var add_gate_left_up: Node = $Add_gates/add_gate_left_up
-@onready var add_gate_right_up: Node = $Add_gates/add_gate_right_up
-@onready var add_gate_left_down: Node = $Add_gates/add_gate_left_down
-@onready var add_gate_right_down: Node = $Add_gates/add_gate_right_down
-
-## TODO: Refactor interaction to a common area ##
-@onready var gem_block: Node = $"../EntangledGem/Gem Block"
-@onready var gem_obstacle: Node = $"../EntangledGem/Gem Obstacle"
-
 @onready var puzzle_obstacle: TileMapLayer = $Puzzle_obstacle
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 
 @onready var run_circuit: RigidBody2D = $Other_blocks/run_circuit
 @onready var reset_circuit: RigidBody2D = $Other_blocks/reset_circuit
 
-@onready var z_gate: Node = $gates/z_gate
-@onready var y_gate: Node = $gates/y_gate
-@onready var x_gate: Node = $gates/x_gate
-@onready var cnot_gate: Node = $gates/cnot_gate
-@onready var hadamard_gate: Node = $gates/hadamard_gate
 @onready var gates: Node2D = $gates
 @onready var add_gates: Node2D = $Add_gates
 @onready var remove_gates: Node2D = $Remove_gates
@@ -43,9 +25,6 @@ const Complex = preload("res://scripts/complex.gd")
 @export var target_state_im: Array[float] = [0.0, 0.0, 0.0, 0.0]
 
 #var target_state: Array = []  # actual Complex array
-
-
-
 #var initial_state: Array = []
 
 # --- Puzzle data ---
@@ -57,16 +36,6 @@ var gate_matrices: Dictionary = {}       # Store 4x4 matrices for 2-qubit gates
 func _ready() -> void:
 	# Register interactables
 	var s := 1.0 / sqrt(2.0)
-	var interactables = [
-		remove_gate_left_up, remove_gate_left_down, remove_gate_right_down, remove_gate_right_up,
-		add_gate_left_up, add_gate_right_up, add_gate_left_down, add_gate_right_down,
-		reset_circuit, run_circuit,
-		z_gate, y_gate, x_gate, cnot_gate, hadamard_gate, 
-		gem_block
-	]
-	for block in interactables:
-		if block != null:
-			block.add_to_group("interactables")
 
 	# Initialize gate matrices
 	_init_gate_matrices()
@@ -202,7 +171,6 @@ func _add_gate(target:String, gate_type:String, at_begin:bool):
 	for g in circuit_sequence:
 		state = _apply_gate(state, g)
 	_update_state_labels(state)
-	
 
 func _insert_cnot(control_slots:Array, target_slots:Array, at_begin:bool):
 	if at_begin:
@@ -341,8 +309,6 @@ func _state_to_string(state: Array) -> String:
 		parts.append("|%s>: %s" % [label, amp_str])
 	return "  ".join(parts)  # single line
 
-
-
 # --- Run the circuit ---
 func _run_circuit():
 	await _run_circuit_with_animation()
@@ -393,35 +359,11 @@ func _reset_both():
 		state = _apply_gate(state, g)
 	_update_state_labels(state)
 
-# --- Interaction handler ---
-func handle_interaction(block:Node):
-	match block.name:
-		"add_gate_left_up": if game_manager.carried_gate!="": add_gate_begin("up",game_manager.carried_gate); game_manager.carried_gate=""
-		"add_gate_right_up": if game_manager.carried_gate!="": add_gate_end("up",game_manager.carried_gate); game_manager.carried_gate=""
-		"add_gate_left_down": if game_manager.carried_gate!="": add_gate_begin("down",game_manager.carried_gate); game_manager.carried_gate=""
-		"add_gate_right_down": if game_manager.carried_gate!="": add_gate_end("down",game_manager.carried_gate); game_manager.carried_gate=""
-
-		"remove_gate_left_up": game_manager.carried_gate = remove_gate_begin("up")
-		"remove_gate_right_up": game_manager.carried_gate = remove_gate_end("up")
-		"remove_gate_left_down": game_manager.carried_gate = remove_gate_begin("down")
-		"remove_gate_right_down": game_manager.carried_gate = remove_gate_end("down")
-
-		"reset_circuit": _reset_both()
-		"run_circuit": 
-			_run_circuit()
-		
-		"Gem Block": _gem_block(block)
-
-		"z_gate": game_manager.carried_gate="Z"
-		"y_gate": game_manager.carried_gate="Y"
-		"x_gate": game_manager.carried_gate="X"
-		"cnot_gate": game_manager.carried_gate="CNOT"
-		"hadamard_gate": game_manager.carried_gate="H"
-
 func _update_state_labels(current: Array) -> void:
 	# If no current state passed, use the initial one
 	current_state_label.text = "Current State:" + _state_to_string(current)
 	target_state_label.text = "Target State:" + _state_to_string(target_state)
+
 # async helper to run circuit with wire animation
 func _run_circuit_with_animation() -> void:
 	# Step 1: Animate wires column by column
@@ -455,14 +397,3 @@ func _run_circuit_with_animation() -> void:
 		$correct.play()
 	else:
 		$incorrect.play()
-
-## NON-PUZZLE LOGIC ##
-func _gem_block(block: Node) -> void:
-	if (!game_manager.entangled_mode and game_manager.hold_gem):
-		gem_obstacle.hide()
-		gem_obstacle.queue_free()
-		block.queue_free()
-		
-		game_manager.hold_gem = false
-		var current_level = game_manager.current_level
-		current_level.hud.get_node("gem_carried").visible = false
