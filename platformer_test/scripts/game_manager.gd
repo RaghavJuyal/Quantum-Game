@@ -628,4 +628,4 @@ func process_interact(teleportation):
 func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
 	if current_level == null:
-		load_level("res://scenes/level1.tscn")
+		load_level("res://scenes/level0.tscn")

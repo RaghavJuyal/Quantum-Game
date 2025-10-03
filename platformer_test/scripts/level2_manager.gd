@@ -148,7 +148,7 @@ func _process(delta: float) -> void:
 	game_manager.process_camera()
 	
 	# interact for puzzle / teleportation
-	game_manager.process_interact(puzzle, teleportation)
+	game_manager.process_interact(teleportation)
 	
 	# entangle
 	if Input.is_action_just_pressed("c_not"):
