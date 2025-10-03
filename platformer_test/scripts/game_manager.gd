@@ -2,6 +2,8 @@ extends Node
 
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
+var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
+var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
 
 ## GAME CONTROL ##
 var current_level: Node = null
@@ -16,6 +18,8 @@ var theta = 0
 var phi = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var entangled_state = null
+var ent_enemy_x_position = 0
+var ent_enemy_y_displacement = 0
 
 @export var entangled_mode = false
 @export var entangled_probs = null
@@ -228,21 +232,21 @@ func rotate_x(angle: float) -> void:
 	var rot = Basis(Vector3(1, 0, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	#instantiate_gem_process(): TODO: Add this back correctly
+	instantiate_gem_process()
 
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	#instantiate_gem_process()
+	instantiate_gem_process()
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
 	var rot = Basis(Vector3(0, 0, 1), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	#instantiate_gem_process()
+	instantiate_gem_process()
 
 # Convert cartesian bloch_vec → spherical angles
 func _update_theta_phi() -> void:
@@ -264,6 +268,210 @@ func compute_fidelity(target_theta: float, target_phi: float) -> float:
 	var rt = get_bloch_vector(target_theta, target_phi)
 	var dot = r.dot(rt)
 	return 0.5 * (1.0 + dot)
+
+## ENTANGLEMENT HANDLING ##
+
+func calculate_entangled_state(target_current_state_zero: bool) -> Array:
+	var cos_val = Complex.new(cos(theta / 2.0), 0)
+	var sin_val = Complex.new(sin(theta / 2.0), 0)
+	var state: Array
+	var phase = Complex.new(cos(phi), sin(phi))  # e^{i phi}
+	
+	if target_current_state_zero:
+		# [cos, 0, 0, e^{i phi} * sin]
+		state = [
+			cos_val,
+			Complex.new(0, 0),
+			Complex.new(0, 0),
+			phase.mul(sin_val)
+		]
+	else:
+		# [0, cos, e^{i phi} * sin, 0]
+		state = [
+			Complex.new(0, 0),
+			cos_val,
+			phase.mul(sin_val),
+			Complex.new(0, 0)
+		]
+	return state
+
+func calculate_entangled_probs():
+	var probs = []
+	for amp in entangled_state:
+		probs.append(amp.abs()**2)
+	return probs
+
+func measure_entangled() -> int:
+	if measured:
+		return state
+	
+	measured = true
+	suppos_allowed = false
+
+	# Sample outcome from full joint distribution
+	var r = randf()
+	var cumulative = 0.0
+	var outcome_idx = 0
+	for i in range(entangled_probs.size()):
+		cumulative += entangled_probs[i]
+		if r < cumulative:
+			outcome_idx = i
+			break
+
+	de_entangle(outcome_idx)
+
+	if outcome_idx == 0 or outcome_idx == 1:
+		state = 0
+		set_state_zero()
+	else:
+		state = 1
+		set_state_one()
+
+	return state
+
+func rotate_x_entangled(angle: float) -> void:
+	var c = cos(angle/2.0)
+	var s = -sin(angle/2.0) # minus for exp(-i θ σ/2)
+	var x_gate = [
+		[Complex.new(c, 0), Complex.new(0, s)],
+		[Complex.new(0, s), Complex.new(c, 0)]
+	]
+	apply_gate_entangled(x_gate)
+
+func rotate_y_entangled(angle: float) -> void:
+	var c = cos(angle/2.0)
+	var s = sin(angle/2.0)
+	var y_gate = [
+		[Complex.new(c, 0), Complex.new(-s, 0)],
+		[Complex.new(s, 0), Complex.new(c, 0)]
+	]
+	apply_gate_entangled(y_gate)
+
+func rotate_z_entangled(angle: float) -> void:
+	var e_minus = Complex.new(cos(-angle/2.0), sin(-angle/2.0))
+	var e_plus  = Complex.new(cos(angle/2.0),  sin(angle/2.0))
+	var z_gate = [
+		[ e_minus, Complex.new(0,0)],
+		[ Complex.new(0,0), e_plus ]
+	]
+	apply_gate_entangled(z_gate)
+
+func apply_gate_entangled(U: Array) -> void:
+	var gate = [
+		[U[0][0], Complex.new(0,0), U[0][1], Complex.new(0,0)],
+		[Complex.new(0,0), U[0][0], Complex.new(0,0), U[0][1]],
+		[U[1][0], Complex.new(0,0), U[1][1], Complex.new(0,0)],
+		[Complex.new(0,0), U[1][0], Complex.new(0,0), U[1][1]]
+	]
+	
+	var new_state = []
+	for i in range(4):
+		var acc = Complex.new(0,0)
+		for j in range(4):
+			acc = acc.add(gate[i][j].mul(entangled_state[j]))
+		new_state.append(acc)
+	
+	entangled_state = new_state
+	entangled_probs = calculate_entangled_probs()
+
+func edit_hud_entangle() -> void:
+	if hold_gem:
+		current_level.hud.get_node("gem_carried").visible = true
+	if hold_enemy:
+		current_level.hud.get_node("enemy").visible = true
+	current_level.hud.get_node("BlochSphere").visible = false
+	current_level.hud.get_node("0_Bloch").visible = false
+	current_level.hud.get_node("1_Bloch").visible = false
+	
+	current_level.hud.get_node("0").text = "|01>: "
+	current_level.hud.get_node("1").text = "|00>: "
+	current_level.hud.get_node("phi").text = "|11>: "
+	current_level.hud.get_node("theta").text = "|10>: "
+	
+	update_hud_entangle()
+
+func update_hud_entangle() -> void:
+	current_level.hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
+	current_level.hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
+	current_level.hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
+	current_level.hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
+
+func de_entangle(outcome_idx: int) -> void:
+	entangled_mode = false
+	if hold_gem:
+		if outcome_idx == 1:
+			instantiate_gem(false)
+		elif outcome_idx == 2:
+			instantiate_gem(true)
+	elif hold_enemy:
+		if outcome_idx == 0:
+			instantiate_enemy(true, true)
+		elif outcome_idx == 1:
+			instantiate_enemy(false, false)
+		elif outcome_idx == 2:
+			instantiate_enemy(true, false)
+		else:
+			instantiate_enemy(false, true)
+	
+	edit_hud_deentangle()
+	
+	current_level.player.uncolor_sprite()
+	current_level.player_2.uncolor_sprite()
+
+func edit_hud_deentangle() -> void:
+	if !hold_gem:
+		current_level.hud.get_node("gem_carried").visible = false
+	current_level.hud.get_node("enemy").visible = false
+	current_level.hud.get_node("BlochSphere").visible = true
+	current_level.hud.get_node("0_Bloch").visible = true
+	current_level.hud.get_node("1_Bloch").visible = true
+	
+	current_level.hud.get_node("0").text = "|0>: "
+	current_level.hud.get_node("1").text = "|1>: "
+	current_level.hud.get_node("phi").text = "phi: "
+	current_level.hud.get_node("theta").text = "theta: "
+
+func instantiate_gem(level_zero: bool) -> void:
+	hold_gem = false
+	var gem = gem_scene.instantiate()
+	if level_zero:
+		gem.is_state_zero = true
+		gem.global_position = current_level.player.global_position + Vector2(0, -10)
+	else:
+		gem.is_state_zero = false
+		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
+	get_tree().current_scene.add_child(gem)
+	gem.add_to_group("entanglables")
+	
+	current_level.hud.get_node("gem_carried").visible = false
+
+func instantiate_gem_process():
+	# Drop gem if holding
+	if hold_gem:
+		if cos(theta/2.0)**2 > 0.5:
+			instantiate_gem(true)
+		else:
+			instantiate_gem(false)
+
+func instantiate_enemy(level_zero: bool, kill: bool) -> void:
+	hold_enemy = false
+	var enemy = ent_enemy_scene.instantiate()
+	if level_zero:
+		enemy.is_state_zero = true
+		if kill:
+			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
+		else:
+			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y + ent_enemy_y_displacement - 20)
+	else:
+		enemy.is_state_zero = false
+		if kill:		
+			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
+		else:
+			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y + ent_enemy_y_displacement - 20)
+	get_tree().current_scene.add_child(enemy)
+	enemy.add_to_group("entanglables")
+	
+	current_level.hud.get_node("enemy").visible = false
 
 ## INTERACTABLE / ENTANGLABLE ##
 
@@ -335,21 +543,32 @@ func process_superposition():
 		elif state == 1:
 			requester = current_level.player_2
 		var ok = try_superposition(requester)
+		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+			ok = false
 		if ok:
 			suppos_allowed = true
 	if suppos_allowed:
 		if Input.is_action_pressed("x_rotation"):
 			if measured:
 				state = -1
-			rotate_x(delta_theta)
+			if !entangled_mode:
+				rotate_x(delta_theta)
+			else:
+				rotate_x_entangled(delta_theta)
 		if Input.is_action_pressed("y_rotation"):
 			if measured:
 				state = -1
-			rotate_y(delta_theta)
+			if !entangled_mode:
+				rotate_y(delta_theta)
+			else:
+				rotate_y_entangled(delta_theta)
 		if Input.is_action_pressed("z_rotation"):
 			if measured:
 				state = -1
-			rotate_z(delta_theta)
+			if !entangled_mode:
+				rotate_z(delta_theta)
+			else:
+				rotate_z_entangled(delta_theta)
 
 func process_update_hud():
 	var prob0_raw = (cos(theta/2.0)**2)*100
@@ -409,4 +628,4 @@ func process_interact(puzzle, teleportation):
 func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
 	if current_level == null:
-		load_level("res://scenes/level1.tscn")
+		load_level("res://scenes/level0.tscn")

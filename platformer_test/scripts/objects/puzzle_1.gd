@@ -464,4 +464,5 @@ func _gem_block(block: Node) -> void:
 		block.queue_free()
 		
 		game_manager.hold_gem = false
-		game_manager.hud.get_node("gem_carried").visible = false
+		var current_level = game_manager.current_level
+		current_level.hud.get_node("gem_carried").visible = false
