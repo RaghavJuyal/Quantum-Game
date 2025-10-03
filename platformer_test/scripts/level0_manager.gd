@@ -2,6 +2,7 @@ extends Node
 
 ## GAME MANAGER INSTANCE ##
 var game_manager: Node = null
+const next_level = "res://scenes/level1.tscn"
 
 ## LEVEL-0 OBJECT INSTANCES ##
 @onready var hud: CanvasLayer = $HUD
@@ -33,6 +34,9 @@ func game_manager_ready():
 	hud.coins_label.text = str(game_manager.score)
 	
 	game_manager.set_state_one()
+
+func load_next_level():
+	game_manager.load_level(next_level)
 
 func _process(delta: float) -> void:
 	# this ensures process doesn't run before level is loaded
