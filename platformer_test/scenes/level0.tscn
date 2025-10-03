@@ -367,3 +367,5 @@ collision_mask = 2
 
 [node name="Finish" parent="." instance=ExtResource("14_ooohs")]
 position = Vector2(1456, -80)
+
+[connection signal="finished_level" from="Finish" to="." method="load_next_level"]
