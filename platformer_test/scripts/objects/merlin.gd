@@ -36,6 +36,8 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func handle_interaction():
+	if interacting:
+		return
 	index = 0
 	interacting = true
 	text_edit.visible = true

@@ -1,10 +1,46 @@
 {
 "merlin":[
-		{"0":"Welcome to a special quantum world."},
-		{"1":"Usually, one would only observe the absolutes. However, here we are not restricted to the poles. We can go around the sphere and achieve 'superposition' this way."},
-		{"2":"Press X to rotate the arrow in the 'Bloch sphere' around the X-axis."},
-		{"3":"Be careful though. Once an object in the field 'observes' you, you go to an absolute. You become either 1 or 0."}
+	{"0":"Hello there! \nWelcome to a special quantum world!"},
+	{"1":"I am Merlin. I am here to explain this world."},
+	{"2":"As you may have noticed, you can use the arrow keys or the 'A' and 'D' keys to move left and right."},
+	{"3":"You can use the space bar to jump and use 'G' to interact."},
+	{"4":"On the top left of the screen you can see how many lives you have. Anytime you get hit by an enemy or fall, you will lose a heart and return to the previous checkpoint. Isn't that convenient?"},
+	{"5":"If you lose all your hearts, you will return to the beginning of the level."},
+	{"6":"Next to the hearts you can see your coins collected. They get reset once you lose all your lives. Every 5 coins you collect will increase the number of lives."},
+	{"7":"Now proceed and find the first checkpoint!"}
+],
+"merlin2":[
+		{"0":"Hello there! \nI see that you have found the checkpoint."},
+		{"1":"Now that you are familiar with some of the basic mechanics, lets introduce some more."},
+		{"2":"At the top of your screen, next to the number of coins, is the probability of you being in state 0 or state 1."},
+		{"3":"Here, state 1 means the upper layer(the one you are on right now) and state 0 is the lower layer. Sometimes to avoid certain obstacles you would need to transition between layers."},
+		{"4":"Next to the probabilities is a sphere called the Bloch Sphere. It is a representation of your current state. Rotations on this sphere's surface allows you to change your state."},
+		{"5":"Next to the sphere are angles to help you control your state more precisely. Theta is the angle with the Z axis and phi is the angle with the X axis."},
+		{"6":"You can rotate about the X, Y or Z axis by pressing the 'X', 'Y' or 'Z' keys respectively. Pressing these will change your state."},
+		{"7":"Interacting with objects like collecting coins, standing on checkpoints, getting hit by enemies, etc, will 'measure' you along the Z axis."},
+		{"8":"This means that you will collapse to either state 0 or state 1 with the probability shown on the left of the Bloch sphere."},
+		{"9":"You can also 'measure' yourself by pressing 'M'. This can be useful if you want to reset your state but there is nothing nearby to interact with."},
+		{"10":"Here, walls and the ground do not measure you."},
+		{"11":"Your goal is to use this mechanic to avoid enemies, collect coins and reach the end of the level."},
+		{"12":"Now venture forth and explore this world!"}
 	],
+
+"merlin3":[
+	{"0":"Hello there! \nI see that you are getting a hang of being in superposition and getting measured."},
+	{"1":"Superposition? Ah I didn't explain it earlier. The states 0 and 1 are what we see in the 'classial' world, think bits in a computer."},
+	{"2":"While you were doing rotations, you were neither in state 0 or state 1 but in a combination of both states with a certain probability of being in state 0 and in state 1."},
+	{"3":"That is what we mean by being in superposition."},
+	{"4":"Anyways, in front of you is a new mechanic. It is a superposition check zone."},
+	{"5":"These don't exist in the real world but they are here to force you to use our mechanic and learn about the different rotations :)"},
+	{"6":"To pass through, you have to change your state to match the phi and theta shown next to the check zone. The fidelity will let you know how close you were to succeeding."},
+	{"7":"Don't worry since you don't have to match the theta and phi exactly."},
+	{"8":"Well, now I will see you next at the end of the level."}
+],
+"merlin4":[
+	{"0":"Hello there! \nYou have made it to the end of this level."},
+	{"1":"By touching the flag you can proceed to the next level."},
+	{"2":"I will appear again to explain new mechanics. See you again, hero of this world!"}	
+],
 "dialogue1":[
 		{"0":"Contrary to our world, walls do not count as observers. They can stop you in both layers."},
 		{"1":"However, a cliff does count as an observer. It either observes you falling or you stay up on the ground."}
