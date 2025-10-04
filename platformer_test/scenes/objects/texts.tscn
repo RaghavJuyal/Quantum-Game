@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://l6ejnqtjavcb" path="res://scripts/objects/texts.gd" id="1_yc4h5"]
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="2_s13s5"]
 
-
 [node name="TextEdit" type="TextEdit"]
 clip_contents = false
 custom_minimum_size = Vector2(1, 1)
@@ -20,7 +19,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_direction = 2
 layout_mode = 0
 offset_right = 1920.0
-offset_bottom = 256.0
+offset_bottom = 313.0
 texture = ExtResource("1_j44tr")
 region_rect = Rect2(0, 0, 48, 48)
 
@@ -28,16 +27,18 @@ region_rect = Rect2(0, 0, 48, 48)
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 0
 offset_right = 4800.0
-offset_bottom = 896.0
+offset_bottom = 1104.0
 scale = Vector2(0.4, 0.25)
 
 [node name="Label" type="Label" parent="MarginContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 20
 theme_override_fonts/font = ExtResource("2_s13s5")
 theme_override_font_sizes/font_size = 144
 text = "According to all known laws of aviation, there is no way a bee should be able to fly.
 "
 vertical_alignment = 1
 autowrap_mode = 2
+visible_characters_behavior = 1
