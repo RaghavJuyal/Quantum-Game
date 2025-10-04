@@ -426,8 +426,8 @@ position = Vector2(1549, 35)
 zoom = Vector2(3, 3)
 
 [node name="Textcontainer" type="CanvasLayer" parent="."]
-offset = Vector2(300, 1000)
-transform = Transform2D(1, 0, 0, 1, 300, 1000)
+offset = Vector2(300, 750)
+transform = Transform2D(1, 0, 0, 1, 300, 750)
 
 [node name="texts" type="Node" parent="Textcontainer"]
 
