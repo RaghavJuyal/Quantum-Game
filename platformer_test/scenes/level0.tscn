@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://b3167q6xah8d"]
+[gd_scene load_steps=20 format=4 uid="uid://b3167q6xah8d"]
 
 [ext_resource type="Script" uid="uid://hfmld5u0slt6" path="res://scripts/level0_manager.gd" id="1_ooohs"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/objects/player.tscn" id="2_rb68y"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cavk2o4ctghvk" path="res://scenes/objects/hud.tscn" id="13_7mtyo"]
 [ext_resource type="PackedScene" uid="uid://d3h8bqmmiqq2n" path="res://scenes/objects/texts.tscn" id="13_pnrra"]
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/objects/finish.tscn" id="14_ooohs"]
+[ext_resource type="PackedScene" uid="uid://b7gx8whhx2d57" path="res://scenes/objects/merlin.tscn" id="15_5xwn4"]
 [ext_resource type="PackedScene" uid="uid://jfixbjr8sth4" path="res://scenes/objects/dialogue.tscn" id="15_yoi1k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
@@ -331,8 +332,8 @@ text = "##"
 zoom = Vector2(3, 3)
 
 [node name="Textcontainer" type="CanvasLayer" parent="."]
-offset = Vector2(95, 730)
-transform = Transform2D(1, 0, 0, 1, 95, 730)
+offset = Vector2(300, 1000)
+transform = Transform2D(1, 0, 0, 1, 300, 1000)
 
 [node name="texts" type="Node" parent="Textcontainer"]
 
@@ -364,6 +365,9 @@ collision_mask = 2
 position = Vector2(800, 8)
 collision_layer = 2
 collision_mask = 2
+
+[node name="merlin" parent="text_areas" instance=ExtResource("15_5xwn4")]
+position = Vector2(-30, -74)
 
 [node name="Finish" parent="." instance=ExtResource("14_ooohs")]
 position = Vector2(1456, -80)
