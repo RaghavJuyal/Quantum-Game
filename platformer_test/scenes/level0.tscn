@@ -297,7 +297,7 @@ position = Vector2(1882, -101)
 direction = -1
 
 [node name="Shooter6" parent="Shooters" instance=ExtResource("9_m5akh")]
-position = Vector2(2409, 43)
+position = Vector2(2406, 43)
 
 [node name="Labels" type="Node" parent="."]
 
