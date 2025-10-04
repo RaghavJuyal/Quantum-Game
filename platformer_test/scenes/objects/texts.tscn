@@ -18,9 +18,9 @@ script = ExtResource("1_yc4h5")
 custom_minimum_size = Vector2(1, 1)
 layout_direction = 2
 layout_mode = 0
-offset_top = 100.0
+offset_top = 149.0
 offset_right = 1920.0
-offset_bottom = 500.0
+offset_bottom = 425.0
 texture = ExtResource("1_j44tr")
 region_rect = Rect2(0, 0, 48, 48)
 
@@ -37,7 +37,7 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 20
 theme_override_fonts/font = ExtResource("2_s13s5")
-theme_override_font_sizes/font_size = 144
+theme_override_font_sizes/font_size = 96
 text = "According to all known laws of aviation, there is no way a bee should be able to fly.
 "
 vertical_alignment = 1
