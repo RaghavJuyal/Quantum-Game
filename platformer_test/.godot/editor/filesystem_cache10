@@ -858,14 +858,16 @@ sweeper_number_8.png::CompressedTexture2D/CompressedTexture2D::10822127471476616
 sweeper_tile_clicked.png::CompressedTexture2D/CompressedTexture2D::1238735076512958651::1758185454::1758186585::1::::<><><>0<>0<>0239569ebbc67663c6eb2e44e35eb87b<>res://.godot/imported/sweeper_tile_clicked.png-b743c883619679033d6214d1187f690a.ctex::
 sweeper_tile_clicked_mine.png::CompressedTexture2D/CompressedTexture2D::3742977526546513866::1758185454::1758186585::1::::<><><>0<>0<>22330a658c1f8d9dd5f5de429687549b<>res://.godot/imported/sweeper_tile_clicked_mine.png-df042b05345aacb6e41591067bb01fd3.ctex::
 sweeper_tile_unclicked.png::CompressedTexture2D/CompressedTexture2D::2104575351938455188::1758185454::1758186585::1::::<><><>0<>0<>d25e852e4cc401ba25c3f1f51de101c4<>res://.godot/imported/sweeper_tile_unclicked.png-cff8e05f80c74b8a1ee61b8924598331.ctex::
-::res://assets/sounds/::1759692620
+::res://assets/sounds/::1759694835
 Balloon ride 1.wav::AudioStreamWAV::6886014933489558347::1759692605::1759692622::1::::<><><>0<>0<>9f6cafe04d8eef05f003ab7bc3dfbe04<>res://.godot/imported/Balloon ride 1.wav-0373e69a36fb5eb01ec372c63d4f52a4.sample::
 Balloon start riding 1.wav::AudioStreamWAV::118735388083334787::1759692603::1759692622::1::::<><><>0<>0<>98ad07362b5f9439f13bcb85906eba3d<>res://.godot/imported/Balloon start riding 1.wav-1d2855da043ecbe83c6fe90197415cac.sample::
 Big Egg collect 1.wav::AudioStreamWAV::1931779010048465259::1759692608::1759692622::1::::<><><>0<>0<>cd07141559c9834a3c893d49d09b9eec<>res://.godot/imported/Big Egg collect 1.wav-92aeb483cb01ca229511d980a6e5b6ae.sample::
 Block Break 1.wav::AudioStreamWAV::6579359799154815682::1759691692::1759691719::1::::<><><>0<>0<>eb3b85c65764d69dfdc65bab446e0ba5<>res://.godot/imported/Block Break 1.wav-4fecbffed991456efd415d3ce01bafa7.sample::
+Blow 1.wav::AudioStreamWAV::7375808851185966215::1759694820::1759694837::1::::<><><>0<>0<>efa0186ac9fe5222d4a651a6d81dd1ef<>res://.godot/imported/Blow 1.wav-cbdb976717eb5fbc7eb447f97e2dd735.sample::
 Blow 2.wav::AudioStreamWAV::3457474298996140489::1759687029::1759687040::1::::<><><>0<>0<>6aa5d031b41eb0cd6492c35e4a56de7a<>res://.godot/imported/Blow 2.wav-c82c36b6b49d452966bf38ec02557a64.sample::
 Boss hit 1.wav::AudioStreamWAV::3937487485394278390::1759691700::1759691719::1::::<><><>0<>0<>d5b824ad9624b32451d31892c75766d6<>res://.godot/imported/Boss hit 1.wav-29dd7e5311cd814c6f26ca4c5e3a5a8d.sample::
 Bubble 1.wav::AudioStreamWAV::5433107622355473::1759687026::1759687040::1::::<><><>0<>0<>f6a2f78500e390add78bbc5257d3e0f2<>res://.godot/imported/Bubble 1.wav-90524f2fad495f44b3fd1846db1f6fb0.sample::
+Bubble heavy 1.wav::AudioStreamWAV::1741069708142960443::1759694822::1759694837::1::::<><><>0<>0<>aa0e31dae6ded9af8b484d9855e97742<>res://.godot/imported/Bubble heavy 1.wav-cf7a115c62a32fb38ee85e172346508a.sample::
 coin.wav::AudioStreamWAV/AudioStreamWAV::2348189627215281730::1756886529::1757582722::1::::<><><>0<>0<>fb76080081b7b2ca3514a160a8a5b248<>res://.godot/imported/coin.wav-9081ee1c6d81d9c34d08bc916297b892.sample::
 Confirm 1.wav::AudioStreamWAV::8901518855477127351::1759687024::1759687040::1::::<><><>0<>0<>517d725dc748c01c64fa7ff682ed04d6<>res://.godot/imported/Confirm 1.wav-e919374a4b2e61b6abc0ab33efee0f1b.sample::
 explosion.wav::AudioStreamWAV/AudioStreamWAV::7408676022173732973::1756886529::1757582722::1::::<><><>0<>0<>605b775365e7e81b718c367a4d40d468<>res://.godot/imported/explosion.wav-52e05e8d4b6600106c8dde082c90f915.sample::
@@ -897,8 +899,8 @@ slime_purple.png::CompressedTexture2D/CompressedTexture2D::887230523116569336::1
 sphere.png::CompressedTexture2D/CompressedTexture2D::8513600280839328486::1756886529::1757582722::1::::<><><>0<>0<>09b77b46ea87c67ed4106fd691e3eb97<>res://.godot/imported/sphere.png-4517ef924a048195e83cf7b65d920bc6.ctex::
 uploads_files_2780780_Modern+Arrow.obj::Mesh/Mesh::3410915458217606771::1756886529::1757582722::1::::<><><>0<>0<>9245a2a7bfc3e8f1014a609c56f0be0e<>res://.godot/imported/uploads_files_2780780_Modern+Arrow.obj-b501a90514a3097287c04387dcd2ac1b.mesh<*>res://.godot/imported/uploads_files_2780780_Modern+Arrow.obj-b501a90514a3097287c04387dcd2ac1b.mesh::
 world_tileset.png::CompressedTexture2D/CompressedTexture2D::7212956913507030953::1756886529::1757582722::1::::<><><>0<>0<>dadcf3322910d2aa45107ee2bd026590<>res://.godot/imported/world_tileset.png-61a32465f33c3d9d3bfecb75b6485009.ctex::
-::res://scenes/::1759692432
-game.tscn::PackedScene::1731438867858905020::1759692432::0::1::::<><><>0<>0<><>::uid://b75g8dvmgghpe::::res://scripts/game_manager.gd<>uid://dg37og73fs17c::::res://scenes/pause.tscn<>uid://dh18xwrcmc0xk::::res://assets/sounds/Select 1.wav<>uid://dy27ykthajbnr::::res://assets/sounds/Confirm 1.wav<>uid://dds22ujv68rj6::::res://assets/sounds/explosion.wav<>uid://blb3har1n68qw::::res://assets/sounds/power_up.wav
+::res://scenes/::1759694513
+game.tscn::PackedScene::1731438867858905020::1759694513::0::1::::<><><>0<>0<><>::uid://b75g8dvmgghpe::::res://scripts/game_manager.gd<>uid://dg37og73fs17c::::res://scenes/pause.tscn<>uid://dh18xwrcmc0xk::::res://assets/sounds/Select 1.wav<>uid://dy27ykthajbnr::::res://assets/sounds/Confirm 1.wav<>uid://dds22ujv68rj6::::res://assets/sounds/explosion.wav<>uid://blb3har1n68qw::::res://assets/sounds/power_up.wav<>uid://bxrs383wrakh::::res://assets/sounds/Balloon start riding 1.wav<>uid://2r1eaqgtd500::::res://assets/sounds/Big Egg collect 1.wav
 level0.tscn::PackedScene::129627129078004305::1759692432::0::1::::<><><>0<>0<><>::uid://hfmld5u0slt6::::res://scripts/level0_manager.gd<>uid://dxabpex6hygyg::::res://scenes/objects/player.tscn<>uid://da1al1um5semr::::res://assets/sprites/world_tileset.png<>uid://b0exx33d87cji::::res://scenes/objects/killzone.tscn<>uid://b3accf12d3y1q::::res://scenes/objects/coin.tscn<>uid://dh0vwgsh1ssjg::::res://scenes/objects/slime_purple.tscn<>uid://dgc64bvmpknn1::::res://scenes/objects/slime_green.tscn<>uid://bvvkldwon0s8c::::res://scenes/objects/shooter.tscn<>uid://b5yockap46ncu::::res://assets/fonts/PixelOperator8.ttf<>uid://clveei1rqh67u::::res://scenes/objects/suppos_pad.tscn<>uid://blpn1xx5kspbh::::res://scenes/objects/measurement_pad.tscn<>uid://cavk2o4ctghvk::::res://scenes/objects/hud.tscn<>uid://d3h8bqmmiqq2n::::res://scenes/objects/texts.tscn<>uid://c2l2v70sfixgv::::res://scenes/objects/finish.tscn<>uid://b7gx8whhx2d57::::res://scenes/objects/merlin.tscn
 level1.tscn::PackedScene::4538181589253965726::1759686855::0::1::::<><><>0<>0<><>::uid://dnbc0sgn3avo4::::res://scripts/level1_manager.gd<>uid://dxabpex6hygyg::::res://scenes/objects/player.tscn<>uid://da1al1um5semr::::res://assets/sprites/world_tileset.png<>uid://b0exx33d87cji::::res://scenes/objects/killzone.tscn<>uid://b3accf12d3y1q::::res://scenes/objects/coin.tscn<>uid://dh0vwgsh1ssjg::::res://scenes/objects/slime_purple.tscn<>uid://dgc64bvmpknn1::::res://scenes/objects/slime_green.tscn<>uid://bvvkldwon0s8c::::res://scenes/objects/shooter.tscn<>uid://b5yockap46ncu::::res://assets/fonts/PixelOperator8.ttf<>uid://clveei1rqh67u::::res://scenes/objects/suppos_pad.tscn<>uid://blpn1xx5kspbh::::res://scenes/objects/measurement_pad.tscn<>uid://cavk2o4ctghvk::::res://scenes/objects/hud.tscn<>uid://d3h8bqmmiqq2n::::res://scenes/objects/texts.tscn<>uid://jfixbjr8sth4::::res://scenes/objects/dialogue.tscn<>uid://c2l2v70sfixgv::::res://scenes/objects/finish.tscn<>uid://cb5u4d8i5lwf2::::res://scenes/objects/puzzle.tscn<>uid://du0os7yr3xt8y::::res://scenes/objects/teleportation.tscn
 level2.tscn::PackedScene::318199137907269247::1759692432::0::1::::<><><>0<>0<><>::uid://bt6chlwrso5go::::res://scripts/level2_manager.gd<>uid://dxabpex6hygyg::::res://scenes/objects/player.tscn<>uid://da1al1um5semr::::res://assets/sprites/world_tileset.png<>uid://b0exx33d87cji::::res://scenes/objects/killzone.tscn<>uid://b3accf12d3y1q::::res://scenes/objects/coin.tscn<>uid://dh0vwgsh1ssjg::::res://scenes/objects/slime_purple.tscn<>uid://dgc64bvmpknn1::::res://scenes/objects/slime_green.tscn<>uid://bvvkldwon0s8c::::res://scenes/objects/shooter.tscn<>uid://b5yockap46ncu::::res://assets/fonts/PixelOperator8.ttf<>uid://blpn1xx5kspbh::::res://scenes/objects/measurement_pad.tscn<>uid://clveei1rqh67u::::res://scenes/objects/suppos_pad.tscn<>uid://duo1s0ic2a746::::res://scripts/objects/puzzle.gd<>uid://bukjm6u0mt0tw::::res://scenes/objects/wire.tscn<>uid://dcgby18clyino::::res://scenes/objects/remove_gate.tscn<>uid://bl4a1pld6v3mh::::res://scenes/objects/add_gate.tscn<>uid://dog4dsj2egfvx::::res://scenes/objects/z_gate.tscn<>uid://bujxh17jiq3c2::::res://scenes/objects/y_gate.tscn<>uid://bt0vqdy3bjk4l::::res://scenes/objects/x_gate.tscn<>uid://b16j76sxip8n4::::res://scenes/objects/cnot_gate.tscn<>uid://bv41imahweahl::::res://scenes/objects/hadamard_gate.tscn<>uid://drmxcfug72t6i::::res://assets/sounds/Fruit collect 1.wav<>uid://bg113uwbm48lp::::res://assets/sounds/JDSherbert - Pixel UI SFX Pack - Cancel 2 (Square).wav<>uid://dyht31nx3qd4n::::res://scenes/objects/run_circuit.tscn<>uid://m13gbjrmk6ot::::res://scenes/objects/reset_circuit.tscn<>uid://du0os7yr3xt8y::::res://scenes/objects/teleportation.tscn<>uid://cavk2o4ctghvk::::res://scenes/objects/hud.tscn<>uid://d3h8bqmmiqq2n::::res://scenes/objects/texts.tscn<>uid://jfixbjr8sth4::::res://scenes/objects/dialogue.tscn<>uid://c2l2v70sfixgv::::res://scenes/objects/finish.tscn<>uid://2ssx8u4nr3nk::::res://scenes/objects/entangled_gem.tscn<>uid://cruajyjjmjwmr::::res://scenes/objects/pressure_key_lock.tscn<>uid://6vy6e47v3ywj::::res://scenes/objects/entangled_enemy.tscn
@@ -950,9 +952,9 @@ wire_teleport.tscn::PackedScene::7539381906025223849::1759510571::0::1::::<><><>
 x_gate.tscn::PackedScene::3772921982137035749::1759510571::0::1::::<><><>0<>0<><>::uid://dmncl4rlgy50j::::res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-X.png
 y_gate.tscn::PackedScene::3810187363092365551::1759510571::0::1::::<><><>0<>0<><>::uid://dbqmxocpey1uo::::res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-Y.png
 z_gate.tscn::PackedScene::8156059239263943813::1759510571::0::1::::<><><>0<>0<><>::uid://bomdk4hg5cp72::::res://assets/Pixel Fantasy Icons Letter Buttons/MV Icons Letter Buttons/Individual Icons/green-Z.png
-::res://scripts/::1759691614
+::res://scripts/::1759694426
 complex.gd::GDScript::690153806972587404::1759510571::0::1::::Complex<>Resource<><>0<>0<><>::
-game_manager.gd::GDScript::4694818436451821678::1759691614::0::1::::<>Node<><>0<>0<><>::
+game_manager.gd::GDScript::4694818436451821678::1759694426::0::1::::<>Node<><>0<>0<><>::
 level0_manager.gd::GDScript::502392246739697649::1759684919::0::1::::<>Node<><>0<>0<><>::
 level1_manager.gd::GDScript::8073948430278171053::1759684926::0::1::::<>Node<><>0<>0<><>::
 level2_manager.gd::GDScript::3784138970274026754::1759685510::0::1::::<>Node<><>0<>0<><>::
@@ -964,7 +966,7 @@ pause.gd::GDScript::4057460615289061564::1759684855::0::1::::<>CanvasLayer<><>0<
 settings_screen.gd::GDScript::4154169602134308143::1759684835::0::1::::<>Control<><>0<>0<><>::
 start_screen.gd::GDScript::938326833794905031::1759684822::0::1::::<>Control<><>0<>0<><>::
 volume_slider.gd::GDScript::7201815544217736659::1759684797::0::1::::<>HSlider<><>0<>0<><>::
-::res://scripts/objects/::1759691309
+::res://scripts/objects/::1759694208
 arrow.gd::GDScript::5325233197245647470::1759510571::0::1::::<>MeshInstance3D<><>0<>0<><>::
 arrow_loading_rotation.gd::GDScript::3050986144228291649::1759510571::0::1::::<>Node3D<><>0<>0<><>::
 bullet.gd::GDScript::8629940422635252421::1759656172::0::1::::<>Node2D<><>0<>0<><>::
@@ -974,11 +976,11 @@ dialogue_area.gd::GDScript::8584002017247221212::1759510571::0::1::::<>Area2D<><
 entangled_enemy.gd::GDScript::3725592572447768429::1759576833::0::1::::<>Node2D<><>0<>0<><>::
 entangled_gem.gd::GDScript::3605485928594804840::1759691309::0::1::::<>Node2D<><>0<>0<><>::
 entangle_enemy.gd::GDScript::6070391012299602860::1759576833::0::1::::<>Area2D<><>0<>0<><>::
-finish.gd::GDScript::6771425215352463549::1759510571::0::1::::<>Area2D<><>0<>0<><>::
+finish.gd::GDScript::6771425215352463549::1759693939::0::1::::<>Area2D<><>0<>0<><>::
 gem.gd::GDScript::1497027001221806451::1759576833::0::1::::<>Area2D<><>0<>0<><>::
 hud.gd::GDScript::1821278175884812776::1759510571::0::1::::<>CanvasLayer<><>0<>0<><>::
 killzone.gd::GDScript::1565717163562752374::1759510571::0::1::::<>Area2D<><>0<>0<><>::
-measurement_pad.gd::GDScript::6604396945041107046::1759510571::0::1::::<>Area2D<><>0<>0<><>::
+measurement_pad.gd::GDScript::6604396945041107046::1759693580::0::1::::<>Area2D<><>0<>0<><>::
 merlin.gd::GDScript::29946525196705822::1759656172::0::1::::<>CharacterBody2D<><>0<>0<><>::
 player.gd::GDScript::6878624412735799349::1759684433::0::1::::<>CharacterBody2D<><>0<>0<><>::
 pressure_key_lock.gd::GDScript::7526300043350278146::1759576833::0::1::::<>Node2D<><>0<>0<><>::
@@ -987,8 +989,8 @@ pressure_plate.gd::GDScript::4897030101666186836::1759663545::0::1::::<>Area2D<>
 puzzle.gd::GDScript::8593552324068182761::1759510571::0::1::::<>Node<><>0<>0<><>::
 shooter.gd::GDScript::8820175049398100765::1759684433::0::1::::<>Node2D<><>0<>0<><>::
 slime_purple.gd::GDScript::7015718132519600370::1759510571::0::1::::<>Node2D<><>0<>0<><>::
-suppos_pad.gd::GDScript::369241236461520833::1759510571::0::1::::<>Area2D<><>0<>0<><>::
-teleportation.gd::GDScript::4169061940753527261::1759510571::0::1::::<>Node2D<><>0<>0<><>::
+suppos_pad.gd::GDScript::369241236461520833::1759693389::0::1::::<>Area2D<><>0<>0<><>::
+teleportation.gd::GDScript::4169061940753527261::1759694208::0::1::::<>Node2D<><>0<>0<><>::
 texts.gd::GDScript::836332638906166153::1759656172::0::1::::<>TextEdit<><>0<>0<><>::
 wire.gd::GDScript::7810225326636102416::1759510571::0::1::::<>Node2D<><>0<>0<><>::
 wire_teleport.gd::GDScript::8076887842836656700::1759510571::0::1::::<>Node2D<><>0<>0<><>::
