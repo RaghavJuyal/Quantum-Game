@@ -26,8 +26,6 @@ var is_slots = false
 func _ready() -> void:
 	teleport_start.add_to_group("teleport_interact")
 	_init_circuit()
-	
-		
 
 func _init_circuit():
 	var up_slots = wire_teleport_up.slots
@@ -54,12 +52,10 @@ func _init_circuit():
 	idx = _find_leftmost_common_empty_index()
 	up_slots[idx] = "H"               # H top
 
-
 	wire_teleport_up._update_wire_visuals()
 	wire_teleport_mid._update_wire_visuals()
 	wire_teleport_down._update_wire_visuals()
 
-	
 func _find_leftmost_common_empty_index() -> int:
 	for i in range(wire_teleport_up.slots.size()):
 		if wire_teleport_up.slots[i]=="middle" and wire_teleport_down.slots[i]=="middle" and wire_teleport_mid.slots[i] == "middle":

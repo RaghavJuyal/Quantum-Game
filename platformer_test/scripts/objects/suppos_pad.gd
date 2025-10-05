@@ -12,13 +12,13 @@ extends Area2D
 
 var triggered := false
 var fidelity_shown = false
+
 func _ready() -> void:
 	sprite.modulate = Color(0.7, 0.3, 0.9, 0.5)
 	fidelity_label.text = "Target state:\nθ = %.2f, φ = %.2f" % [round(rad_to_deg(target_theta)*10)/10, round(rad_to_deg(target_phi)*10)/10]
 	fidelity_shown = false
 
 func _on_body_entered(body: Node2D) -> void:
-	
 	if game_manager.entangled_mode:
 		return # TODO: Figure out better handling
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
@@ -55,4 +55,3 @@ func _on_body_entered(body: Node2D) -> void:
 		game_manager.schedule_respawn(body)
 		triggered = false
 	# removes check zone if passed, but not the label
-	
