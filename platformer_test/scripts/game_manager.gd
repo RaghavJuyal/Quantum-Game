@@ -3,7 +3,7 @@ extends Node
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
 var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
-var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
+var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangled_enemy.tscn")
 @onready var pause_ui: CanvasLayer = $Pause_UI
 
 ## GAME CONTROL ##
@@ -441,7 +441,8 @@ func instantiate_gem(level_zero: bool) -> void:
 	else:
 		gem.is_state_zero = false
 		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
-	get_tree().current_scene.add_child(gem)
+	var entangled_gem_parent = current_level.get_node("EntangledGem")
+	entangled_gem_parent.add_child(gem)
 	gem.add_to_group("entanglables")
 	
 	current_level.hud.get_node("gem_carried").visible = false
@@ -465,11 +466,11 @@ func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y - 20)
 	else:
 		enemy.is_state_zero = false
-		if kill:		
+		if kill:
 			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
 		else:
 			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y - 20)
-	get_tree().current_scene.add_child(enemy)
+	current_level.add_child(enemy)
 	enemy.add_to_group("entanglables")
 	
 	current_level.hud.get_node("enemy").visible = false
@@ -678,7 +679,6 @@ func process_entanglement():
 			current_level.player.color_sprite()
 			current_level.player_2.color_sprite()
 			target.queue_free()
-<<<<<<< HEAD
 		
 func process_pause():
 	if Input.is_action_just_pressed("pause"):
@@ -686,9 +686,6 @@ func process_pause():
 			get_tree().paused = true
 			pause_ui.visible = true
 				
-=======
-
->>>>>>> 897b53c (space)
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
