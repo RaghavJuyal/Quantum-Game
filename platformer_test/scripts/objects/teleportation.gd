@@ -78,6 +78,9 @@ func run_teleportation():
 	var offset = 16
 	player.global_position.x = teleport_end.global_position.x + offset
 	player_2.global_position.x = teleport_end.global_position.x + offset
+	var sound_player = get_node_or_null("TeleportSuccess")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
 	await _animate_corrections(top_result, mid_result)
 
 # Animate all wires column by column, then unpush
@@ -114,7 +117,6 @@ func _apply_measurement_visual(wire: Node2D, result: int) -> void:
 		wire.wire_end_1.show()
 		wire.wire_end_0.hide()
 
-		
 # Animate correction gates step by step
 func _animate_corrections(top_result: int, mid_result: int) -> void:
 	var steps := 30
