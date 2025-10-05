@@ -59,6 +59,10 @@ func schedule_respawn(dead_body: Node2D) -> void:
 		0.4
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
+	var sound_player = get_node_or_null("Killed")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
+
 	# Start respawn timer
 	timer.start()
 

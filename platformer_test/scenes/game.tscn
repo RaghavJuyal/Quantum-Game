@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ywyssibl6741"]
+[gd_scene load_steps=7 format=3 uid="uid://ywyssibl6741"]
 
 [ext_resource type="Script" uid="uid://b75g8dvmgghpe" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dg37og73fs17c" path="res://scenes/pause.tscn" id="2_yqjtg"]
 [ext_resource type="AudioStream" uid="uid://dh18xwrcmc0xk" path="res://assets/sounds/Select 1.wav" id="3_lbhrr"]
-[ext_resource type="AudioStream" uid="uid://blb3har1n68qw" path="res://assets/sounds/power_up.wav" id="3_lnu2h"]
 [ext_resource type="AudioStream" uid="uid://dy27ykthajbnr" path="res://assets/sounds/Confirm 1.wav" id="4_iywne"]
+[ext_resource type="AudioStream" uid="uid://dds22ujv68rj6" path="res://assets/sounds/explosion.wav" id="5_p57ef"]
+[ext_resource type="AudioStream" uid="uid://blb3har1n68qw" path="res://assets/sounds/power_up.wav" id="6_p57ef"]
 
 [node name="Game" type="Node2D"]
 
@@ -25,8 +26,12 @@ stream = ExtResource("3_lbhrr")
 [node name="MeasureOne" type="AudioStreamPlayer" parent="GameManager"]
 stream = ExtResource("4_iywne")
 
+[node name="Killed" type="AudioStreamPlayer" parent="GameManager"]
+stream = ExtResource("5_p57ef")
+volume_db = -18.474
+
 [node name="Entangle" type="AudioStreamPlayer" parent="GameManager"]
-stream = ExtResource("3_lnu2h")
+stream = ExtResource("6_p57ef")
 volume_db = -11.632
 
 [connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]
