@@ -1,4 +1,7 @@
 extends Node2D
+
+var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
+
 @onready var gem_block: RigidBody2D = $"Gem Block"
 @onready var gem_obstacle: TileMapLayer = $"Gem Obstacle"
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
@@ -28,10 +31,30 @@ func _gem_block(block: Node) -> void:
 		if sound_player and not sound_player.playing:
 			sound_player.play()
 		
-		game_manager.hold_gem = false
+		game_manager.hold_gem = null
 		var current_level = game_manager.current_level
 		current_level.hud.get_node("gem_carried").visible = false
 
 func handle_entanglement(target):
-	game_manager.hold_gem = true
+	game_manager.hold_gem = target.get_parent()
+
+func instantiate_gem(level_zero: bool) -> void:
+	var gem = gem_scene.instantiate()
+	var current_level = game_manager.current_level
+	if level_zero:
+		gem.is_state_zero = true
+		gem.global_position = current_level.player.global_position + Vector2(0, -10)
+	else:
+		gem.is_state_zero = false
+		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
+	gem.add_to_group("entanglables")
+	game_manager.hold_gem.add_child(gem)
 	
+	game_manager.hold_gem = null
+	current_level.hud.get_node("gem_carried").visible = false
+
+func instantiate_gem_process():
+	if cos(game_manager.theta/2.0)**2 > 0.5:
+		instantiate_gem(true)
+	else:
+		instantiate_gem(false)

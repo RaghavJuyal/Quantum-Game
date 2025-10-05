@@ -2,7 +2,6 @@ extends Node
 
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
-var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
 var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangled_enemy.tscn")
 @onready var pause_ui: CanvasLayer = $Pause_UI
 
@@ -23,7 +22,7 @@ var ent_enemy_x_position = 0
 
 @export var entangled_mode = false
 @export var entangled_probs = null
-@export var hold_gem = false
+@export var hold_gem = null
 @export var hold_enemy = false
 
 ## HUD VARIABLES ##
@@ -248,21 +247,24 @@ func rotate_x(angle: float) -> void:
 	var rot = Basis(Vector3(1, 0, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	if hold_gem:
+		hold_gem.instantiate_gem_process()
 
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	if hold_gem:
+		hold_gem.instantiate_gem_process()
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
 	var rot = Basis(Vector3(0, 0, 1), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	if hold_gem:
+		hold_gem.instantiate_gem_process()
 
 # Convert cartesian bloch_vec → spherical angles
 func _update_theta_phi() -> void:
@@ -415,9 +417,9 @@ func de_entangle(outcome_idx: int) -> void:
 	entangled_mode = false
 	if hold_gem:
 		if outcome_idx == 1:
-			instantiate_gem(false)
+			hold_gem.instantiate_gem(false)
 		elif outcome_idx == 2:
-			instantiate_gem(true)
+			hold_gem.instantiate_gem(true)
 	elif hold_enemy:
 		if outcome_idx == 0:
 			instantiate_enemy(true, true)
@@ -434,7 +436,7 @@ func de_entangle(outcome_idx: int) -> void:
 	current_level.player_2.uncolor_sprite()
 
 func edit_hud_deentangle() -> void:
-	if !hold_gem:
+	if hold_gem == null:
 		current_level.hud.get_node("gem_carried").visible = false
 	current_level.hud.get_node("enemy").visible = false
 	current_level.hud.get_node("BlochSphere").visible = true
@@ -445,29 +447,6 @@ func edit_hud_deentangle() -> void:
 	current_level.hud.get_node("1").text = "|1>: "
 	current_level.hud.get_node("phi").text = "phi: "
 	current_level.hud.get_node("theta").text = "theta: "
-
-func instantiate_gem(level_zero: bool) -> void:
-	hold_gem = false
-	var gem = gem_scene.instantiate()
-	if level_zero:
-		gem.is_state_zero = true
-		gem.global_position = current_level.player.global_position + Vector2(0, -10)
-	else:
-		gem.is_state_zero = false
-		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
-	var entangled_gem_parent = current_level.get_node("EntangledGem")
-	entangled_gem_parent.add_child(gem)
-	gem.add_to_group("entanglables")
-	
-	current_level.hud.get_node("gem_carried").visible = false
-
-func instantiate_gem_process():
-	# Drop gem if holding
-	if hold_gem:
-		if cos(theta/2.0)**2 > 0.5:
-			instantiate_gem(true)
-		else:
-			instantiate_gem(false)
 
 func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 	hold_enemy = false
