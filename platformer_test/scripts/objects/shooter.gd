@@ -21,6 +21,6 @@ func _process(delta: float) -> void:
 func fire_bullet():
 	if bullet_scene:
 		var bullet = bullet_scene.instantiate()
-		bullet.global_position = global_position + direction*bullet_offset
+		bullet.global_position = direction*bullet_offset
 		bullet.direction = direction
-		get_tree().current_scene.add_child(bullet)
+		self.add_child(bullet)

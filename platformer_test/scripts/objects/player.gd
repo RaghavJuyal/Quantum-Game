@@ -68,7 +68,8 @@ func _physics_process(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 		move_and_slide()
-		game_manager.sync_players()
+		if game_manager.current_level:
+			game_manager.sync_players()
 		if !game_manager.entangled_mode:
 			var theta = game_manager.theta
 			if is_state_zero:

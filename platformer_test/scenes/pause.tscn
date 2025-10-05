@@ -4,7 +4,6 @@
 [ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_r8yp4"]
 
 [node name="Pause_UI" type="CanvasLayer"]
-visible = false
 script = ExtResource("1_f1d2v")
 
 [node name="Panel" type="Panel" parent="."]
@@ -30,7 +29,7 @@ offset_right = 517.0
 offset_bottom = 456.0
 theme_override_fonts/font = ExtResource("2_r8yp4")
 theme_override_font_sizes/font_size = 50
-text = "Quit Game"
+text = "Main Menu"
 
 [connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Panel/Button2" to="." method="_on_quit_button_pressed"]

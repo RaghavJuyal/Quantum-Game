@@ -4,6 +4,7 @@ extends Node
 const Complex = preload("res://scripts/complex.gd")
 var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
 var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
+@onready var pause_ui: CanvasLayer = $Pause_UI
 
 ## GAME CONTROL ##
 var current_level: Node = null
@@ -543,17 +544,28 @@ func Starter() -> void:
 ## LEVEL HELPERS ##
 
 func load_level(path: String):
-	## TODO: Better handling needed than queue_free()
 	if current_level:
+		# Stop all processing
+		current_level.set_process(false)
+		current_level.set_physics_process(false)
+		# Queue free
 		current_level.queue_free()
-	
+		current_level = null
+
+	# Defer the new level to next frame
+	call_deferred("_instantiate_level", path)
+
+func _instantiate_level(path: String):
 	var level_scene = load(path).instantiate()
 	add_child(level_scene)
 	current_level = level_scene
+
 	if next_file_path:
-		level_scene.set_game_manager(self, next_file_path)
+		level_scene.call_deferred("set_game_manager", self, next_file_path)
 	elif level_scene.has_method("set_game_manager"):
-		level_scene.set_game_manager(self)
+		level_scene.call_deferred("set_game_manager", self)
+
+
 
 func process_superposition():
 	if !suppos_allowed:
@@ -672,10 +684,16 @@ func process_entanglement():
 			current_level.player_2.color_sprite()
 			target.queue_free()
 		
-		
+func process_pause():
+	if Input.is_action_just_pressed("pause"):
+		if !get_tree().paused:
+			get_tree().paused = true
+			pause_ui.visible = true
+				
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
 	if current_level == null:
+		pause_ui.visible = false
 		load_level("res://scenes/start_screen.tscn")

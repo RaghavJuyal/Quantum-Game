@@ -62,3 +62,4 @@ func _process(delta: float) -> void:
 	
 	# interact for puzzle / teleportation
 	game_manager.process_interact()
+	game_manager.process_pause()

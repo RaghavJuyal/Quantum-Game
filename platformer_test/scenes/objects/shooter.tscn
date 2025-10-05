@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://dxws82sxddec8" path="res://scripts/objects/shooter.gd" id="1_lynhg"]
 [ext_resource type="PackedScene" uid="uid://b0exx33d87cji" path="res://scenes/objects/killzone.tscn" id="2_1e8ai"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1e8ai"]
 atlas = ExtResource("1_gt117")
 region = Rect2(0, 64, 16, 16)
