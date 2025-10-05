@@ -48,6 +48,9 @@ func add_point():
 	if score % 5 == 0:
 		hearts += 1
 		current_level.hud.heart_label.text = str(hearts)
+		var sound_player = get_node_or_null("Coin2Heart")
+		if sound_player and not sound_player.playing:
+			sound_player.play()
 
 func schedule_respawn(dead_body: Node2D) -> void:
 	pending_respawn = dead_body
