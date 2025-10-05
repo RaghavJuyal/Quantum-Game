@@ -129,6 +129,9 @@ func set_state_zero():
 	phi = 0
 	bloch_vec = Vector3(0, 0, 1)
 	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(current_level.camera0.global_position,0.005)
+	var sound_player = get_node_or_null("MeasureZero")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
 
 func set_state_one():
 	state = 1
@@ -138,6 +141,9 @@ func set_state_one():
 	phi = 0
 	bloch_vec = Vector3(0, 0, -1)
 	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(current_level.camera1.global_position,0.005)
+	var sound_player = get_node_or_null("MeasureOne")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
 
 func find_safe_spawn(x_global: float, current_is_layer1: bool):
 	var current_layer: TileMapLayer
