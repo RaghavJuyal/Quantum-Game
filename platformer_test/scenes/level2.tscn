@@ -659,5 +659,5 @@ position = Vector2(2489, -3)
 is_state_zero = true
 
 [node name="entangled_enemy2" parent="." instance=ExtResource("32_icuov")]
-position = Vector2(2789, -3)
+position = Vector2(2784, -2)
 is_state_zero = true

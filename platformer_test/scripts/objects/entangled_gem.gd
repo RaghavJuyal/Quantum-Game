@@ -24,6 +24,9 @@ func _gem_block(block: Node) -> void:
 		gem_obstacle.hide()
 		gem_obstacle.queue_free()
 		block.queue_free()
+		var sound_player = get_node_or_null("ObstacleRemoved")
+		if sound_player and not sound_player.playing:
+			sound_player.play()
 		
 		game_manager.hold_gem = false
 		var current_level = game_manager.current_level
