@@ -512,19 +512,8 @@ func _is_on_teleport(p: Node):
 	var area = p.get_node("interact_area")
 	for body in area.get_overlapping_bodies():
 		if body.is_in_group("teleport_interact"):
-			return true
-	return false
-
-func update_current_teleport():
-	var current_teleport_body = null
-	var area = current_level.player.get_node("interact_area")
-	if area == null:
-		area = current_level.player_2.get_node("interact_area")
-	for body in area.get_overlapping_areas():
-		if body.is_in_group("teleport_interact"):
-			current_teleport_body = body
-			break
-	return current_teleport_body.get_parent()
+			return body.get_parent()
+	return null
 
 func _is_on_entanglable(p: Node):
 	if measured:
@@ -643,12 +632,15 @@ func process_camera():
 
 func process_interact():
 	if Input.is_action_just_pressed("Interact"):
+		var teleport_player = _is_on_teleport(current_level.player)
+		var teleport_player2 = _is_on_teleport(current_level.player_2)
 		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
 			if !measured:
 				measure()
-		elif _is_on_teleport(current_level.player) or _is_on_teleport(current_level.player_2):
-			var current_teleport = update_current_teleport()
-			current_teleport.run_teleportation()
+		elif teleport_player:
+			teleport_player.run_teleportation()
+		elif teleport_player2:
+			teleport_player2.run_teleportation()
 		
 		var p
 		if state == 0:
