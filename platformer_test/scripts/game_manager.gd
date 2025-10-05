@@ -38,6 +38,7 @@ var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
 var checkpoint_player
 
+
 func add_point():
 	# Update coins collected
 	score += 1
@@ -674,4 +675,4 @@ func process_entanglement():
 func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
 	if current_level == null:
-		load_level("res://scenes/level0.tscn")
+		load_level("res://scenes/start_screen.tscn")
