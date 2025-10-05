@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=4 uid="uid://dd1dgkipoaid4"]
+[gd_scene load_steps=7 format=4 uid="uid://dd1dgkipoaid4"]
 
 [ext_resource type="Script" uid="uid://dauu35nef5gnb" path="res://scripts/volume_slider.gd" id="1_assm4"]
+[ext_resource type="Script" uid="uid://b0gkti1ni3lwx" path="res://scripts/settings_screen.gd" id="1_pt01f"]
 [ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_pt01f"]
 [ext_resource type="Texture2D" uid="uid://da1al1um5semr" path="res://assets/sprites/world_tileset.png" id="3_n20dh"]
 
@@ -175,6 +176,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_pt01f")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 scale = Vector2(5, 5)

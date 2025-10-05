@@ -4,6 +4,7 @@ extends HSlider
 
 @onready var label: Label = $Label
 @onready var _bus := AudioServer.get_bus_index(audio_bus_name)
+var game_manager: Node = null
 
 
 func _ready() -> void:
@@ -17,4 +18,8 @@ func _on_value_changed(value: float) -> void:
 
 
 func _on_back_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://scenes/start_screen.tscn")
+	#get_tree().change_scene_to_file("res://scenes/start_screen.tscn")
+	game_manager.load_level("res://scenes/start_screen.tscn")
+
+func set_game_manager(manager: Node):
+	game_manager = manager

@@ -38,6 +38,7 @@ var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
 var checkpoint_player
 
+var next_file_path = null
 
 func add_point():
 	# Update coins collected
@@ -549,7 +550,9 @@ func load_level(path: String):
 	var level_scene = load(path).instantiate()
 	add_child(level_scene)
 	current_level = level_scene
-	if level_scene.has_method("set_game_manager"):
+	if next_file_path:
+		level_scene.set_game_manager(self, next_file_path)
+	elif level_scene.has_method("set_game_manager"):
 		level_scene.set_game_manager(self)
 
 func process_superposition():

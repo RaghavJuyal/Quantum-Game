@@ -1,38 +1,23 @@
 extends Control
 
-var target_scene_path
+@onready var progress_bar: ProgressBar = $ProgressBar
+var game_manager
+var load_duration: float = 3.0  # seconds for full bar
 
-var loading_status : int
-var progress : Array[float]
-#@onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
-var game_manager = get_tree().root.get_node("res://scenes/game.tscn")
+func run_animation() -> void:
+	progress_bar.value = 0.0
+	var elapsed_time := 0.0
 
-@onready var progress_bar : ProgressBar = $ProgressBar
-var loading = false
+	while elapsed_time < load_duration:
+		await get_tree().process_frame  # yields until the next frame
+		elapsed_time += get_process_delta_time()
+		progress_bar.value = clamp(elapsed_time / load_duration, 0.0, 1.0) * 100.0
 
-func _ready() -> void:
-	pass
-	# Request to load the target scene:
-	#ResourceLoader.load_threaded_request(target_scene_path)
-	
-func manager_loader() -> void:
-	print(target_scene_path)
-	game_manager.load_level(target_scene_path)
-	
-func _process(_delta: float) -> void:
-	if !loading:
-		loading = true
-		manager_loader()
-	## Update the status:
-	#loading_status = ResourceLoader.load_threaded_get_status(target_scene_path, progress)
-	#
-	## Check the loading status:
-	#match loading_status:
-		#ResourceLoader.THREAD_LOAD_IN_PROGRESS:
-			#progress_bar.value = progress[0] * 100 # Change the ProgressBar value
-		#ResourceLoader.THREAD_LOAD_LOADED:
-			## When done loading, change to the target scene:
-			#get_tree().change_scene_to_packed(ResourceLoader.load_threaded_get(target_scene_path))
-		#ResourceLoader.THREAD_LOAD_FAILED:
-			## Well some error happend:
-			#print("Error. Could not load Resource")
+	print("✅ Loading complete")
+
+
+func set_game_manager(manager,filepath):
+	game_manager = manager
+	await run_animation()
+	game_manager.next_file_path = null
+	game_manager.load_level(filepath)

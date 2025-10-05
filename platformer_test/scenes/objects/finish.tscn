@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://bvgefyrm16i7t" path="res://assets/puzzle_game_gfx/Sweeper/sweeper_flag_red.png" id="2_m504p"]
 [ext_resource type="AudioStream" uid="uid://dhw2veh7mqmyd" path="res://assets/sounds/yippee-tbh.mp3" id="3_n8g1v"]
 
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2pftv"]
 size = Vector2(120, 120)
 
