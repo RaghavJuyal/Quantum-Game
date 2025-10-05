@@ -683,6 +683,10 @@ func process_entanglement():
 			current_level.player.color_sprite()
 			current_level.player_2.color_sprite()
 			target.queue_free()
+			
+			var sound_player = get_node_or_null("Entangle")
+			if sound_player and not sound_player.playing:
+				sound_player.play()
 
 func process_pause():
 	if Input.is_action_just_pressed("pause"):
