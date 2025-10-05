@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c5dvwo3ryhxih"
+path="res://.godot/imported/Balloon ride 1.wav-0373e69a36fb5eb01ec372c63d4f52a4.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Balloon ride 1.wav"
+dest_files=["res://.godot/imported/Balloon ride 1.wav-0373e69a36fb5eb01ec372c63d4f52a4.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

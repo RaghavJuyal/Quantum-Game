@@ -12,4 +12,5 @@ func _on_body_entered(_body: Node2D) -> void:
 	else:
 		measured_state = game_manager.measure_entangled()
 	finish_sound.play()
+	await finish_sound.finished
 	emit_signal("finished_level")

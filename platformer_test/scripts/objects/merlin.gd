@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 		else:
 			# Advance to next line
 			index += 1
+			dialogue_sound()
 			if index >= len(text_edit.parsedResult.get(self.name, [])):
 				interacting = false
 				text_edit.visible = false
@@ -35,6 +36,11 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
+func dialogue_sound():
+	var sound_player = get_node_or_null("DialogueLoad")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
+
 func handle_interaction():
 	if interacting:
 		return
@@ -43,3 +49,4 @@ func handle_interaction():
 	text_edit.visible = true
 	game_manager.Stopper()
 	text_edit.start_dialogue(self.name, index)
+	dialogue_sound()

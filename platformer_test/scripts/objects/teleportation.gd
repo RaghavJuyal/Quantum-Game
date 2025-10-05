@@ -26,8 +26,6 @@ var is_slots = false
 func _ready() -> void:
 	teleport_start.add_to_group("teleport_interact")
 	_init_circuit()
-	
-		
 
 func _init_circuit():
 	var up_slots = wire_teleport_up.slots
@@ -54,12 +52,10 @@ func _init_circuit():
 	idx = _find_leftmost_common_empty_index()
 	up_slots[idx] = "H"               # H top
 
-
 	wire_teleport_up._update_wire_visuals()
 	wire_teleport_mid._update_wire_visuals()
 	wire_teleport_down._update_wire_visuals()
 
-	
 func _find_leftmost_common_empty_index() -> int:
 	for i in range(wire_teleport_up.slots.size()):
 		if wire_teleport_up.slots[i]=="middle" and wire_teleport_down.slots[i]=="middle" and wire_teleport_mid.slots[i] == "middle":
@@ -82,6 +78,9 @@ func run_teleportation():
 	var offset = 16
 	player.global_position.x = teleport_end.global_position.x + offset
 	player_2.global_position.x = teleport_end.global_position.x + offset
+	var sound_player = get_node_or_null("TeleportSuccess")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
 	await _animate_corrections(top_result, mid_result)
 
 # Animate all wires column by column, then unpush
@@ -118,7 +117,6 @@ func _apply_measurement_visual(wire: Node2D, result: int) -> void:
 		wire.wire_end_1.show()
 		wire.wire_end_0.hide()
 
-		
 # Animate correction gates step by step
 func _animate_corrections(top_result: int, mid_result: int) -> void:
 	var steps := 30

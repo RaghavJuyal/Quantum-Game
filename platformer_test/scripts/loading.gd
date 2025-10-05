@@ -13,8 +13,6 @@ func run_animation() -> void:
 		elapsed_time += get_process_delta_time()
 		progress_bar.value = clamp(elapsed_time / load_duration, 0.0, 1.0) * 100.0
 
-
-
 func set_game_manager(manager,filepath):
 	game_manager = manager
 	await run_animation()

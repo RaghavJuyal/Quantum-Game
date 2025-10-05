@@ -7,19 +7,18 @@ extends Area2D
 
 @export var target_theta: float = PI / 2
 @export var target_phi: float = 0.0
-@export var fidelity_threshold: float = 0.95
-@export var double_fidelity_threshold: float = 0.99
+@export var fidelity_threshold: float = 0.99
 @onready var fidelity_label: Label = $Target
 
 var triggered := false
 var fidelity_shown = false
+
 func _ready() -> void:
 	sprite.modulate = Color(0.7, 0.3, 0.9, 0.5)
 	fidelity_label.text = "Target state:\nθ = %.2f, φ = %.2f" % [round(rad_to_deg(target_theta)*10)/10, round(rad_to_deg(target_phi)*10)/10]
 	fidelity_shown = false
 
 func _on_body_entered(body: Node2D) -> void:
-	
 	if game_manager.entangled_mode:
 		return # TODO: Figure out better handling
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
@@ -44,8 +43,6 @@ func _on_body_entered(body: Node2D) -> void:
 		
 	if fidelity >= fidelity_threshold:
 		game_manager.add_point()
-		if fidelity >= double_fidelity_threshold:
-			game_manager.add_point()
 		coin_pick_sound.play()
 		await coin_pick_sound.finished
 		self_node.get_node("CollisionShape2D").queue_free()
@@ -58,4 +55,3 @@ func _on_body_entered(body: Node2D) -> void:
 		game_manager.schedule_respawn(body)
 		triggered = false
 	# removes check zone if passed, but not the label
-	

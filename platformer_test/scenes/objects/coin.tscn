@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://h2et6qe150l5" path="res://assets/sprites/coin.png" id="1_rwqht"]
 [ext_resource type="AudioStream" uid="uid://8pqlteyob1ow" path="res://assets/sounds/coin.wav" id="3_11l1o"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_i64fm"]
 atlas = ExtResource("1_rwqht")
 region = Rect2(0, 0, 16, 16)

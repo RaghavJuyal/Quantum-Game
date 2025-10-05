@@ -3,7 +3,7 @@ extends Node
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
 var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
-var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangle_enemy.tscn")
+var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangled_enemy.tscn")
 @onready var pause_ui: CanvasLayer = $Pause_UI
 
 ## GAME CONTROL ##
@@ -20,7 +20,6 @@ var phi = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var entangled_state = null
 var ent_enemy_x_position = 0
-var ent_enemy_y_displacement = 0
 
 @export var entangled_mode = false
 @export var entangled_probs = null
@@ -49,6 +48,9 @@ func add_point():
 	if score % 5 == 0:
 		hearts += 1
 		current_level.hud.heart_label.text = str(hearts)
+		var sound_player = get_node_or_null("Coin2Heart")
+		if sound_player and not sound_player.playing:
+			sound_player.play()
 
 func schedule_respawn(dead_body: Node2D) -> void:
 	pending_respawn = dead_body
@@ -59,6 +61,10 @@ func schedule_respawn(dead_body: Node2D) -> void:
 		Color(pending_respawn.modulate.r, pending_respawn.modulate.g, pending_respawn.modulate.b, 0.0),
 		0.4
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+
+	var sound_player = get_node_or_null("Killed")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
 
 	# Start respawn timer
 	timer.start()
@@ -130,6 +136,9 @@ func set_state_zero():
 	phi = 0
 	bloch_vec = Vector3(0, 0, 1)
 	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(current_level.camera0.global_position,0.005)
+	var sound_player = get_node_or_null("MeasureZero")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
 
 func set_state_one():
 	state = 1
@@ -139,6 +148,9 @@ func set_state_one():
 	phi = 0
 	bloch_vec = Vector3(0, 0, -1)
 	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(current_level.camera1.global_position,0.005)
+	var sound_player = get_node_or_null("MeasureOne")
+	if sound_player and not sound_player.playing:
+		sound_player.play()
 
 func find_safe_spawn(x_global: float, current_is_layer1: bool):
 	var current_layer: TileMapLayer
@@ -329,7 +341,6 @@ func measure_entangled() -> int:
 	else:
 		state = 1
 		set_state_one()
-
 	return state
 
 func rotate_x_entangled(angle: float) -> void:
@@ -443,7 +454,8 @@ func instantiate_gem(level_zero: bool) -> void:
 	else:
 		gem.is_state_zero = false
 		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
-	get_tree().current_scene.add_child(gem)
+	var entangled_gem_parent = current_level.get_node("EntangledGem")
+	entangled_gem_parent.add_child(gem)
 	gem.add_to_group("entanglables")
 	
 	current_level.hud.get_node("gem_carried").visible = false
@@ -464,14 +476,14 @@ func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 		if kill:
 			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y + ent_enemy_y_displacement - 20)
+			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y - 20)
 	else:
 		enemy.is_state_zero = false
-		if kill:		
+		if kill:
 			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y + ent_enemy_y_displacement - 20)
-	get_tree().current_scene.add_child(enemy)
+			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y - 20)
+	current_level.add_child(enemy)
 	enemy.add_to_group("entanglables")
 	
 	current_level.hud.get_node("enemy").visible = false
@@ -500,22 +512,9 @@ func _is_on_teleport(p: Node):
 	var area = p.get_node("interact_area")
 	for body in area.get_overlapping_bodies():
 		if body.is_in_group("teleport_interact"):
-			return true
-	
-	return false
-		
-func update_current_teleport():
-	var current_teleport_body = null
-	var area = current_level.player.get_node("interact_area")
-	if area == null:
-		area = current_level.player_2.get_node("interact_area")
-	for body in area.get_overlapping_areas():
-		if body.is_in_group("teleport_interact"):
-			current_teleport_body = body
-			break
-	return current_teleport_body.get_parent()
-	
-	
+			return body.get_parent()
+	return null
+
 func _is_on_entanglable(p: Node):
 	if measured:
 		if p.is_state_zero and state != 0:
@@ -564,8 +563,6 @@ func _instantiate_level(path: String):
 		level_scene.call_deferred("set_game_manager", self, next_file_path)
 	elif level_scene.has_method("set_game_manager"):
 		level_scene.call_deferred("set_game_manager", self)
-
-
 
 func process_superposition():
 	if !suppos_allowed:
@@ -635,14 +632,16 @@ func process_camera():
 
 func process_interact():
 	if Input.is_action_just_pressed("Interact"):
+		var teleport_player = _is_on_teleport(current_level.player)
+		var teleport_player2 = _is_on_teleport(current_level.player_2)
 		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
 			if !measured:
 				measure()
-		elif _is_on_teleport(current_level.player) or _is_on_teleport(current_level.player_2):
-			var current_teleport = update_current_teleport()
-			current_teleport.run_teleportation()
-			
-			
+		elif teleport_player:
+			teleport_player.run_teleportation()
+		elif teleport_player2:
+			teleport_player2.run_teleportation()
+		
 		var p
 		if state == 0:
 			p = current_level.player
@@ -683,17 +682,20 @@ func process_entanglement():
 			current_level.player.color_sprite()
 			current_level.player_2.color_sprite()
 			target.queue_free()
-		
+			
+			var sound_player = get_node_or_null("Entangle")
+			if sound_player and not sound_player.playing:
+				sound_player.play()
+
 func process_pause():
 	if Input.is_action_just_pressed("pause"):
 		if !get_tree().paused:
 			get_tree().paused = true
 			pause_ui.visible = true
-				
+
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
-	## TODO: Add start / end scenes etc.
 	if current_level == null:
 		pause_ui.visible = false
 		load_level("res://scenes/start_screen.tscn")

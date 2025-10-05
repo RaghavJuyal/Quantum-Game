@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=4 uid="uid://2ssx8u4nr3nk"]
+[gd_scene load_steps=8 format=4 uid="uid://2ssx8u4nr3nk"]
 
 [ext_resource type="PackedScene" uid="uid://kjwmsthli58l" path="res://scenes/objects/gem.tscn" id="1_1druc"]
 [ext_resource type="Script" uid="uid://brmr3dn2ptlem" path="res://scripts/objects/entangled_gem.gd" id="1_2uq1b"]
 [ext_resource type="PackedScene" uid="uid://xus6k5efdd5c" path="res://scenes/objects/gem_block.tscn" id="2_2uq1b"]
 [ext_resource type="Texture2D" uid="uid://da1al1um5semr" path="res://assets/sprites/world_tileset.png" id="3_qx7du"]
+[ext_resource type="AudioStream" uid="uid://drmxcfug72t6i" path="res://assets/sounds/Fruit collect 1.wav" id="5_qx7du"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tn25f"]
 texture = ExtResource("3_qx7du")
@@ -166,3 +167,6 @@ position = Vector2(2280, -70)
 position = Vector2(1536, 3)
 tile_map_data = PackedByteArray("AAAxAP7/AQABAAEAAAAxAP//AQABAAEAAAAxAAAAAQABAAEAAAAxAPv/AQAIAAAAAAAxAPr/AQAIAAAAAAAxAPn/AQAIAAAAAAAxAPj/AQAIAAAAAAA=")
 tile_set = SubResource("TileSet_5b1db")
+
+[node name="ObstacleRemoved" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_qx7du")

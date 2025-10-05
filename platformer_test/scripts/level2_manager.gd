@@ -13,14 +13,9 @@ var game_manager: Node = null
 @onready var midground: TileMapLayer = $Tilemap/Midground
 @onready var midground_2: TileMapLayer = $Tilemap/Midground2
 
-
-
-
 func _ready() -> void:
 	camera_2d.make_current()
 	camera_2d.global_position = camera1.global_position
-	
-	
 
 func set_game_manager(manager: Node):
 	game_manager = manager
@@ -71,4 +66,5 @@ func _process(delta: float) -> void:
 	
 	# entangle
 	game_manager.process_entanglement()
+	
 	game_manager.process_pause()
