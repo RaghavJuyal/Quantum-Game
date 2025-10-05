@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b1r73gspwjx2a" path="res://assets/sprites/merlin_.png" id="1_qxl0p"]
 [ext_resource type="Script" uid="uid://orhkoht8fk5" path="res://scripts/objects/merlin.gd" id="1_rvmck"]
-[ext_resource type="AudioStream" uid="uid://egh876imt0nu" path="res://assets/sounds/tap.wav" id="3_jc4as"]
+[ext_resource type="AudioStream" uid="uid://bp8128mox8bhg" path="res://assets/sounds/new pack/Misc 2.wav" id="3_jc4as"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rvmck"]
 atlas = ExtResource("1_qxl0p")
@@ -66,3 +66,4 @@ shape = SubResource("CircleShape2D_rvmck")
 
 [node name="DialogueLoad" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_jc4as")
+volume_db = -10.263

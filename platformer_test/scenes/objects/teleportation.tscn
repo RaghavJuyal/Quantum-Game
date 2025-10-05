@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dfylk1t3er3tv" path="res://assets/puzzle_game_gfx/Blocks/block_1_orange_outline.png" id="2_1w1r3"]
 [ext_resource type="Texture2D" uid="uid://c1u3sdkkcriv5" path="res://assets/puzzle_game_gfx/Blocks/block_1_blue_outline.png" id="3_p66o8"]
 [ext_resource type="PackedScene" uid="uid://dfoervmeqi0lp" path="res://scenes/objects/wire_teleport.tscn" id="4_07vus"]
-[ext_resource type="AudioStream" uid="uid://c71jafcvjt8w8" path="res://assets/sounds/jump.wav" id="5_1w1r3"]
+[ext_resource type="AudioStream" uid="uid://cgma6yxya3p3h" path="res://assets/sounds/new pack/Ascend 1.wav" id="5_1w1r3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uci1l"]
 size = Vector2(14, 14)

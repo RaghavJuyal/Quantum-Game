@@ -66,6 +66,7 @@ func schedule_respawn(dead_body: Node2D) -> void:
 	if sound_player and not sound_player.playing:
 		sound_player.play()
 
+	await sound_player.finished
 	# Start respawn timer
 	timer.start()
 
