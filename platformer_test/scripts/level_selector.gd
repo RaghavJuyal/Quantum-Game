@@ -3,6 +3,7 @@ extends Control
 @onready var level_1: Button = $CanvasLayer/level1
 @onready var level_2: Button = $CanvasLayer/level2
 var buttons
+
 func _ready() -> void:
 	buttons = [level_0, level_1, level_2]
 

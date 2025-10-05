@@ -562,8 +562,6 @@ func _instantiate_level(path: String):
 	elif level_scene.has_method("set_game_manager"):
 		level_scene.call_deferred("set_game_manager", self)
 
-
-
 func process_superposition():
 	if !suppos_allowed:
 		var requester
@@ -679,17 +677,16 @@ func process_entanglement():
 			current_level.player.color_sprite()
 			current_level.player_2.color_sprite()
 			target.queue_free()
-		
+
 func process_pause():
 	if Input.is_action_just_pressed("pause"):
 		if !get_tree().paused:
 			get_tree().paused = true
 			pause_ui.visible = true
-				
+
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
-	## TODO: Add start / end scenes etc.
 	if current_level == null:
 		pause_ui.visible = false
 		load_level("res://scenes/start_screen.tscn")
