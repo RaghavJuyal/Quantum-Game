@@ -328,7 +328,6 @@ func measure_entangled() -> int:
 	else:
 		state = 1
 		set_state_one()
-
 	return state
 
 func rotate_x_entangled(angle: float) -> void:
@@ -500,9 +499,8 @@ func _is_on_teleport(p: Node):
 	for body in area.get_overlapping_bodies():
 		if body.is_in_group("teleport_interact"):
 			return true
-	
 	return false
-		
+
 func update_current_teleport():
 	var current_teleport_body = null
 	var area = current_level.player.get_node("interact_area")
@@ -513,7 +511,7 @@ func update_current_teleport():
 			current_teleport_body = body
 			break
 	return current_teleport_body.get_parent()
-	
+
 func _is_on_entanglable(p: Node):
 	if measured:
 		if p.is_state_zero and state != 0:
@@ -639,8 +637,7 @@ func process_interact():
 		elif _is_on_teleport(current_level.player) or _is_on_teleport(current_level.player_2):
 			var current_teleport = update_current_teleport()
 			current_teleport.run_teleportation()
-			
-			
+		
 		var p
 		if state == 0:
 			p = current_level.player
@@ -681,6 +678,7 @@ func process_entanglement():
 			current_level.player.color_sprite()
 			current_level.player_2.color_sprite()
 			target.queue_free()
+<<<<<<< HEAD
 		
 func process_pause():
 	if Input.is_action_just_pressed("pause"):
@@ -688,6 +686,9 @@ func process_pause():
 			get_tree().paused = true
 			pause_ui.visible = true
 				
+=======
+
+>>>>>>> 897b53c (space)
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
