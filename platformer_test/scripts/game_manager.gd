@@ -20,7 +20,6 @@ var phi = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var entangled_state = null
 var ent_enemy_x_position = 0
-var ent_enemy_y_displacement = 0
 
 @export var entangled_mode = false
 @export var entangled_probs = null
@@ -464,13 +463,13 @@ func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 		if kill:
 			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y + ent_enemy_y_displacement - 20)
+			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y - 20)
 	else:
 		enemy.is_state_zero = false
 		if kill:		
 			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
 		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y + ent_enemy_y_displacement - 20)
+			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y - 20)
 	get_tree().current_scene.add_child(enemy)
 	enemy.add_to_group("entanglables")
 	
@@ -514,7 +513,6 @@ func update_current_teleport():
 			current_teleport_body = body
 			break
 	return current_teleport_body.get_parent()
-	
 	
 func _is_on_entanglable(p: Node):
 	if measured:
