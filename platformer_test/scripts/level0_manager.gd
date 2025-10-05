@@ -58,3 +58,5 @@ func _process(delta: float) -> void:
 	
 	# update camera
 	game_manager.process_camera()
+	
+	game_manager.process_interact()

@@ -9,7 +9,7 @@ var direction = -1
 func _process(delta: float) -> void:
 	position.x += direction * SPEED * delta
 
-	if position.x < -2000 or position.x > 2000:
+	if position.x < -20000 or position.x > 20000:
 		queue_free()
 	
 	# Remove bullet when it collides with the wall

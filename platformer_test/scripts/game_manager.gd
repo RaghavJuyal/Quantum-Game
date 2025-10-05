@@ -487,6 +487,8 @@ func _is_on_interactable(p: Node):
 	for intarea in area.get_overlapping_areas():
 		if intarea.is_in_group("interactables_puzzle"):
 			return true
+		if intarea.is_in_group("interact_merlin"):
+			return true
 	return false
 
 func _is_on_teleport(p: Node):
@@ -498,13 +500,13 @@ func _is_on_teleport(p: Node):
 			return true
 	
 	return false
-
+		
 func update_current_teleport():
 	var current_teleport_body = null
 	var area = current_level.player.get_node("interact_area")
 	if area == null:
 		area = current_level.player_2.get_node("interact_area")
-	for body in area.get_overlapping_bodies():
+	for body in area.get_overlapping_areas():
 		if body.is_in_group("teleport_interact"):
 			current_teleport_body = body
 			break
@@ -624,6 +626,7 @@ func process_interact():
 			var current_teleport = update_current_teleport()
 			current_teleport.run_teleportation()
 			
+			
 		var p
 		if state == 0:
 			p = current_level.player
@@ -644,6 +647,9 @@ func process_interact():
 			if area.is_in_group("interactables_puzzle"):
 				var current_puzzle = area.get_parent().get_parent()
 				current_puzzle.handle_interaction(area)
+			if area.is_in_group("interact_merlin"):
+				var current_merlin = area.get_parent()
+				current_merlin.handle_interaction()
 
 func process_entanglement():
 	if Input.is_action_just_pressed("c_not"):
@@ -668,4 +674,4 @@ func process_entanglement():
 func _process(_delta: float) -> void:
 	## TODO: Add start / end scenes etc.
 	if current_level == null:
-		load_level("res://scenes/level2.tscn")
+		load_level("res://scenes/level0.tscn")
