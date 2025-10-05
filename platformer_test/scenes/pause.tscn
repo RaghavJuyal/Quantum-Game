@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg37og73fs17c"]
+
+[ext_resource type="Script" uid="uid://bx2p1v06hgwiu" path="res://scripts/pause.gd" id="1_f1d2v"]
+[ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_r8yp4"]
+
+[node name="Pause_UI" type="CanvasLayer"]
+script = ExtResource("1_f1d2v")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(600, 600)
+offset_right = 600.0
+offset_bottom = 600.0
+
+[node name="Button" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 51.0
+offset_right = 517.0
+offset_bottom = 206.0
+theme_override_fonts/font = ExtResource("2_r8yp4")
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[node name="Button2" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 301.0
+offset_right = 517.0
+offset_bottom = 456.0
+theme_override_fonts/font = ExtResource("2_r8yp4")
+theme_override_font_sizes/font_size = 50
+text = "Main Menu"
+
+[connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/Button2" to="." method="_on_quit_button_pressed"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://ywyssibl6741"]
+[gd_scene load_steps=3 format=3 uid="uid://ywyssibl6741"]
 
 [ext_resource type="Script" uid="uid://b75g8dvmgghpe" path="res://scripts/game_manager.gd" id="1_0tnpc"]
+[ext_resource type="PackedScene" uid="uid://dg37og73fs17c" path="res://scenes/pause.tscn" id="2_yqjtg"]
 
 [node name="Game" type="Node2D"]
 
@@ -10,5 +11,9 @@ script = ExtResource("1_0tnpc")
 [node name="Timer" type="Timer" parent="GameManager"]
 wait_time = 0.6
 one_shot = true
+
+[node name="Pause_UI" parent="GameManager" instance=ExtResource("2_yqjtg")]
+offset = Vector2(850, 400)
+transform = Transform2D(1, 0, 0, 1, 850, 400)
 
 [connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]

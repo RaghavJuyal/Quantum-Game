@@ -71,3 +71,4 @@ func _process(delta: float) -> void:
 	
 	# entangle
 	game_manager.process_entanglement()
+	game_manager.process_pause()

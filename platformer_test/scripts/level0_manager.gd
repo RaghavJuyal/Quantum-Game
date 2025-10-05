@@ -60,3 +60,4 @@ func _process(delta: float) -> void:
 	game_manager.process_camera()
 	
 	game_manager.process_interact()
+	game_manager.process_pause()
