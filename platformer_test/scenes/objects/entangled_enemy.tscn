@@ -7,4 +7,3 @@
 script = ExtResource("1_vqua8")
 
 [node name="EntangleEnemy" parent="." instance=ExtResource("2_vqua8")]
-position = Vector2(1515.65, -162.223)
