@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ca13cm1nlpav1"
+path="res://.godot/imported/Coin 1.wav-79310178d12461c8e6509ac67815b0ef.sample"
+
+[deps]
+
+source_file="res://assets/sounds/new pack/Coin 1.wav"
+dest_files=["res://.godot/imported/Coin 1.wav-79310178d12461c8e6509ac67815b0ef.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

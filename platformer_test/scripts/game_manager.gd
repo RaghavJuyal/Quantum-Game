@@ -2,12 +2,12 @@ extends Node
 
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
-var gem_scene: PackedScene = preload("res://scenes/objects/gem.tscn")
-var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangled_enemy.tscn")
 @onready var pause_ui: CanvasLayer = $Pause_UI
 
 ## GAME CONTROL ##
 var current_level: Node = null
+var current_level_path = ""
+var is_loading = false
 var delta_theta = 0
 @onready var timer: Timer = $Timer
 
@@ -19,12 +19,11 @@ var theta = 0
 var phi = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var entangled_state = null
-var ent_enemy_x_position = 0
 
 @export var entangled_mode = false
 @export var entangled_probs = null
-@export var hold_gem = false
-@export var hold_enemy = false
+@export var hold_gem = null
+@export var hold_enemy = null
 
 ## HUD VARIABLES ##
 var score = 0
@@ -32,11 +31,10 @@ var hearts: int = 3
 var carried_gate = ""
 
 ## RESPAWN VARIABLES ##
-var pending_respawn
 var is_dead = false
 var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
-var checkpoint_player
+var checkpoint_player_zero
 
 var next_file_path = null
 
@@ -53,12 +51,11 @@ func add_point():
 			sound_player.play()
 
 func schedule_respawn(dead_body: Node2D) -> void:
-	pending_respawn = dead_body
 	# Tween fade-out
 	var tween = get_tree().create_tween()
 	tween.tween_property(
-		pending_respawn, "modulate",
-		Color(pending_respawn.modulate.r, pending_respawn.modulate.g, pending_respawn.modulate.b, 0.0),
+		dead_body, "modulate",
+		Color(dead_body.modulate.r, dead_body.modulate.g, dead_body.modulate.b, 0.0),
 		0.4
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
@@ -66,12 +63,17 @@ func schedule_respawn(dead_body: Node2D) -> void:
 	if sound_player and not sound_player.playing:
 		sound_player.play()
 
+	await sound_player.finished
 	# Start respawn timer
 	timer.start()
 
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
-
+	load_level(current_level_path)
+	
+	while is_loading:
+		await get_tree().process_frame
+	
 	# Update hearts / reset game if needed
 	hearts -= 1
 	current_level.hud.heart_label.text = str(hearts)
@@ -84,12 +86,10 @@ func _on_timer_timeout() -> void:
 		return
 
 	# Respawn logic
-	var respawn_player: Node2D = pending_respawn
-	pending_respawn.get_node("CollisionShape2D").disabled = false
 	current_level.player.global_position = checkpoint_position_0
 	current_level.player_2.global_position = checkpoint_position_1
 	is_dead = false
-	if checkpoint_player == current_level.player:
+	if checkpoint_player_zero:
 		theta = 0
 		phi = 0
 		measured = false
@@ -101,17 +101,6 @@ func _on_timer_timeout() -> void:
 		measured = false
 		measure()
 		current_level.camera_2d.global_position = current_level.camera1.global_position
-
-	# Make player invisible first
-	respawn_player.modulate.a = 0.0
-
-	# Tween fade-in
-	var tween = get_tree().create_tween()
-	tween.tween_property(
-		respawn_player, "modulate",
-		Color(respawn_player.modulate.r, respawn_player.modulate.g, respawn_player.modulate.b, 1.0),
-		0.4
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 ## SUPERPOSITION HANDLING ##
 
@@ -247,21 +236,24 @@ func rotate_x(angle: float) -> void:
 	var rot = Basis(Vector3(1, 0, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	if hold_gem:
+		hold_gem.instantiate_gem_process()
 
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	if hold_gem:
+		hold_gem.instantiate_gem_process()
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
 	var rot = Basis(Vector3(0, 0, 1), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
-	instantiate_gem_process()
+	if hold_gem:
+		hold_gem.instantiate_gem_process()
 
 # Convert cartesian bloch_vec → spherical angles
 func _update_theta_phi() -> void:
@@ -414,18 +406,18 @@ func de_entangle(outcome_idx: int) -> void:
 	entangled_mode = false
 	if hold_gem:
 		if outcome_idx == 1:
-			instantiate_gem(false)
+			hold_gem.instantiate_gem(false)
 		elif outcome_idx == 2:
-			instantiate_gem(true)
+			hold_gem.instantiate_gem(true)
 	elif hold_enemy:
 		if outcome_idx == 0:
-			instantiate_enemy(true, true)
+			hold_enemy.instantiate_enemy(true, true)
 		elif outcome_idx == 1:
-			instantiate_enemy(false, false)
+			hold_enemy.instantiate_enemy(false, false)
 		elif outcome_idx == 2:
-			instantiate_enemy(true, false)
+			hold_enemy.instantiate_enemy(true, false)
 		else:
-			instantiate_enemy(false, true)
+			hold_enemy.instantiate_enemy(false, true)
 	
 	edit_hud_deentangle()
 	
@@ -433,7 +425,7 @@ func de_entangle(outcome_idx: int) -> void:
 	current_level.player_2.uncolor_sprite()
 
 func edit_hud_deentangle() -> void:
-	if !hold_gem:
+	if hold_gem == null:
 		current_level.hud.get_node("gem_carried").visible = false
 	current_level.hud.get_node("enemy").visible = false
 	current_level.hud.get_node("BlochSphere").visible = true
@@ -444,49 +436,6 @@ func edit_hud_deentangle() -> void:
 	current_level.hud.get_node("1").text = "|1>: "
 	current_level.hud.get_node("phi").text = "phi: "
 	current_level.hud.get_node("theta").text = "theta: "
-
-func instantiate_gem(level_zero: bool) -> void:
-	hold_gem = false
-	var gem = gem_scene.instantiate()
-	if level_zero:
-		gem.is_state_zero = true
-		gem.global_position = current_level.player.global_position + Vector2(0, -10)
-	else:
-		gem.is_state_zero = false
-		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
-	var entangled_gem_parent = current_level.get_node("EntangledGem")
-	entangled_gem_parent.add_child(gem)
-	gem.add_to_group("entanglables")
-	
-	current_level.hud.get_node("gem_carried").visible = false
-
-func instantiate_gem_process():
-	# Drop gem if holding
-	if hold_gem:
-		if cos(theta/2.0)**2 > 0.5:
-			instantiate_gem(true)
-		else:
-			instantiate_gem(false)
-
-func instantiate_enemy(level_zero: bool, kill: bool) -> void:
-	hold_enemy = false
-	var enemy = ent_enemy_scene.instantiate()
-	if level_zero:
-		enemy.is_state_zero = true
-		if kill:
-			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
-		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y - 20)
-	else:
-		enemy.is_state_zero = false
-		if kill:
-			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
-		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y - 20)
-	current_level.add_child(enemy)
-	enemy.add_to_group("entanglables")
-	
-	current_level.hud.get_node("enemy").visible = false
 
 ## INTERACTABLE / ENTANGLABLE ##
 
@@ -551,6 +500,7 @@ func load_level(path: String):
 		current_level.queue_free()
 		current_level = null
 
+	is_loading = true
 	# Defer the new level to next frame
 	call_deferred("_instantiate_level", path)
 
@@ -558,11 +508,13 @@ func _instantiate_level(path: String):
 	var level_scene = load(path).instantiate()
 	add_child(level_scene)
 	current_level = level_scene
+	current_level_path = path
 
 	if next_file_path:
 		level_scene.call_deferred("set_game_manager", self, next_file_path)
 	elif level_scene.has_method("set_game_manager"):
 		level_scene.call_deferred("set_game_manager", self)
+	is_loading = false
 
 func process_superposition():
 	if !suppos_allowed:

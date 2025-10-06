@@ -270,7 +270,7 @@ position = Vector2(1153, 50)
 position = Vector2(1035, -61)
 
 [node name="Slime_green4" parent="Slimes" instance=ExtResource("8_ve1xs")]
-position = Vector2(2232, 51)
+position = Vector2(2350, 51)
 
 [node name="Slime_purple4" parent="Slimes" instance=ExtResource("7_hybo8")]
 position = Vector2(2233, -61)
