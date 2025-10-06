@@ -19,20 +19,21 @@ func handle_entanglement(target):
 func instantiate_enemy(level_zero: bool, kill: bool) -> void:
 	var enemy = ent_enemy_scene.instantiate()
 	var current_level = game_manager.current_level
+	var parent = game_manager.hold_enemy
 	if level_zero:
 		enemy.is_state_zero = true
 		if kill:
-			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
+			enemy.global_position = current_level.player.global_position + Vector2(0, -20) - parent.global_position
 		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y - 20)
+			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y - 20) - parent.global_position
 	else:
 		enemy.is_state_zero = false
 		if kill:
-			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
+			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20) - parent.global_position
 		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y - 20)
+			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y - 20) - parent.global_position
 	enemy.add_to_group("entanglables")
-	game_manager.hold_enemy.add_child(enemy)
+	parent.add_child(enemy)
 	
 	game_manager.hold_enemy = null
 	current_level.hud.get_node("enemy").visible = false

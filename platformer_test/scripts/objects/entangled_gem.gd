@@ -41,14 +41,15 @@ func handle_entanglement(target):
 func instantiate_gem(level_zero: bool) -> void:
 	var gem = gem_scene.instantiate()
 	var current_level = game_manager.current_level
+	var parent = game_manager.hold_gem
 	if level_zero:
 		gem.is_state_zero = true
-		gem.global_position = current_level.player.global_position + Vector2(0, -10)
+		gem.global_position = current_level.player.global_position + Vector2(0, -10) - parent.global_position
 	else:
 		gem.is_state_zero = false
-		gem.global_position = current_level.player_2.global_position + Vector2(0, -10)
+		gem.global_position = current_level.player_2.global_position + Vector2(0, -10) - parent.global_position
 	gem.add_to_group("entanglables")
-	game_manager.hold_gem.add_child(gem)
+	parent.add_child(gem)
 	
 	game_manager.hold_gem = null
 	current_level.hud.get_node("gem_carried").visible = false

@@ -465,6 +465,9 @@ text = "THE END"
 [node name="measurement_pad" parent="Zones" instance=ExtResource("10_ehxya")]
 position = Vector2(240, -78)
 
+[node name="measurement_pad2" parent="Zones" instance=ExtResource("10_ehxya")]
+position = Vector2(2254, 3)
+
 [node name="suppos_pad" parent="Zones" instance=ExtResource("11_tn25f")]
 position = Vector2(912, 112)
 
