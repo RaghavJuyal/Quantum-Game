@@ -1,33 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://6vy6e47v3ywj"]
+[gd_scene load_steps=3 format=3 uid="uid://6vy6e47v3ywj"]
 
 [ext_resource type="Script" uid="uid://btcx727hck8er" path="res://scripts/objects/entangled_enemy.gd" id="1_vqua8"]
-[ext_resource type="Script" uid="uid://csqspn00tocxw" path="res://scripts/objects/entangle_enemy.gd" id="2_lxugo"]
-[ext_resource type="Texture2D" uid="uid://bbf33oarwo80m" path="res://assets/puzzle_game_gfx/Animals/animal_squirrel.png" id="3_8821i"]
-[ext_resource type="PackedScene" uid="uid://b0exx33d87cji" path="res://scenes/objects/killzone.tscn" id="4_63d8l"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_x4c7e"]
-size = Vector2(48, 39.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wwfcx"]
-size = Vector2(86, 39)
+[ext_resource type="PackedScene" uid="uid://btya7pdtk2mnc" path="res://scenes/objects/entangle_enemy.tscn" id="2_vqua8"]
 
 [node name="entangled_enemy" type="Node2D"]
 script = ExtResource("1_vqua8")
 
-[node name="EntangleEnemy" type="Area2D" parent="."]
-script = ExtResource("2_lxugo")
-
-[node name="Sprite2D" type="Sprite2D" parent="EntangleEnemy"]
-position = Vector2(8.34465e-07, 9.53674e-07)
-scale = Vector2(0.09375, 0.0864258)
-texture = ExtResource("3_8821i")
-
-[node name="Killzone" parent="EntangleEnemy" instance=ExtResource("4_63d8l")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntangleEnemy/Killzone"]
-position = Vector2(0, -0.25)
-shape = SubResource("RectangleShape2D_x4c7e")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EntangleEnemy"]
-position = Vector2(1, -0.5)
-shape = SubResource("RectangleShape2D_wwfcx")
+[node name="EntangleEnemy" parent="." instance=ExtResource("2_vqua8")]
+position = Vector2(1515.65, -162.223)
