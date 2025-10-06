@@ -6,6 +6,8 @@ const Complex = preload("res://scripts/complex.gd")
 
 ## GAME CONTROL ##
 var current_level: Node = null
+var current_level_path = ""
+var is_loading = false
 var delta_theta = 0
 @onready var timer: Timer = $Timer
 
@@ -50,12 +52,11 @@ func add_point():
 			sound_player.play()
 
 func schedule_respawn(dead_body: Node2D) -> void:
-	pending_respawn = dead_body
 	# Tween fade-out
 	var tween = get_tree().create_tween()
 	tween.tween_property(
-		pending_respawn, "modulate",
-		Color(pending_respawn.modulate.r, pending_respawn.modulate.g, pending_respawn.modulate.b, 0.0),
+		dead_body, "modulate",
+		Color(dead_body.modulate.r, dead_body.modulate.g, dead_body.modulate.b, 0.0),
 		0.4
 	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
@@ -69,7 +70,11 @@ func schedule_respawn(dead_body: Node2D) -> void:
 
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
-
+	load_level(current_level_path)
+	
+	while is_loading:
+		await get_tree().process_frame
+	
 	# Update hearts / reset game if needed
 	hearts -= 1
 	current_level.hud.heart_label.text = str(hearts)
@@ -82,8 +87,6 @@ func _on_timer_timeout() -> void:
 		return
 
 	# Respawn logic
-	var respawn_player: Node2D = pending_respawn
-	pending_respawn.get_node("CollisionShape2D").disabled = false
 	current_level.player.global_position = checkpoint_position_0
 	current_level.player_2.global_position = checkpoint_position_1
 	is_dead = false
@@ -101,15 +104,15 @@ func _on_timer_timeout() -> void:
 		current_level.camera_2d.global_position = current_level.camera1.global_position
 
 	# Make player invisible first
-	respawn_player.modulate.a = 0.0
-
-	# Tween fade-in
-	var tween = get_tree().create_tween()
-	tween.tween_property(
-		respawn_player, "modulate",
-		Color(respawn_player.modulate.r, respawn_player.modulate.g, respawn_player.modulate.b, 1.0),
-		0.4
-	).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
+	#respawn_player.modulate.a = 0.0
+#
+	## Tween fade-in
+	#var tween = get_tree().create_tween()
+	#tween.tween_property(
+		#respawn_player, "modulate",
+		#Color(respawn_player.modulate.r, respawn_player.modulate.g, respawn_player.modulate.b, 1.0),
+		#0.4
+	#).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 ## SUPERPOSITION HANDLING ##
 
@@ -509,6 +512,7 @@ func load_level(path: String):
 		current_level.queue_free()
 		current_level = null
 
+	is_loading = true
 	# Defer the new level to next frame
 	call_deferred("_instantiate_level", path)
 
@@ -516,11 +520,13 @@ func _instantiate_level(path: String):
 	var level_scene = load(path).instantiate()
 	add_child(level_scene)
 	current_level = level_scene
+	current_level_path = path
 
 	if next_file_path:
 		level_scene.call_deferred("set_game_manager", self, next_file_path)
 	elif level_scene.has_method("set_game_manager"):
 		level_scene.call_deferred("set_game_manager", self)
+	is_loading = false
 
 func process_superposition():
 	if !suppos_allowed:
