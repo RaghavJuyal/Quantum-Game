@@ -27,7 +27,7 @@ var entangled_state = null
 
 ## HUD VARIABLES ##
 var score = 0
-var hearts: int = 30
+var hearts: int = 3
 var carried_gate = ""
 
 ## RESPAWN VARIABLES ##
