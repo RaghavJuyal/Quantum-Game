@@ -25,14 +25,14 @@ func game_manager_ready():
 	if game_manager == null:
 		return
 	
-	game_manager.checkpoint_player_zero = false
-	game_manager.checkpoint_position_0 = player.global_position
-	game_manager.checkpoint_position_1 = player_2.global_position
+	if game_manager.checkpoint_player_zero == null:
+		game_manager.checkpoint_player_zero = false
+		game_manager.checkpoint_position_0 = player.global_position
+		game_manager.checkpoint_position_1 = player_2.global_position
+		game_manager.set_state_one()
 	
 	hud.heart_label.text = str(game_manager.hearts)
 	hud.coins_label.text = str(game_manager.score)
-	
-	game_manager.set_state_one()
 
 func _process(delta: float) -> void:
 	# this ensures process doesn't run before level is loaded

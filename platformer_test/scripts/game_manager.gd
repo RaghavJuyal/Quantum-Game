@@ -27,7 +27,7 @@ var entangled_state = null
 
 ## HUD VARIABLES ##
 var score = 0
-var hearts: int = 3
+var hearts: int = 30
 var carried_gate = ""
 
 ## RESPAWN VARIABLES ##
@@ -101,17 +101,6 @@ func _on_timer_timeout() -> void:
 		measured = false
 		measure()
 		current_level.camera_2d.global_position = current_level.camera1.global_position
-
-	# Make player invisible first
-	#respawn_player.modulate.a = 0.0
-#
-	## Tween fade-in
-	#var tween = get_tree().create_tween()
-	#tween.tween_property(
-		#respawn_player, "modulate",
-		#Color(respawn_player.modulate.r, respawn_player.modulate.g, respawn_player.modulate.b, 1.0),
-		#0.4
-	#).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN)
 
 ## SUPERPOSITION HANDLING ##
 
