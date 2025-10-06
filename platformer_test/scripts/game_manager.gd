@@ -2,7 +2,6 @@ extends Node
 
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
-var ent_enemy_scene: PackedScene = preload("res://scenes/objects/entangled_enemy.tscn")
 @onready var pause_ui: CanvasLayer = $Pause_UI
 
 ## GAME CONTROL ##
@@ -18,12 +17,11 @@ var theta = 0
 var phi = 0
 var bloch_vec: Vector3 = Vector3(0, 0, 1)
 var entangled_state = null
-var ent_enemy_x_position = 0
 
 @export var entangled_mode = false
 @export var entangled_probs = null
 @export var hold_gem = null
-@export var hold_enemy = false
+@export var hold_enemy = null
 
 ## HUD VARIABLES ##
 var score = 0
@@ -422,13 +420,13 @@ func de_entangle(outcome_idx: int) -> void:
 			hold_gem.instantiate_gem(true)
 	elif hold_enemy:
 		if outcome_idx == 0:
-			instantiate_enemy(true, true)
+			hold_enemy.instantiate_enemy(true, true)
 		elif outcome_idx == 1:
-			instantiate_enemy(false, false)
+			hold_enemy.instantiate_enemy(false, false)
 		elif outcome_idx == 2:
-			instantiate_enemy(true, false)
+			hold_enemy.instantiate_enemy(true, false)
 		else:
-			instantiate_enemy(false, true)
+			hold_enemy.instantiate_enemy(false, true)
 	
 	edit_hud_deentangle()
 	
@@ -447,26 +445,6 @@ func edit_hud_deentangle() -> void:
 	current_level.hud.get_node("1").text = "|1>: "
 	current_level.hud.get_node("phi").text = "phi: "
 	current_level.hud.get_node("theta").text = "theta: "
-
-func instantiate_enemy(level_zero: bool, kill: bool) -> void:
-	hold_enemy = false
-	var enemy = ent_enemy_scene.instantiate()
-	if level_zero:
-		enemy.is_state_zero = true
-		if kill:
-			enemy.global_position = current_level.player.global_position + Vector2(0, -20)
-		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player.global_position.y - 20)
-	else:
-		enemy.is_state_zero = false
-		if kill:
-			enemy.global_position = current_level.player_2.global_position + Vector2(0, -20)
-		else:
-			enemy.global_position = Vector2(ent_enemy_x_position, current_level.player_2.global_position.y - 20)
-	current_level.add_child(enemy)
-	enemy.add_to_group("entanglables")
-	
-	current_level.hud.get_node("enemy").visible = false
 
 ## INTERACTABLE / ENTANGLABLE ##
 
