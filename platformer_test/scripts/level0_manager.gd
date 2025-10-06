@@ -26,8 +26,8 @@ func game_manager_ready():
 	if game_manager == null:
 		return
 
-	if game_manager.checkpoint_player == null:
-		game_manager.checkpoint_player = player_2
+	if game_manager.checkpoint_player_zero == null:
+		game_manager.checkpoint_player_zero = false
 		game_manager.checkpoint_position_0 = player.global_position
 		game_manager.checkpoint_position_1 = player_2.global_position
 		game_manager.set_state_one()

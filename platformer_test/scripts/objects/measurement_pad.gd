@@ -6,7 +6,7 @@ extends Area2D
 var played_sound = false
 
 func _on_body_entered(body: Node2D) -> void:
-	game_manager.checkpoint_player = body
+	game_manager.checkpoint_player_zero = body.is_state_zero
 	game_manager.checkpoint_position_0 = player.global_position
 	game_manager.checkpoint_position_1 = player_2.global_position
 	

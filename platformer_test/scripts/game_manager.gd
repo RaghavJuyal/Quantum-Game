@@ -31,11 +31,10 @@ var hearts: int = 3
 var carried_gate = ""
 
 ## RESPAWN VARIABLES ##
-var pending_respawn
 var is_dead = false
 var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
-var checkpoint_player
+var checkpoint_player_zero
 
 var next_file_path = null
 
@@ -90,7 +89,7 @@ func _on_timer_timeout() -> void:
 	current_level.player.global_position = checkpoint_position_0
 	current_level.player_2.global_position = checkpoint_position_1
 	is_dead = false
-	if checkpoint_player == current_level.player:
+	if checkpoint_player_zero:
 		theta = 0
 		phi = 0
 		measured = false
