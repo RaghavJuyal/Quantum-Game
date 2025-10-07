@@ -20,7 +20,15 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if game_manager.entangled_mode:
-		return
+		# handling this is just to be thorough, in practice it should not be used
+		var state = game_manager.measure_entangled()
+		Engine.time_scale = 0.5
+		game_manager.is_dead = true
+		if state == 0:
+			body = game_manager.current_level.player
+		else:
+			body = game_manager.current_level.player_2
+		game_manager.schedule_respawn(body)
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
 	# since both players enter, we trigger only once
 	# we remove the player that didn't trigger if fidelity condition fails
