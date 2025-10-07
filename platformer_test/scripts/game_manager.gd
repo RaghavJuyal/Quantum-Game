@@ -27,6 +27,7 @@ var entangled_state = null
 
 ## HUD VARIABLES ##
 var score = 0
+var coins_picked_up = []
 var hearts: int = 3
 var carried_gate = ""
 
@@ -38,10 +39,11 @@ var checkpoint_player_zero
 
 var next_file_path = null
 
-func add_point():
+func add_point(coin_name: String) -> void:
 	# Update coins collected
 	score += 1
 	current_level.hud.get_node("CoinsLabel").text = str(score)
+	coins_picked_up.append(coin_name)
 	# 5 coins = +1 heart
 	if score % 5 == 0:
 		hearts += 1
