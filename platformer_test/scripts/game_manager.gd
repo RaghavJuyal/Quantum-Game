@@ -27,6 +27,10 @@ var entangled_state = null
 
 ## HUD VARIABLES ##
 var score = 0
+const coins_picked_up_reset = []
+const hearts_reset: int = 3
+const carried_gate_reset = ""
+
 var coins_picked_up = []
 var hearts: int = 3
 var carried_gate = ""
@@ -670,3 +674,9 @@ func _process(_delta: float) -> void:
 	if current_level == null:
 		pause_ui.visible = false
 		load_level("res://scenes/start_screen.tscn")
+		
+func progress_reset() -> void:
+	hearts = hearts_reset
+	coins_picked_up = coins_picked_up_reset
+	carried_gate = carried_gate_reset
+	score = 0

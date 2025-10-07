@@ -7,6 +7,7 @@ func _ready() -> void:
 	get_tree().paused = false
 
 func _on_start_button_pressed() -> void:
+	game_manager.progress_reset()
 	game_manager.load_level(selector_scene)
 
 func _on_settings_button_pressed() -> void:

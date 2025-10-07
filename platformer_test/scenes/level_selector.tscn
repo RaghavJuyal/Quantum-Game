@@ -213,6 +213,16 @@ theme_override_fonts/font = ExtResource("1_gkmvm")
 theme_override_font_sizes/font_size = 8
 script = ExtResource("1_aeu7d")
 
+[node name="start_screen" type="Button" parent="CanvasLayer"]
+offset_left = -43.9
+offset_top = 64.2
+offset_right = 6.1
+offset_bottom = 84.2
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("1_gkmvm")
+theme_override_font_sizes/font_size = 8
+text = "Back"
+
 [node name="Tilemap" type="Node" parent="."]
 
 [node name="Background" type="TileMapLayer" parent="Tilemap"]
@@ -229,3 +239,4 @@ zoom = Vector2(3, 3)
 [connection signal="pressed" from="CanvasLayer/level0" to="CanvasLayer/level0" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/level1" to="CanvasLayer/level1" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/level2" to="CanvasLayer/level2" method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/start_screen" to="." method="_on_back_button_pressed"]

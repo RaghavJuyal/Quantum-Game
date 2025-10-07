@@ -204,3 +204,5 @@ tile_set = SubResource("TileSet_he1sj")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
