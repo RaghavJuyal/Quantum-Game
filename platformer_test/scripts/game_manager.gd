@@ -633,6 +633,9 @@ func process_interact():
 				current_merlin.handle_interaction()
 
 func process_entanglement():
+	if entangled_mode:
+		return
+	
 	if Input.is_action_just_pressed("c_not"):
 		var target = _is_on_entanglable(current_level.player)
 		if target == null:
