@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=4 uid="uid://dd1dgkipoaid4"]
 
-[ext_resource type="Script" uid="uid://dauu35nef5gnb" path="res://scripts/volume_slider.gd" id="1_assm4"]
 [ext_resource type="Script" uid="uid://b0gkti1ni3lwx" path="res://scripts/settings_screen.gd" id="1_pt01f"]
 [ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_pt01f"]
 [ext_resource type="Texture2D" uid="uid://da1al1um5semr" path="res://assets/sprites/world_tileset.png" id="3_n20dh"]
+[ext_resource type="PackedScene" uid="uid://dwgg0yroq8yvl" path="res://scenes/volume_slider.tscn" id="3_pt01f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o7i0r"]
 texture = ExtResource("3_n20dh")
@@ -182,27 +182,6 @@ script = ExtResource("1_pt01f")
 scale = Vector2(5, 5)
 transform = Transform2D(5, 0, 0, 5, 0, 0)
 
-[node name="HSlider" type="HSlider" parent="CanvasLayer"]
-anchors_preset = -1
-anchor_left = 0.043
-anchor_right = 0.043
-offset_left = 25.464
-offset_top = 150.0
-offset_right = 225.464
-offset_bottom = 166.0
-grow_horizontal = 2
-grow_vertical = 2
-max_value = 10.0
-step = 0.1
-script = ExtResource("1_assm4")
-
-[node name="Label" type="Label" parent="CanvasLayer/HSlider"]
-layout_mode = 1
-offset_left = 71.2
-offset_top = 18.0
-offset_right = 111.2
-offset_bottom = 41.0
-
 [node name="Button" type="Button" parent="CanvasLayer"]
 offset_left = 30.0
 offset_top = 230.0
@@ -211,6 +190,8 @@ offset_bottom = 250.0
 theme_override_fonts/font = ExtResource("2_pt01f")
 theme_override_font_sizes/font_size = 8
 text = "Back"
+
+[node name="Panel" parent="CanvasLayer" instance=ExtResource("3_pt01f")]
 
 [node name="Tilemap" type="Node" parent="."]
 
@@ -223,6 +204,3 @@ tile_set = SubResource("TileSet_he1sj")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
-
-[connection signal="value_changed" from="CanvasLayer/HSlider" to="CanvasLayer/HSlider" method="_on_value_changed"]
-[connection signal="pressed" from="CanvasLayer/Button" to="CanvasLayer/HSlider" method="_on_back_button_pressed"]
