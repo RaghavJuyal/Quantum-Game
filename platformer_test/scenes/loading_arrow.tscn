@@ -1,15 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://ddwat60ogbkph"]
+[gd_scene load_steps=5 format=3 uid="uid://ddwat60ogbkph"]
 
-[ext_resource type="Script" uid="uid://bjp6kcht7vawn" path="res://scripts/arrow_loading_rotation.gd" id="1_1elge"]
+[ext_resource type="Script" uid="uid://bjp6kcht7vawn" path="res://scripts/objects/arrow_loading_rotation.gd" id="1_1elge"]
 [ext_resource type="ArrayMesh" uid="uid://boujjq24wl4ol" path="res://assets/sprites/uploads_files_2780780_Modern+Arrow.obj" id="2_0yutr"]
 
+[sub_resource type="Environment" id="Environment_1elge"]
+background_color = Color(0.301961, 0.301961, 0.301961, 1)
+ambient_light_source = 3
+reflected_light_source = 1
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hprjd"]
+shading_mode = 0
 albedo_color = Color(1, 0, 0.176471, 1)
 
 [node name="Node3D" type="Node3D"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45134, 0.197429, 1.08203)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45134, 0.197429, 1.61647)
+environment = SubResource("Environment_1elge")
 
 [node name="Bra_ket" type="Node3D" parent="."]
 script = ExtResource("1_1elge")
