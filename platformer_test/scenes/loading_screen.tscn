@@ -14,9 +14,10 @@ script = ExtResource("1_ep5rh")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 0
-offset_left = 830.0
+offset_left = 600.0
 offset_top = 1000.0
-offset_right = 1390.0
+offset_right = 1160.0
 offset_bottom = 1060.0
+scale = Vector2(2, 2)
 
 [node name="arrowScene" parent="." instance=ExtResource("2_hprjd")]
