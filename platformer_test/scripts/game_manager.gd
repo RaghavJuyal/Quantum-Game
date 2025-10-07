@@ -481,6 +481,18 @@ func _is_on_entanglable(p: Node):
 			return intarea
 	return null
 
+func _is_on_pressure_plate(p: Node):
+	if not p.has_node("interact_area"):
+		print("hold up")
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("pressure_plate"):
+			return true
+	for intarea in area.get_overlapping_areas():
+		if intarea.is_in_group("pressure_plate"):
+			return true
+	return false
+
 func Stopper() -> void:
 	current_level.player.stop = true
 	current_level.player_2.stop = true
@@ -525,6 +537,8 @@ func process_superposition():
 			requester = current_level.player_2
 		var ok = try_superposition(requester)
 		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+			ok = false
+		if _is_on_pressure_plate(current_level.player) or _is_on_pressure_plate(current_level.player_2):
 			ok = false
 		if ok:
 			suppos_allowed = true
