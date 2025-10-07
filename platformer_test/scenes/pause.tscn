@@ -34,10 +34,10 @@ text = "Main Menu"
 
 [node name="Panel" parent="Panel" instance=ExtResource("3_m0klm")]
 layout_mode = 0
-offset_left = -298.0
-offset_top = 31.0
-offset_right = -258.0
-offset_bottom = 71.0
+offset_left = -385.0
+offset_top = 40.0
+offset_right = -345.0
+offset_bottom = 80.0
 scale = Vector2(4, 4)
 
 [connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
