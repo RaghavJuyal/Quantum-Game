@@ -24,20 +24,33 @@ offset_bottom = 425.0
 texture = ExtResource("1_j44tr")
 region_rect = Rect2(0, 0, 48, 48)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 0
-offset_right = 4800.0
-offset_bottom = 1764.0
-scale = Vector2(0.4, 0.25)
-
-[node name="Label" type="Label" parent="MarginContainer"]
+[node name="Continue" type="Label" parent="."]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
+offset_left = 649.0
+offset_top = 357.0
+offset_right = 1263.0
+offset_bottom = 445.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_constants/line_spacing = 20
 theme_override_fonts/font = ExtResource("2_s13s5")
-theme_override_font_sizes/font_size = 96
+theme_override_font_sizes/font_size = 32
+text = "Press SPACE to continue"
+vertical_alignment = 1
+autowrap_mode = 2
+visible_characters_behavior = 1
+
+[node name="Dialogue" type="Label" parent="."]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+offset_left = 2.0
+offset_top = 151.0
+offset_right = 1898.0
+offset_bottom = 354.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 20
+theme_override_fonts/font = ExtResource("2_s13s5")
+theme_override_font_sizes/font_size = 28
 text = "According to all known laws of aviation, there is no way a bee should be able to fly.
 "
 vertical_alignment = 1

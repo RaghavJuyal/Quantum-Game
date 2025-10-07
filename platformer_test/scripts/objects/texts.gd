@@ -1,5 +1,5 @@
 extends TextEdit  # Control node is fine
-@onready var label: Label = $MarginContainer/Label
+@onready var label: Label = $Dialogue
 
 var filepath = "res://scripts/objects/dialogue.json"
 var parsedResult = {}
