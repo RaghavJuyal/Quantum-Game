@@ -36,6 +36,7 @@ func game_manager_ready():
 	hud.coins_label.text = str(game_manager.score)
 
 func load_next_level():
+	game_manager.coins_picked_up = []
 	game_manager.load_level(next_level)
 
 func _process(delta: float) -> void:

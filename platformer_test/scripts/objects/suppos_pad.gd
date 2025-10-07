@@ -3,7 +3,7 @@ extends Area2D
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var self_node: Node = $"."
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
-@onready var coin_pick_sound: AudioStreamPlayer2D = $pickupsound
+@onready var zone_sound: AudioStreamPlayer2D = $CheckZone
 
 @export var target_theta: float = PI / 2
 @export var target_phi: float = 0.0
@@ -20,7 +20,15 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if game_manager.entangled_mode:
-		return # TODO: Figure out better handling
+		# handling this is just to be thorough, in practice it should not be used
+		var state = game_manager.measure_entangled()
+		Engine.time_scale = 0.5
+		game_manager.is_dead = true
+		if state == 0:
+			body = game_manager.current_level.player
+		else:
+			body = game_manager.current_level.player_2
+		game_manager.schedule_respawn(body)
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
 	# since both players enter, we trigger only once
 	# we remove the player that didn't trigger if fidelity condition fails
@@ -28,7 +36,6 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	if triggered:
 		if fidelity < fidelity_threshold:
-			#body.get_node("CollisionShape2D").queue_free()
 			game_manager.schedule_respawn(body)
 			game_manager.is_dead = true
 		return
@@ -42,16 +49,14 @@ func _on_body_entered(body: Node2D) -> void:
 		fidelity_shown = true
 		
 	if fidelity >= fidelity_threshold:
-		game_manager.add_point()
-		coin_pick_sound.play()
-		await coin_pick_sound.finished
+		zone_sound.play()
+		await zone_sound.finished
 		self_node.get_node("CollisionShape2D").queue_free()
 		self_node.get_node("Sprite2D").queue_free()
 	else:
 		game_manager.set_state_zero()
 		Engine.time_scale = 0.5
 		game_manager.is_dead = true
-		#body.get_node("CollisionShape2D").queue_free()
 		game_manager.schedule_respawn(body)
 		triggered = false
 	# removes check zone if passed, but not the label

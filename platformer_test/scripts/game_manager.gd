@@ -27,6 +27,7 @@ var entangled_state = null
 
 ## HUD VARIABLES ##
 var score = 0
+var coins_picked_up = []
 var hearts: int = 3
 var carried_gate = ""
 
@@ -38,10 +39,11 @@ var checkpoint_player_zero
 
 var next_file_path = null
 
-func add_point():
+func add_point(coin_name: String) -> void:
 	# Update coins collected
 	score += 1
 	current_level.hud.get_node("CoinsLabel").text = str(score)
+	coins_picked_up.append(coin_name)
 	# 5 coins = +1 heart
 	if score % 5 == 0:
 		hearts += 1
@@ -481,6 +483,18 @@ func _is_on_entanglable(p: Node):
 			return intarea
 	return null
 
+func _is_on_pressure_plate(p: Node):
+	if not p.has_node("interact_area"):
+		print("hold up")
+	var area = p.get_node("interact_area")
+	for body in area.get_overlapping_bodies():
+		if body.is_in_group("pressure_plate"):
+			return true
+	for intarea in area.get_overlapping_areas():
+		if intarea.is_in_group("pressure_plate"):
+			return true
+	return false
+
 func Stopper() -> void:
 	current_level.player.stop = true
 	current_level.player_2.stop = true
@@ -525,6 +539,8 @@ func process_superposition():
 			requester = current_level.player_2
 		var ok = try_superposition(requester)
 		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+			ok = false
+		if _is_on_pressure_plate(current_level.player) or _is_on_pressure_plate(current_level.player_2):
 			ok = false
 		if ok:
 			suppos_allowed = true
@@ -619,6 +635,9 @@ func process_interact():
 				current_merlin.handle_interaction()
 
 func process_entanglement():
+	if entangled_mode:
+		return
+	
 	if Input.is_action_just_pressed("c_not"):
 		var target = _is_on_entanglable(current_level.player)
 		if target == null:

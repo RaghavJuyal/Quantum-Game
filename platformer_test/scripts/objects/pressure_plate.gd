@@ -6,6 +6,9 @@ signal released
 @onready var pressure_plate: RigidBody2D = $".."
 var bodies_on_plate: Array = []
 
+func _ready() -> void:
+	pressure_plate.add_to_group("pressure_plate")
+
 func _on_body_entered(body: Node) -> void:
 	if body == pressure_plate:
 		return
