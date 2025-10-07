@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if game_manager.entangled_mode:
-		return # TODO: Figure out better handling
+		return
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
 	# since both players enter, we trigger only once
 	# we remove the player that didn't trigger if fidelity condition fails
@@ -28,7 +28,6 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	if triggered:
 		if fidelity < fidelity_threshold:
-			#body.get_node("CollisionShape2D").queue_free()
 			game_manager.schedule_respawn(body)
 			game_manager.is_dead = true
 		return
@@ -50,7 +49,6 @@ func _on_body_entered(body: Node2D) -> void:
 		game_manager.set_state_zero()
 		Engine.time_scale = 0.5
 		game_manager.is_dead = true
-		#body.get_node("CollisionShape2D").queue_free()
 		game_manager.schedule_respawn(body)
 		triggered = false
 	# removes check zone if passed, but not the label
