@@ -412,7 +412,7 @@ offset_right = -88.0
 offset_bottom = -24.0
 
 [node name="Finish" parent="." instance=ExtResource("14_ooohs")]
-position = Vector2(2617, -82)
+position = Vector2(-1039, -82)
 
 [node name="Merlins" type="Node" parent="."]
 

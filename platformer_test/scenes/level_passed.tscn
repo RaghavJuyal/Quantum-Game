@@ -1,0 +1,66 @@
+[gd_scene load_steps=4 format=3 uid="uid://djvneltpci3kd"]
+
+[ext_resource type="Script" uid="uid://dadswb5f23hno" path="res://scripts/level_passed.gd" id="1_iqfj3"]
+[ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_ujml2"]
+[ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="2_iqfj3"]
+
+[node name="Level_passed" type="CanvasLayer"]
+script = ExtResource("1_iqfj3")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(600, 600)
+anchors_preset = -1
+anchor_right = 0.170139
+anchor_bottom = 0.24537
+offset_right = 600.0
+offset_bottom = 600.0
+metadata/_edit_use_anchors_ = true
+
+[node name="Try Again" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 259.0
+offset_top = 440.0
+offset_right = 694.0
+offset_bottom = 595.0
+theme_override_fonts/font = ExtResource("1_ujml2")
+theme_override_font_sizes/font_size = 48
+text = "Try Again"
+
+[node name="Level Select" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 606.0
+offset_right = 740.0
+offset_bottom = 761.0
+theme_override_fonts/font = ExtResource("1_ujml2")
+theme_override_font_sizes/font_size = 48
+text = "Level Select"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 122.0
+offset_top = 55.0
+offset_right = 811.0
+offset_bottom = 261.0
+theme_override_fonts/font = ExtResource("2_iqfj3")
+theme_override_font_sizes/font_size = 40
+text = "You did your best... 
+
+I think"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 270.0
+offset_top = 222.0
+offset_right = 959.0
+offset_bottom = 428.0
+theme_override_fonts/font = ExtResource("2_iqfj3")
+theme_override_font_sizes/font_size = 32
+text = "Coins: 
+Hearts: 
+Time: 
+Final Score: "
+autowrap_mode = 3
+
+[connection signal="pressed" from="Panel/Try Again" to="." method="_on_try_again_pressed"]
+[connection signal="pressed" from="Panel/Level Select" to="." method="_on_level_select_pressed"]

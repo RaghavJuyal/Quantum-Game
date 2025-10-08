@@ -5,6 +5,7 @@ const Complex = preload("res://scripts/complex.gd")
 @onready var timer: Timer = $Timer
 @onready var pause_ui: CanvasLayer = $Pause_UI
 @onready var level_failed: CanvasLayer = $Level_failed
+@onready var level_passed: CanvasLayer = $Level_passed
 
 ## GAME CONTROL ##
 var current_level: Node = null
@@ -681,6 +682,20 @@ func process_fail():
 	if !get_tree().paused:
 		get_tree().paused = true
 		level_failed.visible = true
+
+func process_success():
+	randomize()
+	level_passed.label.text = level_passed.SUCCESS_MESSAGES[randi() % level_passed.SUCCESS_MESSAGES.size()]
+	level_passed.label_2.text = "Coins: " + str(score) + "\nHearts: " + str(hearts) + "\nTime: " + "300" +" s" + "\nFinal Score: " +"250"
+	score = 0
+	current_level.hud.coins_label.text = str(score)
+	hearts = 3
+	current_level.hud.heart_label.text = str(hearts)
+	coins_picked_up = []
+	checkpoint_player_zero = null
+	is_dead = false
+	get_tree().paused = true
+	level_passed.visible = true
 	
 ## PROCESS ##
 
@@ -688,6 +703,7 @@ func _process(_delta: float) -> void:
 	if current_level == null:
 		pause_ui.visible = false
 		level_failed.visible = false
+		level_passed.visible = false
 		load_level("res://scenes/start_screen.tscn")
 		
 func progress_reset() -> void:
