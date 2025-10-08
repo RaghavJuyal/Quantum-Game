@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=4 uid="uid://esextp6uge4f"]
+[gd_scene load_steps=40 format=4 uid="uid://esextp6uge4f"]
 
 [ext_resource type="Script" uid="uid://bt6chlwrso5go" path="res://scripts/level2_manager.gd" id="1_ac7c3"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/objects/player.tscn" id="2_qo7hg"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://blpn1xx5kspbh" path="res://scenes/objects/measurement_pad.tscn" id="10_ehxya"]
 [ext_resource type="PackedScene" uid="uid://clveei1rqh67u" path="res://scenes/objects/suppos_pad.tscn" id="11_tn25f"]
 [ext_resource type="Script" uid="uid://duo1s0ic2a746" path="res://scripts/objects/puzzle.gd" id="12_5b1db"]
+[ext_resource type="PackedScene" uid="uid://b2ammolsfglwj" path="res://scenes/objects/entangle_pad.tscn" id="12_xnv6s"]
 [ext_resource type="PackedScene" uid="uid://bukjm6u0mt0tw" path="res://scenes/objects/wire.tscn" id="13_etc3t"]
 [ext_resource type="PackedScene" uid="uid://dcgby18clyino" path="res://scenes/objects/remove_gate.tscn" id="14_go57r"]
 [ext_resource type="PackedScene" uid="uid://bl4a1pld6v3mh" path="res://scenes/objects/add_gate.tscn" id="15_58bux"]
@@ -467,7 +468,7 @@ text = "THE END"
 position = Vector2(240, -78)
 
 [node name="measurement_pad2" parent="Zones" instance=ExtResource("10_ehxya")]
-position = Vector2(2604, 1)
+position = Vector2(2239, -77)
 
 [node name="suppos_pad" parent="Zones" instance=ExtResource("11_tn25f")]
 position = Vector2(912, 112)
@@ -475,6 +476,9 @@ position = Vector2(912, 112)
 [node name="suppos_pad2" parent="Zones" instance=ExtResource("11_tn25f")]
 position = Vector2(1120, 112)
 target_phi = 4.712
+
+[node name="entangle_pad" parent="Zones" instance=ExtResource("12_xnv6s")]
+position = Vector2(2350, 112)
 
 [node name="Puzzle" type="Node2D" parent="."]
 position = Vector2(560, 0)
@@ -621,6 +625,7 @@ collision_mask = 2
 position = Vector2(3266, -83)
 
 [node name="EntangledGem" parent="." instance=ExtResource("30_icuov")]
+position = Vector2(96, -1)
 is_state_zero = true
 
 [node name="PressureKeyLock" parent="." instance=ExtResource("32_3xffc")]

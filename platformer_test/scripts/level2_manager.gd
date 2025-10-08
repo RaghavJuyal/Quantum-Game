@@ -56,11 +56,12 @@ func _process(delta: float) -> void:
 		elif !game_manager.measured and game_manager.entangled_mode:
 			game_manager.measure_entangled()
 	
+	var time_taken = Time.get_ticks_msec() / 1000.0
 	# update hud
 	if !game_manager.entangled_mode:
-		game_manager.process_update_hud(Time.get_ticks_msec() / 1000.0)
+		game_manager.process_update_hud(time_taken)
 	else:
-		game_manager.update_hud_entangle()
+		game_manager.update_hud_entangle(time_taken)
 	hud.get_node("carried_gate").text = str(game_manager.carried_gate)
 	
 	# update camera
@@ -70,6 +71,6 @@ func _process(delta: float) -> void:
 	game_manager.process_interact()
 	
 	# entangle
-	game_manager.process_entanglement()
+	game_manager.process_entanglement(time_taken)
 	
 	game_manager.process_pause()

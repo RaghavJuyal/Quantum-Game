@@ -67,7 +67,8 @@ func _physics_process(delta: float) -> void:
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 		
-		move_and_slide()
+		if !game_manager.is_teleporting:
+			move_and_slide()
 		if game_manager.current_level:
 			game_manager.sync_players()
 		if !game_manager.entangled_mode:

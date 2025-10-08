@@ -82,7 +82,6 @@ func schedule_respawn(dead_body: Node2D) -> void:
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
 	
-	
 	# Update hearts / reset game if needed
 	hearts -= 1
 	current_level.hud.heart_label.text = str(hearts)
@@ -92,7 +91,6 @@ func _on_timer_timeout() -> void:
 		hearts = 3
 		current_level.hud.heart_label.text = str(hearts)
 		coins_picked_up = []
-		#get_tree().reload_current_scene()
 		checkpoint_player_zero = null
 		is_dead = false
 		process_fail()
@@ -396,7 +394,7 @@ func apply_gate_entangled(U: Array) -> void:
 	entangled_state = new_state
 	entangled_probs = calculate_entangled_probs()
 
-func edit_hud_entangle() -> void:
+func edit_hud_entangle(time_taken) -> void:
 	if hold_gem:
 		current_level.hud.get_node("gem_carried").visible = true
 	if hold_enemy:
@@ -410,13 +408,15 @@ func edit_hud_entangle() -> void:
 	current_level.hud.get_node("phi").text = "|11>: "
 	current_level.hud.get_node("theta").text = "|10>: "
 	
-	update_hud_entangle()
+	update_hud_entangle(time_taken)
 
-func update_hud_entangle() -> void:
+func update_hud_entangle(time_taken) -> void:
 	current_level.hud.get_node("Percent1").text = str(round(entangled_probs[0] * 1000.0) / 10.0)
 	current_level.hud.get_node("Percent0").text = str(round(entangled_probs[1] * 1000.0) / 10.0)
 	current_level.hud.get_node("phi_value").text = str(round(entangled_probs[3] * 1000.0) / 10.0)
 	current_level.hud.get_node("theta_value").text = str(round(entangled_probs[2] * 1000.0) / 10.0)
+	level_elapsed_time = time_taken - level_start_time
+	current_level.time_taken.label_2.text = "%.1f s" % level_elapsed_time
 
 func de_entangle(outcome_idx: int) -> void:
 	entangled_mode = false
@@ -654,7 +654,7 @@ func process_interact():
 				var current_merlin = area.get_parent()
 				current_merlin.handle_interaction()
 
-func process_entanglement():
+func process_entanglement(time_taken):
 	if entangled_mode:
 		return
 	
@@ -669,7 +669,7 @@ func process_entanglement():
 			entangled_mode = true
 			entangled_state = calculate_entangled_state(target.is_state_zero)
 			entangled_probs = calculate_entangled_probs()
-			edit_hud_entangle()
+			edit_hud_entangle(time_taken)
 			current_level.player.color_sprite()
 			current_level.player_2.color_sprite()
 			target.queue_free()
@@ -683,6 +683,7 @@ func process_pause():
 		if !get_tree().paused:
 			get_tree().paused = true
 			pause_ui.visible = true
+
 func process_fail():
 	if !get_tree().paused:
 		get_tree().paused = true
@@ -721,7 +722,7 @@ func process_success():
 	is_dead = false
 	get_tree().paused = true
 	level_passed.visible = true
-	
+
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
@@ -730,8 +731,7 @@ func _process(_delta: float) -> void:
 		level_failed.visible = false
 		level_passed.visible = false
 		load_level("res://scenes/start_screen.tscn")
-	
-		
+
 func progress_reset() -> void:
 	hearts = hearts_reset
 	coins_picked_up = coins_picked_up_reset
