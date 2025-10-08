@@ -82,7 +82,6 @@ func schedule_respawn(dead_body: Node2D) -> void:
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
 	
-	
 	# Update hearts / reset game if needed
 	hearts -= 1
 	current_level.hud.heart_label.text = str(hearts)
@@ -92,7 +91,6 @@ func _on_timer_timeout() -> void:
 		hearts = 3
 		current_level.hud.heart_label.text = str(hearts)
 		coins_picked_up = []
-		#get_tree().reload_current_scene()
 		checkpoint_player_zero = null
 		is_dead = false
 		process_fail()
@@ -683,6 +681,7 @@ func process_pause():
 		if !get_tree().paused:
 			get_tree().paused = true
 			pause_ui.visible = true
+
 func process_fail():
 	if !get_tree().paused:
 		get_tree().paused = true
@@ -721,7 +720,7 @@ func process_success():
 	is_dead = false
 	get_tree().paused = true
 	level_passed.visible = true
-	
+
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
@@ -730,8 +729,7 @@ func _process(_delta: float) -> void:
 		level_failed.visible = false
 		level_passed.visible = false
 		load_level("res://scenes/start_screen.tscn")
-	
-		
+
 func progress_reset() -> void:
 	hearts = hearts_reset
 	coins_picked_up = coins_picked_up_reset
