@@ -13,6 +13,7 @@ var current_level_path = ""
 var next_file_path = null
 var is_loading = false
 var delta_theta = 0
+var current_level_name
 
 ## PLAYER STATE ##
 var suppos_allowed = true
@@ -690,7 +691,8 @@ func process_fail():
 func process_success():
 	randomize()
 	level_passed.label.text = level_passed.SUCCESS_MESSAGES[randi() % level_passed.SUCCESS_MESSAGES.size()]
-	level_passed.label_2.text = "Coins: " + str(score) + "\n\nHearts: " + str(hearts) + "\n\nTime: " + "%.2f s" % level_elapsed_time + "\n\nFinal Score: " +"250"
+	var final_score = (score*10 + hearts*50) *clamp(300.0/level_elapsed_time,0.5,5) 
+	level_passed.label_2.text = "Coins: " + str(score) + "\n\nHearts: " + str(hearts) + "\n\nTime: " + "%.2f s" % level_elapsed_time + "\n\nFinal Score: " + "%.2f" %final_score
 	score = 0
 	current_level.hud.coins_label.text = str(score)
 	hearts = 3
