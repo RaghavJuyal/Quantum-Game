@@ -57,3 +57,5 @@ volume_db = -7.526
 position = Vector2(1886, 77)
 target_theta = 2.45
 target_phi = 4.5
+
+[connection signal="teleportation_complete" from="." to="suppos_pad" method="teleportation_complete"]

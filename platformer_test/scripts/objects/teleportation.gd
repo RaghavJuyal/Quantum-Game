@@ -21,6 +21,9 @@ var circuit_sequence: Array = ["H_middle","CNOT_middle_bottom","CNOT_top_middle"
 
 var player_on_start: bool = false
 var is_slots = false
+
+signal teleportation_complete
+
 # --- Input handling ---
 
 func _ready() -> void:
@@ -63,6 +66,7 @@ func _find_leftmost_common_empty_index() -> int:
 	return -1
 
 func run_teleportation():
+	game_manager.is_teleporting = true
 	await animate_teleport_circuit()
 	var top_result = randi() % 2
 	var mid_result = randi() % 2
@@ -82,6 +86,9 @@ func run_teleportation():
 	if sound_player and not sound_player.playing:
 		sound_player.play()
 	await _animate_corrections(top_result, mid_result)
+	
+	game_manager.is_teleporting = false
+	emit_signal("teleportation_complete")
 
 # Animate all wires column by column, then unpush
 func animate_teleport_circuit(pause_time: float = 0.2) -> void:

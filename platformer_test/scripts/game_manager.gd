@@ -25,6 +25,7 @@ var entangled_state = null
 @export var entangled_probs = null
 @export var hold_gem = null
 @export var hold_enemy = null
+var is_teleporting = false
 
 ## HUD VARIABLES ##
 var score = 0

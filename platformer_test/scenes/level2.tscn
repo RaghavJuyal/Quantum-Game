@@ -466,7 +466,7 @@ text = "THE END"
 position = Vector2(240, -78)
 
 [node name="measurement_pad2" parent="Zones" instance=ExtResource("10_ehxya")]
-position = Vector2(2254, 3)
+position = Vector2(2604, 1)
 
 [node name="suppos_pad" parent="Zones" instance=ExtResource("11_tn25f")]
 position = Vector2(912, 112)
@@ -632,3 +632,5 @@ is_state_zero = true
 [node name="entangled_enemy2" parent="." instance=ExtResource("32_icuov")]
 position = Vector2(2784, -2)
 is_state_zero = true
+
+[connection signal="teleportation_complete" from="Teleportation" to="Teleportation/suppos_pad" method="teleportation_complete"]
