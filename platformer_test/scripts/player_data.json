@@ -1,23 +1,11 @@
 {
- "highest_level": 2,
- "highscore": [
-  {
-   "level_0": 0.0
-  },
-  {
-   "level_1": 0.0
-  },
-  {
-   "level_2": 0.0
-  },
-  {
-   "level_0_hard": 0.0
-  },
-  {
-   "level_1_hard": 0.0
-  },
-  {
-   "level_2_hard": 0.0
-  }
- ]
+	"highest_level": 0,
+	"highscore":[
+		{"level0": 0},
+		{"level1": 0},
+		{"level2": 0},
+		{"level0hard": 0},
+		{"level1hard": 0},
+		{"level2hard": 0}
+	]
 }

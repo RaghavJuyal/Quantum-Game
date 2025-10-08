@@ -42,9 +42,9 @@ text = "Level Select"
 
 [node name="Label" type="Label" parent="."]
 offset_left = 122.0
-offset_top = 55.0
+offset_top = 33.0
 offset_right = 811.0
-offset_bottom = 261.0
+offset_bottom = 239.0
 theme_override_fonts/font = ExtResource("2_iqfj3")
 theme_override_font_sizes/font_size = 40
 text = "You did your best... 
@@ -55,9 +55,9 @@ autowrap_mode = 3
 
 [node name="Label2" type="Label" parent="."]
 offset_left = 270.0
-offset_top = 222.0
+offset_top = 176.0
 offset_right = 959.0
-offset_bottom = 428.0
+offset_bottom = 382.0
 theme_override_fonts/font = ExtResource("2_iqfj3")
 theme_override_font_sizes/font_size = 32
 text = "Coins: 
@@ -65,6 +65,16 @@ Hearts:
 Time: 
 Final Score: "
 autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 585.0
+offset_top = 432.0
+offset_right = 953.0
+offset_bottom = 464.0
+theme_override_colors/font_color = Color(0.905882, 0.972549, 0, 1)
+theme_override_fonts/font = ExtResource("2_iqfj3")
+theme_override_font_sizes/font_size = 32
+text = "New High Score"
 
 [connection signal="pressed" from="Panel/Try Again" to="." method="_on_try_again_pressed"]
 [connection signal="pressed" from="Panel/Level Select" to="." method="_on_level_select_pressed"]

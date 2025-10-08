@@ -692,6 +692,26 @@ func process_success():
 	randomize()
 	level_passed.label.text = level_passed.SUCCESS_MESSAGES[randi() % level_passed.SUCCESS_MESSAGES.size()]
 	var final_score = (score*10 + hearts*50) *clamp(300.0/level_elapsed_time,0.5,5) 
+	var parsedResult
+	var path = "res://scripts/player_data.json"
+	if FileAccess.file_exists(path):
+		var f = FileAccess.open(path, FileAccess.READ)
+		parsedResult = JSON.parse_string(f.get_as_text())
+	else:
+		parsedResult = {}
+	print(current_level_name)
+	var index = 0
+	for level_dict in parsedResult["highscore"]:
+		if level_dict.has(current_level_name):
+			break
+		index+=1
+	if parsedResult["highscore"][index][current_level_name]< final_score:
+		parsedResult["highscore"][index][current_level_name] = final_score
+		level_passed.label_3.visible = true
+	var save_file = FileAccess.open(path, FileAccess.WRITE)
+	if save_file:
+		save_file.store_string(JSON.stringify(parsedResult," "))
+		save_file.close()
 	level_passed.label_2.text = "Coins: " + str(score) + "\n\nHearts: " + str(hearts) + "\n\nTime: " + "%.2f s" % level_elapsed_time + "\n\nFinal Score: " + "%.2f" %final_score
 	score = 0
 	current_level.hud.coins_label.text = str(score)
