@@ -699,7 +699,6 @@ func process_success():
 		parsedResult = JSON.parse_string(f.get_as_text())
 	else:
 		parsedResult = {}
-	print(current_level_name)
 	var index = 0
 	for level_dict in parsedResult["highscore"]:
 		if level_dict.has(current_level_name):

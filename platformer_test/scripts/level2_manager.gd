@@ -37,7 +37,7 @@ func game_manager_ready():
 	hud.coins_label.text = str(game_manager.score)
 	
 func load_next_level():
-		game_manager.process_success()
+	game_manager.process_success()
 
 func _process(delta: float) -> void:
 	# this ensures process doesn't run before level is loaded
