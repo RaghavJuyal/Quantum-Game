@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://djvneltpci3kd"]
+[gd_scene load_steps=5 format=3 uid="uid://djvneltpci3kd"]
 
 [ext_resource type="Script" uid="uid://dadswb5f23hno" path="res://scripts/level_passed.gd" id="1_iqfj3"]
 [ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_ujml2"]
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="2_iqfj3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqfj3"]
+bg_color = Color(0.0470588, 0.0470588, 0.0470588, 0.784314)
 
 [node name="Level_passed" type="CanvasLayer"]
 script = ExtResource("1_iqfj3")
@@ -14,14 +17,15 @@ anchor_right = 0.170139
 anchor_bottom = 0.24537
 offset_right = 600.0
 offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iqfj3")
 metadata/_edit_use_anchors_ = true
 
 [node name="Try Again" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 259.0
-offset_top = 440.0
+offset_top = 482.0
 offset_right = 694.0
-offset_bottom = 595.0
+offset_bottom = 637.0
 theme_override_fonts/font = ExtResource("1_ujml2")
 theme_override_font_sizes/font_size = 48
 text = "Try Again"
@@ -29,9 +33,9 @@ text = "Try Again"
 [node name="Level Select" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 210.0
-offset_top = 606.0
+offset_top = 665.0
 offset_right = 740.0
-offset_bottom = 761.0
+offset_bottom = 820.0
 theme_override_fonts/font = ExtResource("1_ujml2")
 theme_override_font_sizes/font_size = 48
 text = "Level Select"

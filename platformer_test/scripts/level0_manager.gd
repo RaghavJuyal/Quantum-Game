@@ -13,6 +13,8 @@ const next_level = "res://scenes/level1.tscn"
 @onready var camera1: Camera2D = $Player2/Camera2D
 @onready var midground: TileMapLayer = $Tilemap/Midground
 @onready var midground_2: TileMapLayer = $Tilemap/Midground2
+@onready var time_taken: CanvasLayer = $TimeTaken
+
 
 func _ready() -> void:
 	camera_2d.make_current()
@@ -31,6 +33,7 @@ func game_manager_ready():
 		game_manager.checkpoint_position_0 = player.global_position
 		game_manager.checkpoint_position_1 = player_2.global_position
 		game_manager.set_state_one()
+		game_manager.level_start_time = Time.get_ticks_msec() / 1000.0
 	
 	hud.heart_label.text = str(game_manager.hearts)
 	hud.coins_label.text = str(game_manager.score)
@@ -57,7 +60,7 @@ func _process(delta: float) -> void:
 			game_manager.measure()
 	
 	# update hud
-	game_manager.process_update_hud()
+	game_manager.process_update_hud(Time.get_ticks_msec() / 1000.0)
 	
 	# update camera
 	game_manager.process_camera()

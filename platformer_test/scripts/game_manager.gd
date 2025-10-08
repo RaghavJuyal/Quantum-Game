@@ -39,6 +39,8 @@ var carried_gate = ""
 var coins_picked_up_reset = []
 var hearts_reset: int = 3
 var carried_gate_reset = ""
+var level_start_time: float = 0.0
+var level_elapsed_time: float = 0.0
 
 ## RESPAWN VARIABLES ##
 var is_dead = false
@@ -582,10 +584,11 @@ func process_superposition():
 			else:
 				rotate_z_entangled(delta_theta)
 
-func process_update_hud():
+func process_update_hud(time_taken):
 	var prob0_raw = (cos(theta/2.0)**2)*100
 	var prob0 = round(prob0_raw * 10.0) / 10.0
 	var prob1 = round((100 - prob0) * 10.0) / 10.0
+	level_elapsed_time = time_taken - level_start_time
 	if prob0_raw >= 100.0-0.02:
 		measured = true
 		state = 0
@@ -602,6 +605,7 @@ func process_update_hud():
 	current_level.hud.get_node("Percent1").text = str(prob1)
 	current_level.hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
 	current_level.hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+	current_level.time_taken.label_2.text = "%.1f s" % level_elapsed_time
 
 func process_camera():
 	var alpha0 = current_level.player.get_node("AnimatedSprite2D").self_modulate.a
@@ -686,7 +690,7 @@ func process_fail():
 func process_success():
 	randomize()
 	level_passed.label.text = level_passed.SUCCESS_MESSAGES[randi() % level_passed.SUCCESS_MESSAGES.size()]
-	level_passed.label_2.text = "Coins: " + str(score) + "\nHearts: " + str(hearts) + "\nTime: " + "300" +" s" + "\nFinal Score: " +"250"
+	level_passed.label_2.text = "Coins: " + str(score) + "\n\nHearts: " + str(hearts) + "\n\nTime: " + "%.2f s" % level_elapsed_time + "\n\nFinal Score: " +"250"
 	score = 0
 	current_level.hud.coins_label.text = str(score)
 	hearts = 3
@@ -705,9 +709,14 @@ func _process(_delta: float) -> void:
 		level_failed.visible = false
 		level_passed.visible = false
 		load_level("res://scenes/start_screen.tscn")
+	
 		
 func progress_reset() -> void:
 	hearts = hearts_reset
 	coins_picked_up = coins_picked_up_reset
 	carried_gate = carried_gate_reset
 	score = 0
+	level_start_time = 0.0
+	level_elapsed_time = 0.0
+	checkpoint_player_zero = null
+	is_dead = false

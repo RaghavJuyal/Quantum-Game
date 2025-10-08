@@ -24,10 +24,12 @@ func _process(delta: float) -> void:
 func _on_try_again_pressed() -> void:
 	self.visible = false
 	get_tree().paused = false
+	game_manager.progress_reset()
 	game_manager.load_level(game_manager.current_level_path)
 
 
 func _on_level_select_pressed() -> void:
 	self.visible = false
 	get_tree().paused = false
+	game_manager.progress_reset()
 	game_manager.load_level(selector_scene)

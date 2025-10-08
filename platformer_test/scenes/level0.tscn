@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://b3167q6xah8d"]
+[gd_scene load_steps=20 format=4 uid="uid://b3167q6xah8d"]
 
 [ext_resource type="Script" uid="uid://hfmld5u0slt6" path="res://scripts/level0_manager.gd" id="1_ooohs"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/objects/player.tscn" id="2_rb68y"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://d3h8bqmmiqq2n" path="res://scenes/objects/texts.tscn" id="13_pnrra"]
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/objects/finish.tscn" id="14_ooohs"]
 [ext_resource type="PackedScene" uid="uid://b7gx8whhx2d57" path="res://scenes/objects/merlin.tscn" id="15_5xwn4"]
+[ext_resource type="PackedScene" uid="uid://cy2g3pxj4y6mq" path="res://scenes/time_taken.tscn" id="16_yoi1k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("3_jmh5o")
@@ -427,5 +428,9 @@ position = Vector2(1607, 37)
 
 [node name="merlin4" parent="Merlins" instance=ExtResource("15_5xwn4")]
 position = Vector2(2535, -73)
+
+[node name="TimeTaken" parent="." instance=ExtResource("16_yoi1k")]
+offset = Vector2(0, 1000)
+transform = Transform2D(1, 0, 0, 1, 0, 1000)
 
 [connection signal="finished_level" from="Finish" to="." method="load_next_level"]

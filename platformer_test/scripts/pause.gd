@@ -12,4 +12,5 @@ func _on_button_pressed() -> void:
 func _on_quit_button_pressed() -> void:
 	self.visible = false
 	get_tree().paused = false
+	game_manager.progress_reset()
 	game_manager.load_level("res://scenes/start_screen.tscn")
