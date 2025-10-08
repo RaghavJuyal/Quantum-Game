@@ -50,7 +50,6 @@ func check_superposition(body: Node2D) -> void:
 		return
 	if triggered:
 		if fidelity < fidelity_threshold:
-			#game_manager.schedule_respawn(body)
 			game_manager.is_dead = true
 		return
 	triggered = true
