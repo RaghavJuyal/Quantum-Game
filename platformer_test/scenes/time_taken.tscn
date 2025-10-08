@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://cy2g3pxj4y6mq"]
+
+[ext_resource type="Script" uid="uid://b3paexl3ubgni" path="res://scripts/objects/time_taken.gd" id="1_01bon"]
+[ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="1_8scyw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8scyw"]
+bg_color = Color(0.0862745, 0.0862745, 0.0862745, 0.196078)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[node name="TimeTaken" type="CanvasLayer"]
+script = ExtResource("1_01bon")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 550.0
+offset_bottom = 160.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_8scyw")
+
+[node name="Label" type="Label" parent="."]
+offset_top = 49.0
+offset_right = 304.0
+offset_bottom = 81.0
+theme_override_fonts/font = ExtResource("1_8scyw")
+theme_override_font_sizes/font_size = 32
+text = "Time Taken: "
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 294.0
+offset_top = 50.0
+offset_right = 536.0
+offset_bottom = 82.0
+theme_override_fonts/font = ExtResource("1_8scyw")
+theme_override_font_sizes/font_size = 32
+text = "##"
+metadata/_edit_use_anchors_ = true

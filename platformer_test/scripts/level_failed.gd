@@ -1,15 +1,20 @@
 extends CanvasLayer
-@onready var button: Button = $Panel/Button
+
 @onready var game_manager: Node = $".."
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 
-func _on_button_pressed() -> void:
+
+
+func _on_try_again_pressed() -> void:
 	self.visible = false
 	get_tree().paused = false
+	game_manager.progress_reset()
+	game_manager.load_level(game_manager.current_level_path)
 
-func _on_quit_button_pressed() -> void:
+
+func _on_main_menu_pressed() -> void:
 	self.visible = false
 	get_tree().paused = false
 	game_manager.progress_reset()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://ywyssibl6741"]
+[gd_scene load_steps=10 format=3 uid="uid://ywyssibl6741"]
 
 [ext_resource type="Script" uid="uid://b75g8dvmgghpe" path="res://scripts/game_manager.gd" id="1_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://dg37og73fs17c" path="res://scenes/pause.tscn" id="2_yqjtg"]
@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://blb3har1n68qw" path="res://assets/sounds/power_up.wav" id="6_p57ef"]
 [ext_resource type="AudioStream" uid="uid://bxrs383wrakh" path="res://assets/sounds/Balloon start riding 1.wav" id="7_gee14"]
 [ext_resource type="AudioStream" uid="uid://2r1eaqgtd500" path="res://assets/sounds/Big Egg collect 1.wav" id="7_u5sy4"]
+[ext_resource type="PackedScene" uid="uid://dsm1p5ycluhpi" path="res://scenes/level_failed.tscn" id="8_gee14"]
+[ext_resource type="PackedScene" uid="uid://djvneltpci3kd" path="res://scenes/level_passed.tscn" id="9_0tnpc"]
 
 [node name="Game" type="Node2D"]
 
@@ -43,5 +45,13 @@ volume_db = -11.632
 [node name="Entangle" type="AudioStreamPlayer" parent="GameManager"]
 stream = ExtResource("6_p57ef")
 volume_db = -12.86
+
+[node name="Level_failed" parent="GameManager" instance=ExtResource("8_gee14")]
+offset = Vector2(850, 400)
+transform = Transform2D(1, 0, 0, 1, 850, 400)
+
+[node name="Level_passed" parent="GameManager" instance=ExtResource("9_0tnpc")]
+offset = Vector2(675, 250)
+transform = Transform2D(1, 0, 0, 1, 675, 250)
 
 [connection signal="timeout" from="GameManager/Timer" to="GameManager" method="_on_timer_timeout"]

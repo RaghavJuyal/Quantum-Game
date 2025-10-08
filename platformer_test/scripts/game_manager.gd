@@ -4,6 +4,8 @@ extends Node
 const Complex = preload("res://scripts/complex.gd")
 @onready var timer: Timer = $Timer
 @onready var pause_ui: CanvasLayer = $Pause_UI
+@onready var level_failed: CanvasLayer = $Level_failed
+@onready var level_passed: CanvasLayer = $Level_passed
 
 ## GAME CONTROL ##
 var current_level: Node = null
@@ -11,6 +13,7 @@ var current_level_path = ""
 var next_file_path = null
 var is_loading = false
 var delta_theta = 0
+var current_level_name
 
 ## PLAYER STATE ##
 var suppos_allowed = true
@@ -37,6 +40,8 @@ var carried_gate = ""
 var coins_picked_up_reset = []
 var hearts_reset: int = 3
 var carried_gate_reset = ""
+var level_start_time: float = 0.0
+var level_elapsed_time: float = 0.0
 
 ## RESPAWN VARIABLES ##
 var is_dead = false
@@ -76,10 +81,7 @@ func schedule_respawn(dead_body: Node2D) -> void:
 
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
-	load_level(current_level_path)
 	
-	while is_loading:
-		await get_tree().process_frame
 	
 	# Update hearts / reset game if needed
 	hearts -= 1
@@ -89,9 +91,16 @@ func _on_timer_timeout() -> void:
 		current_level.hud.coins_label.text = str(score)
 		hearts = 3
 		current_level.hud.heart_label.text = str(hearts)
-		get_tree().reload_current_scene()
+		coins_picked_up = []
+		#get_tree().reload_current_scene()
+		checkpoint_player_zero = null
+		is_dead = false
+		process_fail()
 		return
-
+	load_level(current_level_path)
+	
+	while is_loading:
+		await get_tree().process_frame
 	# Respawn logic
 	current_level.player.global_position = checkpoint_position_0
 	current_level.player_2.global_position = checkpoint_position_1
@@ -576,10 +585,11 @@ func process_superposition():
 			else:
 				rotate_z_entangled(delta_theta)
 
-func process_update_hud():
+func process_update_hud(time_taken):
 	var prob0_raw = (cos(theta/2.0)**2)*100
 	var prob0 = round(prob0_raw * 10.0) / 10.0
 	var prob1 = round((100 - prob0) * 10.0) / 10.0
+	level_elapsed_time = time_taken - level_start_time
 	if prob0_raw >= 100.0-0.02:
 		measured = true
 		state = 0
@@ -596,6 +606,7 @@ func process_update_hud():
 	current_level.hud.get_node("Percent1").text = str(prob1)
 	current_level.hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
 	current_level.hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
+	current_level.time_taken.label_2.text = "%.1f s" % level_elapsed_time
 
 func process_camera():
 	var alpha0 = current_level.player.get_node("AnimatedSprite2D").self_modulate.a
@@ -672,16 +683,61 @@ func process_pause():
 		if !get_tree().paused:
 			get_tree().paused = true
 			pause_ui.visible = true
+func process_fail():
+	if !get_tree().paused:
+		get_tree().paused = true
+		level_failed.visible = true
 
+func process_success():
+	randomize()
+	level_passed.label.text = level_passed.SUCCESS_MESSAGES[randi() % level_passed.SUCCESS_MESSAGES.size()]
+	var final_score = (score*10 + hearts*50) *clamp(300.0/level_elapsed_time,0.5,5) 
+	var parsedResult
+	var path = "res://scripts/player_data.json"
+	if FileAccess.file_exists(path):
+		var f = FileAccess.open(path, FileAccess.READ)
+		parsedResult = JSON.parse_string(f.get_as_text())
+	else:
+		parsedResult = {}
+	var index = 0
+	for level_dict in parsedResult["highscore"]:
+		if level_dict.has(current_level_name):
+			break
+		index+=1
+	if parsedResult["highscore"][index][current_level_name]< final_score:
+		parsedResult["highscore"][index][current_level_name] = final_score
+		level_passed.label_3.visible = true
+	var save_file = FileAccess.open(path, FileAccess.WRITE)
+	if save_file:
+		save_file.store_string(JSON.stringify(parsedResult," "))
+		save_file.close()
+	level_passed.label_2.text = "Coins: " + str(score) + "\n\nHearts: " + str(hearts) + "\n\nTime: " + "%.2f s" % level_elapsed_time + "\n\nFinal Score: " + "%.2f" %final_score
+	score = 0
+	current_level.hud.coins_label.text = str(score)
+	hearts = 3
+	current_level.hud.heart_label.text = str(hearts)
+	coins_picked_up = []
+	checkpoint_player_zero = null
+	is_dead = false
+	get_tree().paused = true
+	level_passed.visible = true
+	
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
 	if current_level == null:
 		pause_ui.visible = false
+		level_failed.visible = false
+		level_passed.visible = false
 		load_level("res://scenes/start_screen.tscn")
+	
 		
 func progress_reset() -> void:
 	hearts = hearts_reset
 	coins_picked_up = coins_picked_up_reset
 	carried_gate = carried_gate_reset
 	score = 0
+	level_start_time = 0.0
+	level_elapsed_time = 0.0
+	checkpoint_player_zero = null
+	is_dead = false

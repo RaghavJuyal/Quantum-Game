@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=4 uid="uid://b5wlgna4td1ck"]
+[gd_scene load_steps=22 format=4 uid="uid://b5wlgna4td1ck"]
 
 [ext_resource type="Script" uid="uid://dnbc0sgn3avo4" path="res://scripts/level1_manager.gd" id="1_dxn3v"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/objects/player.tscn" id="2_14jow"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://jfixbjr8sth4" path="res://scenes/objects/dialogue.tscn" id="15_3umqw"]
 [ext_resource type="PackedScene" uid="uid://c2l2v70sfixgv" path="res://scenes/objects/finish.tscn" id="16_gqmnx"]
 [ext_resource type="PackedScene" uid="uid://cb5u4d8i5lwf2" path="res://scenes/objects/puzzle.tscn" id="17_14jow"]
+[ext_resource type="PackedScene" uid="uid://cy2g3pxj4y6mq" path="res://scenes/time_taken.tscn" id="18_mvsps"]
 [ext_resource type="PackedScene" uid="uid://du0os7yr3xt8y" path="res://scenes/objects/teleportation.tscn" id="25_4niyd"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
@@ -360,5 +361,9 @@ position = Vector2(2211, -82)
 
 [node name="Puzzle" parent="." instance=ExtResource("17_14jow")]
 position = Vector2(570, 1)
+
+[node name="TimeTaken" parent="." instance=ExtResource("18_mvsps")]
+offset = Vector2(0, 1000)
+transform = Transform2D(1, 0, 0, 1, 0, 1000)
 
 [connection signal="finished_level" from="Finish" to="." method="load_next_level"]

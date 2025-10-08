@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=3 uid="uid://djvneltpci3kd"]
+
+[ext_resource type="Script" uid="uid://dadswb5f23hno" path="res://scripts/level_passed.gd" id="1_iqfj3"]
+[ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="1_ujml2"]
+[ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="2_iqfj3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iqfj3"]
+bg_color = Color(0.0470588, 0.0470588, 0.0470588, 0.784314)
+
+[node name="Level_passed" type="CanvasLayer"]
+script = ExtResource("1_iqfj3")
+
+[node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(600, 600)
+anchors_preset = -1
+anchor_right = 0.170139
+anchor_bottom = 0.24537
+offset_right = 600.0
+offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_iqfj3")
+metadata/_edit_use_anchors_ = true
+
+[node name="Try Again" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 259.0
+offset_top = 482.0
+offset_right = 694.0
+offset_bottom = 637.0
+theme_override_fonts/font = ExtResource("1_ujml2")
+theme_override_font_sizes/font_size = 48
+text = "Try Again"
+
+[node name="Level Select" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 665.0
+offset_right = 740.0
+offset_bottom = 820.0
+theme_override_fonts/font = ExtResource("1_ujml2")
+theme_override_font_sizes/font_size = 48
+text = "Level Select"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 122.0
+offset_top = 33.0
+offset_right = 811.0
+offset_bottom = 239.0
+theme_override_fonts/font = ExtResource("2_iqfj3")
+theme_override_font_sizes/font_size = 40
+text = "You did your best... 
+
+I think"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 270.0
+offset_top = 176.0
+offset_right = 959.0
+offset_bottom = 382.0
+theme_override_fonts/font = ExtResource("2_iqfj3")
+theme_override_font_sizes/font_size = 32
+text = "Coins: 
+Hearts: 
+Time: 
+Final Score: "
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 585.0
+offset_top = 432.0
+offset_right = 953.0
+offset_bottom = 464.0
+theme_override_colors/font_color = Color(0.905882, 0.972549, 0, 1)
+theme_override_fonts/font = ExtResource("2_iqfj3")
+theme_override_font_sizes/font_size = 32
+text = "New High Score"
+
+[connection signal="pressed" from="Panel/Try Again" to="." method="_on_try_again_pressed"]
+[connection signal="pressed" from="Panel/Level Select" to="." method="_on_level_select_pressed"]

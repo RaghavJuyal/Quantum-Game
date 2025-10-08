@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=4 uid="uid://esextp6uge4f"]
+[gd_scene load_steps=39 format=4 uid="uid://esextp6uge4f"]
 
 [ext_resource type="Script" uid="uid://bt6chlwrso5go" path="res://scripts/level2_manager.gd" id="1_ac7c3"]
 [ext_resource type="PackedScene" uid="uid://dxabpex6hygyg" path="res://scenes/objects/player.tscn" id="2_qo7hg"]
@@ -32,6 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://2ssx8u4nr3nk" path="res://scenes/objects/entangled_gem.tscn" id="30_icuov"]
 [ext_resource type="PackedScene" uid="uid://cruajyjjmjwmr" path="res://scenes/objects/pressure_key_lock.tscn" id="32_3xffc"]
 [ext_resource type="PackedScene" uid="uid://6vy6e47v3ywj" path="res://scenes/objects/entangled_enemy.tscn" id="32_icuov"]
+[ext_resource type="PackedScene" uid="uid://cy2g3pxj4y6mq" path="res://scenes/time_taken.tscn" id="33_icuov"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("3_odav0")
@@ -617,7 +618,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="Finish" parent="." instance=ExtResource("29_a1fvl")]
-position = Vector2(3254, -83)
+position = Vector2(3266, -83)
 
 [node name="EntangledGem" parent="." instance=ExtResource("30_icuov")]
 is_state_zero = true
@@ -632,3 +633,9 @@ is_state_zero = true
 [node name="entangled_enemy2" parent="." instance=ExtResource("32_icuov")]
 position = Vector2(2784, -2)
 is_state_zero = true
+
+[node name="TimeTaken" parent="." instance=ExtResource("33_icuov")]
+offset = Vector2(0, 1000)
+transform = Transform2D(1, 0, 0, 1, 0, 1000)
+
+[connection signal="finished_level" from="Finish" to="." method="load_next_level"]
