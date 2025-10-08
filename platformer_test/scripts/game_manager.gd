@@ -4,6 +4,7 @@ extends Node
 const Complex = preload("res://scripts/complex.gd")
 @onready var timer: Timer = $Timer
 @onready var pause_ui: CanvasLayer = $Pause_UI
+@onready var level_failed: CanvasLayer = $Level_failed
 
 ## GAME CONTROL ##
 var current_level: Node = null
@@ -76,10 +77,7 @@ func schedule_respawn(dead_body: Node2D) -> void:
 
 func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
-	load_level(current_level_path)
 	
-	while is_loading:
-		await get_tree().process_frame
 	
 	# Update hearts / reset game if needed
 	hearts -= 1
@@ -89,9 +87,16 @@ func _on_timer_timeout() -> void:
 		current_level.hud.coins_label.text = str(score)
 		hearts = 3
 		current_level.hud.heart_label.text = str(hearts)
-		get_tree().reload_current_scene()
+		coins_picked_up = []
+		#get_tree().reload_current_scene()
+		checkpoint_player_zero = null
+		is_dead = false
+		process_fail()
 		return
-
+	load_level(current_level_path)
+	
+	while is_loading:
+		await get_tree().process_frame
 	# Respawn logic
 	current_level.player.global_position = checkpoint_position_0
 	current_level.player_2.global_position = checkpoint_position_1
@@ -672,12 +677,17 @@ func process_pause():
 		if !get_tree().paused:
 			get_tree().paused = true
 			pause_ui.visible = true
-
+func process_fail():
+	if !get_tree().paused:
+		get_tree().paused = true
+		level_failed.visible = true
+	
 ## PROCESS ##
 
 func _process(_delta: float) -> void:
 	if current_level == null:
 		pause_ui.visible = false
+		level_failed.visible = false
 		load_level("res://scenes/start_screen.tscn")
 		
 func progress_reset() -> void:
