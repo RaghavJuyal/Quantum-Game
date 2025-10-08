@@ -31,6 +31,7 @@ func _on_body_entered(body: Node2D) -> void:
 		else:
 			body = game_manager.current_level.player_2
 		game_manager.schedule_respawn(body)
+		return
 	
 	check_entangled_state(body)	
 
@@ -38,7 +39,7 @@ func compute_similarity() -> float:
 	# Bhattacharya distance
 	var sum = 0.0
 	var entangled_probs = game_manager.entangled_probs
-	sum = sqrt(entangled_probs[0] * target_00) + sqrt(entangled_probs[1] * target_01) + sqrt(entangled_probs[2] * target_10) + sqrt(entangled_probs[3] * target_11)	
+	sum = sqrt(entangled_probs[0] * target_00/100) + sqrt(entangled_probs[1] * target_01/100) + sqrt(entangled_probs[2] * target_10/100) + sqrt(entangled_probs[3] * target_11/100)	
 	return sum * sum  # Fidelity value ∈ [0, 1]
 
 func check_entangled_state(body: Node2D) -> void:
@@ -67,7 +68,7 @@ func check_entangled_state(body: Node2D) -> void:
 		self_node.get_node("Sprite2D").queue_free()
 	else:
 		# removes check zone if passed, but not the label
-		game_manager.set_state_zero()
+		game_manager.measure_entangled()
 		Engine.time_scale = 0.5
 		game_manager.is_dead = true
 		game_manager.schedule_respawn(game_manager.current_level.player)
