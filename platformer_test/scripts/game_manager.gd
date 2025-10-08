@@ -465,6 +465,8 @@ func _is_on_interactable(p: Node):
 func _is_on_teleport(p: Node):
 	if not p.has_node("interact_area"):
 		print("hold up")
+	if entangled_mode:
+		return null
 	var area = p.get_node("interact_area")
 	for body in area.get_overlapping_bodies():
 		if body.is_in_group("teleport_interact"):
