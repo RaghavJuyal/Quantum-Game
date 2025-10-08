@@ -471,41 +471,9 @@ position = Vector2(2254, 3)
 [node name="suppos_pad" parent="Zones" instance=ExtResource("11_tn25f")]
 position = Vector2(912, 112)
 
-[node name="Target" type="Label" parent="Zones/suppos_pad"]
-offset_left = -87.0
-offset_top = -39.0
-offset_right = -66.0
-offset_bottom = -16.0
-theme_override_fonts/font = ExtResource("9_4vsvd")
-theme_override_font_sizes/font_size = 8
-text = "##"
-
 [node name="suppos_pad2" parent="Zones" instance=ExtResource("11_tn25f")]
 position = Vector2(1120, 112)
 target_phi = 4.712
-
-[node name="Target" type="Label" parent="Zones/suppos_pad2"]
-offset_left = -87.0
-offset_top = -39.0
-offset_right = -66.0
-offset_bottom = -16.0
-theme_override_fonts/font = ExtResource("9_4vsvd")
-theme_override_font_sizes/font_size = 8
-text = "##"
-
-[node name="suppos_pad3" parent="Zones" instance=ExtResource("11_tn25f")]
-position = Vector2(2136, 112)
-target_theta = 2.45
-target_phi = 4.5
-
-[node name="Target" type="Label" parent="Zones/suppos_pad3"]
-offset_left = -87.0
-offset_top = -39.0
-offset_right = -66.0
-offset_bottom = -16.0
-theme_override_fonts/font = ExtResource("9_4vsvd")
-theme_override_font_sizes/font_size = 8
-text = "##"
 
 [node name="Puzzle" type="Node2D" parent="."]
 position = Vector2(560, 0)
