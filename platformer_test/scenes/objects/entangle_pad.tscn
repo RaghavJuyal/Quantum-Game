@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://b2ammolsfglwj"]
+
+[ext_resource type="Script" uid="uid://bhss0vh7h28h2" path="res://scripts/objects/entangle_pad.gd" id="1_siqtq"]
+[ext_resource type="AudioStream" uid="uid://drmxcfug72t6i" path="res://assets/sounds/Fruit collect 1.wav" id="2_ilaki"]
+[ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="3_265ux"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtwe7"]
+size = Vector2(32, 363)
+
+[sub_resource type="Gradient" id="Gradient_wtwe7"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lt4km"]
+gradient = SubResource("Gradient_wtwe7")
+
+[node name="entangle_pad" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_siqtq")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -166.5)
+shape = SubResource("RectangleShape2D_wtwe7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4.76837e-07, -166.5)
+scale = Vector2(0.5, 5.70312)
+texture = SubResource("GradientTexture2D_lt4km")
+
+[node name="CheckZone" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ilaki")
+bus = &"SFX"
+
+[node name="Target" type="Label" parent="."]
+offset_left = -87.0
+offset_top = -39.0
+offset_right = -66.0
+offset_bottom = -16.0
+theme_override_fonts/font = ExtResource("3_265ux")
+theme_override_font_sizes/font_size = 8
+text = "##"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
