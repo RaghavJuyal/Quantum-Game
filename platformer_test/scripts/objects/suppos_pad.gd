@@ -17,6 +17,7 @@ func _ready() -> void:
 	sprite.modulate = Color(0.7, 0.3, 0.9, 0.5)
 	fidelity_label.text = "Target state:\nθ = %.2f, φ = %.2f" % [round(rad_to_deg(target_theta)*10)/10, round(rad_to_deg(target_phi)*10)/10]
 	fidelity_shown = false
+	z_index = 10
 
 func _on_body_entered(body: Node2D) -> void:
 	if game_manager.entangled_mode:
@@ -29,6 +30,19 @@ func _on_body_entered(body: Node2D) -> void:
 		else:
 			body = game_manager.current_level.player_2
 		game_manager.schedule_respawn(body)
+	
+	if game_manager.is_teleporting:
+		# temporarily disable until teleportation completes
+		set_deferred("monitoring", false)
+	else:
+		check_superposition(body)	
+
+func teleportation_complete():
+	set_deferred("monitoring", true)
+	for body in get_overlapping_bodies():
+		check_superposition(body)
+
+func check_superposition(body: Node2D) -> void:
 	var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
 	# since both players enter, we trigger only once
 	# we remove the player that didn't trigger if fidelity condition fails
@@ -36,7 +50,6 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 	if triggered:
 		if fidelity < fidelity_threshold:
-			game_manager.schedule_respawn(body)
 			game_manager.is_dead = true
 		return
 	triggered = true
@@ -54,9 +67,9 @@ func _on_body_entered(body: Node2D) -> void:
 		self_node.get_node("CollisionShape2D").queue_free()
 		self_node.get_node("Sprite2D").queue_free()
 	else:
+		# removes check zone if passed, but not the label
 		game_manager.set_state_zero()
 		Engine.time_scale = 0.5
 		game_manager.is_dead = true
-		game_manager.schedule_respawn(body)
+		game_manager.schedule_respawn(game_manager.current_level.player)
 		triggered = false
-	# removes check zone if passed, but not the label

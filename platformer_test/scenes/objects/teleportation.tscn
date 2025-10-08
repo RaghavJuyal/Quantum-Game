@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://du0os7yr3xt8y"]
+[gd_scene load_steps=8 format=3 uid="uid://du0os7yr3xt8y"]
 
 [ext_resource type="Script" uid="uid://b0nr3ui5i7ucj" path="res://scripts/objects/teleportation.gd" id="1_m458l"]
 [ext_resource type="Texture2D" uid="uid://dfylk1t3er3tv" path="res://assets/puzzle_game_gfx/Blocks/block_1_orange_outline.png" id="2_1w1r3"]
 [ext_resource type="Texture2D" uid="uid://c1u3sdkkcriv5" path="res://assets/puzzle_game_gfx/Blocks/block_1_blue_outline.png" id="3_p66o8"]
 [ext_resource type="PackedScene" uid="uid://dfoervmeqi0lp" path="res://scenes/objects/wire_teleport.tscn" id="4_07vus"]
 [ext_resource type="AudioStream" uid="uid://cgma6yxya3p3h" path="res://assets/sounds/new pack/Ascend 1.wav" id="5_1w1r3"]
+[ext_resource type="PackedScene" uid="uid://clveei1rqh67u" path="res://scenes/objects/suppos_pad.tscn" id="5_p66o8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uci1l"]
 size = Vector2(14, 14)
@@ -51,3 +52,10 @@ middle_count = 4
 [node name="TeleportSuccess" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_1w1r3")
 volume_db = -7.526
+
+[node name="suppos_pad" parent="." instance=ExtResource("5_p66o8")]
+position = Vector2(1886, 77)
+target_theta = 2.45
+target_phi = 4.5
+
+[connection signal="teleportation_complete" from="." to="suppos_pad" method="teleportation_complete"]

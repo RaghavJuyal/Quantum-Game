@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://clveei1rqh67u"]
+[gd_scene load_steps=7 format=3 uid="uid://clveei1rqh67u"]
 
 [ext_resource type="Script" uid="uid://fi4l4xwglmcv" path="res://scripts/objects/suppos_pad.gd" id="1_lt4km"]
 [ext_resource type="AudioStream" uid="uid://drmxcfug72t6i" path="res://assets/sounds/Fruit collect 1.wav" id="2_58jg3"]
+[ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="3_5dgw3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wtwe7"]
 size = Vector2(32, 363)
@@ -27,5 +28,14 @@ texture = SubResource("GradientTexture2D_lt4km")
 [node name="CheckZone" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("2_58jg3")
 bus = &"SFX"
+
+[node name="Target" type="Label" parent="."]
+offset_left = -87.0
+offset_top = -39.0
+offset_right = -66.0
+offset_bottom = -16.0
+theme_override_fonts/font = ExtResource("3_5dgw3")
+theme_override_font_sizes/font_size = 8
+text = "##"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

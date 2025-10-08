@@ -383,41 +383,14 @@ position = Vector2(240, -78)
 [node name="suppos_pad" parent="Zones" instance=ExtResource("11_tmlue")]
 position = Vector2(1664, 112)
 
-[node name="Target" type="Label" parent="Zones/suppos_pad"]
-offset_left = -87.0
-offset_top = -39.0
-offset_right = -66.0
-offset_bottom = -16.0
-theme_override_fonts/font = ExtResource("10_867pa")
-theme_override_font_sizes/font_size = 8
-text = "##"
-
 [node name="suppos_pad2" parent="Zones" instance=ExtResource("11_tmlue")]
 position = Vector2(2288, 112)
 target_phi = 4.712
-
-[node name="Target" type="Label" parent="Zones/suppos_pad2"]
-offset_left = -87.0
-offset_top = -39.0
-offset_right = -66.0
-offset_bottom = -16.0
-theme_override_fonts/font = ExtResource("10_867pa")
-theme_override_font_sizes/font_size = 8
-text = "##"
 
 [node name="suppos_pad3" parent="Zones" instance=ExtResource("11_tmlue")]
 position = Vector2(1888, 112)
 target_theta = 0.785
 target_phi = 3.491
-
-[node name="Target" type="Label" parent="Zones/suppos_pad3"]
-offset_left = -87.0
-offset_top = -39.0
-offset_right = -66.0
-offset_bottom = -16.0
-theme_override_fonts/font = ExtResource("10_867pa")
-theme_override_font_sizes/font_size = 8
-text = "##"
 
 [node name="measurement_pad2" parent="Zones" instance=ExtResource("12_uw5x2")]
 position = Vector2(1549, 35)

@@ -2,14 +2,15 @@ extends Node
 
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
+@onready var timer: Timer = $Timer
 @onready var pause_ui: CanvasLayer = $Pause_UI
 
 ## GAME CONTROL ##
 var current_level: Node = null
 var current_level_path = ""
+var next_file_path = null
 var is_loading = false
 var delta_theta = 0
-@onready var timer: Timer = $Timer
 
 ## PLAYER STATE ##
 var suppos_allowed = true
@@ -24,24 +25,24 @@ var entangled_state = null
 @export var entangled_probs = null
 @export var hold_gem = null
 @export var hold_enemy = null
+var is_teleporting = false
 
 ## HUD VARIABLES ##
 var score = 0
-const coins_picked_up_reset = []
-const hearts_reset: int = 3
-const carried_gate_reset = ""
-
 var coins_picked_up = []
 var hearts: int = 3
 var carried_gate = ""
+
+## RESET VARIABLES ##
+var coins_picked_up_reset = []
+var hearts_reset: int = 3
+var carried_gate_reset = ""
 
 ## RESPAWN VARIABLES ##
 var is_dead = false
 var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
 var checkpoint_player_zero
-
-var next_file_path = null
 
 func add_point(coin_name: String) -> void:
 	# Update coins collected
@@ -464,6 +465,8 @@ func _is_on_interactable(p: Node):
 func _is_on_teleport(p: Node):
 	if not p.has_node("interact_area"):
 		print("hold up")
+	if entangled_mode:
+		return null
 	var area = p.get_node("interact_area")
 	for body in area.get_overlapping_bodies():
 		if body.is_in_group("teleport_interact"):
@@ -543,6 +546,8 @@ func process_superposition():
 			requester = current_level.player_2
 		var ok = try_superposition(requester)
 		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+			ok = false
+		if _is_on_teleport(current_level.player) or _is_on_teleport(current_level.player_2):
 			ok = false
 		if _is_on_pressure_plate(current_level.player) or _is_on_pressure_plate(current_level.player_2):
 			ok = false
