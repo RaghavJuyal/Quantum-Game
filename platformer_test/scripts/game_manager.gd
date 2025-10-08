@@ -2,14 +2,15 @@ extends Node
 
 ## PRELOAD SCRIPTS ##
 const Complex = preload("res://scripts/complex.gd")
+@onready var timer: Timer = $Timer
 @onready var pause_ui: CanvasLayer = $Pause_UI
 
 ## GAME CONTROL ##
 var current_level: Node = null
 var current_level_path = ""
+var next_file_path = null
 var is_loading = false
 var delta_theta = 0
-@onready var timer: Timer = $Timer
 
 ## PLAYER STATE ##
 var suppos_allowed = true
@@ -27,21 +28,20 @@ var entangled_state = null
 
 ## HUD VARIABLES ##
 var score = 0
-const coins_picked_up_reset = []
-const hearts_reset: int = 3
-const carried_gate_reset = ""
-
 var coins_picked_up = []
 var hearts: int = 3
 var carried_gate = ""
+
+## RESET VARIABLES ##
+var coins_picked_up_reset = []
+var hearts_reset: int = 3
+var carried_gate_reset = ""
 
 ## RESPAWN VARIABLES ##
 var is_dead = false
 var checkpoint_position_0:  Vector2
 var checkpoint_position_1: Vector2
 var checkpoint_player_zero
-
-var next_file_path = null
 
 func add_point(coin_name: String) -> void:
 	# Update coins collected
