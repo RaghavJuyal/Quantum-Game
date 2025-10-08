@@ -547,6 +547,8 @@ func process_superposition():
 		var ok = try_superposition(requester)
 		if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
 			ok = false
+		if _is_on_teleport(current_level.player) or _is_on_teleport(current_level.player_2):
+			ok = false
 		if _is_on_pressure_plate(current_level.player) or _is_on_pressure_plate(current_level.player_2):
 			ok = false
 		if ok:

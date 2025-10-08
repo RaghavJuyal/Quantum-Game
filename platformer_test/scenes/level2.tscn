@@ -632,5 +632,3 @@ is_state_zero = true
 [node name="entangled_enemy2" parent="." instance=ExtResource("32_icuov")]
 position = Vector2(2784, -2)
 is_state_zero = true
-
-[connection signal="teleportation_complete" from="Teleportation" to="Teleportation/suppos_pad" method="teleportation_complete"]
