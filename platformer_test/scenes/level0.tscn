@@ -309,7 +309,7 @@ offset_right = -884.0
 offset_bottom = 12.0
 theme_override_fonts/font = ExtResource("10_867pa")
 theme_override_font_sizes/font_size = 8
-text = "Space to jump and arrow keys for left and right(Lvl0)"
+text = "Space to jump and arrow keys for left and right (Lvl0)"
 
 [node name="merlin_talk" type="Label" parent="Labels"]
 offset_left = -1164.0
