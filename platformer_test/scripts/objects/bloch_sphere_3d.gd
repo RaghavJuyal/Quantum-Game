@@ -11,16 +11,16 @@ func _ready():
 
 	# Sphere material (translucent light blue)
 	var sphere_mat = StandardMaterial3D.new()
-	sphere_mat.albedo_color = Color(0.4, 0.7, 1.0)
+	sphere_mat.albedo_color = Color(0.4, 0.7, 1.0, 0.2)
 	sphere_mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
 	sphere_mat.albedo_color.a = 0.2
 	sphere_mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	sphere.material_override = sphere_mat
 
 	# Add thick axes using cylinders
-	_add_axis(Vector3(1, 0, 0), Color(1.0, 0.4, 0.4), "X Axis")   # X → red
-	_add_axis(Vector3(0, 0, 1), Color(0.5, 1.0, 0.5), "Y Axis")  # Y → green
-	_add_axis(Vector3(0, 1, 0), Color(0.4, 0.6, 1.0), "Z Axis") # Z → blue (up)
+	_add_axis(Vector3(1, 0, 0), Color(1.0, 0.8, 0.2, 0.7), "X Axis")   # X → red
+	_add_axis(Vector3(0, 0, 1), Color(0.3, 0.8, 0.4, 0.7), "Y Axis")  # Y → green
+	_add_axis(Vector3(0, 1, 0), Color(0.537, 0.812, 0.941, 0.7), "Z Axis") # Z → blue (up)
 
 	# Add a light for soft shading (optional)
 	var light = DirectionalLight3D.new()
@@ -28,17 +28,17 @@ func _ready():
 	add_child(light)
 
 	var arrow_mat = StandardMaterial3D.new()
-	arrow_mat.albedo_color = Color(0, 0, 0)
+	arrow_mat.albedo_color = Color(1, 0, 0)
 	arrow.material_override = arrow_mat
 	# Position arrow so it rotates around its base
 	arrow.position = Vector3(0, 0.125, 0)
 	for child in arrow.get_children():
-		child.position = Vector3(0, 0.125, 0)  # move the tip forward
+		child.position = Vector3(0, 0.1, 0)  # move the tip forward
 		child.material_override = arrow_mat
 
 	# Camera setup — angled so all 3 axes visible
 	var cam = $Camera3D
-	cam.position = Vector3(1.5, 1, 3)
+	cam.position = Vector3(2.2, 1.25, 2.5)
 	cam.look_at(Vector3.ZERO)
 
 func _add_axis(direction: Vector3, color: Color, name: String):
@@ -46,13 +46,13 @@ func _add_axis(direction: Vector3, color: Color, name: String):
 	axis.name = name
 
 	var cyl = CylinderMesh.new()
-	cyl.height = 0.60
+	cyl.height = 0.48
 	cyl.top_radius = 0.01
 	cyl.bottom_radius = 0.01
 	axis.mesh = cyl
 
 	var mat = StandardMaterial3D.new()
-	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_MAX
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	mat.albedo_color = color
 	axis.material_override = mat
