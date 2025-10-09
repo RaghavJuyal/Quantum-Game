@@ -31,9 +31,9 @@ func _ready():
 	arrow_mat.albedo_color = Color(0, 0, 0)
 	arrow.material_override = arrow_mat
 	# Position arrow so it rotates around its base
-	arrow.position = Vector3(0, 0, 0)
+	arrow.position = Vector3(0, 0.125, 0)
 	for child in arrow.get_children():
-		child.position = Vector3(0, 0.25, 0)  # move the tip forward
+		child.position = Vector3(0, 0.125, 0)  # move the tip forward
 		child.material_override = arrow_mat
 
 	# Camera setup — angled so all 3 axes visible
@@ -74,17 +74,17 @@ func _process(delta):
 	# Reset / Measurement logic
 	if game_manager.state == 0:
 		# |0> → point up (Z+)
-		arrow.rotation = Vector3(0, 0, 0)
+		wrapper.rotation = Vector3(0, 0, 0)
 	elif game_manager.state == 1:
 		# |1> → point down (Z-)
-		arrow.rotation = Vector3(PI, 0, 0)
+		wrapper.rotation = Vector3(PI, 0, 0)
 	elif game_manager.suppos_allowed:
 		# X rotation
 		if Input.is_action_pressed("x_rotation"):
-			arrow.rotate_x(game_manager.delta_theta)
+			wrapper.rotate_x(game_manager.delta_theta)
 		# Y rotation
 		if Input.is_action_pressed("y_rotation"):
-			arrow.rotate_z(-game_manager.delta_theta)
+			wrapper.rotate_z(-game_manager.delta_theta)
 		# Z rotation
 		if Input.is_action_pressed("z_rotation"):
-			arrow.rotate_y(game_manager.delta_theta)
+			wrapper.rotate_y(game_manager.delta_theta)

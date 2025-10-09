@@ -29,7 +29,7 @@ height = 0.6
 [sub_resource type="CylinderMesh" id="CylinderMesh_cmwec"]
 top_radius = 0.015
 bottom_radius = 0.015
-height = 0.5
+height = 0.25
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_qflrv"]
 top_radius = 0.0
@@ -190,6 +190,7 @@ mesh = SubResource("SphereMesh_cmwec")
 [node name="Wrapper" type="Node3D" parent="BlochSphere/BlochSphere3D"]
 
 [node name="Arrow" type="MeshInstance3D" parent="BlochSphere/BlochSphere3D/Wrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
 mesh = SubResource("CylinderMesh_cmwec")
 skeleton = NodePath("../..")
 
