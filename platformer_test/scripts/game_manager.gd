@@ -399,9 +399,11 @@ func edit_hud_entangle(time_taken) -> void:
 		current_level.hud.get_node("gem_carried").visible = true
 	if hold_enemy:
 		current_level.hud.get_node("enemy").visible = true
-	current_level.hud.get_node("BlochSphere").visible = false
-	current_level.hud.get_node("0_Bloch").visible = false
-	current_level.hud.get_node("1_Bloch").visible = false
+	current_level.hud.get_node("Bloch_Render").visible = false
+	current_level.hud.get_node("X_Label").visible = false
+	current_level.hud.get_node("Y_Label").visible = false
+	current_level.hud.get_node("Z_Label").visible = false
+	current_level.hud.get_node("1_Label").visible = false
 	
 	current_level.hud.get_node("0").text = "|01>: "
 	current_level.hud.get_node("1").text = "|00>: "
@@ -444,9 +446,11 @@ func edit_hud_deentangle() -> void:
 	if hold_gem == null:
 		current_level.hud.get_node("gem_carried").visible = false
 	current_level.hud.get_node("enemy").visible = false
-	current_level.hud.get_node("BlochSphere").visible = true
-	current_level.hud.get_node("0_Bloch").visible = true
-	current_level.hud.get_node("1_Bloch").visible = true
+	current_level.hud.get_node("Bloch_Render").visible = true
+	current_level.hud.get_node("X_Label").visible = true
+	current_level.hud.get_node("Y_Label").visible = true
+	current_level.hud.get_node("Z_Label").visible = true
+	current_level.hud.get_node("1_Label").visible = true
 	
 	current_level.hud.get_node("0").text = "|0>: "
 	current_level.hud.get_node("1").text = "|1>: "
