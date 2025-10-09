@@ -3,11 +3,10 @@
 [ext_resource type="Script" uid="uid://07igknrhuyay" path="res://scripts/objects/hud.gd" id="1_5ysmq"]
 [ext_resource type="Texture2D" uid="uid://h2et6qe150l5" path="res://assets/sprites/coin.png" id="1_ahhtf"]
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="3_6fi6k"]
-[ext_resource type="ArrayMesh" uid="uid://boujjq24wl4ol" path="res://assets/sprites/uploads_files_2780780_Modern+Arrow.obj" id="4_6fi6k"]
-[ext_resource type="Script" uid="uid://ch4t2vrvp7nkw" path="res://scripts/objects/arrow.gd" id="5_uo2fv"]
 [ext_resource type="Texture2D" uid="uid://cvq0vahg1nm2u" path="res://assets/puzzle_game_gfx/Gems/gem_octagon_purple_outline.png" id="6_047uy"]
 [ext_resource type="Texture2D" uid="uid://bbf33oarwo80m" path="res://assets/puzzle_game_gfx/Animals/animal_squirrel.png" id="7_5pdws"]
 [ext_resource type="Texture2D" uid="uid://btwylfdjio5kr" path="res://assets/sprites/hearts.png" id="8_hd3ao"]
+[ext_resource type="Script" uid="uid://b3n3tlrf0jr1e" path="res://scripts/objects/bloch_sphere_3d.gd" id="9_qflrv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo0fn"]
 atlas = ExtResource("1_ahhtf")
@@ -20,17 +19,22 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uo2fv"]
-transparency = 1
-albedo_color = Color(0.490196, 0.921569, 0.992157, 0.145098)
+[sub_resource type="ViewportTexture" id="ViewportTexture_y5rlc"]
+viewport_path = NodePath("BlochSphere")
 
-[sub_resource type="SphereMesh" id="SphereMesh_6fi6k"]
-material = SubResource("StandardMaterial3D_uo2fv")
-radius = 1.0
-height = 2.0
+[sub_resource type="SphereMesh" id="SphereMesh_cmwec"]
+radius = 0.25
+height = 0.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_047uy"]
-albedo_color = Color(1, 0, 0.176471, 1)
+[sub_resource type="CylinderMesh" id="CylinderMesh_cmwec"]
+top_radius = 0.015
+bottom_radius = 0.015
+height = 0.22
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_qflrv"]
+top_radius = 0.0
+bottom_radius = 0.04
+height = 0.04
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0i1j5"]
 atlas = ExtResource("8_hd3ao")
@@ -52,16 +56,6 @@ offset_top = 13.0
 offset_right = 2232.0
 offset_bottom = 173.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_5ysmq")
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="."]
-offset_left = 416.0
-offset_top = 67.0
-offset_right = 456.0
-offset_bottom = 107.0
-theme_override_fonts/font = ExtResource("3_6fi6k")
-theme_override_font_sizes/font_size = 40
-text = "x"
 metadata/_edit_use_anchors_ = true
 
 [node name="Label2" type="Label" parent="."]
@@ -109,16 +103,6 @@ theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "phi:"
 
-[node name="0_Bloch" type="Label" parent="."]
-offset_left = 1168.0
-offset_top = 16.0
-offset_right = 1278.0
-offset_bottom = 56.0
-scale = Vector2(0.4, 0.442)
-theme_override_fonts/font = ExtResource("3_6fi6k")
-theme_override_font_sizes/font_size = 40
-text = "|0>"
-
 [node name="Percent0" type="Label" parent="."]
 offset_left = 814.0
 offset_top = 99.0
@@ -145,6 +129,16 @@ offset_bottom = 92.0
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 64
 text = "##"
+
+[node name="Label" type="Label" parent="."]
+offset_left = 416.0
+offset_top = 67.0
+offset_right = 456.0
+offset_bottom = 107.0
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 40
+text = "x"
+metadata/_edit_use_anchors_ = true
 
 [node name="theta_value" type="Label" parent="."]
 offset_left = 1536.0
@@ -173,44 +167,80 @@ theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 40
 text = "theta:"
 
-[node name="1_Bloch" type="Label" parent="."]
-offset_left = 1168.0
-offset_top = 150.0
-offset_right = 1278.0
-offset_bottom = 190.0
-scale = Vector2(0.4, 0.478)
-theme_override_fonts/font = ExtResource("3_6fi6k")
-theme_override_font_sizes/font_size = 40
-text = "|1>"
+[node name="Bloch_Render" type="TextureRect" parent="."]
+offset_left = 634.0
+offset_top = -188.0
+offset_right = 1740.0
+offset_bottom = 376.0
+texture = SubResource("ViewportTexture_y5rlc")
 
-[node name="BlochSphere" type="SubViewportContainer" parent="."]
-offset_left = 632.0
-offset_top = -192.0
-offset_right = 1738.0
-offset_bottom = 372.0
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="BlochSphere"]
+[node name="BlochSphere" type="SubViewport" parent="."]
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
 size = Vector2i(1106, 564)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="BlochSphere/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+[node name="BlochSphere3D" type="Node3D" parent="BlochSphere"]
+script = ExtResource("9_qflrv")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="BlochSphere/SubViewport"]
-transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 2, 4, 2)
+[node name="Sphere" type="MeshInstance3D" parent="BlochSphere/BlochSphere3D"]
+mesh = SubResource("SphereMesh_cmwec")
 
-[node name="sphere" type="MeshInstance3D" parent="BlochSphere/SubViewport"]
-mesh = SubResource("SphereMesh_6fi6k")
+[node name="Wrapper" type="Node3D" parent="BlochSphere/BlochSphere3D"]
 
-[node name="arrow" type="MeshInstance3D" parent="BlochSphere/SubViewport"]
-transform = Transform3D(-1.74846e-09, 8.74228e-10, -0.02, -0.02, 8.74228e-10, 1.74846e-09, 8.74228e-10, 0.02, 8.74228e-10, 0, 0.2, 0)
-mesh = ExtResource("4_6fi6k")
-surface_material_override/0 = SubResource("StandardMaterial3D_047uy")
-script = ExtResource("5_uo2fv")
+[node name="Arrow" type="MeshInstance3D" parent="BlochSphere/BlochSphere3D/Wrapper"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+mesh = SubResource("CylinderMesh_cmwec")
+skeleton = NodePath("../..")
+
+[node name="Arrow Tip" type="MeshInstance3D" parent="BlochSphere/BlochSphere3D/Wrapper/Arrow"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("CylinderMesh_qflrv")
+
+[node name="Camera3D" type="Camera3D" parent="BlochSphere/BlochSphere3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, 2.5)
+fov = 45.0
+
+[node name="X_Label" type="Label" parent="."]
+offset_left = 1235.0
+offset_top = 104.0
+offset_right = 1258.0
+offset_bottom = 140.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 20
+text = "X"
+
+[node name="Y_Label" type="Label" parent="."]
+offset_left = 1125.0
+offset_top = 109.0
+offset_right = 1143.0
+offset_bottom = 145.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 20
+text = "Y"
+
+[node name="Z_Label" type="Label" parent="."]
+offset_left = 1161.0
+offset_top = 24.0
+offset_right = 1252.0
+offset_bottom = 60.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 20
+text = "ZI0>"
+
+[node name="1_Label" type="Label" parent="."]
+offset_left = 1174.0
+offset_top = 150.0
+offset_right = 1229.0
+offset_bottom = 186.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_6fi6k")
+theme_override_font_sizes/font_size = 20
+text = "I1>"
 
 [node name="carried_gate" type="Label" parent="."]
 offset_left = 1824.0

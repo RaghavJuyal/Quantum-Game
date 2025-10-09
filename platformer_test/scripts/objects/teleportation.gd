@@ -11,7 +11,7 @@ extends Node2D
 
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 @onready var hud: CanvasLayer = $"../HUD"
-@onready var arrow: MeshInstance3D = hud.get_node("BlochSphere/SubViewport/arrow")
+@onready var arrow: Node3D = hud.get_node("BlochSphere/BlochSphere3D")
 
 # --- Quantum state ---
 var initial_state: Array = []  # 8x1 vector of Complex
