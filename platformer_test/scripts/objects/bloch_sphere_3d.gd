@@ -88,3 +88,10 @@ func _process(delta):
 		# Z rotation
 		if Input.is_action_pressed("z_rotation"):
 			wrapper.rotate_y(game_manager.delta_theta)
+
+func _rotate_x(angle: float):
+	wrapper.rotate_x(angle)
+func _rotate_y(angle:float):
+	wrapper.rotate_y(angle)
+func _rotate_z(angle:float):
+	wrapper.rotate_z(angle)
