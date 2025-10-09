@@ -38,7 +38,7 @@ func _ready():
 
 	# Camera setup — angled so all 3 axes visible
 	var cam = $Camera3D
-	cam.position = Vector3(2.2, 1.25, 2.5)
+	cam.position = Vector3(2.2, 1.25, -2.5)
 	cam.look_at(Vector3.ZERO)
 
 func _add_axis(direction: Vector3, color: Color, name: String):

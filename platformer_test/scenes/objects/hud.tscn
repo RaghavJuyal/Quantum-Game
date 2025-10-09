@@ -202,7 +202,7 @@ mesh = SubResource("CylinderMesh_qflrv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 1.5, 2.5)
 fov = 45.0
 
-[node name="X_Label" type="Label" parent="."]
+[node name="Y_Label" type="Label" parent="."]
 offset_left = 1235.0
 offset_top = 104.0
 offset_right = 1258.0
@@ -210,17 +210,17 @@ offset_bottom = 140.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 20
-text = "X"
+text = "Y"
 
-[node name="Y_Label" type="Label" parent="."]
-offset_left = 1125.0
-offset_top = 109.0
-offset_right = 1143.0
-offset_bottom = 145.0
+[node name="X_Label" type="Label" parent="."]
+offset_left = 1123.0
+offset_top = 106.0
+offset_right = 1141.0
+offset_bottom = 142.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_6fi6k")
 theme_override_font_sizes/font_size = 20
-text = "Y"
+text = "X"
 
 [node name="Z_Label" type="Label" parent="."]
 offset_left = 1161.0
