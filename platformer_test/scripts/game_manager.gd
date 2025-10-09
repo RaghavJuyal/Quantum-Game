@@ -111,7 +111,7 @@ func _on_timer_timeout() -> void:
 		measured = false
 		measure()
 		current_level.camera_2d.global_position = current_level.camera0.global_position
-	elif !checkpoint_player_zero:
+	else:
 		theta = PI
 		phi = 0
 		measured = false

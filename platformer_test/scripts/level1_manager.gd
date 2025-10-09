@@ -33,13 +33,14 @@ func game_manager_ready():
 		return
 	
 	if game_manager.checkpoint_player_zero == null:
-		game_manager.checkpoint_player_zero = false
 		game_manager.checkpoint_position_0 = player.global_position
 		game_manager.checkpoint_position_1 = player_2.global_position
 		game_manager.level_start_time = Time.get_ticks_msec() / 1000.0
 		if start_layer_zero:
+			game_manager.checkpoint_player_zero = true
 			game_manager.set_state_zero()
 		else:
+			game_manager.checkpoint_player_zero = false
 			game_manager.set_state_one()
 	
 	hud.heart_label.text = str(game_manager.hearts)
