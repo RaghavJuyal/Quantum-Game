@@ -24,7 +24,6 @@
 		{"11":"Your goal is to use this mechanic to avoid enemies, collect coins and reach the end of the level."},
 		{"12":"Now venture forth and explore this world!"}
 	],
-
 "merlin3":[
 	{"0":"Hello there! \nI see that you are getting a hang of being in superposition and getting measured."},
 	{"1":"Superposition? Ah I didn't explain it earlier. The states 0 and 1 are what we see in the 'classial' world, think bits in a computer."},
@@ -41,6 +40,21 @@
 	{"1":"By touching the flag you can proceed to the next level."},
 	{"2":"I will appear again to explain new mechanics. See you again, hero of this world!"}	
 ],
+"merlin-lvl2-0":[
+	{"0":"Hello there! \nI see you have come quite far in this game."},
+	{"1":"I would congratulate you, but this isn't over yet. \nThings are about to get... spooky."},
+	{"2":"See that purple gem ahead? That’s no ordinary crystal. \nFollow the superposition check zone and stay in that state. Then, stand on the gem and press 'C'."},
+	{"3":"When you do, you will become linked with the gem in mysterious ways."},
+	{"4":"In quantum terms, we call this an entangled state. \nYour superposition becomes the first qubit, and the gem becomes the second."},
+	{"5":"The 'C' does a CNOT gate (yes, the one you have used in the puzzles) which connects you two — if you’re on the upper layer (state 1), the gem flips layers too!"},
+	{"6":"Your HUD will then appear different — instead of just probabilities for 0 and 1, you’ll see the probabilities for the four possible combinations: 00, 01, 10, and 11."},
+	{"7":"Whenever you get measured, both you and the gem collapse together. \nIf the gem ends up on your layer, you will carry it with you (non-quantumly)."},
+	{"8":"If you carry the gem after measurement and try to enter superposition again, the gem drops out of your hands. \nThis part doesn't happen in the real world, only in this game to make you play around with the gem more :)"},
+	{"9":"So the only way to move the gem between layers is by using single-qubit rotations (your familiar X, Y and Z rotations) — controlling your own part of the state without breaking the connection."},
+	{"10":"After carrying the gem (post-measurement), you need to approach the yellow blocks and press 'G', which will remove some blocking obstacles that are present on both layers."},
+	{"11":"Now go ahead, try it out. Entangle with the gem, explore what happens! \nIf you fail you can always entangle again."}
+],
+
 "dialogue1":[
 		{"0":"Contrary to our world, walls do not count as observers. They can stop you in both layers."},
 		{"1":"However, a cliff does count as an observer. It either observes you falling or you stay up on the ground."}
