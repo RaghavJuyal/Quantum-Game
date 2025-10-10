@@ -3,11 +3,14 @@ extends Control
 @onready var level_0: Button = $CanvasLayer/level0
 @onready var level_1: Button = $CanvasLayer/level1
 @onready var level_2: Button = $CanvasLayer/level2
+@onready var level_0hard: Button = $CanvasLayer/level0hard
+@onready var level_1hard: Button = $CanvasLayer/level1hard
+@onready var level_2hard: Button = $CanvasLayer/level2hard
 var buttons
 var player_data = {}
 var highest_level = 0
 func _ready() -> void:
-	buttons = [level_0, level_1, level_2]
+	buttons = [level_0, level_1, level_2, level_0hard, level_1hard, level_2hard]
 	var file = "res://scripts/player_data.json"
 	load_json(file)
 	
