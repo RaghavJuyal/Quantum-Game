@@ -54,6 +54,23 @@
 	{"10":"After carrying the gem (post-measurement), you need to approach the yellow blocks and press 'G', which will remove some blocking obstacles that are present on both layers."},
 	{"11":"Now go ahead, try it out. Entangle with the gem, explore what happens! \nIf you fail you can always entangle again."}
 ],
+"merlin-lvl2-1":[
+	{"0":"Hello there! \nIt looks like you are starting to get familiar with the world of entanglement."},
+	{"1":"So far, entanglement was your friend - it helped you unlock doors to paths unexplored.\nNow, let's see how you do when it acts as your enemy!"},
+	{"2":"Do you see the giant squirrel ahead? Walk too close to it, and it will kill you! \nBut this is an entanglable enemy: if you are in the shaded region around it, you can entangle with it"},
+	{"3":"The rules of entanglement will be the same, but beware! \nThis time, if the enemy measures at the same level as you, it will spawn where you stand!"},
+	{"4":"At times, you would want to simply remove this enemy when it blocks your path."},
+	{"5":"But at other times, you may need to place these on special pressure plates on the ground, which will open doors."},
+	{"6":"Now go onto this new challenge! \nI will see you soon with our next game mechanic."}
+],
+"merlin-lvl2-2":[
+	{"0":"Hello there! \nExplain entanglement zone again"},
+	{"1":"So far, entanglement was your friend - it helped you unlock doors to paths unexplored.\nNow, let's see how you do when it acts as your enemy!"},
+	{"2":"Do you see the giant squirrel ahead? Walk too close to it, and it will kill you! \nBut this is an entanglable enemy, so if you are close enough, you can entangle with it"},
+	{"3":"The rules of entanglement will be the same, but beware! \nThis time, if the enemy measures at the same level as you, it will spawn where you stand!"},
+	{"4":"Entangled with this enemy, you need to pass the entanglement-probability check zone. \n(similar to a superposition check zone)"},
+	{"5":"Now go onto this new challenge! I will see you before the level ends."},
+],
 
 "dialogue1":[
 		{"0":"Contrary to our world, walls do not count as observers. They can stop you in both layers."},
