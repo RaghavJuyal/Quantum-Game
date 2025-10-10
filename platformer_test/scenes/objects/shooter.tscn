@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvvkldwon0s8c"]
+[gd_scene load_steps=9 format=3 uid="uid://bvvkldwon0s8c"]
 
 [ext_resource type="Texture2D" uid="uid://xmukgqlmc6ku" path="res://assets/sprites/shooter_tilemap.png" id="1_gt117"]
 [ext_resource type="Script" uid="uid://dxws82sxddec8" path="res://scripts/objects/shooter.gd" id="1_lynhg"]
@@ -29,7 +29,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lynhg"]
 size = Vector2(7, 13)
 
-[node name="Shooter" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7kfo4"]
+size = Vector2(9, 1)
+
+[node name="Shooter" type="CharacterBody2D"]
 script = ExtResource("1_lynhg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -42,3 +45,7 @@ flip_h = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
 position = Vector2(0.5, 1.5)
 shape = SubResource("RectangleShape2D_lynhg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 7.5)
+shape = SubResource("RectangleShape2D_7kfo4")
