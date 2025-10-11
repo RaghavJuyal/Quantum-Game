@@ -11,6 +11,7 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
 [node name="TimeTaken" type="CanvasLayer"]
+layer = 0
 script = ExtResource("1_01bon")
 
 [node name="Panel" type="Panel" parent="."]

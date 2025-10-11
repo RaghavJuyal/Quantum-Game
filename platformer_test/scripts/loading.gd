@@ -2,7 +2,7 @@ extends Control
 
 @onready var progress_bar: ProgressBar = $ProgressBar
 var game_manager
-var load_duration: float = 3.0  # seconds for full bar
+var load_duration: float = 1.5  # seconds for full bar
 
 func run_animation() -> void:
 	progress_bar.value = 0.0

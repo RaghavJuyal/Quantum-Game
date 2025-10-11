@@ -20,8 +20,8 @@ wait_time = 0.6
 one_shot = true
 
 [node name="Pause_UI" parent="GameManager" instance=ExtResource("2_yqjtg")]
-offset = Vector2(850, 400)
-transform = Transform2D(1, 0, 0, 1, 850, 400)
+offset = Vector2(950, 250)
+transform = Transform2D(1, 0, 0, 1, 950, 250)
 
 [node name="MeasureZero" type="AudioStreamPlayer" parent="GameManager"]
 stream = ExtResource("3_gee14")

@@ -16,20 +16,31 @@ script = ExtResource("1_ep5rh")
 [node name="ProgressBar" type="ProgressBar" parent="."]
 layout_mode = 0
 offset_left = 600.0
-offset_top = 1000.0
+offset_top = 755.0
 offset_right = 1160.0
-offset_bottom = 1060.0
+offset_bottom = 815.0
 scale = Vector2(2, 2)
-
-[node name="arrowScene" parent="." instance=ExtResource("2_hprjd")]
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 976.0
-offset_top = 1136.0
-offset_right = 1376.0
-offset_bottom = 1184.0
+offset_left = 1400.0
+offset_top = 946.0
+offset_right = 1800.0
+offset_bottom = 994.0
 theme_override_fonts/font = ExtResource("3_ku3bi")
 theme_override_font_sizes/font_size = 32
-text = "Loading.."
+text = "Loading..."
 horizontal_alignment = 1
+
+[node name="TextureRect" type="SubViewportContainer" parent="."]
+show_behind_parent = true
+layout_mode = 0
+offset_left = 650.0
+offset_top = -168.0
+offset_right = 1674.0
+offset_bottom = 856.0
+
+[node name="SubViewport" type="SubViewport" parent="TextureRect"]
+size = Vector2i(1024, 1024)
+
+[node name="arrowScene" parent="TextureRect/SubViewport" instance=ExtResource("2_hprjd")]

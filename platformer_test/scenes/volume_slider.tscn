@@ -1,5 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwgg0yroq8yvl"]
+[gd_scene load_steps=5 format=3 uid="uid://dwgg0yroq8yvl"]
 
+[ext_resource type="Script" uid="uid://bguugo3hqjqg0" path="res://scripts/volume_slider_panel.gd" id="1_ggm58"]
 [ext_resource type="Script" uid="uid://dauu35nef5gnb" path="res://scripts/volume_slider.gd" id="1_ynsfn"]
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="2_4v2uo"]
 [ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="3_ggm58"]
@@ -8,6 +9,7 @@
 self_modulate = Color(1, 1, 1, 0)
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_ggm58")
 
 [node name="HSlider" type="HSlider" parent="."]
 layout_mode = 1

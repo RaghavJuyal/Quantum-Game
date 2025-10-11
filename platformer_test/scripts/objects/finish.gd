@@ -27,7 +27,7 @@ func _on_body_entered(_body: Node2D) -> void:
 
 		# Update highest_level only if completed level is >= current highest_level
 		if level_index >= highest_level:
-			parsedResult["highest_level"] = level_index + 1  # unlock next level
+			parsedResult["highest_level"] = int(level_index + 1)  # unlock next level
 
 			# Save JSON back to file
 			var save_file = FileAccess.open(file_path, FileAccess.WRITE)

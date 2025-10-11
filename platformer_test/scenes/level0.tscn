@@ -430,7 +430,7 @@ position = Vector2(1607, 37)
 position = Vector2(2535, -73)
 
 [node name="TimeTaken" parent="." instance=ExtResource("16_yoi1k")]
-offset = Vector2(0, 1000)
-transform = Transform2D(1, 0, 0, 1, 0, 1000)
+offset = Vector2(10, 1160)
+transform = Transform2D(1, 0, 0, 1, 10, 1160)
 
 [connection signal="finished_level" from="Finish" to="." method="load_next_level"]
