@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://mv1s684cah4c" path="res://assets/sprites/slime_purple.png" id="1_a7qdv"]
 [ext_resource type="PackedScene" uid="uid://b0exx33d87cji" path="res://scenes/objects/killzone.tscn" id="2_2p8uo"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1dhrg"]
 atlas = ExtResource("1_a7qdv")
 region = Rect2(0, 24, 24, 24)
