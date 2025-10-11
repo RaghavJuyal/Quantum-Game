@@ -39,7 +39,7 @@
 "merlin4":[
 	{"0":"Hello there! \nYou have made it to the end of this level."},
 	{"1":"By touching the flag you can end the level. Now, level 0 hard mode and level 1 have been unlocked in the level select screen"},
-	{"2":"Level 1 introduces new game mechanics while level 0 hard mode uses the game mechanics in level 0 to create a more challenging level. You are free to choose either. Finishing hard mode levels does not unlock new levels."},
+	{"2":"Level 1 introduces new game mechanics while level 0 hard mode uses the game mechanics in level 0 to create a more challenging level.\nYou are free to choose either. Finishing hard mode levels does not unlock new levels."},
 	{"3":"I will appear again to explain new mechanics. See you again, hero of this world!"}	
 ],
 "merlin-lvl2-0":[
