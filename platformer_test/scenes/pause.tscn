@@ -1,23 +1,32 @@
-[gd_scene load_steps=4 format=3 uid="uid://dg37og73fs17c"]
+[gd_scene load_steps=5 format=3 uid="uid://dg37og73fs17c"]
 
 [ext_resource type="Script" uid="uid://bx2p1v06hgwiu" path="res://scripts/pause.gd" id="1_f1d2v"]
 [ext_resource type="FontFile" uid="uid://h2ebajx2miai" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2_r8yp4"]
 [ext_resource type="PackedScene" uid="uid://dwgg0yroq8yvl" path="res://scenes/volume_slider.tscn" id="3_m0klm"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m0klm"]
+bg_color = Color(0.0862745, 0.0862745, 0.0862745, 0.784314)
+
 [node name="Pause_UI" type="CanvasLayer"]
+layer = 8
 script = ExtResource("1_f1d2v")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(600, 600)
+anchors_preset = -1
+anchor_left = -0.0911458
+anchor_right = 0.0277778
+anchor_bottom = 0.151235
 offset_right = 600.0
 offset_bottom = 600.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_m0klm")
 metadata/_edit_use_anchors_ = true
 
 [node name="Button" type="Button" parent="Panel"]
 layout_mode = 0
 offset_left = 82.0
 offset_top = 51.0
-offset_right = 517.0
+offset_right = 782.0
 offset_bottom = 206.0
 theme_override_fonts/font = ExtResource("2_r8yp4")
 theme_override_font_sizes/font_size = 50
@@ -27,7 +36,7 @@ text = "Continue"
 layout_mode = 0
 offset_left = 82.0
 offset_top = 301.0
-offset_right = 517.0
+offset_right = 782.0
 offset_bottom = 456.0
 theme_override_fonts/font = ExtResource("2_r8yp4")
 theme_override_font_sizes/font_size = 50
@@ -35,9 +44,9 @@ text = "Main Menu"
 
 [node name="Panel" parent="Panel" instance=ExtResource("3_m0klm")]
 layout_mode = 0
-offset_left = -385.0
+offset_left = -255.0
 offset_top = 40.0
-offset_right = -345.0
+offset_right = -215.0
 offset_bottom = 80.0
 scale = Vector2(4, 4)
 

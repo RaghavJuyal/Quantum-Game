@@ -19,3 +19,11 @@ func _on_back_button_pressed() -> void:
 
 func set_game_manager(manager: Node):
 	game_manager = manager
+
+func _update_from_audio_bus() -> void:
+	value = db_to_linear(AudioServer.get_bus_volume_db(_bus))
+	label.text = str(int(10 * value))
+
+#func _on_visibility_changed() -> void:
+	#if visible:
+		#_update_from_audio_bus()

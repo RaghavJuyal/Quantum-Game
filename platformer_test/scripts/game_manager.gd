@@ -37,7 +37,6 @@ var hearts: int = 3
 var carried_gate = ""
 
 ## RESET VARIABLES ##
-var coins_picked_up_reset = []
 var hearts_reset: int = 3
 var carried_gate_reset = ""
 var level_start_time: float = 0.0
@@ -687,6 +686,7 @@ func process_entanglement(time_taken):
 func process_pause():
 	if Input.is_action_just_pressed("pause"):
 		if !get_tree().paused:
+			pause_ui.panel._update_from_audio_bus()
 			get_tree().paused = true
 			pause_ui.visible = true
 
@@ -740,7 +740,7 @@ func _process(_delta: float) -> void:
 
 func progress_reset() -> void:
 	hearts = hearts_reset
-	coins_picked_up = coins_picked_up_reset
+	coins_picked_up = []
 	carried_gate = carried_gate_reset
 	score = 0
 	level_start_time = 0.0
