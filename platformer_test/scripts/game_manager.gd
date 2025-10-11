@@ -37,7 +37,6 @@ var hearts: int = 3
 var carried_gate = ""
 
 ## RESET VARIABLES ##
-var coins_picked_up_reset = []
 var hearts_reset: int = 3
 var carried_gate_reset = ""
 var level_start_time: float = 0.0
@@ -741,7 +740,7 @@ func _process(_delta: float) -> void:
 
 func progress_reset() -> void:
 	hearts = hearts_reset
-	coins_picked_up = coins_picked_up_reset
+	coins_picked_up = []
 	carried_gate = carried_gate_reset
 	score = 0
 	level_start_time = 0.0
