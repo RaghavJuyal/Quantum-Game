@@ -624,7 +624,16 @@ func process_camera():
 		camera_target = current_level.camera0
 	else:
 		camera_target = current_level.camera1
-	current_level.camera_2d.global_position = current_level.camera_2d.global_position.lerp(camera_target.global_position, 0.005)
+	var cam_pos = current_level.camera_2d.global_position
+	var target_pos = camera_target.global_position
+
+	var x_lerp_speed = 0.02  # faster in X
+	var y_lerp_speed = 0.005 # same as before
+
+	cam_pos.x = lerp(cam_pos.x, target_pos.x, x_lerp_speed)
+	cam_pos.y = lerp(cam_pos.y, target_pos.y, y_lerp_speed)
+
+	current_level.camera_2d.global_position = cam_pos
 
 func process_interact():
 	if Input.is_action_just_pressed("Interact"):

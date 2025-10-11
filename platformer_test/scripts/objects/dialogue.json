@@ -7,7 +7,8 @@
 	{"4":"On the top left of the screen you can see how many lives you have. Anytime you get hit by an enemy or fall, you will lose a heart and return to the previous checkpoint. Isn't that convenient?"},
 	{"5":"If you lose all your hearts, you will return to the beginning of the level."},
 	{"6":"Next to the hearts you can see your coins collected. They get reset once you lose all your lives. Every 5 coins you collect will increase the number of lives."},
-	{"7":"Now proceed and find the first checkpoint!"}
+	{"7":"You can use the escape key ('ESC') to pause the game."},
+	{"8":"Now proceed and find the first checkpoint!"}
 ],
 "merlin2":[
 		{"0":"Hello there! \nI see that you have found the checkpoint."},
@@ -16,11 +17,11 @@
 		{"3":"Here, state 1 means the upper layer(the one you are on right now) and state 0 is the lower layer. Sometimes to avoid certain obstacles you would need to transition between layers."},
 		{"4":"Next to the probabilities is a sphere called the Bloch Sphere. It is a representation of your current state. Rotations on this sphere's surface allows you to change your state."},
 		{"5":"Next to the sphere are angles to help you control your state more precisely. Theta is the angle with the Z axis and phi is the angle with the X axis."},
-		{"6":"You can rotate about the X, Y or Z axis by pressing the 'X', 'Y' or 'Z' keys respectively. Pressing these will change your state."},
+		{"6":"You can rotate about the X, Y or Z axis by pressing the 'X', 'Y' or 'Z' keys respectively. Pressing these will change your state. These will not work if you stand too close to interactable objects like me :)"},
 		{"7":"Interacting with objects like collecting coins, standing on checkpoints, getting hit by enemies, etc, will 'measure' you along the Z axis."},
 		{"8":"This means that you will collapse to either state 0 or state 1 with the probability shown on the left of the Bloch sphere."},
 		{"9":"You can also 'measure' yourself by pressing 'M'. This can be useful if you want to reset your state but there is nothing nearby to interact with."},
-		{"10":"Here, walls and the ground do not measure you."},
+		{"10":"Here, walls and the ground do not measure you. Keep in mind that you may get stuck against a wall even if you have a 0.1 probability in that layer so check your probabilities and consider measuring yourself."},
 		{"11":"Your goal is to use this mechanic to avoid enemies, collect coins and reach the end of the level."},
 		{"12":"Now venture forth and explore this world!"}
 	],
@@ -37,8 +38,9 @@
 ],
 "merlin4":[
 	{"0":"Hello there! \nYou have made it to the end of this level."},
-	{"1":"By touching the flag you can proceed to the next level."},
-	{"2":"I will appear again to explain new mechanics. See you again, hero of this world!"}	
+	{"1":"By touching the flag you can end the level. Now, level 0 hard mode and level 1 have been unlocked in the level select screen"},
+	{"2":"Level 1 introduces new game mechanics while level 0 hard mode uses the game mechanics in level 0 to create a more challenging level.\nYou are free to choose either. Finishing hard mode levels does not unlock new levels."},
+	{"3":"I will appear again to explain new mechanics. See you again, hero of this world!"}	
 ],
 "merlin-lvl2-0":[
 	{"0":"Hello there! \nI see you have come quite far in this game."},

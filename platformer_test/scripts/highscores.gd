@@ -28,7 +28,7 @@ func _ready() -> void:
 			var level_name = level_entry.keys()[0]
 			var score_value = level_entry[level_name]
 			if i < score_labels.size():
-				score_labels[i].text = str(score_value)
+				score_labels[i].text = "%.2f" % score_value
 	else:
 		print("⚠️ No 'highscore' key found in player_data.json")
 
