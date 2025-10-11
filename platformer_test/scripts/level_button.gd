@@ -4,7 +4,7 @@ var filepath
 var game_manager
 
 func _ready() -> void:
-	self.text = self.name
+	#self.text = self.name
 	filepath = "res://scenes/" + str(self.name) + ".tscn"
 
 func _on_button_pressed() -> void:
