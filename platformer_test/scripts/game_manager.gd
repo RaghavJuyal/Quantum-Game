@@ -42,6 +42,9 @@ var carried_gate_reset = ""
 var level_start_time: float = 0.0
 var level_elapsed_time: float = 0.0
 
+var paused_time = 0.0
+var pause_start = 0.0
+
 ## RESPAWN VARIABLES ##
 var is_dead = false
 var checkpoint_position_0:  Vector2
@@ -594,7 +597,7 @@ func process_update_hud(time_taken):
 	var prob0_raw = (cos(theta/2.0)**2)*100
 	var prob0 = round(prob0_raw * 10.0) / 10.0
 	var prob1 = round((100 - prob0) * 10.0) / 10.0
-	level_elapsed_time = time_taken - level_start_time
+	level_elapsed_time = time_taken - level_start_time - paused_time
 	if prob0_raw >= 100.0-0.02:
 		measured = true
 		state = 0
@@ -687,6 +690,7 @@ func process_pause():
 	if Input.is_action_just_pressed("pause"):
 		if !get_tree().paused:
 			pause_ui.panel._update_from_audio_bus()
+			pause_start = Time.get_ticks_msec() / 1000.0
 			get_tree().paused = true
 			pause_ui.visible = true
 
@@ -747,3 +751,5 @@ func progress_reset() -> void:
 	level_elapsed_time = 0.0
 	checkpoint_player_zero = null
 	is_dead = false
+	paused_time = 0.0
+	pause_start = 0.0
