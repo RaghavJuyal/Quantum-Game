@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://dwgg0yroq8yvl" path="res://scenes/volume_slider.tscn" id="3_m0klm"]
 
 [node name="Pause_UI" type="CanvasLayer"]
+layer = 8
 script = ExtResource("1_f1d2v")
 
 [node name="Panel" type="Panel" parent="."]
