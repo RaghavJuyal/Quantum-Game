@@ -10,6 +10,10 @@ script = ExtResource("1_f1d2v")
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(600, 600)
+anchors_preset = -1
+anchor_left = -0.0911458
+anchor_right = 0.0277778
+anchor_bottom = 0.151235
 offset_right = 600.0
 offset_bottom = 600.0
 metadata/_edit_use_anchors_ = true
@@ -18,7 +22,7 @@ metadata/_edit_use_anchors_ = true
 layout_mode = 0
 offset_left = 82.0
 offset_top = 51.0
-offset_right = 517.0
+offset_right = 782.0
 offset_bottom = 206.0
 theme_override_fonts/font = ExtResource("2_r8yp4")
 theme_override_font_sizes/font_size = 50
@@ -28,7 +32,7 @@ text = "Continue"
 layout_mode = 0
 offset_left = 82.0
 offset_top = 301.0
-offset_right = 517.0
+offset_right = 782.0
 offset_bottom = 456.0
 theme_override_fonts/font = ExtResource("2_r8yp4")
 theme_override_font_sizes/font_size = 50
@@ -36,9 +40,9 @@ text = "Main Menu"
 
 [node name="Panel" parent="Panel" instance=ExtResource("3_m0klm")]
 layout_mode = 0
-offset_left = -385.0
+offset_left = -255.0
 offset_top = 40.0
-offset_right = -345.0
+offset_right = -215.0
 offset_bottom = 80.0
 scale = Vector2(4, 4)
 
