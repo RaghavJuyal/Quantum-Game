@@ -687,6 +687,7 @@ func process_entanglement(time_taken):
 func process_pause():
 	if Input.is_action_just_pressed("pause"):
 		if !get_tree().paused:
+			pause_ui.panel._update_from_audio_bus()
 			get_tree().paused = true
 			pause_ui.visible = true
 
