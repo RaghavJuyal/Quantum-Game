@@ -9,6 +9,7 @@ func _ready() -> void:
 func _on_button_pressed() -> void:
 	self.visible = false
 	get_tree().paused = false
+	game_manager.paused_time+=Time.get_ticks_msec() / 1000.0 - game_manager.pause_start
 
 func _on_quit_button_pressed() -> void:
 	self.visible = false
