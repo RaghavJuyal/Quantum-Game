@@ -44,6 +44,12 @@ const Complex = preload("res://scripts/complex.gd")
 @export var target_state_re: Array[float] = [1.0, 0.0, 0.0, 0.0]
 @export var target_state_im: Array[float] = [0.0, 0.0, 0.0, 0.0]
 
+@export var x_present: bool = true
+@export var y_present: bool = true
+@export var z_present: bool = true
+@export var h_present: bool = true
+@export var c_present: bool = true
+
 #var target_state: Array = []  # actual Complex array
 
 
@@ -63,6 +69,22 @@ func _ready() -> void:
 	x_gate = get_node_or_null("gates/x_gate")
 	cnot_gate = get_node_or_null("gates/cnot_gate")
 	hadamard_gate = get_node_or_null("gates/hadamard_gate")
+	if z_gate:
+		if !z_present:
+			z_gate.queue_free()
+	if y_gate:
+		if !y_present:
+			y_gate.queue_free()
+	if x_gate:
+		if !x_present:
+			x_gate.queue_free()
+	if hadamard_gate:
+		if !h_present:
+			hadamard_gate.queue_free()
+	if cnot_gate:
+		if !c_present:
+			cnot_gate.queue_free()
+			
 	var interactables = [
 		remove_gate_left_up, remove_gate_left_down, remove_gate_right_down, remove_gate_right_up,
 		add_gate_left_up, add_gate_right_up, add_gate_left_down, add_gate_right_down,
