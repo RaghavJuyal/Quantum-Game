@@ -67,7 +67,7 @@ func _add_axis(direction: Vector3, color: Color, name: String):
 
 	add_child(axis)
 
-func _process(delta):
+func _process(_delta):
 	if game_manager == null:
 		return
 

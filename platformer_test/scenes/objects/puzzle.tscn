@@ -275,7 +275,7 @@ text = "Add"
 
 [node name="Puzzle_obstacle" type="TileMapLayer" parent="."]
 position = Vector2(1216, 2)
-tile_map_data = PackedByteArray("AAAAAAAAAQABAAEAAAAAAP//AQABAAEAAAAAAPv/AQAIAAEAAAAAAPr/AQAIAAEAAAAAAPn/AQAIAAEAAAAAAPj/AQAIAAEAAAAAAP7/AQAIAAEAAAA=")
+tile_map_data = PackedByteArray("AAAAAPv/AQAIAAEAAAAAAPr/AQAIAAEAAAAAAPn/AQAIAAEAAAAAAPj/AQAIAAEAAAAAAP7/AQAIAAEAAAAAAP//AQABAAEAAAAAAAAAAQABAAEAAAA=")
 tile_set = SubResource("TileSet_ir15t")
 
 [node name="gates" type="Node2D" parent="."]

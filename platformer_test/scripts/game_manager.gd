@@ -711,7 +711,7 @@ func process_fail():
 func process_success():
 	randomize()
 	level_passed.label.text = level_passed.SUCCESS_MESSAGES[randi() % level_passed.SUCCESS_MESSAGES.size()]
-	var final_score = (score*10 + hearts*50) *clamp(300.0/level_elapsed_time,0.5,5) 
+	var final_score = (score*10 + hearts*50) *clamp(600.0/level_elapsed_time,0.5,5) 
 	var parsedResult
 	var path = "res://scripts/player_data.json"
 	if FileAccess.file_exists(path):
