@@ -359,7 +359,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Player2" parent="." instance=ExtResource("2_14jow")]
-position = Vector2(-58, -78)
+position = Vector2(2689, -75)
 is_state_zero = false
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
@@ -623,16 +623,18 @@ offset_top = 92.0
 offset_right = 1126.0
 offset_bottom = 127.0
 theme_override_fonts/normal_font = ExtResource("9_phfsf")
+theme_override_font_sizes/normal_font_size = 8
 text = "current state"
 fit_content = true
 scroll_active = false
 
 [node name="target_state_label" type="RichTextLabel" parent="Puzzle"]
 offset_left = 731.0
-offset_top = 143.0
+offset_top = 110.0
 offset_right = 1151.0
-offset_bottom = 185.0
+offset_bottom = 152.0
 theme_override_fonts/normal_font = ExtResource("9_phfsf")
+theme_override_font_sizes/normal_font_size = 8
 text = "target state"
 fit_content = true
 scroll_active = false
@@ -1159,16 +1161,18 @@ offset_top = 92.0
 offset_right = 1226.0
 offset_bottom = 127.0
 theme_override_fonts/normal_font = ExtResource("9_phfsf")
+theme_override_font_sizes/normal_font_size = 8
 text = "current state"
 fit_content = true
 scroll_active = false
 
 [node name="target_state_label" type="RichTextLabel" parent="Puzzle4"]
 offset_left = 731.0
-offset_top = 143.0
+offset_top = 110.0
 offset_right = 1231.0
-offset_bottom = 185.0
+offset_bottom = 152.0
 theme_override_fonts/normal_font = ExtResource("9_phfsf")
+theme_override_font_sizes/normal_font_size = 8
 text = "target state"
 fit_content = true
 scroll_active = false
@@ -1337,6 +1341,7 @@ offset_top = 92.0
 offset_right = 1151.0
 offset_bottom = 127.0
 theme_override_fonts/normal_font = ExtResource("9_phfsf")
+theme_override_font_sizes/normal_font_size = 8
 text = "current state"
 fit_content = true
 scroll_active = false
