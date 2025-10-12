@@ -15,7 +15,7 @@ var fidelity_shown = false
 
 func _ready() -> void:
 	sprite.modulate = Color(0.7, 0.3, 0.9, 0.5)
-	fidelity_label.text = "Target state:\nθ = %.2f, φ = %.2f" % [round(rad_to_deg(target_theta)*10)/10, round(rad_to_deg(target_phi)*10)/10]
+	fidelity_label.text = "Target state:\nTheta = %.2f\nPhi = %.2f" % [round(rad_to_deg(target_theta)*10)/10, round(rad_to_deg(target_phi)*10)/10]
 	fidelity_shown = false
 	z_index = 10
 
