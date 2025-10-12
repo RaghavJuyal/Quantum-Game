@@ -99,7 +99,7 @@
 	{"4":"Your task is to be in that state and then teleport to that side."},
 	{"5":"Well, technically, transferring your state to another qubit, but good enough! To do this, create the state that you need to be in, and press 'G' at the single orange block on the ground in the lower layer."},
 	{"6":"This will then execute the Quantum Teleportation circuit shown on the wires on the right, above the gap. You are represented by the top qubit."},
-	{"7":"This circuit is used to transfer your state to another qubit.\nAlso, it has a hint for the final puzzle!"},
+	{"7":"This circuit is used to transfer your state to the other qubit.\nAlso, it has a hint for the final puzzle!"},
 	{"8":"Well, I will see you before the next puzzle to repeat the information about the puzzle. Enjoy!"},
 	{"9":"Also, don't worry about what happens to the original qubit :)"},
 
