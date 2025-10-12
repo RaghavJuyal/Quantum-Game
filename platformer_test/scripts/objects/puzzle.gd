@@ -23,11 +23,16 @@ const Complex = preload("res://scripts/complex.gd")
 @onready var run_circuit: RigidBody2D = $Other_blocks/run_circuit
 @onready var reset_circuit: RigidBody2D = $Other_blocks/reset_circuit
 
-@onready var z_gate: Node = $gates/z_gate
-@onready var y_gate: Node = $gates/y_gate
-@onready var x_gate: Node = $gates/x_gate
-@onready var cnot_gate: Node = $gates/cnot_gate
-@onready var hadamard_gate: Node = $gates/hadamard_gate
+#@onready var z_gate: Node = $gates/z_gate
+#@onready var y_gate: Node = $gates/y_gate
+#@onready var x_gate: Node = $gates/x_gate
+#@onready var cnot_gate: Node = $gates/cnot_gate
+#@onready var hadamard_gate: Node = $gates/hadamard_gate
+@onready var z_gate: Node = null
+@onready var y_gate: Node = null
+@onready var x_gate: Node = null
+@onready var cnot_gate: Node = null
+@onready var hadamard_gate: Node = null
 @onready var gates: Node2D = $gates
 @onready var add_gates: Node2D = $Add_gates
 @onready var remove_gates: Node2D = $Remove_gates
@@ -53,7 +58,11 @@ var gate_matrices: Dictionary = {}       # Store 4x4 matrices for 2-qubit gates
 
 func _ready() -> void:
 	# Register interactables
-	var s := 1.0 / sqrt(2.0)
+	z_gate = get_node_or_null("gates/z_gate")
+	y_gate = get_node_or_null("gates/y_gate")
+	x_gate = get_node_or_null("gates/x_gate")
+	cnot_gate = get_node_or_null("gates/cnot_gate")
+	hadamard_gate = get_node_or_null("gates/hadamard_gate")
 	var interactables = [
 		remove_gate_left_up, remove_gate_left_down, remove_gate_right_down, remove_gate_right_up,
 		add_gate_left_up, add_gate_right_up, add_gate_left_down, add_gate_right_down,
@@ -322,20 +331,28 @@ func _state_to_string(state: Array) -> String:
 	var parts: Array[String] = []
 	for i in range(state.size()):
 		var c: Complex = state[i]
-		
-		# Format amplitude
-		var amp_str := "%.2f" % c.re
-		if abs(c.im) > 1e-6:  # show imaginary part only if nonzero
+		var amp_str := ""
+
+		if abs(c.im) < 1e-6:
+			# Imaginary part ~ 0 → show only real part
+			amp_str = "%.2f" % c.re
+		elif abs(c.re) < 1e-6:
+			# Real part ~ 0 → show only imaginary part
+			amp_str = "%.2fi" % c.im
+		else:
+			# Both parts nonzero → show full complex form
 			var sign = "+" if c.im >= 0 else "-"
-			amp_str += " %s %.2fi" % [sign, abs(c.im)]
-		
+			amp_str = "%.2f %s %.2fi" % [c.re, sign, abs(c.im)]
+
 		# Get binary basis label with 2 digits
-		var b0 = i / 2         # first qubit (MSB)
-		var b1 = i % 2         # second qubit (LSB)
+		var b0 = i / 2  # first qubit (MSB)
+		var b1 = i % 2  # second qubit (LSB)
 		var label = "[color=red]%d[/color][color=green]%d[/color]" % [b0, b1]
-		
+
 		parts.append("|%s>: %s" % [label, amp_str])
-	return "  ".join(parts)  # single line
+
+	return "  ".join(parts)
+
 
 
 
@@ -357,7 +374,7 @@ func _apply_gate(state:Array, gate:Array) -> Array:
 		#if not s1[i].equals(s2[i], tol): return false
 	#return true
 
-func _compare_states(s1:Array, s2:Array, tol:float=1e-4) -> bool:
+func _compare_states(s1:Array, s2:Array, tol:float=1e-2) -> bool:
 	# Compute inner product <s2|s1>
 	var inner = Complex.new(0,0)
 	for i in range(4):
@@ -365,6 +382,7 @@ func _compare_states(s1:Array, s2:Array, tol:float=1e-4) -> bool:
 
 	if inner.abs() < tol:
 		# States are nearly orthogonal
+		print(inner.abs())
 		return false
 
 	# Determine global phase factor

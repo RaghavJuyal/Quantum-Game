@@ -178,32 +178,104 @@ position = Vector2(920, -10)
 [node name="remove_gate_left_up" parent="Remove_gates" instance=ExtResource("3_i3ry5")]
 position = Vector2(842, -69)
 
+[node name="Label" type="Label" parent="Remove_gates/remove_gate_left_up"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 3.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Del"
+
 [node name="remove_gate_left_down" parent="Remove_gates" instance=ExtResource("3_i3ry5")]
 position = Vector2(842, 9)
+
+[node name="Label2" type="Label" parent="Remove_gates/remove_gate_left_down"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 3.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Del"
 
 [node name="remove_gate_right_down" parent="Remove_gates" instance=ExtResource("3_i3ry5")]
 position = Vector2(1095, 9)
 
+[node name="Label2" type="Label" parent="Remove_gates/remove_gate_right_down"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 3.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Del"
+
 [node name="remove_gate_right_up" parent="Remove_gates" instance=ExtResource("3_i3ry5")]
 position = Vector2(1095, -69)
+
+[node name="Label2" type="Label" parent="Remove_gates/remove_gate_right_up"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 3.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Del"
 
 [node name="Add_gates" type="Node2D" parent="."]
 
 [node name="add_gate_left_up" parent="Add_gates" instance=ExtResource("4_d07y3")]
 position = Vector2(888, -69)
 
+[node name="Label" type="Label" parent="Add_gates/add_gate_left_up"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 3.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Add"
+
 [node name="add_gate_right_up" parent="Add_gates" instance=ExtResource("4_d07y3")]
 position = Vector2(1049, -69)
+
+[node name="Label2" type="Label" parent="Add_gates/add_gate_right_up"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 3.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Add"
 
 [node name="add_gate_left_down" parent="Add_gates" instance=ExtResource("4_d07y3")]
 position = Vector2(888, 9)
 
+[node name="Label2" type="Label" parent="Add_gates/add_gate_left_down"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 3.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Add"
+
 [node name="add_gate_right_down" parent="Add_gates" instance=ExtResource("4_d07y3")]
 position = Vector2(1049, 9)
 
+[node name="Label2" type="Label" parent="Add_gates/add_gate_right_down"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 30.0
+offset_bottom = 3.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Add"
+
 [node name="Puzzle_obstacle" type="TileMapLayer" parent="."]
 position = Vector2(1216, 2)
-tile_map_data = PackedByteArray("AAAAAAAAAQABAAEAAAAAAP//AQABAAEAAAAAAPv/AQAIAAEAAAAAAPr/AQAIAAEAAAAAAPn/AQAIAAEAAAAAAPj/AQAIAAEAAAAAAP7/AQAIAAEAAAA=")
+tile_map_data = PackedByteArray("AAAAAPv/AQAIAAEAAAAAAPr/AQAIAAEAAAAAAPn/AQAIAAEAAAAAAPj/AQAIAAEAAAAAAP7/AQAIAAEAAAAAAP//AQABAAEAAAAAAAAAAQABAAEAAAA=")
 tile_set = SubResource("TileSet_ir15t")
 
 [node name="gates" type="Node2D" parent="."]
@@ -256,5 +328,23 @@ scroll_active = false
 [node name="run_circuit" parent="Other_blocks" instance=ExtResource("6_8a32l")]
 position = Vector2(793, -69)
 
+[node name="Label" type="Label" parent="Other_blocks/run_circuit"]
+offset_left = -10.0
+offset_top = -20.0
+offset_right = 11.0
+offset_bottom = -10.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Run"
+
 [node name="reset_circuit" parent="Other_blocks" instance=ExtResource("7_udsb1")]
 position = Vector2(793, 9)
+
+[node name="Label" type="Label" parent="Other_blocks/reset_circuit"]
+offset_left = -15.0
+offset_top = -20.0
+offset_right = 19.0
+offset_bottom = -12.0
+theme_override_fonts/font = ExtResource("15_vbmd7")
+theme_override_font_sizes/font_size = 8
+text = "Reset"

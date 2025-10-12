@@ -15,7 +15,7 @@ var rotating2 = false
 func _ready() -> void:
 	pass
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if rotating:
 		angle += delta_angle
 		parent_arrow.rotate(Vector3(1,0,0), delta_angle)
