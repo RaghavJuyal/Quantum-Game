@@ -331,20 +331,28 @@ func _state_to_string(state: Array) -> String:
 	var parts: Array[String] = []
 	for i in range(state.size()):
 		var c: Complex = state[i]
-		
-		# Format amplitude
-		var amp_str := "%.2f" % c.re
-		if abs(c.im) > 1e-6:  # show imaginary part only if nonzero
+		var amp_str := ""
+
+		if abs(c.im) < 1e-6:
+			# Imaginary part ~ 0 → show only real part
+			amp_str = "%.2f" % c.re
+		elif abs(c.re) < 1e-6:
+			# Real part ~ 0 → show only imaginary part
+			amp_str = "%.2fi" % c.im
+		else:
+			# Both parts nonzero → show full complex form
 			var sign = "+" if c.im >= 0 else "-"
-			amp_str += " %s %.2fi" % [sign, abs(c.im)]
-		
+			amp_str = "%.2f %s %.2fi" % [c.re, sign, abs(c.im)]
+
 		# Get binary basis label with 2 digits
-		var b0 = i / 2         # first qubit (MSB)
-		var b1 = i % 2         # second qubit (LSB)
+		var b0 = i / 2  # first qubit (MSB)
+		var b1 = i % 2  # second qubit (LSB)
 		var label = "[color=red]%d[/color][color=green]%d[/color]" % [b0, b1]
-		
+
 		parts.append("|%s>: %s" % [label, amp_str])
-	return "  ".join(parts)  # single line
+
+	return "  ".join(parts)
+
 
 
 
