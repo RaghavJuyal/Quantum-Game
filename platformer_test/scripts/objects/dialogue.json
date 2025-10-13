@@ -6,7 +6,7 @@
 	{"3":"You can use the space bar or 'W' to jump and use 'G' to interact."},
 	{"4":"On the top left of the screen you can see how many lives you have. Anytime you get hit by an enemy or fall, you will lose a heart and return to the previous checkpoint. Isn't that convenient?"},
 	{"5":"Warning: Jumping on top of enemies will NOT defeat them. You must avoid all contact with enemies."},
-	{"6":"If you lose all your hearts, you will return to the beginning of the level."},
+	{"6":"If you lose all your hearts, the level will end. You can then choose to restart from the beginning."},
 	{"7":"Next to the hearts you can see your coins collected. They get reset once you lose all your lives. Every 3 coins you collect will increase the number of lives."},
 	{"8":"You can use the escape key ('ESC') to pause the game."},
 	{"9":"Now proceed and find the first checkpoint!"}
@@ -21,7 +21,7 @@
 	{"6":"Next to the sphere are angles to help you control your state more precisely. Theta is the angle from the Z axis and phi is the angle from the X axis."},
 	{"7":"You can rotate about the X, Y or Z axis by pressing the 'X', 'Y' or 'Z' keys. \nX and Y rotations will change your probabilities between state 0 and state 1. \nZ rotations will not change these probabilities, but they have other uses that you will discover later."},
 	{"8":"These rotations will not work if you stand too close to interactable objects like me :)"},
-	{"9":"Interacting with objects like collecting coins, standing on checkpoints, or getting hit by enemies will 'measure' you along the Z axis."},
+	{"9":"Colliding with objects like coins, standing on checkpoints, or getting hit by enemies will 'measure' you along the Z axis."},
 	{"10":"Measurement is like a probabilistic reset: you will instantly collapse to either state 0 or state 1 based on the probabilities shown on the left of the Bloch sphere. \nYou will not be in both states anymore."},
 	{"11":"You can also measure yourself by pressing 'M'. This can be useful if you want to reset your state when there is nothing nearby to interact with."},
 	{"12":"Here, walls and the ground do not measure you. Keep in mind that you may get stuck against a wall even if you have only a 0.1 probability in that layer, so check your probabilities and consider measuring yourself."},

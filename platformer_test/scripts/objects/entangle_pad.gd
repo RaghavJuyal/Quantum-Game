@@ -16,7 +16,7 @@ var triggered := false
 var similarity_shown = false
 
 func _ready() -> void:
-	sprite.modulate = Color(1.0, 0.9, 0.2, 0.5)
+	sprite.modulate = Color(1.0, 0.55, 0.0, 0.5)
 	similarity_label.text = "Target probabilities:\n 00 -> %.2f\n 01 -> %.2f\n 10 -> %.2f\n 11 -> %.2f" % [target_00, target_01, target_10, target_11]
 	similarity_shown = false
 	z_index = 10
@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 		if similarity >= similarity_threshold:
 			sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
 		else:
-			sprite.modulate = Color(1.0, 0.9, 0.2, 0.5)
+			sprite.modulate = Color(1.0, 0.55, 0.0, 0.5)
 
 func _on_body_entered(body: Node2D) -> void:
 	if !game_manager.entangled_mode:
