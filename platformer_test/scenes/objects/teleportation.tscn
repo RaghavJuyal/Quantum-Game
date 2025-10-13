@@ -55,7 +55,7 @@ volume_db = -7.526
 
 [node name="suppos_pad" parent="." instance=ExtResource("5_p66o8")]
 position = Vector2(1886, 77)
-target_theta = 2.45
-target_phi = 4.5
+target_theta = 2.356
+target_phi = 2.094
 
 [connection signal="teleportation_complete" from="." to="suppos_pad" method="teleportation_complete"]

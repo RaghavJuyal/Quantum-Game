@@ -44,11 +44,12 @@ func _on_body_entered(body: Node2D) -> void:
 	check_entangled_state(body)	
 
 func compute_similarity() -> float:
-	# Bhattacharya distance
+	# Bhattacharya coefficient (fidelity)
 	var sum = 0.0
 	var entangled_probs = game_manager.entangled_probs
-	sum = sqrt(entangled_probs[0] * target_00/100) + sqrt(entangled_probs[1] * target_01/100) + sqrt(entangled_probs[2] * target_10/100) + sqrt(entangled_probs[3] * target_11/100)	
-	return sum * sum  # Fidelity value ∈ [0, 1]
+	sum = sqrt(entangled_probs[0] * target_00/100.0) + sqrt(entangled_probs[1] * target_01/100.0) + sqrt(entangled_probs[2] * target_10/100.0) + sqrt(entangled_probs[3] * target_11/100.0)	
+	var fidelity = sum * sum
+	return clamp(fidelity, 0.0, 1.0)  # Ensure it stays in [0, 1]
 
 func check_entangled_state(body: Node2D) -> void:
 	var similarity = compute_similarity()
