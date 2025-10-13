@@ -7,7 +7,7 @@
 [sub_resource type="CanvasTexture" id="CanvasTexture_kul2r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x4c7e"]
-size = Vector2(48, 39.5)
+size = Vector2(51, 39.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wwfcx"]
 size = Vector2(86, 39)
@@ -28,7 +28,7 @@ texture = ExtResource("1_x4c7e")
 [node name="Killzone" parent="." instance=ExtResource("1_lv8k4")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(0, -0.25)
+position = Vector2(1.5, -0.25)
 shape = SubResource("RectangleShape2D_x4c7e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
