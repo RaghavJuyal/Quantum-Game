@@ -1396,15 +1396,21 @@ text = "Reset"
 position = Vector2(444, -89)
 
 [node name="merlin-lvl1-1" parent="Merlins" instance=ExtResource("18_jvkml")]
-position = Vector2(1896, -89)
+position = Vector2(1251, -89)
 
 [node name="merlin-lvl1-2" parent="Merlins" instance=ExtResource("18_jvkml")]
-position = Vector2(3356, -89)
+position = Vector2(1896, -89)
 
 [node name="merlin-lvl1-3" parent="Merlins" instance=ExtResource("18_jvkml")]
-position = Vector2(3940, -89)
+position = Vector2(2551, -122)
 
 [node name="merlin-lvl1-4" parent="Merlins" instance=ExtResource("18_jvkml")]
+position = Vector2(3356, -89)
+
+[node name="merlin-lvl1-5" parent="Merlins" instance=ExtResource("18_jvkml")]
+position = Vector2(3940, -89)
+
+[node name="merlin-lvl1-6" parent="Merlins" instance=ExtResource("18_jvkml")]
 position = Vector2(4705, -89)
 
 [connection signal="finished_level" from="Finish" to="." method="load_next_level"]
