@@ -66,7 +66,7 @@
 	{"16":"The gates and blocks will also measure you and collapse your superposition."},
 	{"17":"So that you don't have to keep rememebering, whenever you talk with me further on in this level, I will explain the required gates for the level."},
 	{"18":"Remember: The X gate changes |0> to |1> and changes |1> to |0>. This is the same as the 'X' key rotation you have been doing for 180 degrees."},
-	{"19":"Now go forth!"},
+	{"19":"Now go forth!"}
 ],
 "merlin-lvl1-1":[
 	{"0":"Hello there! \nYou have managed to pass the first puzzle!"},
@@ -88,8 +88,8 @@
 	{"16":"To interact with any of these blocks, stand close/on them and press 'G'. Beware that if you are too close to any of the blocks or gates, you may not be able to go in superposition."},
 	{"17":"The gates and blocks will also measure you and collapse your superposition."},
 	{"18":"So that you don't have to keep rememebering, whenever you talk with me further on in this level, I will explain the required gates for the level."},
-	{"19":"Remember, The H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
-	{"20":"Now go forth!"},
+	{"19":"Remember, the H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
+	{"20":"Now go forth!"}
 ],
 "merlin-lvl1-2":[
 	{"0":"Hello there! \nYou have managed to pass the first 2 puzzles!"},
@@ -112,9 +112,9 @@
 	{"17":"To interact with any of these blocks, stand close/on them and press 'G'. Beware that if you are too close to any of the blocks or gates, you may not be able to go in superposition."},
 	{"18":"The gates and blocks will also measure you and collapse your superposition."},
 	{"19":"So that you don't have to keep rememebering, whenever you talk with me further on in this level, I will explain the required gates for the level."},
-	{"20":"Remember, The Z gate does nothing to |0> (changes |0> to |0>) and changes |1> to -|1>. This is the same as the 'Z' key rotation for 180 degrees."},
-	{"21":"and The H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
-	{"22":"Now go forth!"},
+	{"20":"Remember, the Z gate does nothing to |0> (changes |0> to |0>) and changes |1> to -|1>. This is the same as the 'Z' key rotation for 180 degrees."},
+	{"21":"and the H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
+	{"22":"Now go forth!"}
 ],
 "merlin-lvl1-3":[
 	{"0":"Hello there! \nYou have managed to pass the first 3 puzzles!"},
@@ -137,9 +137,9 @@
 	{"17":"To interact with any of these blocks, stand close/on them and press 'G'. Beware that if you are too close to any of the blocks or gates, you may not be able to go in superposition."},
 	{"18":"The gates and blocks will also measure you and collapse your superposition."},
 	{"19":"So that you don't have to keep rememebering, whenever you talk with me further on in this level, I will explain the required gates for the level."},
-	{"20":"Remember, The Y gate changes |0> to i|1> and changes |1> to -i|0>. This is the same as the 'Y' key rotation you have been doing for 180 degrees. As you can see, this is similar to X but we get some imaginary number in front of the state."},
-	{"21":"and The H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
-	{"22":"Now go forth!"},
+	{"20":"Remember, the Y gate changes |0> to i|1> and changes |1> to -i|0>. This is the same as the 'Y' key rotation you have been doing for 180 degrees. As you can see, this is similar to X but we get some imaginary number in front of the state."},
+	{"21":"and the H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
+	{"22":"Now go forth!"}
 ],
 "merlin-lvl1-4":[
 	{"0":"Hello there! \nYou have now finished 4 puzzles! How were they?"},
@@ -175,9 +175,9 @@
 	{"17":"To run the circuit there is the 'Run' block in purple and there is a 'Reset' block in orange to reset the entire circuit."},
 	{"18":"To interact with any of these blocks, stand close/on them and press 'G'. Beware that if you are too close to any of the blocks or gates, you may not be able to go in superposition."},
 	{"19":"The gates and blocks will also measure you and collapse your superposition."},
-	{"20":"Remember, The H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
-	{"21":"and The C(CNOT) gate is a 2 qubit gate. You have a control qubit and a target qubit. If the control qubit is in state |0>, it does not do anything to the target qubit. If the control qubit is in the state |1>, it performs an X gate on the target qubit, i.e., makes |0> to |1> and |1> to |0>"},
-	{"22":"Now go forth!"},
+	{"20":"Remember, the H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
+	{"21":"and the C(CNOT) gate is a 2 qubit gate. You have a control qubit and a target qubit. If the control qubit is in state |0>, it does not do anything to the target qubit. If the control qubit is in the state |1>, it performs an X gate on the target qubit, i.e., makes |0> to |1> and |1> to |0>"},
+	{"22":"Now go forth!"}
 ],
 "merlin-lvl1-6":[
 	{"0":"Hello there! \nYou have reached the end of this level."},

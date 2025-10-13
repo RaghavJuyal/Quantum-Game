@@ -359,7 +359,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Player2" parent="." instance=ExtResource("2_14jow")]
-position = Vector2(358, -75)
+position = Vector2(-58, -75)
 is_state_zero = false
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
