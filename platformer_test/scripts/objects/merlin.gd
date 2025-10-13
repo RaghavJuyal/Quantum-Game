@@ -1,7 +1,7 @@
 extends CharacterBody2D
 @onready var merlin: CharacterBody2D = $"." 
 @onready var interact_area: Area2D = $interact_area
-@onready var text_edit: TextEdit = $"../../Textcontainer/texts/TextEdit"
+@onready var text_edit: RichTextLabel = $"../../Textcontainer/texts/TextEdit"
 @onready var game_manager: Node = get_tree().root.get_node("Game/GameManager")
 
 var interacting = false

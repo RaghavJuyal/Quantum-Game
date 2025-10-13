@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://l6ejnqtjavcb" path="res://scripts/objects/texts.gd" id="1_yc4h5"]
 [ext_resource type="FontFile" uid="uid://b5yockap46ncu" path="res://assets/fonts/PixelOperator8.ttf" id="2_s13s5"]
 
-[node name="TextEdit" type="TextEdit"]
+[node name="TextEdit" type="RichTextLabel"]
 z_index = 5
 clip_contents = false
 custom_minimum_size = Vector2(1, 1)

@@ -1,4 +1,4 @@
-extends TextEdit  # Control node is fine
+extends Control  # Control node is fine
 @onready var label: Label = $Dialogue
 
 var filepath = "res://scripts/objects/dialogue.json"
