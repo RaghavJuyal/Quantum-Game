@@ -13,9 +13,15 @@ func _on_body_entered(body: Node2D) -> void:
 	
 	if !played_sound:
 		played_sound = true
-		sprite_2d.modulate = Color(0.4, 1.0, 0.4, 0.8) # bright soft green, slightly transparent
-		sprite_2d.scale = Vector2(1.2, 1.2)
-		sprite_2d.create_tween().tween_property(sprite_2d, "scale", Vector2.ONE, 0.3).set_trans(Tween.TRANS_BACK)
+
+		var original_y = sprite_2d.position.y
+		sprite_2d.scale = Vector2(1.0, 1.5)
+		sprite_2d.position.y = original_y - (sprite_2d.texture.get_height() * 0.25)
+		
+		var tween = create_tween()
+		tween.set_parallel(true)
+		tween.tween_property(sprite_2d, "scale", Vector2(1.0, 1.3), 0.3).set_trans(Tween.TRANS_ELASTIC)
+		tween.tween_property(sprite_2d, "position:y", original_y - (sprite_2d.texture.get_height() * 0.15), 0.3).set_trans(Tween.TRANS_ELASTIC)
 		
 		var sound_player = game_manager.get_node_or_null("Checkpoint")
 		if sound_player and not sound_player.playing:
