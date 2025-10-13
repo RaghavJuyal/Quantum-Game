@@ -56,8 +56,8 @@ func add_point(coin_name: String) -> void:
 	score += 1
 	current_level.hud.get_node("CoinsLabel").text = str(score)
 	coins_picked_up.append(coin_name)
-	# 5 coins = +1 heart
-	if score % 5 == 0:
+	# 3 coins = +1 heart
+	if score % 3 == 0:
 		hearts += 1
 		current_level.hud.heart_label.text = str(hearts)
 		var sound_player = get_node_or_null("Coin2Heart")
