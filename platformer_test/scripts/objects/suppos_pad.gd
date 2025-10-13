@@ -19,6 +19,14 @@ func _ready() -> void:
 	fidelity_shown = false
 	z_index = 10
 
+func _process(_delta: float) -> void:
+	if not triggered and not game_manager.entangled_mode:
+		var fidelity = game_manager.compute_fidelity(target_theta, target_phi)
+		if fidelity >= fidelity_threshold:
+			sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
+		else:
+			sprite.modulate = Color(0.7, 0.3, 0.9, 0.5)
+
 func _on_body_entered(body: Node2D) -> void:
 	if game_manager.entangled_mode:
 		# handling this is just to be thorough, in practice it should not be used
@@ -54,11 +62,11 @@ func check_superposition(body: Node2D) -> void:
 		return
 	triggered = true
 	if !fidelity_shown:
-		fidelity_label.text += "\nFidelity: %.2f" % (round(fidelity*1000)/1000)
+		fidelity_label.text += "\nFidelity: %.2f" % (floor(fidelity*1000)/1000)
 		fidelity_shown = true
 	else:
 		fidelity_label.text = "Target state:\nθ = %.2f, φ = %.2f" % [round(rad_to_deg(target_theta)*10)/10, round(rad_to_deg(target_phi)*10)/10]
-		fidelity_label.text += "\nFidelity: %.2f" % (round(fidelity*1000)/1000)
+		fidelity_label.text += "\nFidelity: %.2f" % (floor(fidelity*1000)/1000)
 		fidelity_shown = true
 		
 	if fidelity >= fidelity_threshold:

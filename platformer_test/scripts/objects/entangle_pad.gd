@@ -21,6 +21,14 @@ func _ready() -> void:
 	similarity_shown = false
 	z_index = 10
 
+func _process(_delta: float) -> void:
+	if not triggered and game_manager.entangled_mode:
+		var similarity = compute_similarity()
+		if similarity >= similarity_threshold:
+			sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
+		else:
+			sprite.modulate = Color(0.7, 0.3, 0.9, 0.5)
+
 func _on_body_entered(body: Node2D) -> void:
 	if !game_manager.entangled_mode:
 		var state = game_manager.measure()
@@ -54,11 +62,11 @@ func check_entangled_state(body: Node2D) -> void:
 		return
 	triggered = true
 	if !similarity_shown:
-		similarity_label.text += "\nSimilarity: %.2f" % (round(similarity*1000)/1000)
+		similarity_label.text += "\nSimilarity: %.2f" % (floor(similarity*1000)/1000)
 		similarity_shown = true
 	else:
 		similarity_label.text =  "Target probabilities:\n 00 -> %.2f\n 01 -> %.2f\n 10 -> %.2f\n 11 -> %.2f" % [target_00, target_01, target_10, target_11]
-		similarity_label.text += "\nSimilarity: %.2f" % (round(similarity*1000)/1000)
+		similarity_label.text += "\nSimilarity: %.2f" % (floor(similarity*1000)/1000)
 		similarity_shown = true
 		
 	if similarity >= similarity_threshold:
