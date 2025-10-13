@@ -352,7 +352,7 @@ sources/1 = SubResource("TileSetAtlasSource_dqir8")
 script = ExtResource("1_ac7c3")
 
 [node name="Player" parent="." instance=ExtResource("2_qo7hg")]
-position = Vector2(1600, 20)
+position = Vector2(-50, 20)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(1, -61)
@@ -362,7 +362,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Player2" parent="." instance=ExtResource("2_qo7hg")]
-position = Vector2(1600, -80)
+position = Vector2(-50, -80)
 is_state_zero = false
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
