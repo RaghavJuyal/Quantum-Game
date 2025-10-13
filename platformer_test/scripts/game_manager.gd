@@ -614,7 +614,7 @@ func process_update_hud(time_taken):
 	current_level.hud.get_node("Percent1").text = str(prob1)
 	current_level.hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
 	current_level.hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
-	current_level.time_taken.label_2.text = "%.1f s" % level_elapsed_time
+	current_level.time_taken.label_2.text = "%.0f s" % level_elapsed_time
 
 func process_camera():
 	var alpha0 = current_level.player.get_node("AnimatedSprite2D").self_modulate.a
