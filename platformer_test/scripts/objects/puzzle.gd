@@ -61,6 +61,7 @@ var circuit_sequence: Array = []         # Stores gate matrices in order
 var initial_state: Array = []            # 4x1 vector of Complex numbers
 var target_state: Array = []             # 4x1 vector of Complex numbers
 var gate_matrices: Dictionary = {}       # Store 4x4 matrices for 2-qubit gates
+var previous_state: Array = []
 
 func _ready() -> void:
 	# Register interactables
@@ -119,6 +120,8 @@ func _ready() -> void:
 	for g in circuit_sequence:
 		state = _apply_gate(state, g)
 	_update_state_labels(state)
+	previous_state = initial_state
+	
 
 func _init_gate_matrices():
 	var s := 1.0 / sqrt(2.0)
@@ -453,9 +456,65 @@ func handle_interaction(block:Node):
 		"hadamard_gate": game_manager.carried_gate="H"
 
 func _update_state_labels(current: Array) -> void:
-	# If no current state passed, use the initial one
-	current_state_label.text = "Current State:" + _state_to_string(current)
-	target_state_label.text = "Target State:" + _state_to_string(target_state)
+	current_state_label.bbcode_enabled = true
+	target_state_label.bbcode_enabled = true
+
+	# --- Check if current matches target (within tolerance) ---
+	var same_state := true
+	if current.size() == target_state.size():
+		for i in range(current.size()):
+			var a = current[i]
+			var b = target_state[i]
+			if abs(a.re - b.re) > 1e-3 or abs(a.im - b.im) > 1e-3:
+				same_state = false
+				break
+	else:
+		same_state = false
+
+	var parts: Array[String] = []
+	for i in range(current.size()):
+		var c: Complex = current[i]
+		var amp_str := ""
+
+		# --- Compare to previous amplitude ---
+		var changed := false
+		if previous_state.size() == current.size():
+			var prev = previous_state[i]
+			if abs(prev.re - c.re) > 1e-3 or abs(prev.im - c.im) > 1e-3:
+				changed = true
+
+		# --- Format amplitude ---
+		if abs(c.im) < 1e-6:
+			amp_str = "%.2f" % c.re
+		elif abs(c.re) < 1e-6:
+			amp_str = "%.2fi" % c.im
+		else:
+			var sign = "+" if c.im >= 0 else "-"
+			amp_str = "%.2f %s %.2fi" % [c.re, sign, abs(c.im)]
+
+		# --- Binary basis label ---
+		var b0 = i / 2
+		var b1 = i % 2
+		var label = "[color=red]%d[/color][color=green]%d[/color]" % [b0, b1]
+
+		# --- Apply color logic ---
+		if same_state:
+			amp_str = "[color=lime]%s[/color]" % amp_str  # all green if full match
+		elif changed:
+			amp_str = "[color=yellow]%s[/color]" % amp_str
+
+		parts.append("|%s>: %s" % [label, amp_str])
+
+	# --- Update text fields ---
+	current_state_label.text = "Current State: " + "  ".join(parts)
+	target_state_label.text = "Target State: " + _state_to_string(target_state)
+
+	# --- Store current state as previous for next comparison ---
+	previous_state = []
+	for c in current:
+		previous_state.append(Complex.new(c.re, c.im))
+
+
 # async helper to run circuit with wire animation
 func _run_circuit_with_animation() -> void:
 	# Step 1: Animate wires column by column
