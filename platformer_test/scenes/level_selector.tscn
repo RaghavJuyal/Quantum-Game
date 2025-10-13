@@ -216,42 +216,6 @@ theme_override_font_sizes/font_size = 8
 text = "Level 2"
 script = ExtResource("1_aeu7d")
 
-[node name="level0hard" type="Button" parent="CanvasLayer"]
-custom_minimum_size = Vector2(30, 0)
-offset_left = -40.8
-offset_top = 5.0
-offset_right = 22.2
-offset_bottom = 36.0
-theme_override_fonts/font = ExtResource("1_gkmvm")
-theme_override_font_sizes/font_size = 8
-text = "Level 0 Hard"
-autowrap_mode = 3
-script = ExtResource("1_aeu7d")
-
-[node name="level1hard" type="Button" parent="CanvasLayer"]
-custom_minimum_size = Vector2(30, 0)
-offset_left = 33.3
-offset_top = 5.0
-offset_right = 96.3
-offset_bottom = 36.0
-theme_override_fonts/font = ExtResource("1_gkmvm")
-theme_override_font_sizes/font_size = 8
-text = "Level 1 Hard"
-autowrap_mode = 2
-script = ExtResource("1_aeu7d")
-
-[node name="level2hard" type="Button" parent="CanvasLayer"]
-custom_minimum_size = Vector2(30, 0)
-offset_left = 110.0
-offset_top = 5.0
-offset_right = 172.0
-offset_bottom = 36.0
-theme_override_fonts/font = ExtResource("1_gkmvm")
-theme_override_font_sizes/font_size = 8
-text = "Level 2 Hard"
-autowrap_mode = 2
-script = ExtResource("1_aeu7d")
-
 [node name="start_screen" type="Button" parent="CanvasLayer"]
 offset_left = -43.9
 offset_top = 64.2
@@ -271,6 +235,15 @@ theme_override_fonts/font = ExtResource("1_gkmvm")
 theme_override_font_sizes/font_size = 8
 text = "Scores"
 
+[node name="challengelevel" type="Button" parent="CanvasLayer"]
+offset_left = 10.5
+offset_right = 128.5
+offset_bottom = 31.0
+theme_override_fonts/font = ExtResource("1_gkmvm")
+theme_override_font_sizes/font_size = 8
+text = "Challenge Level"
+script = ExtResource("1_aeu7d")
+
 [node name="Tilemap" type="Node" parent="."]
 
 [node name="Background" type="TileMapLayer" parent="Tilemap"]
@@ -287,8 +260,6 @@ zoom = Vector2(3, 3)
 [connection signal="pressed" from="CanvasLayer/level0" to="CanvasLayer/level0" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/level1" to="CanvasLayer/level1" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/level2" to="CanvasLayer/level2" method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/level0hard" to="CanvasLayer/level0hard" method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/level1hard" to="CanvasLayer/level1hard" method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/level2hard" to="CanvasLayer/level2hard" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/start_screen" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/highscores" to="." method="_on_highscores_pressed"]
+[connection signal="pressed" from="CanvasLayer/challengelevel" to="CanvasLayer/challengelevel" method="_on_button_pressed"]
