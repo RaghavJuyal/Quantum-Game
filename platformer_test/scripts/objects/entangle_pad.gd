@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 		if similarity >= similarity_threshold:
 			sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
 		else:
-			sprite.modulate = Color(0.7, 0.3, 0.9, 0.5)
+			sprite.modulate = Color(1.0, 0.9, 0.2, 0.5)
 
 func _on_body_entered(body: Node2D) -> void:
 	if !game_manager.entangled_mode:
