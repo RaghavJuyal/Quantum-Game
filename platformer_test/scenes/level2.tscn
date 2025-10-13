@@ -191,7 +191,7 @@ sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 script = ExtResource("1_ac7c3")
 
 [node name="Player" parent="." instance=ExtResource("2_qo7hg")]
-position = Vector2(3200, 20)
+position = Vector2(-50, 20)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(1, -61)
@@ -201,7 +201,7 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Player2" parent="." instance=ExtResource("2_qo7hg")]
-position = Vector2(3200, -80)
+position = Vector2(-50, -80)
 is_state_zero = false
 
 [node name="Camera2D" type="Camera2D" parent="Player2"]
@@ -246,6 +246,9 @@ position = Vector2(2598, -74)
 
 [node name="merlin-lvl2-3" parent="Merlins" instance=ExtResource("5_xnv6s")]
 position = Vector2(4135, -75)
+
+[node name="merlin-lvl2-4" parent="Merlins" instance=ExtResource("5_xnv6s")]
+position = Vector2(3255, -26)
 
 [node name="Entangled Gems" type="Node" parent="."]
 
@@ -414,6 +417,15 @@ offset_left = 4065.0
 offset_top = -97.0
 offset_right = 4402.0
 offset_bottom = -64.0
+theme_override_fonts/font = ExtResource("9_4vsvd")
+theme_override_font_sizes/font_size = 8
+text = "Press G to interact"
+
+[node name="merlin_talk5" type="Label" parent="Labels"]
+offset_left = 3273.0
+offset_top = -26.0
+offset_right = 3610.0
+offset_bottom = 7.0
 theme_override_fonts/font = ExtResource("9_4vsvd")
 theme_override_font_sizes/font_size = 8
 text = "Press G to interact"
