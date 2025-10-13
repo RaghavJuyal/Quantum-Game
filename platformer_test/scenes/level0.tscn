@@ -373,14 +373,14 @@ text = "THE END"
 position = Vector2(240, -78)
 
 [node name="suppos_pad" parent="Zones" instance=ExtResource("11_tmlue")]
-position = Vector2(1664, 112)
+position = Vector2(1664, 140)
 
 [node name="suppos_pad2" parent="Zones" instance=ExtResource("11_tmlue")]
-position = Vector2(2288, 112)
+position = Vector2(2288, 140)
 target_phi = 4.712
 
 [node name="suppos_pad3" parent="Zones" instance=ExtResource("11_tmlue")]
-position = Vector2(1946, 110)
+position = Vector2(1946, 140)
 target_theta = 0.785
 target_phi = 3.491
 
