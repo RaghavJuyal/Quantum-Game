@@ -205,13 +205,13 @@
 ],
 "merlinchallenge":[
 	{"0":"Hello there! \nWelcome to the challenge level!"},
-	{"1":"I must warn you it is very difficult."},
-	{"2":"That being said, enjoy the journey:)"},
+	{"1":"I must warn you it is very difficult, which is why we provide you with 5 hearts from the beginning. \nThere are also a lot of coins to help you."},
+	{"2":"That being said, enjoy the journey :)"},
 ],
 "merlinchallenge2":[
-	{"0":"Hello there! \nYou have finished roughly one third of the level. Nice job!"},
+	{"0":"Hello there! \nYou have finished roughly one fourth of the level. Nice job!"},
 	{"1":"As you can see, there are quite a lot of jumps here. Be careful!"},
-	{"2":"Well, that's all I have to say. See you!"},
+	{"2":"Well, that's all I have to say. \nSee you!"},
 ],
 "merlinchallenge3":[
 	{"0":"Hello there! \nThis is the first puzzle of this level!"},
@@ -263,8 +263,8 @@
 ],
 "merlinchallenge7":[
 	{"0":"Hello there! \nYou have made it to the end of the challenge level!"},
-	{"1":"Congratulations! You have completed a very difficult task. Be proud!"},
+	{"1":"Congratulations! \nYou have completed a very difficult task. Be proud!"},
 	{"2":"I hope you enjoyed this game."},
-	{"3":"Maybe, we can meet again one day in the future.\n See you :)"}
+	{"3":"Maybe, we can meet again one day in the future. \nSee you :)"}
 ],
 }

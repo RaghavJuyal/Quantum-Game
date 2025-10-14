@@ -53,6 +53,7 @@ func instantiate_gem(level_zero: bool) -> void:
 	
 	game_manager.hold_gem = null
 	current_level.hud.get_node("gem_carried").visible = false
+	gem.z_index = 3
 
 func instantiate_gem_process():
 	if cos(game_manager.theta/2.0)**2 > 0.5:

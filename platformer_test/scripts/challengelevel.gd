@@ -31,6 +31,7 @@ func game_manager_ready():
 		return
 	
 	if game_manager.checkpoint_player_zero == null:
+		game_manager.hearts = 5
 		game_manager.checkpoint_position_0 = player.global_position
 		game_manager.checkpoint_position_1 = player_2.global_position
 		game_manager.level_start_time = Time.get_ticks_msec() / 1000.0
