@@ -23,14 +23,15 @@ func _ready() -> void:
 	z_index = 10
 
 func _process(_delta: float) -> void:
-	if not triggered and game_manager.entangled_mode:
-		var similarity = compute_similarity()
-		if similarity >= similarity_threshold:
-			sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
-		else:
+	if not triggered:
+		if game_manager.entangled_mode:
+			var similarity = compute_similarity()
+			if similarity >= similarity_threshold:
+				sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
+			else:
+				sprite.modulate = normal_color
+		elif not game_manager.entangled_mode:
 			sprite.modulate = normal_color
-	elif !game_manager.entangled_mode:
-		sprite.modulate = normal_color
 
 func _on_body_entered(body: Node2D) -> void:
 	if !game_manager.entangled_mode:
