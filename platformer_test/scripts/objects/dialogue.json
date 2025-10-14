@@ -203,19 +203,68 @@
 	{"3":"If you had fun or learnt something new, please fill the survey for our game! \n(and if you didn't, then definitely fill it) :)"},
 	{"4":"Farewell and see you again someday!"},
 ],
-"dialogue1":[
-		{"0":"Contrary to our world, walls do not count as observers. They can stop you in both layers."},
-		{"1":"However, a cliff does count as an observer. It either observes you falling or you stay up on the ground."}
+"merlinchallenge":[
+	{"0":"Hello there! \nWelcome to the challenge level!"},
+	{"1":"I must warn you it is very difficult."},
+	{"2":"That being said, enjoy the journey:)"},
 ],
-"dialogue2":[
-		{"0":"There may come times when there are no observers in the neighbourhood. How then must you continue?"},
-		{"1":"You can observe yourself in this case. Press 'M' to observe yourself. Do you not observe yourself in the layer you want? Rotate to increase chances."},
-		{"2":"In the HUD, you find the probability in percents a measurement puts you on top (layer 1) and the probability a measurement puts you on the bottom (layer 0)."},
-		{"3":"Are you able to rotate to 100 percent on the desired layer? What about more than ninety percent? You can always try again."}
+"merlinchallenge2":[
+	{"0":"Hello there! \nYou have finished roughly one third of the level. Nice job!"},
+	{"1":"As you can see, there are quite a lot of jumps here. Be careful!"},
+	{"2":"Well, that's all I have to say. See you!"},
 ],
-"dialogue3":[
-		{"0":"These are superposition check zones. Observers like these don't exist in the real world. They can check whether you are truly in the right superposition."},
-		{"1":"As you may or may not have noticed, you can also rotate in two different directions. Where just rotating in x-direction from a pole increases theta, y- and z-direction can influence phi"},
-		{"2":"Don't worry if you don't nail the theta and phi perfectly. You can be slightly off the target indicated next to the check zone."}
-]
+"merlinchallenge3":[
+	{"0":"Hello there! \nThis is the first puzzle of this level!"},
+	{"1":"This puzzle will require 3 gates to be applied to the circuit. If you have forgotten puzzles, consider retrying level 1."},
+	{"2":"I will now be explaining circuit puzzles, including the gates required to solve the puzzle."},
+	{"3":"To continue forward you have to solve the circuit. On the right there are 2 wires, one above and one below. These represent 2 qubits."},
+	{"4":"Your goal is to create the target state shown in text below the wires. To help you with this, the current state is also shown."},
+	{"5":"In the texts for current and target state, the upper wire refers to the first(red) number and the lower wire refers to the second(green) number inside |>. The 'amplitude' of each state is given after the state for example: To represent |01>, |0> in top qubit and |1> in bottom qubit, it would show |00>: 0.0 |01>: 1.0 |10>: 0.0 |11>: 0.0."},
+	{"6":"The amplitudes of the states that you change will turn yellow. If your current state matches the target state, the amplitudes will turn green."},
+	{"7":"The X gate changes |0> to |1> and changes |1> to |0>. This is the same as the 'X' key rotation you have been doing for 180 degrees."},
+	{"8":"The H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
+	{"9":"The C(CNOT) gate is a 2 qubit gate. You have a control qubit and a target qubit. If the control qubit is in state |0>, it does not do anything to the target qubit. If the control qubit is in the state |1>, it performs an X gate on the target qubit, i.e., makes |0> to |1> and |1> to |0>"},
+	{"10":"Basically, it is a conditional NOT gate."},
+	{"11":"Now go forth and tackle the first puzzle!"}
+],
+"merlinchallenge4":[
+	{"0":"Hello there! \nThis is the second puzzle of this level!"},
+	{"1":"This puzzle will require 3 gates to be applied to the circuit, but there are only 2 unique gates here. If you have forgotten puzzles, consider retrying level 1."},
+	{"2":"I will now be explaining circuit puzzles, including the gates required to solve the puzzle."},
+	{"3":"To continue forward you have to solve the circuit. On the right there are 2 wires, one above and one below. These represent 2 qubits."},
+	{"4":"Your goal is to create the target state shown in text below the wires. To help you with this, the current state is also shown."},
+	{"5":"In the texts for current and target state, the upper wire refers to the first(red) number and the lower wire refers to the second(green) number inside |>. The 'amplitude' of each state is given after the state for example: To represent |01>, |0> in top qubit and |1> in bottom qubit, it would show |00>: 0.0 |01>: 1.0 |10>: 0.0 |11>: 0.0."},
+	{"6":"The amplitudes of the states that you change will turn yellow. If your current state matches the target state, the amplitudes will turn green."},
+	{"7":"The Z gate does nothing to |0> (changes |0> to |0>) and changes |1> to -|1>. This is the same as the 'Z' key rotation for 180 degrees."},
+	{"8":"The H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
+	{"9":"Now go forth and tackle the second puzzle!"}
+],
+"merlinchallenge5":[
+	{"0":"Hello there! \nThis is the last major section!"},
+	{"1":"I must warn you it is very lengthy."},
+	{"2":"You will have to carry the gem in front all the way to the end."},
+	{"3":"During this journey, you will have to drop it, solve certain tasks and pick it up again."},
+	{"4":"Well, go forth!"}
+],
+"merlinchallenge6":[
+	{"0":"Hello there! \nThis is the final puzzle of this level!"},
+	{"1":"This puzzle will require 4 gates to be applied to the circuit. If you have forgotten puzzles, consider retrying level 1. Remember the gates and blocks measure you which would collapse your state, even the 2 qubit one."},
+	{"2":"I will now be explaining circuit puzzles, including the gates required to solve the puzzle."},
+	{"3":"To continue forward you have to solve the circuit. On the right there are 2 wires, one above and one below. These represent 2 qubits."},
+	{"4":"Your goal is to create the target state shown in text below the wires. To help you with this, the current state is also shown."},
+	{"5":"In the texts for current and target state, the upper wire refers to the first(red) number and the lower wire refers to the second(green) number inside |>. The 'amplitude' of each state is given after the state for example: To represent |01>, |0> in top qubit and |1> in bottom qubit, it would show |00>: 0.0 |01>: 1.0 |10>: 0.0 |11>: 0.0."},
+	{"6":"The amplitudes of the states that you change will turn yellow. If your current state matches the target state, the amplitudes will turn green."},
+	{"7":"The X gate changes |0> to |1> and changes |1> to |0>. This is the same as the 'X' key rotation you have been doing for 180 degrees."},
+	{"8":"The Z gate does nothing to |0> (changes |0> to |0>) and changes |1> to -|1>. This is the same as the 'Z' key rotation for 180 degrees."},
+	{"9":"The H(Hadamard) gate changes |0> to 0.71|0> + 0.71|1> and changes |1> to 0.71|0> - 0.71|1>."},
+	{"10":"The C(CNOT) gate is a 2 qubit gate. You have a control qubit and a target qubit. If the control qubit is in state |0>, it does not do anything to the target qubit. If the control qubit is in the state |1>, it performs an X gate on the target qubit, i.e., makes |0> to |1> and |1> to |0>"},
+	{"11":"Basically, it is a conditional NOT gate."},
+	{"12":"Now go forth and tackle the final puzzle!"}
+],
+"merlinchallenge7":[
+	{"0":"Hello there! \nYou have made it to the end of the challenge level!"},
+	{"1":"Congratulations! You have completed a very difficult task. Be proud!"},
+	{"2":"I hope you enjoyed this game."},
+	{"3":"Maybe, we can meet again one day in the future.\n See you :)"}
+],
 }
