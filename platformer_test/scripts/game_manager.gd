@@ -659,6 +659,9 @@ func process_interact():
 			if body.is_in_group("interactables_puzzle"):
 				var current_puzzle = body.get_parent().get_parent()
 				current_puzzle.handle_interaction(body)
+				var sound_player = get_node_or_null("PickGate")
+				if sound_player and not sound_player.playing:
+					sound_player.play()
 			if body.is_in_group("interactables_entangle"):
 				var current_entangle_block = body.get_parent()
 				current_entangle_block._gem_block(body)
@@ -668,6 +671,9 @@ func process_interact():
 			if area.is_in_group("interactables_puzzle"):
 				var current_puzzle = area.get_parent().get_parent()
 				current_puzzle.handle_interaction(area)
+				var sound_player = get_node_or_null("PickGate")
+				if sound_player and not sound_player.playing:
+					sound_player.play()
 			if area.is_in_group("interact_merlin"):
 				var current_merlin = area.get_parent()
 				current_merlin.handle_interaction()
