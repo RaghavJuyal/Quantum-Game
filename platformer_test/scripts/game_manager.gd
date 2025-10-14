@@ -14,6 +14,7 @@ var next_file_path = null
 var is_loading = false
 var delta_theta = 0
 var current_level_name
+var player_data_path = "user://player_data.json"
 
 ## PLAYER STATE ##
 var suppos_allowed = true
@@ -85,6 +86,7 @@ func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
 	
 	# Update hearts / reset game if needed
+	carried_gate = ""
 	hearts -= 1
 	current_level.hud.heart_label.text = str(hearts)
 	if hearts <= 0:
@@ -658,6 +660,9 @@ func process_interact():
 			if body.is_in_group("interactables_puzzle"):
 				var current_puzzle = body.get_parent().get_parent()
 				current_puzzle.handle_interaction(body)
+				var sound_player = get_node_or_null("PickGate")
+				if sound_player and not sound_player.playing:
+					sound_player.play()
 			if body.is_in_group("interactables_entangle"):
 				var current_entangle_block = body.get_parent()
 				current_entangle_block._gem_block(body)
@@ -667,6 +672,9 @@ func process_interact():
 			if area.is_in_group("interactables_puzzle"):
 				var current_puzzle = area.get_parent().get_parent()
 				current_puzzle.handle_interaction(area)
+				var sound_player = get_node_or_null("PickGate")
+				if sound_player and not sound_player.playing:
+					sound_player.play()
 			if area.is_in_group("interact_merlin"):
 				var current_merlin = area.get_parent()
 				current_merlin.handle_interaction()
@@ -712,14 +720,17 @@ func process_fail():
 func process_success():
 	randomize()
 	level_passed.label.text = level_passed.SUCCESS_MESSAGES[randi() % level_passed.SUCCESS_MESSAGES.size()]
-	var final_score = (score*10 + hearts*50) *clamp(600.0/level_elapsed_time,0.5,5) 
-	var parsedResult
-	var path = "res://scripts/player_data.json"
-	if FileAccess.file_exists(path):
-		var f = FileAccess.open(path, FileAccess.READ)
-		parsedResult = JSON.parse_string(f.get_as_text())
-	else:
-		parsedResult = {}
+	var limit
+	if current_level_name == "level0":
+		limit = 450
+	elif current_level_name == "level1":
+		limit = 900
+	elif current_level_name == "level2":
+		limit = 1200
+	elif current_level_name == "challengelevel":
+		limit = 7000
+	var final_score = (score*10 + hearts*50) *clamp(limit/level_elapsed_time,0.5,5) 
+	var parsedResult = load_json()
 	var index = 0
 	for level_dict in parsedResult["highscore"]:
 		if level_dict.has(current_level_name):
@@ -728,10 +739,7 @@ func process_success():
 	if parsedResult["highscore"][index][current_level_name]< final_score:
 		parsedResult["highscore"][index][current_level_name] = final_score
 		level_passed.label_3.visible = true
-	var save_file = FileAccess.open(path, FileAccess.WRITE)
-	if save_file:
-		save_file.store_string(JSON.stringify(parsedResult," "))
-		save_file.close()
+	save_json(parsedResult)
 	level_passed.label_2.text = "Coins: " + str(score) + "\n\nHearts: " + str(hearts) + "\n\nTime: " + "%.2f s" % level_elapsed_time + "\n\nFinal Score: " + "%.2f" %final_score
 	score = 0
 	current_level.hud.coins_label.text = str(score)
@@ -742,6 +750,40 @@ func process_success():
 	is_dead = false
 	get_tree().paused = true
 	level_passed.visible = true
+
+func load_json():
+	var parsedResult
+	if FileAccess.file_exists(player_data_path):
+		var f = FileAccess.open(player_data_path, FileAccess.READ)
+		parsedResult = JSON.parse_string(f.get_as_text())
+		f.close()
+	else:
+		parsedResult = {}
+		# initialize a default structure if no file exists
+		parsedResult = {
+			"highest_level": 0.0,
+			"highscore": [
+				{
+					"level0": 0.0
+				},
+				{
+					"level1": 0.0
+				},
+				{
+					"level2": 0.0
+				},
+				{
+					"challengelevel": 0.0
+				}
+			]
+		}
+		save_json(parsedResult)
+	return parsedResult
+
+func save_json(parsedResult):
+	var f = FileAccess.open(player_data_path, FileAccess.WRITE)
+	f.store_string(JSON.stringify(parsedResult, "  "))
+	f.close()
 
 ## PROCESS ##
 

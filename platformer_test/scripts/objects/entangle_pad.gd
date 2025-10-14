@@ -14,20 +14,24 @@ extends Area2D
 
 var triggered := false
 var similarity_shown = false
+var normal_color = Color(1.0, 0.55, 0.0, 0.5)
 
 func _ready() -> void:
-	sprite.modulate = Color(1.0, 0.55, 0.0, 0.5)
+	sprite.modulate = normal_color
 	similarity_label.text = "Target probabilities:\n 00 -> %.2f\n 01 -> %.2f\n 10 -> %.2f\n 11 -> %.2f" % [target_00, target_01, target_10, target_11]
 	similarity_shown = false
 	z_index = 10
 
 func _process(_delta: float) -> void:
-	if not triggered and game_manager.entangled_mode:
-		var similarity = compute_similarity()
-		if similarity >= similarity_threshold:
-			sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
-		else:
-			sprite.modulate = Color(1.0, 0.55, 0.0, 0.5)
+	if not triggered:
+		if game_manager.entangled_mode:
+			var similarity = compute_similarity()
+			if similarity >= similarity_threshold:
+				sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
+			else:
+				sprite.modulate = normal_color
+		elif not game_manager.entangled_mode:
+			sprite.modulate = normal_color
 
 func _on_body_entered(body: Node2D) -> void:
 	if !game_manager.entangled_mode:

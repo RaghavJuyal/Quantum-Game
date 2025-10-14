@@ -9,10 +9,16 @@ extends Control
 var buttons
 var player_data = {}
 var highest_level = 0
+var player_data_path = "user://player_data.json"
 
 func _ready() -> void:
 	buttons = [level_0, level_1, level_2, challengelevel]
-	load_json("res://scripts/player_data.json")
+	var parsed = load_json()
+	if typeof(parsed) == TYPE_DICTIONARY and "highest_level" in parsed:
+		highest_level = parsed["highest_level"]
+	else:
+		highest_level = 0
+	
 	update_level_buttons()
 
 func set_game_manager(manager: Node):
@@ -23,16 +29,39 @@ func set_game_manager(manager: Node):
 func _on_back_button_pressed() -> void:
 	game_manager.load_level("res://scenes/start_screen.tscn")
 
-func load_json(path: String) -> void:
-	if FileAccess.file_exists(path):
-		var f = FileAccess.open(path, FileAccess.READ)
-		var parsed = JSON.parse_string(f.get_as_text())
-		if typeof(parsed) == TYPE_DICTIONARY and "highest_level" in parsed:
-			highest_level = parsed["highest_level"]
-		else:
-			highest_level = 0
+func load_json():
+	var parsedResult
+	if FileAccess.file_exists(player_data_path):
+		var f = FileAccess.open(player_data_path, FileAccess.READ)
+		parsedResult = JSON.parse_string(f.get_as_text())
+		f.close()
 	else:
-		highest_level = 0
+		parsedResult = {}
+		# initialize a default structure if no file exists
+		parsedResult = {
+			"highest_level": 0.0,
+			"highscore": [
+				{
+					"level0": 0.0
+				},
+				{
+					"level1": 0.0
+				},
+				{
+					"level2": 0.0
+				},
+				{
+					"challengelevel": 0.0
+				}
+			]
+		}
+		save_json(parsedResult)
+	return parsedResult
+
+func save_json(parsedResult):
+	var f = FileAccess.open(player_data_path, FileAccess.WRITE)
+	f.store_string(JSON.stringify(parsedResult, "  "))
+	f.close()
 
 func update_level_buttons() -> void:
 	for button in buttons:

@@ -42,6 +42,10 @@ volume_db = -18.0
 stream = ExtResource("7_u5sy4")
 volume_db = -11.632
 
+[node name="PickGate" type="AudioStreamPlayer" parent="GameManager"]
+stream = ExtResource("3_gee14")
+pitch_scale = 0.25
+
 [node name="Entangle" type="AudioStreamPlayer" parent="GameManager"]
 stream = ExtResource("6_p57ef")
 volume_db = -12.86

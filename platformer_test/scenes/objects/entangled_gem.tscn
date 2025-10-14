@@ -159,7 +159,7 @@ sources/1 = SubResource("TileSetAtlasSource_tn25f")
 script = ExtResource("1_2uq1b")
 
 [node name="Gem" parent="." instance=ExtResource("1_1druc")]
-z_index = 6
+z_index = 3
 position = Vector2(2216, 10)
 
 [node name="Gem Block" parent="." instance=ExtResource("2_2uq1b")]
