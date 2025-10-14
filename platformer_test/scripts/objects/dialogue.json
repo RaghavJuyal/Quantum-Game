@@ -185,16 +185,19 @@
 	{"5":"Thus await your final set of challenges. \nGood luck!"},
 ],
 "merlin-lvl2-4":[
-	{"0":"Hello there! \nExcellent work! The two-qubit state you had just created for the check zone was something more profound than any general two-qubit states - it was an entangled state!"},
+	{"0":"Hello there! \nExcellent work! The two-qubit state you had just created for the check zone was something more profound than any general two-qubit states. It was an entangled state!"},
 	{"1":"Here's what makes entanglement special: the two qubits are no longer separable. You can't describe your state and the gem's state independently anymore—they're fundamentally linked."},
-	{"2":"In other words, for the state you had, if we measured and you collapsed to layer 0, the gem is guaranteed to also be on layer 0. If you're on layer 1, so is the gem. They're perfectly correlated!"},
-	{"3":"This correlation isn't because one qubit 'tells' the other what to do when measured, the connection already exists in the quantum state before any measurement happens—it's woven into the fabric of the state itself. \nThe measurement outcomes are connected in a way that has no classical explanation."},
-	{"4":"Here's a secret: you've actually been using entangled states throughout this entire level! \nYou have created quantum correlations!"},
-	{"5":"Whenever you had non-zero probabilities for both 00 and 11 basis states and zero probabilities for 01 and 10, you were working with correlated entangled states like the one you just created."},
-	{"6":"Similarly, when you aimed for 01 and 10 states, you were also creating entangled states—just anti-correlated ones instead!"},
-	{"7":"Not all two-qubit states are entangled. If you had been purely in state 0 and used CNOT on a gem in state 0, you'd get just 00—that's separable, not entangled."},
-	{"8":"But the moment you create states where the probabilities can't be explained by treating each qubit independently, you've got entanglement. And you've been mastering it all along!"},
-	{"9":"Now that you understand what you've been doing, use this knowledge wisely. \nEntanglement is one of your most powerful tools in this quantum world!"}
+	{"2":"Specifically, being separable means being able to write the two-qubit state as |x>|y>, where |x> is the state of the first qubit and |y> is the state of the second qubit."},
+	{"3":"For example if we had a 50% probability of being in |00> and 50% for |01>, the first qubit is always in |0> and the other qubit will have the probabilities of 50% being in |0> and 50% in |1>."},
+	{"4":"But for the state you had, which was 50% probability of |00> and 50% of |11>, you can never separate the probabilities of the qubits as done above. \nThe qubits are no longer independent."},
+	{"5":"If we measured and you collapsed to layer 0, the gem is guaranteed to also be on layer 0. If you're on layer 1, so is the gem. \nThey're perfectly correlated!"},
+	{"6":"This correlation isn't because one qubit 'tells' the other what to do when measured, the connection already exists in the quantum state before any measurement happens—it's woven into the fabric of the state itself. \nThe measurement outcomes are connected in a way that has no classical explanation."},
+	{"7":"Here's a secret: you've actually been using entangled states throughout this entire level! \nYou have created quantum correlations!"},
+	{"8":"Whenever you had non-zero probabilities for both 00 and 11 basis states and zero probabilities for 01 and 10, you were working with correlated entangled states like the one you just created."},
+	{"9":"Similarly, when you aimed for 01 and 10 states, you were also creating entangled states—just anti-correlated ones instead!"},
+	{"10":"Not all two-qubit states are entangled. If you had been purely in state 0 and used CNOT on a gem in state 0, you'd get just |00> with 100% — that's separable as 100% first qubit being in |0> and 100% for the second being in |0> : not entangled."},
+	{"11":"But the moment you create states where the probabilities can't be explained by treating each qubit independently, you've got entanglement. And you've been mastering it all along!"},
+	{"12":"Now that you understand what you've been doing, use this knowledge wisely. \nEntanglement is one of your most powerful tools in this quantum world!"}
 ],
 "merlin-lvl2-3":[
 	{"0":"Hello there! \nUnbelievable that you finally made it here."},
