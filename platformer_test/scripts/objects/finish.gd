@@ -13,7 +13,7 @@ func _on_body_entered(_body: Node2D) -> void:
 	else:
 		measured_state = game_manager.measure_entangled()
 	
-	game_manager.load_json()
+	parsedResult = game_manager.load_json()
 	highest_level = parsedResult["highest_level"]
 	var level_name = game_manager.current_level_name
 	var match = level_name.match("\\d+")
