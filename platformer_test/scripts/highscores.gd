@@ -14,7 +14,7 @@ func set_game_manager(manager: Node):
 	game_manager = manager
 
 func _ready() -> void:
-	load_json()
+	load_json("user://player_data.json")
 
 	# Keep labels in order matching JSON array
 	var score_labels = [
@@ -35,10 +35,39 @@ func _ready() -> void:
 func _on_level_select_pressed() -> void:
 	game_manager.load_level("res://scenes/level_selector.tscn")
 
-func load_json():
-	var path = "user://player_data.json"
+func load_json(path: String):
 	if FileAccess.file_exists(path):
 		var f = FileAccess.open(path, FileAccess.READ)
 		parsedResult = JSON.parse_string(f.get_as_text())
+		f.close()
 	else:
-		parsedResult = {}
+		# initialize a default structure if no file exists
+		parsedResult = {
+			"highest_level": 0,
+			"highscore": [
+				{
+				"level0": 0.0
+				},
+				{
+				"level1": 0.0
+				},
+				{
+				"level2": 0.0
+				},
+				{
+				"level0hard": 0.0
+				},
+				{
+				"level1hard": 0.0
+				},
+				{
+				"level2hard": 0.0
+				}
+			]
+		}
+		save_json(path, parsedResult)
+
+func save_json(path: String, parsedResult):
+	var f = FileAccess.open(path, FileAccess.WRITE)
+	f.store_string(JSON.stringify(parsedResult, "  "))
+	f.close()

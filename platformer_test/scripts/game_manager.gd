@@ -717,8 +717,32 @@ func process_success():
 	if FileAccess.file_exists(path):
 		var f = FileAccess.open(path, FileAccess.READ)
 		parsedResult = JSON.parse_string(f.get_as_text())
+		f.close()
 	else:
-		parsedResult = {}
+		parsedResult = {
+			"highest_level": 0,
+			"highscore": [
+				{
+				"level0": 0.0
+				},
+				{
+				"level1": 0.0
+				},
+				{
+				"level2": 0.0
+				},
+				{
+				"level0hard": 0.0
+				},
+				{
+				"level1hard": 0.0
+				},
+				{
+				"level2hard": 0.0
+				}
+			]
+		}
+		save_json(path, parsedResult)
 	var index = 0
 	for level_dict in parsedResult["highscore"]:
 		if level_dict.has(current_level_name):
@@ -741,6 +765,11 @@ func process_success():
 	is_dead = false
 	get_tree().paused = true
 	level_passed.visible = true
+
+func save_json(path: String, parsedResult):
+	var f = FileAccess.open(path, FileAccess.WRITE)
+	f.store_string(JSON.stringify(parsedResult, "  "))
+	f.close()
 
 ## PROCESS ##
 

@@ -26,16 +26,47 @@ func set_game_manager(manager: Node):
 func _on_back_button_pressed() -> void:
 	game_manager.load_level("res://scenes/start_screen.tscn")
 
-func load_json(path: String) -> void:
+func load_json(path: String):
 	if FileAccess.file_exists(path):
 		var f = FileAccess.open(path, FileAccess.READ)
-		var parsed = JSON.parse_string(f.get_as_text())
-		if typeof(parsed) == TYPE_DICTIONARY and "highest_level" in parsed:
-			highest_level = parsed["highest_level"]
+		var parsedResult = JSON.parse_string(f.get_as_text())
+		if typeof(parsedResult) == TYPE_DICTIONARY and "highest_level" in parsedResult:
+			highest_level = parsedResult["highest_level"]
 		else:
 			highest_level = 0
+		f.close()
 	else:
 		highest_level = 0
+		# initialize a default structure if no file exists
+		var parsedResult = {
+			"highest_level": 0,
+			"highscore": [
+				{
+				"level0": 0.0
+				},
+				{
+				"level1": 0.0
+				},
+				{
+				"level2": 0.0
+				},
+				{
+				"level0hard": 0.0
+				},
+				{
+				"level1hard": 0.0
+				},
+				{
+				"level2hard": 0.0
+				}
+			]
+		}
+		save_json(path, parsedResult)
+
+func save_json(path: String, parsedResult):
+	var f = FileAccess.open(path, FileAccess.WRITE)
+	f.store_string(JSON.stringify(parsedResult, "  "))
+	f.close()
 
 func update_level_buttons() -> void:
 	for i in range(buttons.size()):
