@@ -36,7 +36,7 @@ func _on_level_select_pressed() -> void:
 	game_manager.load_level("res://scenes/level_selector.tscn")
 
 func load_json():
-	var path = "res://scripts/player_data.json"
+	var path = "user://player_data.json"
 	if FileAccess.file_exists(path):
 		var f = FileAccess.open(path, FileAccess.READ)
 		parsedResult = JSON.parse_string(f.get_as_text())

@@ -14,7 +14,7 @@ var highest_level = 0
 
 func _ready() -> void:
 	buttons = [level_0, level_1, level_2, level_0hard, level_1hard, level_2hard]
-	var file = "res://scripts/player_data.json"
+	var file = "user://player_data.json"
 	load_json(file)
 	update_level_buttons()
 

@@ -11,7 +11,7 @@ func _on_body_entered(_body: Node2D) -> void:
 		measured_state = game_manager.measure()
 	else:
 		measured_state = game_manager.measure_entangled()
-	var file_path = "res://scripts/player_data.json"
+	var file_path = "user://player_data.json"
 	load_json(file_path)
 	var level_name = game_manager.current_level_name
 	var match = level_name.match("\\d+")
