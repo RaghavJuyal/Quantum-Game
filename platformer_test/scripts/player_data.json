@@ -1,5 +1,5 @@
 {
- "highest_level": 0,
+ "highest_level": 0.0,
  "highscore": [
   {
    "level0": 0.0
@@ -11,13 +11,7 @@
    "level2": 0.0
   },
   {
-   "level0hard": 0.0
-  },
-  {
-   "level1hard": 0.0
-  },
-  {
-   "level2hard": 0.0
+   "challengelevel": 0.0
   }
  ]
 }

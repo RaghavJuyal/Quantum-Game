@@ -4,11 +4,9 @@ var game_manager: Node = null
 var parsedResult
 
 @onready var level_0_score: Label = $CanvasLayer/level0score
-@onready var level_0_hardscore: Label = $CanvasLayer/level0hardscore
 @onready var level_1_score: Label = $CanvasLayer/level1score
-@onready var level_1_hardscore: Label = $CanvasLayer/level1hardscore
 @onready var level_2_score: Label = $CanvasLayer/level2score
-@onready var level_2_hardscore: Label = $CanvasLayer/level2hardscore
+@onready var challengelevelscore: Label = $CanvasLayer/challengelevelscore
 
 func set_game_manager(manager: Node):
 	game_manager = manager
@@ -19,7 +17,7 @@ func _ready() -> void:
 	# Keep labels in order matching JSON array
 	var score_labels = [
 		level_0_score, level_1_score, level_2_score,
-		level_0_hardscore, level_1_hardscore, level_2_hardscore
+		challengelevelscore
 	]
 
 	if "highscore" in parsedResult:

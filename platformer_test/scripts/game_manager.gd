@@ -56,8 +56,8 @@ func add_point(coin_name: String) -> void:
 	score += 1
 	current_level.hud.get_node("CoinsLabel").text = str(score)
 	coins_picked_up.append(coin_name)
-	# 5 coins = +1 heart
-	if score % 5 == 0:
+	# 3 coins = +1 heart
+	if score % 3 == 0:
 		hearts += 1
 		current_level.hud.heart_label.text = str(hearts)
 		var sound_player = get_node_or_null("Coin2Heart")
@@ -614,7 +614,7 @@ func process_update_hud(time_taken):
 	current_level.hud.get_node("Percent1").text = str(prob1)
 	current_level.hud.get_node("phi_value").text = str(round(rad_to_deg(phi)*10)/10)
 	current_level.hud.get_node("theta_value").text = str(round(rad_to_deg(theta)*10)/10)
-	current_level.time_taken.label_2.text = "%.1f s" % level_elapsed_time
+	current_level.time_taken.label_2.text = "%.0f s" % level_elapsed_time
 
 func process_camera():
 	var alpha0 = current_level.player.get_node("AnimatedSprite2D").self_modulate.a
@@ -697,11 +697,12 @@ func process_entanglement(time_taken):
 
 func process_pause():
 	if Input.is_action_just_pressed("pause"):
-		if !get_tree().paused:
-			pause_ui.panel._update_from_audio_bus()
-			pause_start = Time.get_ticks_msec() / 1000.0
-			get_tree().paused = true
-			pause_ui.visible = true
+		if !is_dead:
+			if !get_tree().paused:
+				pause_ui.panel._update_from_audio_bus()
+				pause_start = Time.get_ticks_msec() / 1000.0
+				get_tree().paused = true
+				pause_ui.visible = true
 
 func process_fail():
 	if !get_tree().paused:

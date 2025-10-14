@@ -4,18 +4,15 @@ extends Control
 @onready var level_0: Button = $CanvasLayer/level0
 @onready var level_1: Button = $CanvasLayer/level1
 @onready var level_2: Button = $CanvasLayer/level2
-@onready var level_0hard: Button = $CanvasLayer/level0hard
-@onready var level_1hard: Button = $CanvasLayer/level1hard
-@onready var level_2hard: Button = $CanvasLayer/level2hard
+@onready var challengelevel: Button = $CanvasLayer/challengelevel
 
 var buttons
 var player_data = {}
 var highest_level = 0
 
 func _ready() -> void:
-	buttons = [level_0, level_1, level_2, level_0hard, level_1hard, level_2hard]
-	var file = "res://scripts/player_data.json"
-	load_json(file)
+	buttons = [level_0, level_1, level_2, challengelevel]
+	load_json("res://scripts/player_data.json")
 	update_level_buttons()
 
 func set_game_manager(manager: Node):
@@ -38,19 +35,20 @@ func load_json(path: String) -> void:
 		highest_level = 0
 
 func update_level_buttons() -> void:
-	for i in range(buttons.size()):
-		var button = buttons[i]
-		var is_hard = button.name.ends_with("hard")
-		var level_num = int(button.name.replace("level", "").replace("hard", ""))
-
-		# Unlock condition
-		if (not is_hard and highest_level >= level_num) or (is_hard and highest_level > level_num):
-			button.disabled = false
-			button.modulate = Color(1, 1, 1)
-		else:
-			button.disabled = true
-			button.modulate = Color(0.5, 0.5, 0.5)
-
+	for button in buttons:
+		match button.name:
+			"level0":
+				button.disabled = false
+				button.modulate = Color(1, 1, 1)
+			"level1":
+				button.disabled = highest_level < 1
+				button.modulate = Color(0.5, 0.5, 0.5) if button.disabled else Color(1, 1, 1)
+			"level2":
+				button.disabled = highest_level < 2
+				button.modulate = Color(0.5, 0.5, 0.5) if button.disabled else Color(1, 1, 1)
+			"challengelevel":
+				button.disabled = highest_level < 3
+				button.modulate = Color(0.5, 0.5, 0.5) if button.disabled else Color(1, 1, 1)
 
 func _on_highscores_pressed() -> void:
 	game_manager.load_level("res://scenes/highscores.tscn")

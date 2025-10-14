@@ -214,54 +214,35 @@ theme_override_font_sizes/font_size = 40
 text = "9999"
 horizontal_alignment = 2
 
-[node name="level0hard" type="Label" parent="CanvasLayer"]
-offset_left = 500.0
-offset_top = 400.0
-offset_right = 1131.0
-offset_bottom = 703.0
-theme_override_fonts/font = ExtResource("1_6oiwq")
-theme_override_font_sizes/font_size = 40
-text = "Level 0 Hard"
-
-[node name="level0hardscore" type="Label" parent="CanvasLayer"]
-offset_left = 1000.0
-offset_top = 400.0
-offset_right = 1631.0
-offset_bottom = 703.0
-theme_override_fonts/font = ExtResource("1_6oiwq")
-theme_override_font_sizes/font_size = 40
-text = "898"
-horizontal_alignment = 2
-
 [node name="level1" type="Label" parent="CanvasLayer"]
 offset_left = 500.0
-offset_top = 550.0
+offset_top = 400.0
 offset_right = 1131.0
-offset_bottom = 853.0
+offset_bottom = 703.0
 theme_override_fonts/font = ExtResource("1_6oiwq")
 theme_override_font_sizes/font_size = 40
 text = "Level 1"
 
 [node name="level1score" type="Label" parent="CanvasLayer"]
 offset_left = 1000.0
-offset_top = 550.0
+offset_top = 400.0
 offset_right = 1631.0
-offset_bottom = 853.0
+offset_bottom = 703.0
 theme_override_fonts/font = ExtResource("1_6oiwq")
 theme_override_font_sizes/font_size = 40
 text = "77777"
 horizontal_alignment = 2
 
-[node name="level1hard" type="Label" parent="CanvasLayer"]
+[node name="challengelevel" type="Label" parent="CanvasLayer"]
 offset_left = 500.0
 offset_top = 700.0
 offset_right = 1131.0
 offset_bottom = 1003.0
 theme_override_fonts/font = ExtResource("1_6oiwq")
 theme_override_font_sizes/font_size = 40
-text = "Level 1 Hard"
+text = "Challenge Level"
 
-[node name="level1hardscore" type="Label" parent="CanvasLayer"]
+[node name="challengelevelscore" type="Label" parent="CanvasLayer"]
 offset_left = 1000.0
 offset_top = 700.0
 offset_right = 1631.0
@@ -274,40 +255,21 @@ horizontal_alignment = 2
 
 [node name="level2" type="Label" parent="CanvasLayer"]
 offset_left = 500.0
-offset_top = 850.0
+offset_top = 550.0
 offset_right = 1131.0
-offset_bottom = 1153.0
+offset_bottom = 853.0
 theme_override_fonts/font = ExtResource("1_6oiwq")
 theme_override_font_sizes/font_size = 40
 text = "Level 2"
 
 [node name="level2score" type="Label" parent="CanvasLayer"]
 offset_left = 1000.0
-offset_top = 850.0
+offset_top = 550.0
 offset_right = 1631.0
-offset_bottom = 1153.0
+offset_bottom = 853.0
 theme_override_fonts/font = ExtResource("1_6oiwq")
 theme_override_font_sizes/font_size = 40
 text = "55"
-horizontal_alignment = 2
-
-[node name="level2hard" type="Label" parent="CanvasLayer"]
-offset_left = 500.0
-offset_top = 1000.0
-offset_right = 1131.0
-offset_bottom = 1303.0
-theme_override_fonts/font = ExtResource("1_6oiwq")
-theme_override_font_sizes/font_size = 40
-text = "Level 2 Hard"
-
-[node name="level2hardscore" type="Label" parent="CanvasLayer"]
-offset_left = 1000.0
-offset_top = 1000.0
-offset_right = 1631.0
-offset_bottom = 1303.0
-theme_override_fonts/font = ExtResource("1_6oiwq")
-theme_override_font_sizes/font_size = 40
-text = "4444"
 horizontal_alignment = 2
 
 [node name="level_select" type="Button" parent="CanvasLayer"]

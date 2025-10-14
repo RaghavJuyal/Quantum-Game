@@ -27,7 +27,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lynhg"]
-size = Vector2(7, 13)
+size = Vector2(6, 11)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7kfo4"]
 size = Vector2(9, 1)
@@ -43,7 +43,7 @@ flip_h = true
 [node name="Killzone" parent="." instance=ExtResource("2_1e8ai")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Killzone"]
-position = Vector2(0.5, 1.5)
+position = Vector2(1, 2.5)
 shape = SubResource("RectangleShape2D_lynhg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

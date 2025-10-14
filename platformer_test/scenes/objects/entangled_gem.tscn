@@ -53,6 +53,7 @@ texture = ExtResource("3_qx7du")
 4:2/0 = 0
 5:2/0 = 0
 6:2/0 = 0
+6:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 7:2/0 = 0
 8:2/0 = 0
 9:2/0 = 0
@@ -158,6 +159,7 @@ sources/1 = SubResource("TileSetAtlasSource_tn25f")
 script = ExtResource("1_2uq1b")
 
 [node name="Gem" parent="." instance=ExtResource("1_1druc")]
+z_index = 6
 position = Vector2(2216, 10)
 
 [node name="Gem Block" parent="." instance=ExtResource("2_2uq1b")]

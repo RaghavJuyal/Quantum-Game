@@ -16,10 +16,18 @@ var triggered := false
 var similarity_shown = false
 
 func _ready() -> void:
-	sprite.modulate = Color(1.0, 0.9, 0.2, 0.5)
+	sprite.modulate = Color(1.0, 0.55, 0.0, 0.5)
 	similarity_label.text = "Target probabilities:\n 00 -> %.2f\n 01 -> %.2f\n 10 -> %.2f\n 11 -> %.2f" % [target_00, target_01, target_10, target_11]
 	similarity_shown = false
 	z_index = 10
+
+func _process(_delta: float) -> void:
+	if not triggered and game_manager.entangled_mode:
+		var similarity = compute_similarity()
+		if similarity >= similarity_threshold:
+			sprite.modulate = Color(0.56, 0.93, 0.56, 0.5)
+		else:
+			sprite.modulate = Color(1.0, 0.55, 0.0, 0.5)
 
 func _on_body_entered(body: Node2D) -> void:
 	if !game_manager.entangled_mode:
@@ -36,11 +44,12 @@ func _on_body_entered(body: Node2D) -> void:
 	check_entangled_state(body)	
 
 func compute_similarity() -> float:
-	# Bhattacharya distance
+	# Bhattacharya coefficient (fidelity)
 	var sum = 0.0
 	var entangled_probs = game_manager.entangled_probs
-	sum = sqrt(entangled_probs[0] * target_00/100) + sqrt(entangled_probs[1] * target_01/100) + sqrt(entangled_probs[2] * target_10/100) + sqrt(entangled_probs[3] * target_11/100)	
-	return sum * sum  # Fidelity value ∈ [0, 1]
+	sum = sqrt(entangled_probs[0] * target_00/100.0) + sqrt(entangled_probs[1] * target_01/100.0) + sqrt(entangled_probs[2] * target_10/100.0) + sqrt(entangled_probs[3] * target_11/100.0)	
+	var fidelity = sum * sum
+	return clamp(fidelity, 0.0, 1.0)  # Ensure it stays in [0, 1]
 
 func check_entangled_state(body: Node2D) -> void:
 	var similarity = compute_similarity()
@@ -54,11 +63,11 @@ func check_entangled_state(body: Node2D) -> void:
 		return
 	triggered = true
 	if !similarity_shown:
-		similarity_label.text += "\nSimilarity: %.2f" % (round(similarity*1000)/1000)
+		similarity_label.text += "\nSimilarity: %.2f" % (floor(similarity*1000)/1000)
 		similarity_shown = true
 	else:
 		similarity_label.text =  "Target probabilities:\n 00 -> %.2f\n 01 -> %.2f\n 10 -> %.2f\n 11 -> %.2f" % [target_00, target_01, target_10, target_11]
-		similarity_label.text += "\nSimilarity: %.2f" % (round(similarity*1000)/1000)
+		similarity_label.text += "\nSimilarity: %.2f" % (floor(similarity*1000)/1000)
 		similarity_shown = true
 		
 	if similarity >= similarity_threshold:
