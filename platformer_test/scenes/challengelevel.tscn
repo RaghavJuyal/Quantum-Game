@@ -250,29 +250,38 @@ position = Vector2(-455, -52)
 [node name="Coin2" parent="Coins" instance=ExtResource("5_2oab0")]
 position = Vector2(1683, -142)
 
+[node name="Coin15" parent="Coins" instance=ExtResource("5_2oab0")]
+position = Vector2(2872, -132)
+
+[node name="Coin17" parent="Coins" instance=ExtResource("5_2oab0")]
+position = Vector2(3672, 27)
+
+[node name="Coin19" parent="Coins" instance=ExtResource("5_2oab0")]
+position = Vector2(5269, -53)
+
+[node name="Coin22" parent="Coins" instance=ExtResource("5_2oab0")]
+position = Vector2(7225, 28)
+
+[node name="Coin27" parent="Coins" instance=ExtResource("5_2oab0")]
+position = Vector2(9639, -52)
+
+[node name="Coin28" parent="Coins" instance=ExtResource("5_2oab0")]
+position = Vector2(10632, 27)
+
 [node name="Coin8" parent="Coins" instance=ExtResource("5_2oab0")]
 position = Vector2(2141, -214)
 
 [node name="Coin3" parent="Coins" instance=ExtResource("5_2oab0")]
 position = Vector2(567, -86)
 
-[node name="Coin7" parent="Coins" instance=ExtResource("5_2oab0")]
-position = Vector2(1027, -166)
-
 [node name="Coin4" parent="Coins" instance=ExtResource("5_2oab0")]
 position = Vector2(4731, -55)
-
-[node name="Coin9" parent="Coins" instance=ExtResource("5_2oab0")]
-position = Vector2(5686, 28)
 
 [node name="Coin10" parent="Coins" instance=ExtResource("5_2oab0")]
 position = Vector2(6728, 44)
 
 [node name="Coin11" parent="Coins" instance=ExtResource("5_2oab0")]
 position = Vector2(7784, 28)
-
-[node name="Coin12" parent="Coins" instance=ExtResource("5_2oab0")]
-position = Vector2(8460, -52)
 
 [node name="Coin5" parent="Coins" instance=ExtResource("5_2oab0")]
 position = Vector2(10164, 16)
@@ -717,6 +726,9 @@ position = Vector2(6276, 19)
 position = Vector2(8272, 16)
 target_state_re = Array[float]([0.0, 0.707, -0.707, 0.0])
 y_present = false
+
+[node name="wire_up" parent="Puzzle3" index="0"]
+position = Vector2(920, -86)
 
 [node name="Puzzle_obstacle" parent="Puzzle3" index="4"]
 position = Vector2(1520, 2)

@@ -720,7 +720,16 @@ func process_fail():
 func process_success():
 	randomize()
 	level_passed.label.text = level_passed.SUCCESS_MESSAGES[randi() % level_passed.SUCCESS_MESSAGES.size()]
-	var final_score = (score*10 + hearts*50) *clamp(600.0/level_elapsed_time,0.5,5) 
+	var limit
+	if current_level_name == "level0":
+		limit = 450
+	elif current_level_name == "level1":
+		limit = 900
+	elif current_level_name == "level2":
+		limit = 1200
+	elif current_level_name == "challengelevel":
+		limit = 7000
+	var final_score = (score*10 + hearts*50) *clamp(limit/level_elapsed_time,0.5,5) 
 	var parsedResult = load_json()
 	var index = 0
 	for level_dict in parsedResult["highscore"]:
