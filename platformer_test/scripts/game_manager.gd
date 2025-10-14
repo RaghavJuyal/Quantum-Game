@@ -85,6 +85,7 @@ func _on_timer_timeout() -> void:
 	Engine.time_scale = 1.0
 	
 	# Update hearts / reset game if needed
+	carried_gate = ""
 	hearts -= 1
 	current_level.hud.heart_label.text = str(hearts)
 	if hearts <= 0:
