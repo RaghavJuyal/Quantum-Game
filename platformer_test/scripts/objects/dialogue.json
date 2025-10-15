@@ -49,7 +49,7 @@
 "merlin-lvl1-0":[
 	{"0":"Hello there! \nWelcome to level 1!."},
 	{"1":"Now it is time for the new game mechanic... \nCircuit Puzzles!"},
-	{"2":"To continue forward you have to solve the circuit. On the right there are 2 wires, one above and one below. These represent 2 qubits."},
+	{"2":"To continue forward you have to solve the circuit. On the right there are 2 rows of green and orange circles in the air. These are the 2 wires, one above and one below, and they represent 2 qubits."},
 	{"3":"You may be familiar with |0> and |1> from the hud, but that is for a single qubit. If we have 2 qubits, both in state 0, we write them as |0>|0> or |00>."},
 	{"4":"Your goal is to create the target state shown in text below the wires. To help you with this, the current state is also shown."},
 	{"5":"In the texts for current and target state, the upper wire refers to the first(red) number and the lower wire refers to the second(green) number inside |>. The 'amplitude' of each state is given after the state for example: To represent |01>, |0> in top qubit and |1> in bottom qubit, it would show |00>: 0.0 |01>: 1.0 |10>: 0.0 |11>: 0.0."},
