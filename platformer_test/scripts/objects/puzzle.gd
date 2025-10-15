@@ -192,9 +192,9 @@ func _init_gate_matrices():
 		],
 		"CNOT_bottom": [
 			Complex.new(1,0),Complex.new(0,0),Complex.new(0,0),Complex.new(0,0),
+			Complex.new(0,0),Complex.new(0,0),Complex.new(0,0),Complex.new(1,0),
 			Complex.new(0,0),Complex.new(0,0),Complex.new(1,0),Complex.new(0,0),
-			Complex.new(0,0),Complex.new(1,0),Complex.new(0,0),Complex.new(0,0),
-			Complex.new(0,0),Complex.new(0,0),Complex.new(0,0),Complex.new(1,0)
+			Complex.new(0,0),Complex.new(1,0),Complex.new(0,0),Complex.new(0,0)
 		]
 	}
 

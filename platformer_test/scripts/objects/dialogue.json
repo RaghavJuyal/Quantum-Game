@@ -24,7 +24,7 @@
 	{"9":"Colliding with objects like coins, standing on checkpoints, or getting hit by enemies will 'measure' you along the Z axis."},
 	{"10":"Measurement is like a probabilistic reset: you will instantly collapse to either state 0 or state 1 based on the probabilities shown on the left of the Bloch sphere. \nYou will not be in both states anymore."},
 	{"11":"You can also measure yourself by pressing 'M'. This can be useful if you want to reset your state when there is nothing nearby to interact with."},
-	{"12":"Here, walls and the ground do not measure you. Keep in mind that you may get stuck against a wall even if you have only a 0.1 probability in that layer, so check your probabilities and consider measuring yourself."},
+	{"12":"Here, walls and the ground do not measure you. Keep in mind that you may get stuck against a wall even if you have an extremely small probability (may even show 0) in that layer. If this is the case, consider measuring yourself by pressing 'M' to get unblocked."},
 	{"13":"Your goal is to use this quantum mechanic to navigate between layers, avoid enemies, collect coins and reach the end of the level."},
 	{"14":"Now venture forth and explore this world!"}
 ],
