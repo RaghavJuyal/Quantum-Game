@@ -253,6 +253,8 @@ func sync_players():
 
 # Rotate Bloch vector about X axis by angle
 func rotate_x(angle: float) -> void:
+	if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+		return
 	var rot = Basis(Vector3(1, 0, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
@@ -261,6 +263,8 @@ func rotate_x(angle: float) -> void:
 
 # Rotate Bloch vector about Y axis by angle
 func rotate_y(angle: float) -> void:
+	if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+		return
 	var rot = Basis(Vector3(0, 1, 0), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
@@ -269,6 +273,8 @@ func rotate_y(angle: float) -> void:
 
 # Rotate Bloch vector about Z axis by angle
 func rotate_z(angle: float) -> void:
+	if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+		return
 	var rot = Basis(Vector3(0, 0, 1), angle)
 	bloch_vec = (rot * bloch_vec).normalized()
 	_update_theta_phi()
@@ -356,6 +362,8 @@ func measure_entangled() -> int:
 	return state
 
 func rotate_x_entangled(angle: float) -> void:
+	if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+		return
 	var c = cos(angle/2.0)
 	var s = -sin(angle/2.0) # minus for exp(-i θ σ/2)
 	var x_gate = [
@@ -365,6 +373,8 @@ func rotate_x_entangled(angle: float) -> void:
 	apply_gate_entangled(x_gate)
 
 func rotate_y_entangled(angle: float) -> void:
+	if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+		return
 	var c = cos(angle/2.0)
 	var s = sin(angle/2.0)
 	var y_gate = [
@@ -374,6 +384,8 @@ func rotate_y_entangled(angle: float) -> void:
 	apply_gate_entangled(y_gate)
 
 func rotate_z_entangled(angle: float) -> void:
+	if _is_on_interactable(current_level.player) or _is_on_interactable(current_level.player_2):
+		return
 	var e_minus = Complex.new(cos(-angle/2.0), sin(-angle/2.0))
 	var e_plus  = Complex.new(cos(angle/2.0),  sin(angle/2.0))
 	var z_gate = [
