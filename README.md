@@ -1,3 +1,5 @@
+[Game Link](https://mankritsingh.itch.io/quirky-qubits)
+
 Repository for the group project on creating the next quantum game. For the QIST4500 Multidisciplinary Team Project course at TU Delft.
 
 Midterm Presentation [Link](https://docs.google.com/presentation/d/17BYRRhXLQsAPH5lRYh6qS8TmYIlpXhFv0ET0YCNNnYU/edit?usp=sharing)
